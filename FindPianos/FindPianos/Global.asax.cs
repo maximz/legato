@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using RiaLibrary.Web;
 
 namespace FindPianos
 {
@@ -16,10 +17,12 @@ namespace FindPianos
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoutes(); // Register Attribute Based Routes which the current assembly contains
+
             routes.MapRoute(
-                "Default",                                              // Route name
-                "{controller}/{action}/{id}",                           // URL with parameters
-                new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
+                "Default",
+                "{controller}/{action}/{id}",
+                new { controller = "Site", action = "Home", id = UrlParameter.Optional }
             );
 
         }

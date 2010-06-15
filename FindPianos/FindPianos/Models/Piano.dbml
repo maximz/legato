@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FindPianosToilets" Class="PianoDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HP4200_TABLET\MSSQLSERVER2008;Initial Catalog=FindPianosToilets;Persist Security Info=True;User ID=pianotoiletapp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FindPianosToiletsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PianoListings" Member="PianoListings">
+    <Type Name="PianoListing">
+      <Column Name="PianoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OriginalSubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="PianoListing_PianoReview" Member="PianoReviews" ThisKey="PianoID" OtherKey="PianoListingID" Type="PianoReview" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WeekDays" Member="WeekDays">
+    <Type Name="WeekDay">
+      <Column Name="WeekDayID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WeekDayName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="WeekDay_PianoVenueHour" Member="PianoVenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="PianoVenueHour" />
+      <Association Name="WeekDay_ToiletVenueHour" Member="ToiletVenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="ToiletVenueHour" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoReviewComments" Member="PianoReviewComments">
+    <Type Name="PianoReviewComment">
+      <Column Name="CommentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PianoReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="MessageMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="MessageHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="PianoReview_PianoReviewComment" Member="PianoReview" ThisKey="PianoReviewID" OtherKey="PianoReviewID" Type="PianoReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoReviewRevisions" Member="PianoReviewRevisions">
+    <Type Name="PianoReviewRevision">
+      <Column Name="PianoReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PianoReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PianoStyleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingTuning" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingToneQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingPlayingCapability" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfRevision" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastUsageOfPianoBySubmitter" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RevisionNumberOfReview" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PianoReview_PianoReviewRevision" Member="PianoReview" ThisKey="PianoReviewID" OtherKey="PianoReviewID" Type="PianoReview" IsForeignKey="true" />
+      <Association Name="PianoStyle_PianoReviewRevision" Member="PianoStyle" ThisKey="PianoStyleID" OtherKey="PianoStyleID" Type="PianoStyle" IsForeignKey="true" />
+      <Association Name="PianoVenue_PianoReviewRevision" Member="PianoVenue" ThisKey="VenueID" OtherKey="VenueID" Type="PianoVenue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoReviews" Member="PianoReviews">
+    <Type Name="PianoReview">
+      <Column Name="PianoReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PianoListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="PianoReview_PianoReviewComment" Member="PianoReviewComments" ThisKey="PianoReviewID" OtherKey="PianoReviewID" Type="PianoReviewComment" />
+      <Association Name="PianoReview_PianoReviewRevision" Member="PianoReviewRevisions" ThisKey="PianoReviewID" OtherKey="PianoReviewID" Type="PianoReviewRevision" />
+      <Association Name="PianoListing_PianoReview" Member="PianoListing" ThisKey="PianoListingID" OtherKey="PianoID" Type="PianoListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoStyles" Member="PianoStyles">
+    <Type Name="PianoStyle">
+      <Column Name="PianoStyleID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="PianoStyle_PianoReviewRevision" Member="PianoReviewRevisions" ThisKey="PianoStyleID" OtherKey="PianoStyleID" Type="PianoReviewRevision" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoVenueHours" Member="PianoVenueHours">
+    <Type Name="PianoVenueHour">
+      <Column Name="VenueHoursID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DayOfWeek" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="WeekDay_PianoVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
+      <Association Name="PianoVenue_PianoVenueHour" Member="PianoVenue" ThisKey="VenueID" OtherKey="VenueID" Type="PianoVenue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoVenues" Member="PianoVenues">
+    <Type Name="PianoVenue">
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VenueName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="PianoVenue_PianoReviewRevision" Member="PianoReviewRevisions" ThisKey="VenueID" OtherKey="VenueID" Type="PianoReviewRevision" />
+      <Association Name="PianoVenue_PianoVenueHour" Member="PianoVenueHours" ThisKey="VenueID" OtherKey="VenueID" Type="PianoVenueHour" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ToiletListings" Member="ToiletListings">
+    <Type Name="ToiletListing">
+      <Column Name="ToiletID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OriginalSubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ToiletListing_ToiletReview" Member="ToiletReviews" ThisKey="ToiletID" OtherKey="ToiletListingID" Type="ToiletReview" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ToiletReviews" Member="ToiletReviews">
+    <Type Name="ToiletReview">
+      <Column Name="ToiletReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ToiletListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ToiletStyleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UrinalCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StallCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SinkCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BabyChangingStationCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingCleanliness" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingAvailability" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypicalWait" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastUsageOfToiletBySubmitter" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ToiletListing_ToiletReview" Member="ToiletListing" ThisKey="ToiletListingID" OtherKey="ToiletID" Type="ToiletListing" IsForeignKey="true" />
+      <Association Name="ToiletStyle_ToiletReview" Member="ToiletStyle" ThisKey="ToiletStyleID" OtherKey="ToiletStyleID" Type="ToiletStyle" IsForeignKey="true" />
+      <Association Name="ToiletVenue_ToiletReview" Member="ToiletVenue" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ToiletStyles" Member="ToiletStyles">
+    <Type Name="ToiletStyle">
+      <Column Name="ToiletStyleID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ToiletStyle_ToiletReview" Member="ToiletReviews" ThisKey="ToiletStyleID" OtherKey="ToiletStyleID" Type="ToiletReview" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ToiletVenueHours" Member="ToiletVenueHours">
+    <Type Name="ToiletVenueHour">
+      <Column Name="VenueHoursID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DayOfWeek" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="WeekDay_ToiletVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
+      <Association Name="ToiletVenue_ToiletVenueHour" Member="ToiletVenue" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ToiletVenues" Member="ToiletVenues">
+    <Type Name="ToiletVenue">
+      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VenueName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="ToiletVenue_ToiletReview" Member="ToiletReviews" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletReview" />
+      <Association Name="ToiletVenue_ToiletVenueHour" Member="ToiletVenueHours" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenueHour" />
+    </Type>
+  </Table>
+</Database>
