@@ -138,6 +138,12 @@
       <DependentUpon>Piano.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HttpModules\HttpModules.csproj">
+      <Project>{7A6C08DD-6F0A-4544-AE8C-9266D23EAEA6}</Project>
+      <Name>HttpModules</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

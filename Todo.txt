@@ -1,4 +1,4 @@
-httpmodules
+ipblacklist (httpmodules): put into web.config
 XML documentation
 [url] with POST
 validation for create, edit, and for searchform
