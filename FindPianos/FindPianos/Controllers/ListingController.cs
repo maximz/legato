@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FindPianos.Models;
 using System.Globalization;
+using RiaLibrary.Web;
 
 namespace FindPianos.Controllers
 {
@@ -33,34 +34,20 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-
+        [Url("/Search")]
         public ActionResult List()
         {
             return View();
         }
+        [Url("/Search")]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult List(SearchForm s)
         {
-            //TODO
-            string url = "";
-            return Redirect(url);
-        }
-        public ActionResult List(BoundingBox bounds, DateTime? startDateSubmission, DateTime? endDateSubmission, int? pagenumber)
-        {
-            var s = new SearchForm();
-            s.bounds = bounds;
-            if (startDateSubmission != null)
-            {
-                s.startDateSubmission = (DateTime)startDateSubmission;
-            }
-            if (endDateSubmission != null)
-            {
-                s.endDateSubmission = (DateTime)endDateSubmission;
-            }
-            if (pagenumber != null)
-            {
-                s.pagenumber = (int)pagenumber;
-            }
+            //validate
+
+
+            //execute search
+            
 
             using (var db = new PianoDataContext())
             {
@@ -68,7 +55,12 @@ namespace FindPianos.Controllers
             }
             return View();
         }
-
+        [Url("/Listing/Create")]
+        public ActionResult Submit()
+        {
+            return View();
+        }
+        [Url("/Listing/Create")]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Submit(PianoReview r)
         {
@@ -99,7 +91,7 @@ namespace FindPianos.Controllers
             //}
             return View();
         }
-
+        [Url("/Listing/Edit/{reviewId}")]
         public ActionResult Edit(long reviewId)
         {
             using(var db = new PianoDataContext())
@@ -108,6 +100,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
+        [Url("/Listing/Edit/{reviewId}")]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(long reviewId, [Bind(Exclude="PianoReviewRevisionID, PianoReviewID, DateOfRevision")]PianoReviewRevision r)
         {

@@ -25,16 +25,19 @@ namespace FindPianos.Models
                 else
                     query = query.Where(l => l.Long >= form.bounds.extent2.longitude && l.Long <= form.bounds.extent1.longitude);
                 //Date of Submission (OPTIONAL)
-                if (form.startDateSubmission != null && form.endDateSubmission != null)
+                if (form.startDateSubmission.HasValue && form.endDateSubmission.HasValue)
                 {
-                    query = query.Where(l => l.DateOfSubmission >= form.startDateSubmission && l.DateOfSubmission <= form.endDateSubmission);
+                    query = query.Where(l => l.DateOfSubmission >= form.startDateSubmission.Value && l.DateOfSubmission <= form.endDateSubmission.Value);
                 }
-                if (form.pagenumber != null)
+                if (form.pagenumber.HasValue)
                 {
-                    if (form.pagenumber > 1)
+                    if (form.pagenumber.Value > 1)
                     {
-                        //page 2: skip first 25, take 25
-                        query = query.Skip(25);
+                        //page 2: skip 25
+                        //page 3: skip 50
+                        //page 4: skip 75
+                        //etcetera
+                        query = query.Skip(25*(form.pagenumber.Value-1));
                     }
                 }
                 query = query.Take(25);
@@ -45,20 +48,7 @@ namespace FindPianos.Models
 
                 foreach (var r in results)
                 {
-                    //add properties: AverageOverall, LatestReviewSubmissionDate, LatestUseOfPianoDate, NumberOfReviews
-                    var OverallRatings = new List<int>();
-                    var RevisionDates = new List<DateTime>();
-                    var UseOfPianoDates = new List<DateTime>();
-                    foreach (var review in db.PianoReviews.Where(rev => rev.PianoListingID == r.PianoID))
-                    {
-                        var LatestRevision = db.PianoReviewRevisions.Where(revision=>revision.PianoReviewID==review.PianoReviewID).OrderByDescending(revision=>revision.RevisionNumberOfReview).Take(1).ToList()[0];
-                        OverallRatings.Add(LatestRevision.RatingOverall);
-                        RevisionDates.Add(LatestRevision.DateOfRevision);
-                        UseOfPianoDates.Add(LatestRevision.DateOfLastUsageOfPianoBySubmitter);
-                    }
-                    r.AverageOverallRating = (int)Math.Round(OverallRatings.Average());
-                    r.LatestReviewSubmissionDate = RevisionDates.Max();
-                    r.LatestUseOfPianoDate = UseOfPianoDates.Max();
+                    r.FillProperties();
                 }
                 return results;
             }
@@ -86,6 +76,30 @@ namespace FindPianos.Models
         {
             get;
             set;
+        }
+
+        public void FillProperties()
+        {
+            //add properties: AverageOverall, LatestReviewSubmissionDate, LatestUseOfPianoDate, NumberOfReviews
+            var OverallRatings = new List<int>();
+            var RevisionDates = new List<DateTime>();
+            var UseOfPianoDates = new List<DateTime>();
+            var reviewCount = 0;
+            using (var db = new PianoDataContext())
+            {
+                foreach (var review in db.PianoReviews.Where(rev => rev.PianoListingID == PianoID))
+                {
+                    var LatestRevision = db.PianoReviewRevisions.Where(revision => revision.PianoReviewID == review.PianoReviewID).OrderByDescending(revision => revision.RevisionNumberOfReview).Take(1).ToList()[0];
+                    OverallRatings.Add(LatestRevision.RatingOverall);
+                    RevisionDates.Add(LatestRevision.DateOfRevision);
+                    UseOfPianoDates.Add(LatestRevision.DateOfLastUsageOfPianoBySubmitter);
+                    reviewCount++;
+                }
+            }
+            AverageOverallRating = (int)Math.Round(OverallRatings.Average());
+            LatestReviewSubmissionDate = RevisionDates.Max();
+            LatestUseOfPianoDate = UseOfPianoDates.Max();
+            NumberOfReviews = reviewCount;
         }
     }
     public partial class PianoReview
@@ -148,17 +162,17 @@ namespace FindPianos.Models
             get;
             set;
         }
-        public DateTime startDateSubmission
+        public DateTime? startDateSubmission
         {
             get;
             set;
         }
-        public DateTime endDateSubmission
+        public DateTime? endDateSubmission
         {
             get;
             set;
         }
-        public int pagenumber
+        public int? pagenumber
         { get; set; }
     }
 }
