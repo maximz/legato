@@ -62,34 +62,58 @@ namespace FindPianos.Controllers
         }
         [Url("/Listing/Create")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Submit(PianoReview r)
+        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview, VenueID")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="VenueID")]PianoVenue v, [Bind(Exclude="VenueID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
-            //try
-            //{
-            //    //TODO: assign authenticated user's info
-            //    //UpdateModel(r);
-            //    using (var db = new DUDataContext())
-            //    {
-            //        db.Revisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-            //        if (!r.IsValid)
-            //        {
-            //            throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
-            //        }
-            //        db.SubmitChanges();
-            //    }
-            //    return RedirectToAction("Details", new { id = r.RevID }); //shows details for that submission thread, with only one revision!
+            //View info:
+            //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
+            //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
 
-            //}
-            //catch
-            //{
-            //    foreach (RuleViolation rv in r.GetRuleViolations())
-            //    {
-            //        ModelState.AddModelError(rv.PropertyName, rv.ErrorMessage);
-            //        ModelState.SetModelValue(rv.PropertyName, new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-            //    }
-            //    return View();
-            //}
-            return View();
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var time = DateTime.UtcNow;
+
+                    //LISTING:
+                    //TODO: assign authenticated user's info
+                    listing.DateOfSubmission = time;
+                    //TODO: geocode StreetAddress into Lat and Long; if failure, don't fill those properties, then check for existence of them in Validation before/during Submit to DB, create rule violation for street address if not available, break and return View right away.
+                    db.PianoListings.InsertOnSubmit(listing);
+                    db.SubmitChanges();
+
+                    //REVIEW:
+                    var review = new PianoReview();
+                    review.PianoListing = listing;
+                    db.PianoReviews.InsertOnSubmit(review);
+                    db.SubmitChanges();
+
+                    //REVISION:
+                    r.DateOfRevision = time;
+                    r.PianoReview = review;
+                    //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
+                    //                            where rev.PianoReviewID == review.PianoReviewID
+                    //                            select rev.RevisionNumberOfReview).Max() + 1;
+                    r.RevisionNumberOfReview = 1;
+                    //TODO: VENUE!!!
+                    db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    if (!r.IsValid)
+                    {
+                        throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
+                    }
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("Read", new { id = r.PianoReview.PianoListingID }); //shows details for that submission thread, with only one revision!
+
+            }
+            catch
+            {
+                foreach (RuleViolation rv in r.GetRuleViolations())
+                {
+                    ModelState.AddModelError(rv.PropertyName, rv.ErrorMessage);
+                    ModelState.SetModelValue(rv.PropertyName, new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
+                }
+                return View();
+            }
         }
         [Url("/Listing/Edit/{reviewId}")]
         public ActionResult Edit(long reviewId)
