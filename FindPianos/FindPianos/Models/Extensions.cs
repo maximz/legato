@@ -116,18 +116,6 @@ namespace FindPianos.Models
         }
 
     }
-
-    //public enum GenderEnum
-    //{
-    //    Unisex, Male, Female
-    //}
-
-    //[Flags]
-    //public enum EquipmentEnum
-    //{
-    //    Urinals, Stalls, Sinks, BabyChangingStations
-    //}
-
     public class BoundingBox
     {
         public LatLong extent1
