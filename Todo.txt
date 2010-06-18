@@ -4,3 +4,10 @@ validation for create, edit, and for searchform
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
+
+change userids in tables to uniqueidentifiers
+update linq to sql in visual studio (don't drag asp.net tables in!!!)
+FK to PK to asp.net USERS table?
+rescript DB
+
+GEOCODING KEY!!! (Also, doesn't api V3 not need key?)

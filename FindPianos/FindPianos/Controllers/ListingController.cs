@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using FindPianos.Models;
 using System.Globalization;
 using RiaLibrary.Web;
+using GeoCoding;
+using GeoCoding.Google;
+using System.Web.Security;
 
 namespace FindPianos.Controllers
 {
@@ -76,8 +79,29 @@ namespace FindPianos.Controllers
 
                     //LISTING:
                     //TODO: assign authenticated user's info
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                    //TODO: add GUID to cache!!! Cache.Add(User.Identity.Name, userGuid);
+                    listing.OriginalSubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
                     //TODO: geocode StreetAddress into Lat and Long; if failure, don't fill those properties, then check for existence of them in Validation before/during Submit to DB, create rule violation for street address if not available, break and return View right away.
+                    try
+                    {
+                        IGeoCoder geocode = new GoogleGeoCoder("key");
+                        var addresses = geocode.GeoCode(listing.StreetAddress);
+                        if (addresses.Length < 1)
+                            throw new ApplicationException();
+                        else
+                        {
+                            listing.Lat = (decimal)addresses[0].Coordinates.Latitude;
+                            listing.Long = (decimal)addresses[0].Coordinates.Longitude;
+                        }
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("Address", "Sorry, but we couldn't find this location. Are you sure it's correct?");
+                        ModelState.SetModelValue("Address", new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
+                        return View();
+                    }
                     db.PianoListings.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
