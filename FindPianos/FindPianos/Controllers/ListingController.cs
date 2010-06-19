@@ -38,7 +38,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Search")[OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("/Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();

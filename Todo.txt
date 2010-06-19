@@ -1,17 +1,18 @@
 XML documentation
 
-MAIN TODO:
+-------------------------------------------------------------------------------------------------------------
+
+												MAIN TODO:
 
 [url] with POST and with ? querystring/URL parameters
 validation for create, edit, and for searchform
-my profile - accountcontroller!
+my profile page - accountcontroller! write!!!
 put outputcache attributes on accountcontroller (my profile page)
-
-
-
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
+
+-------------------------------------------------------------------------------------------------------------
 
 Geocoding: v3 > v2 ???
 
