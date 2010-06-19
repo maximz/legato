@@ -156,22 +156,65 @@ namespace FindPianos.Controllers
         }
         [Url("/Listing/Edit/{reviewId}")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(long reviewId, [Bind(Exclude="PianoReviewRevisionID, PianoReviewID, DateOfRevision")]PianoReviewRevision r)
+        public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             try
             {
-                //TODO: assign authenticated user's info
-                r.PianoReviewID = reviewId;
-                r.DateOfRevision = DateTime.UtcNow;
                 using (var db = new PianoDataContext())
                 {
+                    var time = DateTime.UtcNow;
+
+                    //LISTING:
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                    //TODO: add GUID to cache!!! Cache.Add(User.Identity.Name, userGuid);
+                    listing.OriginalSubmitterUserID = userGuid;
+                    listing.DateOfSubmission = time;
+                    try
+                    {
+                        IGeoCoder geocode = new GoogleGeoCoder("ABQIAAAAbyfszEVR0VTKZImYRp5b6BS9l0G0i7V22ZGVaQxYRD7DXNsCeRQYuExgpEMwCaudHBGK5MIz8RlXCg"); //key for maximzaslavsky.com
+                        var addresses = geocode.GeoCode(listing.StreetAddress);
+                        if (addresses.Length < 1)
+                            throw new ApplicationException();
+                        else
+                        {
+                            listing.Lat = (decimal)addresses[0].Coordinates.Latitude;
+                            listing.Long = (decimal)addresses[0].Coordinates.Longitude;
+                        }
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("Address", "Sorry, but we couldn't find this location. Are you sure it's correct?");
+                        ModelState.SetModelValue("Address", new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
+                        return View();
+                    }
+                    db.PianoListings.InsertOnSubmit(listing);
+                    db.SubmitChanges();
+
+                    //REVIEW:
+                    var review = new PianoReview();
+                    review.PianoListing = listing;
+                    db.PianoReviews.InsertOnSubmit(review);
+                    db.SubmitChanges();
+
+                    //REVISION:
+                    r.DateOfRevision = time;
+                    r.PianoReview = review;
                     r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
-                                                where rev.PianoReviewID == reviewId
+                                                where rev.PianoReviewID == review.PianoReviewID
                                                 select rev.RevisionNumberOfReview).Max() + 1;
                     db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     if (!r.IsValid)
                     {
                         throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
+                    }
+                    db.SubmitChanges();
+
+                    //VENUE HOURS:
+                    foreach (PianoVenueHour hour in hours)
+                    {
+                        hour.PianoReviewRevision = r;
+                        //TODO: How will DayOfWeek be binded???
+                        db.PianoVenueHours.InsertOnSubmit(hour);
                     }
                     db.SubmitChanges();
                 }
