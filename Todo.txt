@@ -1,6 +1,14 @@
 XML documentation
-[url] with POST
+
+MAIN TODO:
+
+[url] with POST and with ? querystring/URL parameters
 validation for create, edit, and for searchform
+my profile - accountcontroller!
+put outputcache attributes on accountcontroller (my profile page)
+
+
+
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
@@ -8,3 +16,9 @@ copy stack overflow and socareers css and then change
 Geocoding: v3 > v2 ???
 
 How will DayOfWeek be binded to Submit() in ListingController??? Can we somehow use the numbers in the name attributes of the View form objects (exclude DayOfWeek from binding and then fill it in with that int) or can we just set DayOfWeek in the View form?
+
+captcha validator attributes
+
+TODO comments
+
+content serve controller for caching!

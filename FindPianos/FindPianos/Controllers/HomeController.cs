@@ -7,6 +7,7 @@ using System.Web.Mvc;
 namespace FindPianos.Controllers
 {
     [HandleError]
+    [OutputCache(Duration = 7200, VaryByParam = "None")]
     public class HomeController : Controller
     {
         public ActionResult Index()

@@ -8,6 +8,7 @@ using FindPianos.Models;
 namespace FindPianos.Controllers
 {
     [HandleError]
+    [OutputCache(Duration = 7200, VaryByParam = "None")]
     public class APIController : Controller
     {
         public ActionResult Index()

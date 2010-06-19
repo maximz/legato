@@ -15,11 +15,12 @@ namespace FindPianos.Controllers
     [HandleError]
     public class ListingController : Controller
     {
+        [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {
             return RedirectToAction("List");
         }
-
+        [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Read(long id)
         {
             using (var data = new PianoDataContext())
@@ -37,27 +38,42 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Search")]
+        [Url("/Search")[OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
-        [Url("/Search")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult List(SearchForm s)
+        [Url("/Search/AJAX/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")] //TODO: how to do ? querystring parameters???
+        [AcceptVerbs(HttpVerbs.Get)][OutputCache(Duration = 7200, VaryByParam = "None")]
+        public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
-            //validate
-
-
-            //execute search
-            
-
             using (var db = new PianoDataContext())
             {
-                ViewData["listings"] = db.ProcessSearchForm(s);
+                var results = db.ProcessAjaxMapSearch(new BoundingBox()
+            {
+                extent1 = new LatLong() { latitude = lat1, longitude = long1 },
+                extent2 = new LatLong() { latitude = lat2, longitude = long2 }
+            });
+                return Json(results);
             }
-            return View();
+
         }
+        //[Url("/Search")]
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult List(SearchForm s)
+        //{
+        //    //validate
+
+
+        //    //execute search
+            
+
+        //    using (var db = new PianoDataContext())
+        //    {
+        //        ViewData["listings"] = db.ProcessSearchForm(s);
+        //    }
+        //    return View();
+        //}
         [Url("/Listing/Create")]
         public ActionResult Submit()
         {

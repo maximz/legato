@@ -53,6 +53,37 @@ namespace FindPianos.Models
                 return results;
             }
         }
+
+        public List<PianoListing> ProcessAjaxMapSearch(BoundingBox box)
+        {
+            using (var db = new PianoDataContext())
+            {
+                IQueryable<PianoListing> query = null;
+
+                //Bounding box: latitude processing
+                if (box.extent1.latitude <= box.extent2.latitude)
+                    query = db.PianoListings.Where(l => l.Lat >= box.extent1.latitude && l.Lat <= box.extent2.latitude);
+                else
+                    query = db.PianoListings.Where(l => l.Lat >= box.extent2.latitude && l.Lat <= box.extent1.latitude);
+
+                //Bounding box: longitude processing
+                if (box.extent1.longitude <= box.extent2.longitude)
+                    query = query.Where(l => l.Long >= box.extent1.longitude && l.Long <= box.extent2.longitude);
+                else
+                    query = query.Where(l => l.Long >= box.extent2.longitude && l.Long <= box.extent1.longitude);
+                query = query.Take(25);
+
+                //Execute query
+                var results = query.ToList();
+
+                foreach (var r in results)
+                {
+                    r.FillProperties();
+                }
+                return results;
+
+            }
+        }
     }
     public partial class PianoListing
     {
