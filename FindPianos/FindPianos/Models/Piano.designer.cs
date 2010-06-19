@@ -84,9 +84,6 @@ namespace FindPianos.Models
     partial void InsertPianoVenueHour(PianoVenueHour instance);
     partial void UpdatePianoVenueHour(PianoVenueHour instance);
     partial void DeletePianoVenueHour(PianoVenueHour instance);
-    partial void InsertPianoVenue(PianoVenue instance);
-    partial void UpdatePianoVenue(PianoVenue instance);
-    partial void DeletePianoVenue(PianoVenue instance);
     partial void InsertToiletListing(ToiletListing instance);
     partial void UpdateToiletListing(ToiletListing instance);
     partial void DeleteToiletListing(ToiletListing instance);
@@ -275,14 +272,6 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<PianoVenueHour>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PianoVenue> PianoVenues
-		{
-			get
-			{
-				return this.GetTable<PianoVenue>();
 			}
 		}
 		
@@ -4035,7 +4024,7 @@ namespace FindPianos.Models
 		
 		private string _Message;
 		
-		private long _VenueID;
+		private string _VenueName;
 		
 		private System.Guid _SubmitterUserID;
 		
@@ -4045,13 +4034,13 @@ namespace FindPianos.Models
 		
 		private int _RevisionNumberOfReview;
 		
+		private EntitySet<PianoVenueHour> _PianoVenueHours;
+		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
 		private EntityRef<PianoReview> _PianoReview;
 		
 		private EntityRef<PianoStyle> _PianoStyle;
-		
-		private EntityRef<PianoVenue> _PianoVenue;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4077,8 +4066,8 @@ namespace FindPianos.Models
     partial void OnRatingPlayingCapabilityChanged();
     partial void OnMessageChanging(string value);
     partial void OnMessageChanged();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
+    partial void OnVenueNameChanging(string value);
+    partial void OnVenueNameChanged();
     partial void OnSubmitterUserIDChanging(System.Guid value);
     partial void OnSubmitterUserIDChanged();
     partial void OnDateOfRevisionChanging(System.DateTime value);
@@ -4091,10 +4080,10 @@ namespace FindPianos.Models
 		
 		public PianoReviewRevision()
 		{
+			this._PianoVenueHours = new EntitySet<PianoVenueHour>(new Action<PianoVenueHour>(this.attach_PianoVenueHours), new Action<PianoVenueHour>(this.detach_PianoVenueHours));
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			this._PianoReview = default(EntityRef<PianoReview>);
 			this._PianoStyle = default(EntityRef<PianoStyle>);
-			this._PianoVenue = default(EntityRef<PianoVenue>);
 			OnCreated();
 		}
 		
@@ -4306,26 +4295,22 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", DbType="BigInt NOT NULL")]
-		public long VenueID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string VenueName
 		{
 			get
 			{
-				return this._VenueID;
+				return this._VenueName;
 			}
 			set
 			{
-				if ((this._VenueID != value))
+				if ((this._VenueName != value))
 				{
-					if (this._PianoVenue.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnVenueIDChanging(value);
+					this.OnVenueNameChanging(value);
 					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
+					this._VenueName = value;
+					this.SendPropertyChanged("VenueName");
+					this.OnVenueNameChanged();
 				}
 			}
 		}
@@ -4411,6 +4396,19 @@ namespace FindPianos.Models
 					this.SendPropertyChanged("RevisionNumberOfReview");
 					this.OnRevisionNumberOfReviewChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoReviewRevision_PianoVenueHour", Storage="_PianoVenueHours", ThisKey="PianoReviewRevisionID", OtherKey="ReviewRevisionID")]
+		public EntitySet<PianoVenueHour> PianoVenueHours
+		{
+			get
+			{
+				return this._PianoVenueHours;
+			}
+			set
+			{
+				this._PianoVenueHours.Assign(value);
 			}
 		}
 		
@@ -4516,40 +4514,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoVenue_PianoReviewRevision", Storage="_PianoVenue", ThisKey="VenueID", OtherKey="VenueID", IsForeignKey=true)]
-		public PianoVenue PianoVenue
-		{
-			get
-			{
-				return this._PianoVenue.Entity;
-			}
-			set
-			{
-				PianoVenue previousValue = this._PianoVenue.Entity;
-				if (((previousValue != value) 
-							|| (this._PianoVenue.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PianoVenue.Entity = null;
-						previousValue.PianoReviewRevisions.Remove(this);
-					}
-					this._PianoVenue.Entity = value;
-					if ((value != null))
-					{
-						value.PianoReviewRevisions.Add(this);
-						this._VenueID = value.VenueID;
-					}
-					else
-					{
-						this._VenueID = default(long);
-					}
-					this.SendPropertyChanged("PianoVenue");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4568,6 +4532,18 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_PianoVenueHours(PianoVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoReviewRevision = this;
+		}
+		
+		private void detach_PianoVenueHours(PianoVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoReviewRevision = null;
 		}
 	}
 	
@@ -4876,7 +4852,7 @@ namespace FindPianos.Models
 		
 		private long _VenueHoursID;
 		
-		private long _VenueID;
+		private long _ReviewRevisionID;
 		
 		private int _DayOfWeek;
 		
@@ -4884,9 +4860,9 @@ namespace FindPianos.Models
 		
 		private System.DateTime _EndTime;
 		
-		private EntityRef<WeekDay> _WeekDay;
+		private EntityRef<PianoReviewRevision> _PianoReviewRevision;
 		
-		private EntityRef<PianoVenue> _PianoVenue;
+		private EntityRef<WeekDay> _WeekDay;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4894,8 +4870,8 @@ namespace FindPianos.Models
     partial void OnCreated();
     partial void OnVenueHoursIDChanging(long value);
     partial void OnVenueHoursIDChanged();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
+    partial void OnReviewRevisionIDChanging(long value);
+    partial void OnReviewRevisionIDChanged();
     partial void OnDayOfWeekChanging(int value);
     partial void OnDayOfWeekChanged();
     partial void OnStartTimeChanging(System.DateTime value);
@@ -4906,8 +4882,8 @@ namespace FindPianos.Models
 		
 		public PianoVenueHour()
 		{
+			this._PianoReviewRevision = default(EntityRef<PianoReviewRevision>);
 			this._WeekDay = default(EntityRef<WeekDay>);
-			this._PianoVenue = default(EntityRef<PianoVenue>);
 			OnCreated();
 		}
 		
@@ -4931,26 +4907,26 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", DbType="BigInt NOT NULL")]
-		public long VenueID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewRevisionID", DbType="BigInt NOT NULL")]
+		public long ReviewRevisionID
 		{
 			get
 			{
-				return this._VenueID;
+				return this._ReviewRevisionID;
 			}
 			set
 			{
-				if ((this._VenueID != value))
+				if ((this._ReviewRevisionID != value))
 				{
-					if (this._PianoVenue.HasLoadedOrAssignedValue)
+					if (this._PianoReviewRevision.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnVenueIDChanging(value);
+					this.OnReviewRevisionIDChanging(value);
 					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
+					this._ReviewRevisionID = value;
+					this.SendPropertyChanged("ReviewRevisionID");
+					this.OnReviewRevisionIDChanged();
 				}
 			}
 		}
@@ -5019,6 +4995,40 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoReviewRevision_PianoVenueHour", Storage="_PianoReviewRevision", ThisKey="ReviewRevisionID", OtherKey="PianoReviewRevisionID", IsForeignKey=true)]
+		public PianoReviewRevision PianoReviewRevision
+		{
+			get
+			{
+				return this._PianoReviewRevision.Entity;
+			}
+			set
+			{
+				PianoReviewRevision previousValue = this._PianoReviewRevision.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoReviewRevision.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoReviewRevision.Entity = null;
+						previousValue.PianoVenueHours.Remove(this);
+					}
+					this._PianoReviewRevision.Entity = value;
+					if ((value != null))
+					{
+						value.PianoVenueHours.Add(this);
+						this._ReviewRevisionID = value.PianoReviewRevisionID;
+					}
+					else
+					{
+						this._ReviewRevisionID = default(long);
+					}
+					this.SendPropertyChanged("PianoReviewRevision");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_PianoVenueHour", Storage="_WeekDay", ThisKey="DayOfWeek", OtherKey="WeekDayID", IsForeignKey=true)]
 		public WeekDay WeekDay
 		{
@@ -5053,40 +5063,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoVenue_PianoVenueHour", Storage="_PianoVenue", ThisKey="VenueID", OtherKey="VenueID", IsForeignKey=true)]
-		public PianoVenue PianoVenue
-		{
-			get
-			{
-				return this._PianoVenue.Entity;
-			}
-			set
-			{
-				PianoVenue previousValue = this._PianoVenue.Entity;
-				if (((previousValue != value) 
-							|| (this._PianoVenue.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PianoVenue.Entity = null;
-						previousValue.PianoVenueHours.Remove(this);
-					}
-					this._PianoVenue.Entity = value;
-					if ((value != null))
-					{
-						value.PianoVenueHours.Add(this);
-						this._VenueID = value.VenueID;
-					}
-					else
-					{
-						this._VenueID = default(long);
-					}
-					this.SendPropertyChanged("PianoVenue");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -5105,148 +5081,6 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoVenues")]
-	public partial class PianoVenue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _VenueID;
-		
-		private string _VenueName;
-		
-		private EntitySet<PianoReviewRevision> _PianoReviewRevisions;
-		
-		private EntitySet<PianoVenueHour> _PianoVenueHours;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
-    partial void OnVenueNameChanging(string value);
-    partial void OnVenueNameChanged();
-    #endregion
-		
-		public PianoVenue()
-		{
-			this._PianoReviewRevisions = new EntitySet<PianoReviewRevision>(new Action<PianoReviewRevision>(this.attach_PianoReviewRevisions), new Action<PianoReviewRevision>(this.detach_PianoReviewRevisions));
-			this._PianoVenueHours = new EntitySet<PianoVenueHour>(new Action<PianoVenueHour>(this.attach_PianoVenueHours), new Action<PianoVenueHour>(this.detach_PianoVenueHours));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long VenueID
-		{
-			get
-			{
-				return this._VenueID;
-			}
-			set
-			{
-				if ((this._VenueID != value))
-				{
-					this.OnVenueIDChanging(value);
-					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string VenueName
-		{
-			get
-			{
-				return this._VenueName;
-			}
-			set
-			{
-				if ((this._VenueName != value))
-				{
-					this.OnVenueNameChanging(value);
-					this.SendPropertyChanging();
-					this._VenueName = value;
-					this.SendPropertyChanged("VenueName");
-					this.OnVenueNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoVenue_PianoReviewRevision", Storage="_PianoReviewRevisions", ThisKey="VenueID", OtherKey="VenueID")]
-		public EntitySet<PianoReviewRevision> PianoReviewRevisions
-		{
-			get
-			{
-				return this._PianoReviewRevisions;
-			}
-			set
-			{
-				this._PianoReviewRevisions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoVenue_PianoVenueHour", Storage="_PianoVenueHours", ThisKey="VenueID", OtherKey="VenueID")]
-		public EntitySet<PianoVenueHour> PianoVenueHours
-		{
-			get
-			{
-				return this._PianoVenueHours;
-			}
-			set
-			{
-				this._PianoVenueHours.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PianoReviewRevisions(PianoReviewRevision entity)
-		{
-			this.SendPropertyChanging();
-			entity.PianoVenue = this;
-		}
-		
-		private void detach_PianoReviewRevisions(PianoReviewRevision entity)
-		{
-			this.SendPropertyChanging();
-			entity.PianoVenue = null;
-		}
-		
-		private void attach_PianoVenueHours(PianoVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.PianoVenue = this;
-		}
-		
-		private void detach_PianoVenueHours(PianoVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.PianoVenue = null;
 		}
 	}
 	

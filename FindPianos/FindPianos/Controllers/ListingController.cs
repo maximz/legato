@@ -65,7 +65,7 @@ namespace FindPianos.Controllers
         }
         [Url("/Listing/Create")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview, VenueID")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="VenueID")]PianoVenue v, [Bind(Exclude="VenueID,VenueHoursID")]ICollection<PianoVenueHour> hours)
+        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
@@ -78,15 +78,13 @@ namespace FindPianos.Controllers
                     var time = DateTime.UtcNow;
 
                     //LISTING:
-                    //TODO: assign authenticated user's info
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     //TODO: add GUID to cache!!! Cache.Add(User.Identity.Name, userGuid);
                     listing.OriginalSubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
-                    //TODO: geocode StreetAddress into Lat and Long; if failure, don't fill those properties, then check for existence of them in Validation before/during Submit to DB, create rule violation for street address if not available, break and return View right away.
                     try
                     {
-                        IGeoCoder geocode = new GoogleGeoCoder("key");
+                        IGeoCoder geocode = new GoogleGeoCoder("ABQIAAAAbyfszEVR0VTKZImYRp5b6BS9l0G0i7V22ZGVaQxYRD7DXNsCeRQYuExgpEMwCaudHBGK5MIz8RlXCg"); //key for maximzaslavsky.com
                         var addresses = geocode.GeoCode(listing.StreetAddress);
                         if (addresses.Length < 1)
                             throw new ApplicationException();
@@ -118,11 +116,19 @@ namespace FindPianos.Controllers
                     //                            where rev.PianoReviewID == review.PianoReviewID
                     //                            select rev.RevisionNumberOfReview).Max() + 1;
                     r.RevisionNumberOfReview = 1;
-                    //TODO: VENUE!!!
                     db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     if (!r.IsValid)
                     {
                         throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
+                    }
+                    db.SubmitChanges();
+
+                    //VENUE HOURS:
+                    foreach (PianoVenueHour hour in hours)
+                    {
+                        hour.PianoReviewRevision = r;
+                        //TODO: How will DayOfWeek be binded???
+                        db.PianoVenueHours.InsertOnSubmit(hour);
                     }
                     db.SubmitChanges();
                 }

@@ -11,3 +11,6 @@ FK to PK to asp.net USERS table?
 rescript DB
 
 GEOCODING KEY!!! (Also, doesn't api V3 not need key?)
+
+
+How will DayOfWeek be binded to Submit() in ListingController??? Can we somehow use the numbers in the name attributes of the View form objects (exclude DayOfWeek from binding and then fill it in with that int) or can we just set DayOfWeek in the View form?
