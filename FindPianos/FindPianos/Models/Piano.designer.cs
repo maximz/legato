@@ -4024,6 +4024,8 @@ namespace FindPianos.Models
 		
 		private string _Message;
 		
+		private double _PricePerHourInUSD;
+		
 		private string _VenueName;
 		
 		private System.Guid _SubmitterUserID;
@@ -4066,6 +4068,8 @@ namespace FindPianos.Models
     partial void OnRatingPlayingCapabilityChanged();
     partial void OnMessageChanging(string value);
     partial void OnMessageChanged();
+    partial void OnPricePerHourInUSDChanging(double value);
+    partial void OnPricePerHourInUSDChanged();
     partial void OnVenueNameChanging(string value);
     partial void OnVenueNameChanged();
     partial void OnSubmitterUserIDChanging(System.Guid value);
@@ -4291,6 +4295,26 @@ namespace FindPianos.Models
 					this._Message = value;
 					this.SendPropertyChanged("Message");
 					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PricePerHourInUSD", DbType="Float NOT NULL")]
+		public double PricePerHourInUSD
+		{
+			get
+			{
+				return this._PricePerHourInUSD;
+			}
+			set
+			{
+				if ((this._PricePerHourInUSD != value))
+				{
+					this.OnPricePerHourInUSDChanging(value);
+					this.SendPropertyChanging();
+					this._PricePerHourInUSD = value;
+					this.SendPropertyChanged("PricePerHourInUSD");
+					this.OnPricePerHourInUSDChanged();
 				}
 			}
 		}

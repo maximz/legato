@@ -186,6 +186,7 @@
       <Column Name="RatingToneQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="RatingPlayingCapability" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PricePerHourInUSD" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="VenueName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="SubmitterUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DateOfRevision" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />

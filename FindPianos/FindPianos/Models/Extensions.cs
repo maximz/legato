@@ -7,6 +7,11 @@ namespace FindPianos.Models
 {
     public partial class PianoDataContext
     {
+        /// <summary>
+        /// Processes a complex SearchForm.
+        /// </summary>
+        /// <param name="form">The SearchForm in question.</param>
+        /// <returns>A List of PianoListings, with some extra properties that should be displayed on the results page</returns>
         public List<PianoListing> ProcessSearchForm(SearchForm form)
         {
             using(var db = new PianoDataContext())
@@ -53,7 +58,11 @@ namespace FindPianos.Models
                 return results;
             }
         }
-
+        /// <summary>
+        /// Process a simple search. Accepts AJAX requests from the Google Map on the search page.
+        /// </summary>
+        /// <param name="box">BoundingBox of the map.</param>
+        /// <returns>A List of PianoListings inside the BoundingBox, along with some extra properties that should be displayed in the search results.</returns>
         public List<PianoListing> ProcessAjaxMapSearch(BoundingBox box)
         {
             using (var db = new PianoDataContext())
@@ -87,34 +96,55 @@ namespace FindPianos.Models
     }
     public partial class PianoListing
     {
-        //add properties: AverageOverall, LatestReviewSubmissionDate, LatestUseOfPianoDate, NumberOfReviews
+        /// <summary>
+        /// The average overall rating given by the reviews for this PianoListing. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// </summary>
         public int AverageOverallRating
         {
             get;
-            set;
+            internal set;
         }
-        public DateTime LatestReviewSubmissionDate
+        /// <summary>
+        /// The last time a review for this PianoListing was revised. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// </summary>
+        public DateTime LatestReviewRevisionDate
         {
             get;
-            set;
+            internal set;
         }
+        /// <summary>
+        /// The latest time a reviewer for this PianoListing used the piano. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// </summary>
         public DateTime LatestUseOfPianoDate
         {
             get;
-            set;
+            internal set;
         }
+        /// <summary>
+        /// The number of reviews that have been written for this PianoListing. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// </summary>
         public int NumberOfReviews
         {
             get;
-            set;
+            internal set;
         }
-
+        /// <summary>
+        /// The average price reviewers of this PianoListing paid to use this piano, expressed in United States Dollars. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// </summary>
+        public double AveragePricePerHourInUSD
+        {
+            get;
+            internal set;
+        }
+        /// <summary>
+        /// Fills supplementary properties of PianoListing: AverageOverallRating, LatestReviewRevisionDate, LatestUseOfPianoDate, NumberOfReviews, and AveragePricePerHourInUSD.
+        /// </summary>
         public void FillProperties()
         {
-            //add properties: AverageOverall, LatestReviewSubmissionDate, LatestUseOfPianoDate, NumberOfReviews
             var OverallRatings = new List<int>();
             var RevisionDates = new List<DateTime>();
             var UseOfPianoDates = new List<DateTime>();
+            var Prices = new List<double>();
             var reviewCount = 0;
             using (var db = new PianoDataContext())
             {
@@ -124,13 +154,15 @@ namespace FindPianos.Models
                     OverallRatings.Add(LatestRevision.RatingOverall);
                     RevisionDates.Add(LatestRevision.DateOfRevision);
                     UseOfPianoDates.Add(LatestRevision.DateOfLastUsageOfPianoBySubmitter);
+                    Prices.Add(LatestRevision.PricePerHourInUSD);
                     reviewCount++;
                 }
             }
             AverageOverallRating = (int)Math.Round(OverallRatings.Average());
-            LatestReviewSubmissionDate = RevisionDates.Max();
+            LatestReviewRevisionDate = RevisionDates.Max();
             LatestUseOfPianoDate = UseOfPianoDates.Max();
             NumberOfReviews = reviewCount;
+            AveragePricePerHourInUSD = Prices.Average();
         }
     }
     public partial class PianoReview
