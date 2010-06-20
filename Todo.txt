@@ -8,6 +8,8 @@ XML documentation
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
 add /Reviews/{id} and /Reviews/{id}/edit to ListingController
+configure ApplicationId in Web.config
+For all Actions where there's an Id parameter, try/catch, return 404 page
 put outputcache attributes on accountcontroller (my profile page)
 implement comments on reviews; make sure not to allow suspended users to comment. also, ajax for this.
 

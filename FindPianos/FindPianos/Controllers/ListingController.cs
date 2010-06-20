@@ -20,6 +20,7 @@ namespace FindPianos.Controllers
         {
             return RedirectToAction("List");
         }
+        [Url("/Listing/{id}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Read(long id)
         {
@@ -36,6 +37,43 @@ namespace FindPianos.Controllers
                 ViewData["reviews"] = reviews;
 
                 return View();
+            }
+        }
+        [Url("/Review/{id}")]
+        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        public ActionResult IndividualReview(long id)
+        {
+            using (var data = new PianoDataContext())
+            {
+                var listing = data.PianoListings.Where(l => l.PianoID == id).SingleOrDefault();
+                var review = data.PianoReviews.Where(r => r.PianoReviewID == id).SingleOrDefault();
+                
+                review.Comments = data.PianoReviewComments.Where(c => c.PianoReviewID == review.PianoReviewID).ToList();
+                review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                
+                ViewData["listing"] = listing;
+                ViewData["review"] = review;
+
+                return View();
+            }
+        }
+        [Url("/Review/{id}/Timeline")]
+        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        public ActionResult ReviewTimeline(long id)
+        {
+            try
+            {
+                using (var data = new PianoDataContext())
+                {
+                    var review = data.PianoReviews.Where(r => r.PianoReviewID == id).Single();
+                    review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                    ViewData["review"] = review;
+                    return View();
+                }
+            }
+            catch
+            {
+                return RedirectToAction("404","Error");
             }
         }
         [Url("/Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
