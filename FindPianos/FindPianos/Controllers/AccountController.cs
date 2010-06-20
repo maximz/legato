@@ -63,6 +63,19 @@ namespace FindPianos.Controllers
             }
 
             FormsAuth.SignIn(userName, rememberMe);
+            
+            //check whether user is suspended and whether suspension has already ended
+            if (!Roles.IsUserInRole(userName, "ActiveUser"))
+            {
+                var currentProfile = AccountProfile.CurrentUser;
+                if (DateTime.Now >= currentProfile.ReinstateDate)
+                {
+                    Roles.AddUserToRole(userName, "ActiveUser");
+                    currentProfile.ReinstateDate = DateTime.MinValue;
+                    currentProfile.Save();
+                }
+            }
+
             if (!String.IsNullOrEmpty(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -105,7 +118,11 @@ namespace FindPianos.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-
+                Roles.AddUserToRole(userName, "ActiveUser"); //TODO: is this the place to put this? I think so!
+                AccountProfile.NewUser.Initialize(userName, true);
+                AccountProfile.NewUser.ProfilePictureURL = null;
+                AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
+                AccountProfile.NewUser.Save();
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuth.SignIn(userName, false /* createPersistentCookie */);

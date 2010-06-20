@@ -99,6 +99,9 @@ namespace FindPianos.Models
     partial void InsertToiletVenue(ToiletVenue instance);
     partial void UpdateToiletVenue(ToiletVenue instance);
     partial void DeleteToiletVenue(ToiletVenue instance);
+    partial void InsertPianoUserSuspension(PianoUserSuspension instance);
+    partial void UpdatePianoUserSuspension(PianoUserSuspension instance);
+    partial void DeletePianoUserSuspension(PianoUserSuspension instance);
     #endregion
 		
 		public PianoDataContext() : 
@@ -312,6 +315,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<ToiletVenue>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PianoUserSuspension> PianoUserSuspensions
+		{
+			get
+			{
+				return this.GetTable<PianoUserSuspension>();
 			}
 		}
 	}
@@ -2524,6 +2535,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<PianoReviewRevision> _PianoReviewRevisions;
 		
+		private EntitySet<PianoUserSuspension> _PianoUserSuspensions;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
     #region Extensibility Method Definitions
@@ -2555,6 +2568,7 @@ namespace FindPianos.Models
 			this._PianoListings = new EntitySet<PianoListing>(new Action<PianoListing>(this.attach_PianoListings), new Action<PianoListing>(this.detach_PianoListings));
 			this._PianoReviewComments = new EntitySet<PianoReviewComment>(new Action<PianoReviewComment>(this.attach_PianoReviewComments), new Action<PianoReviewComment>(this.detach_PianoReviewComments));
 			this._PianoReviewRevisions = new EntitySet<PianoReviewRevision>(new Action<PianoReviewRevision>(this.attach_PianoReviewRevisions), new Action<PianoReviewRevision>(this.detach_PianoReviewRevisions));
+			this._PianoUserSuspensions = new EntitySet<PianoUserSuspension>(new Action<PianoUserSuspension>(this.attach_PianoUserSuspensions), new Action<PianoUserSuspension>(this.detach_PianoUserSuspensions));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
 		}
@@ -2826,6 +2840,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoUserSuspension", Storage="_PianoUserSuspensions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<PianoUserSuspension> PianoUserSuspensions
+		{
+			get
+			{
+				return this._PianoUserSuspensions;
+			}
+			set
+			{
+				this._PianoUserSuspensions.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_User", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -2935,6 +2962,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_PianoReviewRevisions(PianoReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_PianoUserSuspensions(PianoUserSuspension entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_PianoUserSuspensions(PianoUserSuspension entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -6356,6 +6395,205 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.ToiletVenue = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoUserSuspensions")]
+	public partial class PianoUserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SuspensionID;
+		
+		private System.Guid _UserID;
+		
+		private string _Reason;
+		
+		private System.DateTime _SuspensionDate;
+		
+		private System.DateTime _ReinstateDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSuspensionIDChanging(long value);
+    partial void OnSuspensionIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnReasonChanging(string value);
+    partial void OnReasonChanged();
+    partial void OnSuspensionDateChanging(System.DateTime value);
+    partial void OnSuspensionDateChanged();
+    partial void OnReinstateDateChanging(System.DateTime value);
+    partial void OnReinstateDateChanged();
+    #endregion
+		
+		public PianoUserSuspension()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long SuspensionID
+		{
+			get
+			{
+				return this._SuspensionID;
+			}
+			set
+			{
+				if ((this._SuspensionID != value))
+				{
+					this.OnSuspensionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionID = value;
+					this.SendPropertyChanged("SuspensionID");
+					this.OnSuspensionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reason", DbType="NVarChar(MAX)")]
+		public string Reason
+		{
+			get
+			{
+				return this._Reason;
+			}
+			set
+			{
+				if ((this._Reason != value))
+				{
+					this.OnReasonChanging(value);
+					this.SendPropertyChanging();
+					this._Reason = value;
+					this.SendPropertyChanged("Reason");
+					this.OnReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime SuspensionDate
+		{
+			get
+			{
+				return this._SuspensionDate;
+			}
+			set
+			{
+				if ((this._SuspensionDate != value))
+				{
+					this.OnSuspensionDateChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionDate = value;
+					this.SendPropertyChanged("SuspensionDate");
+					this.OnSuspensionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReinstateDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ReinstateDate
+		{
+			get
+			{
+				return this._ReinstateDate;
+			}
+			set
+			{
+				if ((this._ReinstateDate != value))
+				{
+					this.OnReinstateDateChanging(value);
+					this.SendPropertyChanging();
+					this._ReinstateDate = value;
+					this.SendPropertyChanged("ReinstateDate");
+					this.OnReinstateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoUserSuspension", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.PianoUserSuspensions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.PianoUserSuspensions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -74,12 +74,18 @@ namespace FindPianos.Controllers
         //    }
         //    return View();
         //}
-        [Url("/Listing/Create")][Authorize]
+        [Url("/Listing/Create")]
+        [Authorize()]
         public ActionResult Submit()
         {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                //TODO
+            }
             return View();
         }
-        [Url("/Listing/Create")][Authorize]
+        [Url("/Listing/Create")]
+        [Authorize()]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
@@ -161,7 +167,8 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")][Authorize]
+        [Url("/Listing/Edit/{reviewId}")]
+        [Authorize()]
         public ActionResult Edit(long reviewId)
         {
             using(var db = new PianoDataContext())
@@ -179,7 +186,8 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")][Authorize]
+        [Url("/Listing/Edit/{reviewId}")]
+        [Authorize()]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {

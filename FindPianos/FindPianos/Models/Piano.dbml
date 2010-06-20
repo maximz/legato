@@ -121,6 +121,7 @@
       <Association Name="aspnet_User_PianoListing" Member="PianoListings" ThisKey="UserId" OtherKey="OriginalSubmitterUserID" Type="PianoListing" />
       <Association Name="aspnet_User_PianoReviewComment" Member="PianoReviewComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="PianoReviewComment" />
       <Association Name="aspnet_User_PianoReviewRevision" Member="PianoReviewRevisions" ThisKey="UserId" OtherKey="SubmitterUserID" Type="PianoReviewRevision" />
+      <Association Name="aspnet_User_PianoUserSuspension" Member="PianoUserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="PianoUserSuspension" />
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
     </Type>
   </Table>
@@ -283,6 +284,16 @@
       <Column Name="VenueName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Association Name="ToiletVenue_ToiletReview" Member="ToiletReviews" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletReview" />
       <Association Name="ToiletVenue_ToiletVenueHour" Member="ToiletVenueHours" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenueHour" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PianoUserSuspensions" Member="PianoUserSuspensions">
+    <Type Name="PianoUserSuspension">
+      <Column Name="SuspensionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SuspensionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReinstateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_PianoUserSuspension" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

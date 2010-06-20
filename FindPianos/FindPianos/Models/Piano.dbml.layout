@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 19.75, 19.625" name="Piano">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 20.125, 19.625" name="Piano">
   <DataContextMoniker Name="/PianoDataContext" />
   <nestedChildShapes>
     <classShape Id="a9355dc4-8fc8-4ddd-8cd8-3eb305f94da5" absoluteBounds="0.75, 12, 2, 1.5785953776041666">
@@ -273,7 +273,7 @@
         <classShapeMoniker Id="ca01fb39-2419-4b71-9ca5-65f04fe8816e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(16.75 : 11.5969962565104); (18.5 : 11.5969962565104); (18.5 : 14.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(16.75 : 12.1386946614583); (17.65625 : 12.1386946614583); (17.65625 : 14.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PianoDataContext/WeekDay/WeekDay_PianoVenueHour" />
       <nodes>
         <classShapeMoniker Id="4d0bbefb-d8a1-4e83-8d61-ab95a56057b8" />
@@ -313,6 +313,19 @@
       <nodes>
         <classShapeMoniker Id="5c1a2374-6405-4bc1-b34e-5848372cf669" />
         <classShapeMoniker Id="9d589847-d4ef-4310-a011-5bbd176be563" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d8bf4142-9c16-4884-b051-155e0c0414e8" absoluteBounds="17.875, 10.25, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PianoDataContext/PianoUserSuspension" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0e8f882-c163-49ec-a2bf-faa5b0356ee0" absoluteBounds="17.89, 10.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 14.9219176074219); (8.91666666666667 : 14.9219176074219 : JumpStart); (9.08333333333333 : 14.9219176074219 : JumpEnd); (11.4166666666667 : 14.9219176074219 : JumpStart); (11.5833333333333 : 14.9219176074219 : JumpEnd); (11.625 : 14.9219176074219); (11.625 : 13.5); (13.8229166666667 : 13.5 : JumpStart); (13.9895833333333 : 13.5 : JumpEnd); (14.5104166666667 : 13.5 : JumpStart); (14.6770833333333 : 13.5 : JumpEnd); (15.6666666666667 : 13.5 : JumpStart); (15.8333333333333 : 13.5 : JumpEnd); (17.5729166666667 : 13.5 : JumpStart); (17.7395833333333 : 13.5 : JumpEnd); (18.875 : 13.5); (18.875 : 12.0208968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PianoDataContext/aspnet_User/aspnet_User_PianoUserSuspension" />
+      <nodes>
+        <classShapeMoniker Id="252651fd-7eaf-4b71-8111-232fcc436157" />
+        <classShapeMoniker Id="d8bf4142-9c16-4884-b051-155e0c0414e8" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
