@@ -75,24 +75,27 @@ namespace FindPianos.Controllers
         //    return View();
         //}
         [Url("/Listing/Create")]
-        [Authorize()]
+        [Authorize]
         public ActionResult Submit()
         {
             if (!User.IsInRole("ActiveUser"))
             {
-                //TODO
+                RedirectToAction("ShowSuspensionStatus", "Account");
             }
             return View();
         }
         [Url("/Listing/Create")]
-        [Authorize()]
+        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
             //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
-
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -168,9 +171,13 @@ namespace FindPianos.Controllers
             }
         }
         [Url("/Listing/Edit/{reviewId}")]
-        [Authorize()]
+        [Authorize]
         public ActionResult Edit(long reviewId)
         {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
             using(var db = new PianoDataContext())
             {
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
@@ -187,10 +194,14 @@ namespace FindPianos.Controllers
             }
         }
         [Url("/Listing/Edit/{reviewId}")]
-        [Authorize()]
+        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
             try
             {
                 using (var db = new PianoDataContext())

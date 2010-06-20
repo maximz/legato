@@ -7,11 +7,8 @@ XML documentation
 [url] with POST and with ? querystring/URL parameters - http://code.haacked.com/mvc-1.0/RouteTesterDemo.zip and http://stackoverflow.com/questions/3078165/using-the-asp-net-mvc-attribute-based-route-mapper
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
+add /Reviews/{id} and /Reviews/{id}/edit to ListingController
 put outputcache attributes on accountcontroller (my profile page)
-implement admin controller
-Where does user input their email address when registering?
-HTMLEncode everything
-suspension: when suspending user in admin panel, add record to PianoUserSuspensions table. then can review.
 implement comments on reviews; make sure not to allow suspended users to comment. also, ajax for this.
 
 write views - mimic stack overflow and socareers html markup

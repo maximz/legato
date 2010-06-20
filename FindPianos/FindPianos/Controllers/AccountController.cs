@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
 using MvcReCaptcha;
+using FindPianos.Models;
+using RiaLibrary.Web;
 
 namespace FindPianos.Controllers
 {
@@ -92,6 +94,21 @@ namespace FindPianos.Controllers
             FormsAuth.SignOut();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [Url("/Account/Suspended")]
+        public ActionResult ShowSuspensionStatus()
+        {
+            using (var db = new PianoDataContext())
+            {
+                if (!(AccountProfile.GetProfileOfUser(Membership.GetUser().UserName).ReinstateDate < DateTime.Now))
+                {
+                    ViewData["suspension"] = db.PianoUserSuspensions.Where(s => s.UserID == (Guid)Membership.GetUser().ProviderUserKey).OrderByDescending(k => k.ReinstateDate).Take(1).ToList()[0];
+                    return View();
+                }
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult Register()
@@ -371,5 +388,7 @@ namespace FindPianos.Controllers
             MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
             return currentUser.ChangePassword(oldPassword, newPassword);
         }
+
+
     }
 }

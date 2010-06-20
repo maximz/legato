@@ -61,7 +61,15 @@ namespace FindPianos.Controllers
             using(var db = new PianoDataContext())
             {
                 var username = db.aspnet_Users.Where(u=>u.UserId == id).SingleOrDefault().UserName;
-                //TODO: implement DB call
+                var sus = new PianoUserSuspension()
+                {
+                    SuspensionDate = DateTime.Now,
+                    ReinstateDate = reinstateDate,
+                    Reason = reason,
+                    UserID = id
+                };
+                db.PianoUserSuspensions.InsertOnSubmit(sus);
+                db.SubmitChanges();
                 AccountProfile.GetProfileOfUser(username).ReinstateDate = reinstateDate;
                 AccountProfile.GetProfileOfUser(username).Save();
                 return View(); //TODO: redirect to action: user summary in admin page.
