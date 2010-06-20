@@ -74,12 +74,12 @@ namespace FindPianos.Controllers
         //    }
         //    return View();
         //}
-        [Url("/Listing/Create")]
+        [Url("/Listing/Create")][Authorize]
         public ActionResult Submit()
         {
             return View();
         }
-        [Url("/Listing/Create")]
+        [Url("/Listing/Create")][Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
@@ -161,62 +161,48 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")]
+        [Url("/Listing/Edit/{reviewId}")][Authorize]
         public ActionResult Edit(long reviewId)
         {
             using(var db = new PianoDataContext())
             {
-                ViewData["revisions"] = db.PianoReviewRevisions.Where(r => r.PianoReviewID == reviewId).ToList();
+                //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                var revisions = db.PianoReviewRevisions.Where(r => r.PianoReviewID == reviewId).ToList();
+                var submitterGuid = revisions[0].SubmitterUserID;
+                if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewData["revisions"] = revisions;
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")]
+        [Url("/Listing/Edit/{reviewId}")][Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
+        public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             try
             {
                 using (var db = new PianoDataContext())
                 {
-                    var time = DateTime.UtcNow;
-
-                    //LISTING:
+                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    //TODO: add GUID to cache!!! Cache.Add(User.Identity.Name, userGuid);
-                    listing.OriginalSubmitterUserID = userGuid;
-                    listing.DateOfSubmission = time;
-                    try
+                    var revisions = db.PianoReviewRevisions.Where(revisionforcheck => revisionforcheck.PianoReviewID == reviewId).Take(1).ToList();
+                    var submitterGuid = revisions[0].SubmitterUserID;
+                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                     {
-                        IGeoCoder geocode = new GoogleGeoCoder("ABQIAAAAbyfszEVR0VTKZImYRp5b6BS9l0G0i7V22ZGVaQxYRD7DXNsCeRQYuExgpEMwCaudHBGK5MIz8RlXCg"); //key for maximzaslavsky.com
-                        var addresses = geocode.GeoCode(listing.StreetAddress);
-                        if (addresses.Length < 1)
-                            throw new ApplicationException();
-                        else
-                        {
-                            listing.Lat = (decimal)addresses[0].Coordinates.Latitude;
-                            listing.Long = (decimal)addresses[0].Coordinates.Longitude;
-                        }
+                        return RedirectToAction("Index", "Home");
                     }
-                    catch
-                    {
-                        ModelState.AddModelError("Address", "Sorry, but we couldn't find this location. Are you sure it's correct?");
-                        ModelState.SetModelValue("Address", new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-                        return View();
-                    }
-                    db.PianoListings.InsertOnSubmit(listing);
-                    db.SubmitChanges();
-
-                    //REVIEW:
-                    var review = new PianoReview();
-                    review.PianoListing = listing;
-                    db.PianoReviews.InsertOnSubmit(review);
-                    db.SubmitChanges();
+                   
+                    var time = DateTime.UtcNow;
 
                     //REVISION:
                     r.DateOfRevision = time;
-                    r.PianoReview = review;
+                    r.PianoReviewID = reviewId;
                     r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
-                                                where rev.PianoReviewID == review.PianoReviewID
+                                                where rev.PianoReviewID == reviewId
                                                 select rev.RevisionNumberOfReview).Max() + 1;
                     db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     if (!r.IsValid)

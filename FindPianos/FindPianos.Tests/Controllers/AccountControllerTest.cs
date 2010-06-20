@@ -263,7 +263,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            RedirectToRouteResult result = (RedirectToRouteResult)controller.Register("someUser", "email", "goodPass", "goodPass");
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.Register("someUser", "email", "goodPass", "goodPass", true);
 
             // Assert
             Assert.AreEqual("Home", result.RouteValues["controller"]);
@@ -277,7 +277,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "", "password", "password");
+            ViewResult result = (ViewResult)controller.Register("username", "", "password", "password", true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -291,7 +291,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", "password", "password2");
+            ViewResult result = (ViewResult)controller.Register("username", "email", "password", "password2", true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -305,7 +305,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", null, null);
+            ViewResult result = (ViewResult)controller.Register("username", "email", null, null, true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -319,7 +319,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", "12345", "12345");
+            ViewResult result = (ViewResult)controller.Register("username", "email", "12345", "12345", true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -333,7 +333,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("someUser", "DuplicateUserName" /* error */, "badPass", "badPass");
+            ViewResult result = (ViewResult)controller.Register("someUser", "DuplicateUserName" /* error */, "badPass", "badPass", true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -347,7 +347,7 @@ namespace FindPianos.Tests.Controllers
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("", "email", "password", "password");
+            ViewResult result = (ViewResult)controller.Register("", "email", "password", "password", true);
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);

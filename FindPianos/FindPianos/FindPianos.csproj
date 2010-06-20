@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\GeoCoding.dll</HintPath>
     </Reference>
+    <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Components\MvcReCaptcha.dll</HintPath>
+    </Reference>
     <Reference Include="RiaLibrary.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\RiaLibrary.Web.dll</HintPath>
@@ -80,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\CachedContentServeController.cs" />
     <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -103,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\GeoCoding.dll" />
+    <Content Include="Components\MvcReCaptcha.dll" />
     <Content Include="Components\RiaLibrary.Web.dll" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />

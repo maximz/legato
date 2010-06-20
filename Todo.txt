@@ -8,6 +8,7 @@ XML documentation
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
 put outputcache attributes on accountcontroller (my profile page)
+pianoreviewrevisions fk - pk aspnet_users
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
@@ -22,4 +23,16 @@ captcha validator attributes
 
 TODO comments
 
-content serve controller for caching!
+--------------------
+
+roles:
+
+Admin
+Moderator
+
+--------------------------
+
+DOMAIN SPECIFIC KEYS:
+
+Geocoding key (unless v3)
+MvcRecaptcha key (in web.config under <AppSettings>)

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
+using MvcReCaptcha;
 
 namespace FindPianos.Controllers
 {
@@ -88,11 +89,17 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Register(string userName, string email, string password, string confirmPassword)
+        [AcceptVerbs(HttpVerbs.Post)][CaptchaValidator]
+        public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
         {
 
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+
+            if (!captchaValid)
+            {
+                ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
+                return View();
+            }
 
             if (ValidateRegistration(userName, email, password, confirmPassword))
             {
