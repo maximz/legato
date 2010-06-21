@@ -5,6 +5,8 @@ XML documentation
 												MAIN TODO:
 
 [url] with POST and with ? querystring/URL parameters - http://code.haacked.com/mvc-1.0/RouteTesterDemo.zip and http://stackoverflow.com/questions/3078165/using-the-asp-net-mvc-attribute-based-route-mapper
+essentially give Post action some URL and then in View, do <% using (Html.BeginForm("foo", "home", new { id = "123" })) { %> (foo is the URL you gave it)
+
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
 add /Reviews/{id} and /Reviews/{id}/edit to ListingController

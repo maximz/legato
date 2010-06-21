@@ -20,7 +20,7 @@ namespace FindPianos.Controllers
         {
             return RedirectToAction("List");
         }
-        [Url("/Listing/{id}")]
+        [Url("Listing/{id}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Read(long id)
         {
@@ -39,7 +39,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Review/{id}")]
+        [Url("Review/{id}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult IndividualReview(long id)
         {
@@ -57,7 +57,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Review/{id}/Timeline")]
+        [Url("Review/{id}/Timeline")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult ReviewTimeline(long id)
         {
@@ -73,15 +73,15 @@ namespace FindPianos.Controllers
             }
             catch
             {
-                return RedirectToAction("404","Error");
+                return RedirectToAction("NotFound","Error");
             }
         }
-        [Url("/Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
-        [Url("/Search/AJAX/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")] //TODO: how to do ? querystring parameters???
+        [Url("Search/AJAX/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")] //TODO: how to do ? querystring parameters???
         [AcceptVerbs(HttpVerbs.Get)][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
@@ -96,7 +96,7 @@ namespace FindPianos.Controllers
             }
 
         }
-        //[Url("/Search")]
+        //[Url("Search")]
         //[AcceptVerbs(HttpVerbs.Post)]
         //public ActionResult List(SearchForm s)
         //{
@@ -112,7 +112,7 @@ namespace FindPianos.Controllers
         //    }
         //    return View();
         //}
-        [Url("/Listing/Create")]
+        [Url("Listing/Create")]
         [Authorize]
         public ActionResult Submit()
         {
@@ -122,7 +122,7 @@ namespace FindPianos.Controllers
             }
             return View();
         }
-        [Url("/Listing/Create")]
+        [Url("Listing/Create")]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
@@ -208,7 +208,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")]
+        [Url("Listing/Edit/{reviewId}")]
         [Authorize]
         public ActionResult Edit(long reviewId)
         {
@@ -231,7 +231,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("/Listing/Edit/{reviewId}")]
+        [Url("Listing/Edit")]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)

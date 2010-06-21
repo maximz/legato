@@ -13,14 +13,14 @@ namespace FindPianos.Controllers
     {
         //
         // GET: /Admin/
-        [Url("/Admin")]
+        [Url("Admin")]
         [Authorize(Roles = "Admin")]
         public ActionResult UserSearchByName()
         {
             return View();
         }
 
-        [Url("/Admin")]
+        [Url("Admin")]
         [AcceptVerbs(HttpVerbs.Post)]
         [Authorize(Roles = "Admin")]
         public ActionResult UserSearchByName(string nameContains)
@@ -33,7 +33,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Url("/Admin/Users/{id}")]
+        [Url("Admin/Users/{id}")]
         [Authorize(Roles = "Admin")]
         public ActionResult GetUserById(Guid id)
         {
@@ -47,13 +47,13 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Url("/Admin/Users/{id}/Suspend")]
+        [Url("Admin/Users/{id}/Suspend")]
         [Authorize(Roles = "Admin")]
         public ActionResult SuspendUser(Guid id)
         {
             return View();
         }
-        [Url("/Admin/Users/{id}/Suspend")]
+        [Url("Admin/SuspendUser")]
         [Authorize(Roles = "Admin")]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SuspendUser(Guid id, DateTime reinstateDate, string reason)

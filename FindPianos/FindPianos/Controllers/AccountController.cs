@@ -97,7 +97,7 @@ namespace FindPianos.Controllers
         }
 
         [Authorize]
-        [Url("/Account/Suspended")]
+        [Url("Account/Suspended")]
         public ActionResult ShowSuspensionStatus()
         {
             using (var db = new PianoDataContext())

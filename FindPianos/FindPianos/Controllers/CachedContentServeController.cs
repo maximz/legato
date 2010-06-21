@@ -12,12 +12,12 @@ namespace FindPianos.Controllers
     [OutputCache(Duration = 7200, VaryByParam = "None")]
     public class CachedContentServeController : Controller
     {
-        [Url("/static/{id}/png")]
+        [Url("static/{id}/png")]
         public ActionResult PngImage(string id)
         {
             return File(MakeContentPath(id,"png"), "image/png");
         }
-        [Url("/static/{id}/css")]
+        [Url("static/{id}/css")]
         public ActionResult StyleSheet(string id)
         {
             return File(MakeContentPath(id, "css"), "text/css");

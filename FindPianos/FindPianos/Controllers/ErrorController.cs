@@ -12,7 +12,7 @@ namespace FindPianos.Controllers
         //
         // GET: /Error/
 
-        [Url("/404")]
+        [Url("404")]
         public ActionResult NotFound()
         {
             return View();
