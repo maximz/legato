@@ -142,7 +142,6 @@ namespace FindPianos.Controllers
 
                     //LISTING:
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    //TODO: add GUID to cache!!! Cache.Add(User.Identity.Name, userGuid);
                     listing.OriginalSubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
                     try

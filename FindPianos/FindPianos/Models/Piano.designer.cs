@@ -66,12 +66,24 @@ namespace FindPianos.Models
     partial void Insertaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
     partial void Updateaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
     partial void Deleteaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
+    partial void InsertPianoFlagType(PianoFlagType instance);
+    partial void UpdatePianoFlagType(PianoFlagType instance);
+    partial void DeletePianoFlagType(PianoFlagType instance);
+    partial void InsertPianoListingComment(PianoListingComment instance);
+    partial void UpdatePianoListingComment(PianoListingComment instance);
+    partial void DeletePianoListingComment(PianoListingComment instance);
+    partial void InsertPianoListingFlag(PianoListingFlag instance);
+    partial void UpdatePianoListingFlag(PianoListingFlag instance);
+    partial void DeletePianoListingFlag(PianoListingFlag instance);
     partial void InsertPianoListing(PianoListing instance);
     partial void UpdatePianoListing(PianoListing instance);
     partial void DeletePianoListing(PianoListing instance);
     partial void InsertPianoReviewComment(PianoReviewComment instance);
     partial void UpdatePianoReviewComment(PianoReviewComment instance);
     partial void DeletePianoReviewComment(PianoReviewComment instance);
+    partial void InsertPianoReviewFlag(PianoReviewFlag instance);
+    partial void UpdatePianoReviewFlag(PianoReviewFlag instance);
+    partial void DeletePianoReviewFlag(PianoReviewFlag instance);
     partial void InsertPianoReviewRevision(PianoReviewRevision instance);
     partial void UpdatePianoReviewRevision(PianoReviewRevision instance);
     partial void DeletePianoReviewRevision(PianoReviewRevision instance);
@@ -81,6 +93,9 @@ namespace FindPianos.Models
     partial void InsertPianoStyle(PianoStyle instance);
     partial void UpdatePianoStyle(PianoStyle instance);
     partial void DeletePianoStyle(PianoStyle instance);
+    partial void InsertPianoUserSuspension(PianoUserSuspension instance);
+    partial void UpdatePianoUserSuspension(PianoUserSuspension instance);
+    partial void DeletePianoUserSuspension(PianoUserSuspension instance);
     partial void InsertPianoVenueHour(PianoVenueHour instance);
     partial void UpdatePianoVenueHour(PianoVenueHour instance);
     partial void DeletePianoVenueHour(PianoVenueHour instance);
@@ -99,9 +114,6 @@ namespace FindPianos.Models
     partial void InsertToiletVenue(ToiletVenue instance);
     partial void UpdateToiletVenue(ToiletVenue instance);
     partial void DeleteToiletVenue(ToiletVenue instance);
-    partial void InsertPianoUserSuspension(PianoUserSuspension instance);
-    partial void UpdatePianoUserSuspension(PianoUserSuspension instance);
-    partial void DeletePianoUserSuspension(PianoUserSuspension instance);
     #endregion
 		
 		public PianoDataContext() : 
@@ -230,6 +242,30 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<PianoFlagType> PianoFlagTypes
+		{
+			get
+			{
+				return this.GetTable<PianoFlagType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PianoListingComment> PianoListingComments
+		{
+			get
+			{
+				return this.GetTable<PianoListingComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PianoListingFlag> PianoListingFlags
+		{
+			get
+			{
+				return this.GetTable<PianoListingFlag>();
+			}
+		}
+		
 		public System.Data.Linq.Table<PianoListing> PianoListings
 		{
 			get
@@ -243,6 +279,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<PianoReviewComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PianoReviewFlag> PianoReviewFlags
+		{
+			get
+			{
+				return this.GetTable<PianoReviewFlag>();
 			}
 		}
 		
@@ -267,6 +311,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<PianoStyle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PianoUserSuspension> PianoUserSuspensions
+		{
+			get
+			{
+				return this.GetTable<PianoUserSuspension>();
 			}
 		}
 		
@@ -315,14 +367,6 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<ToiletVenue>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PianoUserSuspension> PianoUserSuspensions
-		{
-			get
-			{
-				return this.GetTable<PianoUserSuspension>();
 			}
 		}
 	}
@@ -2529,9 +2573,15 @@ namespace FindPianos.Models
 		
 		private EntitySet<aspnet_UsersInRole> _aspnet_UsersInRoles;
 		
+		private EntitySet<PianoListingComment> _PianoListingComments;
+		
+		private EntitySet<PianoListingFlag> _PianoListingFlags;
+		
 		private EntitySet<PianoListing> _PianoListings;
 		
 		private EntitySet<PianoReviewComment> _PianoReviewComments;
+		
+		private EntitySet<PianoReviewFlag> _PianoReviewFlags;
 		
 		private EntitySet<PianoReviewRevision> _PianoReviewRevisions;
 		
@@ -2565,8 +2615,11 @@ namespace FindPianos.Models
 			this._aspnet_PersonalizationPerUsers = new EntitySet<aspnet_PersonalizationPerUser>(new Action<aspnet_PersonalizationPerUser>(this.attach_aspnet_PersonalizationPerUsers), new Action<aspnet_PersonalizationPerUser>(this.detach_aspnet_PersonalizationPerUsers));
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
+			this._PianoListingComments = new EntitySet<PianoListingComment>(new Action<PianoListingComment>(this.attach_PianoListingComments), new Action<PianoListingComment>(this.detach_PianoListingComments));
+			this._PianoListingFlags = new EntitySet<PianoListingFlag>(new Action<PianoListingFlag>(this.attach_PianoListingFlags), new Action<PianoListingFlag>(this.detach_PianoListingFlags));
 			this._PianoListings = new EntitySet<PianoListing>(new Action<PianoListing>(this.attach_PianoListings), new Action<PianoListing>(this.detach_PianoListings));
 			this._PianoReviewComments = new EntitySet<PianoReviewComment>(new Action<PianoReviewComment>(this.attach_PianoReviewComments), new Action<PianoReviewComment>(this.detach_PianoReviewComments));
+			this._PianoReviewFlags = new EntitySet<PianoReviewFlag>(new Action<PianoReviewFlag>(this.attach_PianoReviewFlags), new Action<PianoReviewFlag>(this.detach_PianoReviewFlags));
 			this._PianoReviewRevisions = new EntitySet<PianoReviewRevision>(new Action<PianoReviewRevision>(this.attach_PianoReviewRevisions), new Action<PianoReviewRevision>(this.detach_PianoReviewRevisions));
 			this._PianoUserSuspensions = new EntitySet<PianoUserSuspension>(new Action<PianoUserSuspension>(this.attach_PianoUserSuspensions), new Action<PianoUserSuspension>(this.detach_PianoUserSuspensions));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
@@ -2801,6 +2854,32 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoListingComment", Storage="_PianoListingComments", ThisKey="UserId", OtherKey="AuthorUserID")]
+		public EntitySet<PianoListingComment> PianoListingComments
+		{
+			get
+			{
+				return this._PianoListingComments;
+			}
+			set
+			{
+				this._PianoListingComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoListingFlag", Storage="_PianoListingFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<PianoListingFlag> PianoListingFlags
+		{
+			get
+			{
+				return this._PianoListingFlags;
+			}
+			set
+			{
+				this._PianoListingFlags.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoListing", Storage="_PianoListings", ThisKey="UserId", OtherKey="OriginalSubmitterUserID")]
 		public EntitySet<PianoListing> PianoListings
 		{
@@ -2824,6 +2903,19 @@ namespace FindPianos.Models
 			set
 			{
 				this._PianoReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoReviewFlag", Storage="_PianoReviewFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<PianoReviewFlag> PianoReviewFlags
+		{
+			get
+			{
+				return this._PianoReviewFlags;
+			}
+			set
+			{
+				this._PianoReviewFlags.Assign(value);
 			}
 		}
 		
@@ -2931,6 +3023,30 @@ namespace FindPianos.Models
 			entity.aspnet_User = null;
 		}
 		
+		private void attach_PianoListingComments(PianoListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_PianoListingComments(PianoListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
 		private void attach_PianoListings(PianoListing entity)
 		{
 			this.SendPropertyChanging();
@@ -2950,6 +3066,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_PianoReviewComments(PianoReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_PianoReviewFlags(PianoReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_PianoReviewFlags(PianoReviewFlag entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -3546,6 +3674,645 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoFlagTypes")]
+	public partial class PianoFlagType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _FlagTypeID;
+		
+		private string _Name;
+		
+		private EntitySet<PianoListingFlag> _PianoListingFlags;
+		
+		private EntitySet<PianoReviewFlag> _PianoReviewFlags;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagTypeIDChanging(int value);
+    partial void OnFlagTypeIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public PianoFlagType()
+		{
+			this._PianoListingFlags = new EntitySet<PianoListingFlag>(new Action<PianoListingFlag>(this.attach_PianoListingFlags), new Action<PianoListingFlag>(this.detach_PianoListingFlags));
+			this._PianoReviewFlags = new EntitySet<PianoReviewFlag>(new Action<PianoReviewFlag>(this.attach_PianoReviewFlags), new Action<PianoReviewFlag>(this.detach_PianoReviewFlags));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagTypeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int FlagTypeID
+		{
+			get
+			{
+				return this._FlagTypeID;
+			}
+			set
+			{
+				if ((this._FlagTypeID != value))
+				{
+					this.OnFlagTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagTypeID = value;
+					this.SendPropertyChanged("FlagTypeID");
+					this.OnFlagTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoFlagType_PianoListingFlag", Storage="_PianoListingFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<PianoListingFlag> PianoListingFlags
+		{
+			get
+			{
+				return this._PianoListingFlags;
+			}
+			set
+			{
+				this._PianoListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoFlagType_PianoReviewFlag", Storage="_PianoReviewFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<PianoReviewFlag> PianoReviewFlags
+		{
+			get
+			{
+				return this._PianoReviewFlags;
+			}
+			set
+			{
+				this._PianoReviewFlags.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoFlagType = this;
+		}
+		
+		private void detach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoFlagType = null;
+		}
+		
+		private void attach_PianoReviewFlags(PianoReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoFlagType = this;
+		}
+		
+		private void detach_PianoReviewFlags(PianoReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoFlagType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoListingComments")]
+	public partial class PianoListingComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _CommentID;
+		
+		private long _PianoListingID;
+		
+		private System.Guid _AuthorUserID;
+		
+		private string _MessageText;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<PianoListing> _PianoListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCommentIDChanging(long value);
+    partial void OnCommentIDChanged();
+    partial void OnPianoListingIDChanging(long value);
+    partial void OnPianoListingIDChanged();
+    partial void OnAuthorUserIDChanging(System.Guid value);
+    partial void OnAuthorUserIDChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
+    #endregion
+		
+		public PianoListingComment()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._PianoListing = default(EntityRef<PianoListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this.OnCommentIDChanging(value);
+					this.SendPropertyChanging();
+					this._CommentID = value;
+					this.SendPropertyChanged("CommentID");
+					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PianoListingID", DbType="BigInt NOT NULL")]
+		public long PianoListingID
+		{
+			get
+			{
+				return this._PianoListingID;
+			}
+			set
+			{
+				if ((this._PianoListingID != value))
+				{
+					if (this._PianoListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPianoListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._PianoListingID = value;
+					this.SendPropertyChanged("PianoListingID");
+					this.OnPianoListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuthorUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid AuthorUserID
+		{
+			get
+			{
+				return this._AuthorUserID;
+			}
+			set
+			{
+				if ((this._AuthorUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuthorUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorUserID = value;
+					this.SendPropertyChanged("AuthorUserID");
+					this.OnAuthorUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageText
+		{
+			get
+			{
+				return this._MessageText;
+			}
+			set
+			{
+				if ((this._MessageText != value))
+				{
+					this.OnMessageTextChanging(value);
+					this.SendPropertyChanging();
+					this._MessageText = value;
+					this.SendPropertyChanged("MessageText");
+					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoListingComment", Storage="_aspnet_User", ThisKey="AuthorUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.PianoListingComments.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.PianoListingComments.Add(this);
+						this._AuthorUserID = value.UserId;
+					}
+					else
+					{
+						this._AuthorUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoListing_PianoListingComment", Storage="_PianoListing", ThisKey="PianoListingID", OtherKey="PianoID", IsForeignKey=true)]
+		public PianoListing PianoListing
+		{
+			get
+			{
+				return this._PianoListing.Entity;
+			}
+			set
+			{
+				PianoListing previousValue = this._PianoListing.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoListing.Entity = null;
+						previousValue.PianoListingComments.Remove(this);
+					}
+					this._PianoListing.Entity = value;
+					if ((value != null))
+					{
+						value.PianoListingComments.Add(this);
+						this._PianoListingID = value.PianoID;
+					}
+					else
+					{
+						this._PianoListingID = default(long);
+					}
+					this.SendPropertyChanged("PianoListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoListingFlags")]
+	public partial class PianoListingFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ListingID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<PianoFlagType> _PianoFlagType;
+		
+		private EntityRef<PianoListing> _PianoListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnListingIDChanging(long value);
+    partial void OnListingIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public PianoListingFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._PianoFlagType = default(EntityRef<PianoFlagType>);
+			this._PianoListing = default(EntityRef<PianoListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingID", DbType="BigInt NOT NULL")]
+		public long ListingID
+		{
+			get
+			{
+				return this._ListingID;
+			}
+			set
+			{
+				if ((this._ListingID != value))
+				{
+					if (this._PianoListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._ListingID = value;
+					this.SendPropertyChanged("ListingID");
+					this.OnListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._PianoFlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoListingFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.PianoListingFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.PianoListingFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoFlagType_PianoListingFlag", Storage="_PianoFlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public PianoFlagType PianoFlagType
+		{
+			get
+			{
+				return this._PianoFlagType.Entity;
+			}
+			set
+			{
+				PianoFlagType previousValue = this._PianoFlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoFlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoFlagType.Entity = null;
+						previousValue.PianoListingFlags.Remove(this);
+					}
+					this._PianoFlagType.Entity = value;
+					if ((value != null))
+					{
+						value.PianoListingFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("PianoFlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoListing_PianoListingFlag", Storage="_PianoListing", ThisKey="ListingID", OtherKey="PianoID", IsForeignKey=true)]
+		public PianoListing PianoListing
+		{
+			get
+			{
+				return this._PianoListing.Entity;
+			}
+			set
+			{
+				PianoListing previousValue = this._PianoListing.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoListing.Entity = null;
+						previousValue.PianoListingFlags.Remove(this);
+					}
+					this._PianoListing.Entity = value;
+					if ((value != null))
+					{
+						value.PianoListingFlags.Add(this);
+						this._ListingID = value.PianoID;
+					}
+					else
+					{
+						this._ListingID = default(long);
+					}
+					this.SendPropertyChanged("PianoListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoListings")]
 	public partial class PianoListing : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3563,6 +4330,10 @@ namespace FindPianos.Models
 		private System.Guid _OriginalSubmitterUserID;
 		
 		private System.DateTime _DateOfSubmission;
+		
+		private EntitySet<PianoListingComment> _PianoListingComments;
+		
+		private EntitySet<PianoListingFlag> _PianoListingFlags;
 		
 		private EntitySet<PianoReview> _PianoReviews;
 		
@@ -3588,6 +4359,8 @@ namespace FindPianos.Models
 		
 		public PianoListing()
 		{
+			this._PianoListingComments = new EntitySet<PianoListingComment>(new Action<PianoListingComment>(this.attach_PianoListingComments), new Action<PianoListingComment>(this.detach_PianoListingComments));
+			this._PianoListingFlags = new EntitySet<PianoListingFlag>(new Action<PianoListingFlag>(this.attach_PianoListingFlags), new Action<PianoListingFlag>(this.detach_PianoListingFlags));
 			this._PianoReviews = new EntitySet<PianoReview>(new Action<PianoReview>(this.attach_PianoReviews), new Action<PianoReview>(this.detach_PianoReviews));
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -3717,6 +4490,32 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoListing_PianoListingComment", Storage="_PianoListingComments", ThisKey="PianoID", OtherKey="PianoListingID")]
+		public EntitySet<PianoListingComment> PianoListingComments
+		{
+			get
+			{
+				return this._PianoListingComments;
+			}
+			set
+			{
+				this._PianoListingComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoListing_PianoListingFlag", Storage="_PianoListingFlags", ThisKey="PianoID", OtherKey="ListingID")]
+		public EntitySet<PianoListingFlag> PianoListingFlags
+		{
+			get
+			{
+				return this._PianoListingFlags;
+			}
+			set
+			{
+				this._PianoListingFlags.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoListing_PianoReview", Storage="_PianoReviews", ThisKey="PianoID", OtherKey="PianoListingID")]
 		public EntitySet<PianoReview> PianoReviews
 		{
@@ -3784,6 +4583,30 @@ namespace FindPianos.Models
 			}
 		}
 		
+		private void attach_PianoListingComments(PianoListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoListing = this;
+		}
+		
+		private void detach_PianoListingComments(PianoListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoListing = null;
+		}
+		
+		private void attach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoListing = this;
+		}
+		
+		private void detach_PianoListingFlags(PianoListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoListing = null;
+		}
+		
 		private void attach_PianoReviews(PianoReview entity)
 		{
 			this.SendPropertyChanging();
@@ -3809,9 +4632,7 @@ namespace FindPianos.Models
 		
 		private System.Guid _AuthorUserID;
 		
-		private string _MessageMarkdown;
-		
-		private string _MessageHTML;
+		private string _MessageText;
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
@@ -3827,10 +4648,8 @@ namespace FindPianos.Models
     partial void OnPianoReviewIDChanged();
     partial void OnAuthorUserIDChanging(System.Guid value);
     partial void OnAuthorUserIDChanged();
-    partial void OnMessageMarkdownChanging(string value);
-    partial void OnMessageMarkdownChanged();
-    partial void OnMessageHTMLChanging(string value);
-    partial void OnMessageHTMLChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
     #endregion
 		
 		public PianoReviewComment()
@@ -3908,42 +4727,22 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string MessageMarkdown
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageText
 		{
 			get
 			{
-				return this._MessageMarkdown;
+				return this._MessageText;
 			}
 			set
 			{
-				if ((this._MessageMarkdown != value))
+				if ((this._MessageText != value))
 				{
-					this.OnMessageMarkdownChanging(value);
+					this.OnMessageTextChanging(value);
 					this.SendPropertyChanging();
-					this._MessageMarkdown = value;
-					this.SendPropertyChanged("MessageMarkdown");
-					this.OnMessageMarkdownChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string MessageHTML
-		{
-			get
-			{
-				return this._MessageHTML;
-			}
-			set
-			{
-				if ((this._MessageHTML != value))
-				{
-					this.OnMessageHTMLChanging(value);
-					this.SendPropertyChanging();
-					this._MessageHTML = value;
-					this.SendPropertyChanged("MessageHTML");
-					this.OnMessageHTMLChanged();
+					this._MessageText = value;
+					this.SendPropertyChanged("MessageText");
+					this.OnMessageTextChanged();
 				}
 			}
 		}
@@ -4010,6 +4809,287 @@ namespace FindPianos.Models
 					else
 					{
 						this._PianoReviewID = default(long);
+					}
+					this.SendPropertyChanged("PianoReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoReviewFlags")]
+	public partial class PianoReviewFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ReviewID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<PianoFlagType> _PianoFlagType;
+		
+		private EntityRef<PianoReview> _PianoReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public PianoReviewFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._PianoFlagType = default(EntityRef<PianoFlagType>);
+			this._PianoReview = default(EntityRef<PianoReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._PianoReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._PianoFlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoReviewFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.PianoReviewFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.PianoReviewFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoFlagType_PianoReviewFlag", Storage="_PianoFlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public PianoFlagType PianoFlagType
+		{
+			get
+			{
+				return this._PianoFlagType.Entity;
+			}
+			set
+			{
+				PianoFlagType previousValue = this._PianoFlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoFlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoFlagType.Entity = null;
+						previousValue.PianoReviewFlags.Remove(this);
+					}
+					this._PianoFlagType.Entity = value;
+					if ((value != null))
+					{
+						value.PianoReviewFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("PianoFlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoReview_PianoReviewFlag", Storage="_PianoReview", ThisKey="ReviewID", OtherKey="PianoReviewID", IsForeignKey=true)]
+		public PianoReview PianoReview
+		{
+			get
+			{
+				return this._PianoReview.Entity;
+			}
+			set
+			{
+				PianoReview previousValue = this._PianoReview.Entity;
+				if (((previousValue != value) 
+							|| (this._PianoReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PianoReview.Entity = null;
+						previousValue.PianoReviewFlags.Remove(this);
+					}
+					this._PianoReview.Entity = value;
+					if ((value != null))
+					{
+						value.PianoReviewFlags.Add(this);
+						this._ReviewID = value.PianoReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
 					}
 					this.SendPropertyChanged("PianoReview");
 				}
@@ -4622,6 +5702,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<PianoReviewComment> _PianoReviewComments;
 		
+		private EntitySet<PianoReviewFlag> _PianoReviewFlags;
+		
 		private EntitySet<PianoReviewRevision> _PianoReviewRevisions;
 		
 		private EntityRef<PianoListing> _PianoListing;
@@ -4639,6 +5721,7 @@ namespace FindPianos.Models
 		public PianoReview()
 		{
 			this._PianoReviewComments = new EntitySet<PianoReviewComment>(new Action<PianoReviewComment>(this.attach_PianoReviewComments), new Action<PianoReviewComment>(this.detach_PianoReviewComments));
+			this._PianoReviewFlags = new EntitySet<PianoReviewFlag>(new Action<PianoReviewFlag>(this.attach_PianoReviewFlags), new Action<PianoReviewFlag>(this.detach_PianoReviewFlags));
 			this._PianoReviewRevisions = new EntitySet<PianoReviewRevision>(new Action<PianoReviewRevision>(this.attach_PianoReviewRevisions), new Action<PianoReviewRevision>(this.detach_PianoReviewRevisions));
 			this._PianoListing = default(EntityRef<PianoListing>);
 			OnCreated();
@@ -4698,6 +5781,19 @@ namespace FindPianos.Models
 			set
 			{
 				this._PianoReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PianoReview_PianoReviewFlag", Storage="_PianoReviewFlags", ThisKey="PianoReviewID", OtherKey="ReviewID")]
+		public EntitySet<PianoReviewFlag> PianoReviewFlags
+		{
+			get
+			{
+				return this._PianoReviewFlags;
+			}
+			set
+			{
+				this._PianoReviewFlags.Assign(value);
 			}
 		}
 		
@@ -4780,6 +5876,18 @@ namespace FindPianos.Models
 			entity.PianoReview = null;
 		}
 		
+		private void attach_PianoReviewFlags(PianoReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoReview = this;
+		}
+		
+		private void detach_PianoReviewFlags(PianoReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.PianoReview = null;
+		}
+		
 		private void attach_PianoReviewRevisions(PianoReviewRevision entity)
 		{
 			this.SendPropertyChanging();
@@ -4821,7 +5929,7 @@ namespace FindPianos.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PianoStyleID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PianoStyleID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int PianoStyleID
 		{
 			get
@@ -4904,6 +6012,205 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.PianoStyle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoUserSuspensions")]
+	public partial class PianoUserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SuspensionID;
+		
+		private System.Guid _UserID;
+		
+		private string _Reason;
+		
+		private System.DateTime _SuspensionDate;
+		
+		private System.DateTime _ReinstateDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSuspensionIDChanging(long value);
+    partial void OnSuspensionIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnReasonChanging(string value);
+    partial void OnReasonChanged();
+    partial void OnSuspensionDateChanging(System.DateTime value);
+    partial void OnSuspensionDateChanged();
+    partial void OnReinstateDateChanging(System.DateTime value);
+    partial void OnReinstateDateChanged();
+    #endregion
+		
+		public PianoUserSuspension()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long SuspensionID
+		{
+			get
+			{
+				return this._SuspensionID;
+			}
+			set
+			{
+				if ((this._SuspensionID != value))
+				{
+					this.OnSuspensionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionID = value;
+					this.SendPropertyChanged("SuspensionID");
+					this.OnSuspensionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reason", DbType="NVarChar(MAX)")]
+		public string Reason
+		{
+			get
+			{
+				return this._Reason;
+			}
+			set
+			{
+				if ((this._Reason != value))
+				{
+					this.OnReasonChanging(value);
+					this.SendPropertyChanging();
+					this._Reason = value;
+					this.SendPropertyChanged("Reason");
+					this.OnReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime SuspensionDate
+		{
+			get
+			{
+				return this._SuspensionDate;
+			}
+			set
+			{
+				if ((this._SuspensionDate != value))
+				{
+					this.OnSuspensionDateChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionDate = value;
+					this.SendPropertyChanged("SuspensionDate");
+					this.OnSuspensionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReinstateDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ReinstateDate
+		{
+			get
+			{
+				return this._ReinstateDate;
+			}
+			set
+			{
+				if ((this._ReinstateDate != value))
+				{
+					this.OnReinstateDateChanging(value);
+					this.SendPropertyChanging();
+					this._ReinstateDate = value;
+					this.SendPropertyChanged("ReinstateDate");
+					this.OnReinstateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoUserSuspension", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.PianoUserSuspensions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.PianoUserSuspensions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -5930,7 +7237,7 @@ namespace FindPianos.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletStyleID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletStyleID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int ToiletStyleID
 		{
 			get
@@ -6395,205 +7702,6 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.ToiletVenue = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoUserSuspensions")]
-	public partial class PianoUserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _SuspensionID;
-		
-		private System.Guid _UserID;
-		
-		private string _Reason;
-		
-		private System.DateTime _SuspensionDate;
-		
-		private System.DateTime _ReinstateDate;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSuspensionIDChanging(long value);
-    partial void OnSuspensionIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnReasonChanging(string value);
-    partial void OnReasonChanged();
-    partial void OnSuspensionDateChanging(System.DateTime value);
-    partial void OnSuspensionDateChanged();
-    partial void OnReinstateDateChanging(System.DateTime value);
-    partial void OnReinstateDateChanged();
-    #endregion
-		
-		public PianoUserSuspension()
-		{
-			this._aspnet_User = default(EntityRef<aspnet_User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long SuspensionID
-		{
-			get
-			{
-				return this._SuspensionID;
-			}
-			set
-			{
-				if ((this._SuspensionID != value))
-				{
-					this.OnSuspensionIDChanging(value);
-					this.SendPropertyChanging();
-					this._SuspensionID = value;
-					this.SendPropertyChanged("SuspensionID");
-					this.OnSuspensionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reason", DbType="NVarChar(MAX)")]
-		public string Reason
-		{
-			get
-			{
-				return this._Reason;
-			}
-			set
-			{
-				if ((this._Reason != value))
-				{
-					this.OnReasonChanging(value);
-					this.SendPropertyChanging();
-					this._Reason = value;
-					this.SendPropertyChanged("Reason");
-					this.OnReasonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionDate", DbType="DateTime NOT NULL")]
-		public System.DateTime SuspensionDate
-		{
-			get
-			{
-				return this._SuspensionDate;
-			}
-			set
-			{
-				if ((this._SuspensionDate != value))
-				{
-					this.OnSuspensionDateChanging(value);
-					this.SendPropertyChanging();
-					this._SuspensionDate = value;
-					this.SendPropertyChanged("SuspensionDate");
-					this.OnSuspensionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReinstateDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ReinstateDate
-		{
-			get
-			{
-				return this._ReinstateDate;
-			}
-			set
-			{
-				if ((this._ReinstateDate != value))
-				{
-					this.OnReinstateDateChanging(value);
-					this.SendPropertyChanging();
-					this._ReinstateDate = value;
-					this.SendPropertyChanged("ReinstateDate");
-					this.OnReinstateDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_PianoUserSuspension", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.PianoUserSuspensions.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.PianoUserSuspensions.Add(this);
-						this._UserID = value.UserId;
-					}
-					else
-					{
-						this._UserID = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

@@ -10,6 +10,8 @@ essentially give Post action some URL and then in View, do <% using (Html.BeginF
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
 add /Reviews/{id} and /Reviews/{id}/edit to ListingController
+Recode all code that uses Comments
+implement comments and flags HttpPost AJAX actions
 configure ApplicationId in Web.config
 For all Actions where there's an Id parameter, try/catch, return 404 page
 put outputcache attributes on accountcontroller (my profile page)
