@@ -9,6 +9,7 @@ using RiaLibrary.Web;
 using GeoCoding;
 using GeoCoding.Google;
 using System.Web.Security;
+using FindPianos.Components;
 
 namespace FindPianos.Controllers
 {
@@ -124,6 +125,7 @@ namespace FindPianos.Controllers
         //}
         [Url("Listing/Create")]
         [Authorize]
+        [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
             if (!User.IsInRole("ActiveUser"))
@@ -135,6 +137,7 @@ namespace FindPianos.Controllers
         [Url("Listing/Create")]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
+        [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             //View info:
@@ -219,6 +222,7 @@ namespace FindPianos.Controllers
         }
         [Url("Review/{reviewId}/Edit")]
         [Authorize]
+        [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
         {
             if (!User.IsInRole("ActiveUser"))
@@ -243,6 +247,7 @@ namespace FindPianos.Controllers
         [Url("Review/Edit")]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
+        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             if (!User.IsInRole("ActiveUser"))

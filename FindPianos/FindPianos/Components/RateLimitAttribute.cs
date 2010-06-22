@@ -26,7 +26,7 @@ namespace FindPianos.Components
         public string Name { get; set; }
 
         /// <summary>
-        /// The number of seconds clients must wait before executing this decorated route again.
+        /// The number of seconds clients must wait before executing the decorated route again.
         /// </summary>
         public int Seconds { get; set; }
 
