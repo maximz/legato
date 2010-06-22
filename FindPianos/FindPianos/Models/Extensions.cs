@@ -241,4 +241,13 @@ namespace FindPianos.Models
         public int? pagenumber
         { get; set; }
     }
+
+    public class AjaxFlagContainer
+    {
+        public long idOfPost
+        { get; set; }
+        public int flagTypeId
+        { get; set; }
+
+    }
 }

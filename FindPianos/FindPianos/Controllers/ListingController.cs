@@ -10,6 +10,7 @@ using GeoCoding;
 using GeoCoding.Google;
 using System.Web.Security;
 using FindPianos.Components;
+using System.Net;
 
 namespace FindPianos.Controllers
 {
@@ -21,17 +22,19 @@ namespace FindPianos.Controllers
         {
             return RedirectToAction("List");
         }
-        [Url("Listing/{id}")]
+
+        #region Read Listings and Reviews
+        [Url("Listing/View/{listingId}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
-        public ActionResult Read(long id)
+        public ActionResult Read(long listingId)
         {
             using (var data = new PianoDataContext())
             {
                 try
                 {
-                    var listing = data.PianoListings.Where(l => l.PianoID == id).Single();
+                    var listing = data.PianoListings.Where(l => l.PianoID == listingId).Single();
                     listing.FillProperties();
-                    var reviews = data.PianoReviews.Where(r => r.PianoListingID == id).ToList();
+                    var reviews = data.PianoReviews.Where(r => r.PianoListingID == listingId).ToList();
                     foreach (var r in reviews)
                     {
                         r.FillProperties();
@@ -46,17 +49,18 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("Review/{id}")]
+        
+        [Url("Review/View/{reviewId}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
-        public ActionResult IndividualReview(long id)
+        public ActionResult IndividualReview(long reviewId)
         {
             using (var data = new PianoDataContext())
             {
                 try
                 {
-                    var listing = data.PianoListings.Where(l => l.PianoID == id).Single();
+                    var listing = data.PianoListings.Where(l => l.PianoID == reviewId).Single();
                     listing.FillProperties();
-                    var review = data.PianoReviews.Where(r => r.PianoListingID == id).Single();
+                    var review = data.PianoReviews.Where(r => r.PianoListingID == reviewId).Single();
                     review.FillProperties();
                     ViewData["listing"] = listing;
                     ViewData["review"] = review;
@@ -68,15 +72,18 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("Review/{id}/Timeline")]
+        #endregion
+
+        #region Individual Review timeline- and revision-listing method
+        [Url("Review/Timeline/{reviewId}")]
         [OutputCache(Duration = 7200, VaryByParam = "None")]
-        public ActionResult ReviewTimeline(long id)
+        public ActionResult ReviewTimeline(long reviewId)
         {
             try
             {
                 using (var data = new PianoDataContext())
                 {
-                    var review = data.PianoReviews.Where(r => r.PianoReviewID == id).Single();
+                    var review = data.PianoReviews.Where(r => r.PianoReviewID == reviewId).Single();
                     review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
                     ViewData["review"] = review;
                     return View();
@@ -87,12 +94,15 @@ namespace FindPianos.Controllers
                 return RedirectToAction("NotFound","Error");
             }
         }
+        #endregion
+
+        #region Searching Methods
         [Url("Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
-        [Url("Search/AJAX/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")] //TODO: how to do ? querystring parameters???
+        [Url("Search/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")] //TODO: how to do ? querystring parameters???
         [AcceptVerbs(HttpVerbs.Get)][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
@@ -123,6 +133,10 @@ namespace FindPianos.Controllers
         //    }
         //    return View();
         //}
+
+        #endregion
+
+        #region Submission and Editing methods
         [Url("Listing/Create")]
         [Authorize]
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
@@ -220,7 +234,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("Review/{reviewId}/Edit")]
+        [Url("Review/Edit/{reviewId}")]
         [Authorize]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
@@ -304,7 +318,103 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
+        #endregion
+        #region AJAX: Flag Listings and Reviews
+        [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
+        [Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Url("Listings/Flag")]
+        public ActionResult AjaxFlagListing(AjaxFlagContainer postData)
+        {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    //Check whether the given listing exists before creating a possibly-useless record
+                    if (db.PianoListings.Where(l => l.PianoID == postData.idOfPost).Count() != 1)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+
+                    //If we've gotten this far, everything's probably A-OK.
+                    var flag = new PianoListingFlag();
+                    flag.FlagDate = DateTime.Now;
+                    flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    flag.TypeID = postData.flagTypeId;
+                    flag.ListingID = postData.idOfPost;
+                    db.PianoListingFlags.InsertOnSubmit(flag);
+                    db.SubmitChanges();
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return new EmptyResult();
+                }
+            }
+            catch
+            {
+                /* on jQuery side:
+                  
+                    if error = code 500, we have reached here.
+                 * 
+                    if error = code 409 (conflict), user has failed rate limit check.*/
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new EmptyResult();
+            }
+
+        }
+        [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
+        [Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Url("Reviews/Flag")]
+        public ActionResult AjaxFlagReview(AjaxFlagContainer postData)
+        {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    //Check whether the given listing exists before creating a possibly-useless record
+                    if (db.PianoReviews.Where(l => l.PianoReviewID == postData.idOfPost).Count() != 1)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+
+                    //If we've gotten this far, everything's probably A-OK.
+                    var flag = new PianoReviewFlag();
+                    flag.FlagDate = DateTime.Now;
+                    flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    flag.TypeID = postData.flagTypeId;
+                    flag.ReviewID = postData.idOfPost;
+                    db.PianoReviewFlags.InsertOnSubmit(flag);
+                    db.SubmitChanges();
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return new EmptyResult();
+                }
+            }
+            catch
+            {
+                /* on jQuery side:
+                  
+                    if error = code 500, we have reached here.
+                 * 
+                    if error = code 409 (conflict), user has failed rate limit check.*/
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new EmptyResult();
+            }
+
+        }
+        #endregion
+
+        #region AJAX: Comment on Listings and Reviews
 
 
+        #endregion
     }
 }
