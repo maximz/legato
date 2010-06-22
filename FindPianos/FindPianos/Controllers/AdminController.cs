@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FindPianos.Models;
 using RiaLibrary.Web;
+using FindPianos.Components;
 
 namespace FindPianos.Controllers
 {
@@ -14,7 +15,7 @@ namespace FindPianos.Controllers
         //
         // GET: /Admin/
         [Url("Admin")]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeExceptSuspended(Roles = "Admin")]
         public ActionResult UserSearchByName()
         {
             return View();
@@ -22,7 +23,7 @@ namespace FindPianos.Controllers
 
         [Url("Admin")]
         [AcceptVerbs(HttpVerbs.Post)]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeExceptSuspended(Roles = "Admin")]
         public ActionResult UserSearchByName(string nameContains)
         {
             using (var db = new PianoDataContext())
@@ -34,7 +35,7 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/{id}")]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeExceptSuspended(Roles = "Admin")]
         public ActionResult GetUserById(Guid id)
         {
             using (var db = new PianoDataContext())
@@ -48,13 +49,13 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/{id}/Suspend")]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeExceptSuspended(Roles = "Admin")]
         public ActionResult SuspendUser(Guid id)
         {
             return View();
         }
         [Url("Admin/SuspendUser")]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeExceptSuspended(Roles = "Admin")]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SuspendUser(Guid id, DateTime reinstateDate, string reason)
         {

@@ -138,18 +138,14 @@ namespace FindPianos.Controllers
 
         #region Submission and Editing methods
         [Url("Listing/Create")]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             return View();
         }
         [Url("Listing/Create")]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
@@ -157,10 +153,6 @@ namespace FindPianos.Controllers
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
             //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -235,14 +227,10 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Review/Edit/{reviewId}")]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             using(var db = new PianoDataContext())
             {
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
@@ -259,15 +247,11 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Review/Edit")]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -321,15 +305,11 @@ namespace FindPianos.Controllers
         #endregion
         #region AJAX: Flag Listings and Reviews
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Listing/Flag")]
         public ActionResult AjaxFlagListing(AjaxFlagContainer postData)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -366,15 +346,11 @@ namespace FindPianos.Controllers
 
         }
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Review/Flag")]
         public ActionResult AjaxFlagReview(AjaxFlagContainer postData)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -414,15 +390,11 @@ namespace FindPianos.Controllers
 
         #region AJAX: Comment on Listings and Reviews
         [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Listing/Comment")]
         public ActionResult AjaxCommentListing(AjaxCommentContainer postData)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -460,15 +432,11 @@ namespace FindPianos.Controllers
         }
 
         [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
-        [Authorize]
+        [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Review/Comment")]
         public ActionResult AjaxCommentReview(AjaxCommentContainer postData)
         {
-            if (!User.IsInRole("ActiveUser"))
-            {
-                RedirectToAction("ShowSuspensionStatus", "Account");
-            }
             try
             {
                 using (var db = new PianoDataContext())

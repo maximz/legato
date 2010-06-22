@@ -15,7 +15,7 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            if ((int)RatingOverall == null )
+            if (RatingOverall == null)
                 yield return new RuleViolation("Overall rating is required", "RatingOverall");
 
             yield break;
