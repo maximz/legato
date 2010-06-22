@@ -4,36 +4,58 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FindPianos.Controllers;
+using System.Web.Security;
 
 namespace FindPianos.Components
 {
-    public class AuthorizeExceptSuspendedAttribute : AuthorizeAttribute
+    public class AuthorizeExceptSuspendedAttribute : ActionFilterAttribute
     {
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        public string Roles { get; set; }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.User.Identity.IsAuthenticated)
-            {
-                //Either is suspended or just isn't of the required role
-                if (!filterContext.HttpContext.User.IsInRole("ActiveUser"))
+                if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    //Is suspended
-                    //RedirectToAction("ShowSuspensionStatus", "Account");
-                    filterContext.Result = (RedirectToRouteResult)new AccountController().ShowSuspensionStatus();
-                    //filterContext.Result = new RedirectToRouteResult(); //TODO: route = "Account/Suspended"
+
+                    //use the current url for the redirect
+                    string redirectOnSuccess = filterContext.HttpContext.Request.Url.AbsolutePath;
+
+                    //send them off to the login page
+                    string redirectUrl = string.Format("?ReturnUrl={0}", redirectOnSuccess);
+                    string loginUrl = FormsAuthentication.LoginUrl + redirectUrl;
+                    filterContext.HttpContext.Response.Redirect(loginUrl, true);
+
                 }
                 else
                 {
-                    //Not of the required role.
-                    filterContext.Result = (RedirectToRouteResult)new ErrorController().Forbidden();
-                    //filterContext.Result = new RedirectToRouteResult(); //TODO: route = "403"
+                    if (!filterContext.HttpContext.User.IsInRole("ActiveUser"))
+                    {
+                        //Is suspended
+                        filterContext.Result = (RedirectToRouteResult)new AccountController().ShowSuspensionStatus();
+                    }
+                    bool isAuthorized = false;
+                    if(!string.IsNullOrEmpty(Roles))
+                    {
+                        if(!(Roles.Trim() == ""))
+                        {
+                            var roleSplit = Roles.Split(',');
+                            foreach (var role in roleSplit)
+                            {
+                                if (filterContext.HttpContext.User.IsInRole(role.Trim()))
+                                {
+                                    isAuthorized = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isAuthorized = true;
+                    }
+                    if (!isAuthorized)
+                        filterContext.Result = (RedirectToRouteResult)new ErrorController().Forbidden();
                 }
-                
-            }
-            else
-            {
-                filterContext.Result = new HttpUnauthorizedResult();
-            }
-
         }
     }
 }
