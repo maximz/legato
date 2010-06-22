@@ -9,14 +9,12 @@ essentially give Post action some URL and then in View, do <% using (Html.BeginF
 
 validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
-implement comments and flags HttpPost AJAX actions
 
 Stack Overflow ask: how to do jQuery $.ajax POST and model bind in ASP.NET MVC action into a custom class: ListingController.AjaxFlagPost(); also, how to send two things through $.ajax POST: ListingController.AjaxSubmitReviewComment() (long reviewId, string comment); also, will authenticated user be transmitted?
 http://stackoverflow.com/questions/560575/asp-net-mvc-how-to-pass-json-object-from-view-to-controller-as-parameter and http://stackoverflow.com/questions/267707/how-to-pass-complex-type-using-json-to-asp-net-mvc-controller
 
 where do we use DateTime.UtcNow and where do we use DateTime.Now?
 put outputcache attributes on accountcontroller (my profile page)
-implement comments on reviews; make sure not to allow suspended users to comment. also, ajax for this.
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
