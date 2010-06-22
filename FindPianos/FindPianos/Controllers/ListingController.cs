@@ -165,7 +165,7 @@ namespace FindPianos.Controllers
             {
                 using (var db = new PianoDataContext())
                 {
-                    var time = DateTime.UtcNow;
+                    var time = DateTime.Now;
 
                     //LISTING:
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
@@ -281,7 +281,7 @@ namespace FindPianos.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                    
-                    var time = DateTime.UtcNow;
+                    var time = DateTime.Now;
 
                     //REVISION:
                     r.DateOfRevision = time;
