@@ -26,16 +26,22 @@ namespace FindPianos.Controllers
         {
             using (var data = new PianoDataContext())
             {
-                var listing = data.PianoListings.Where(l => l.PianoID == id).SingleOrDefault();
-                var reviews = data.PianoReviews.Where(r => r.PianoListingID == id).ToList();
-                foreach (var r in reviews)
+                try
                 {
-                    r.Comments = data.PianoReviewComments.Where(c => c.PianoReviewID == r.PianoReviewID).ToList();
-                    r.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == r.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                    var listing = data.PianoListings.Where(l => l.PianoID == id).Single();
+                    listing.FillProperties();
+                    var reviews = data.PianoReviews.Where(r => r.PianoListingID == id).ToList();
+                    foreach (var r in reviews)
+                    {
+                        r.FillProperties();
+                    }
+                    ViewData["listing"] = listing;
+                    ViewData["reviews"] = reviews;
                 }
-                ViewData["listing"] = listing;
-                ViewData["reviews"] = reviews;
-
+                catch
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
                 return View();
             }
         }
@@ -45,15 +51,19 @@ namespace FindPianos.Controllers
         {
             using (var data = new PianoDataContext())
             {
-                var listing = data.PianoListings.Where(l => l.PianoID == id).SingleOrDefault();
-                var review = data.PianoReviews.Where(r => r.PianoReviewID == id).SingleOrDefault();
-                
-                review.Comments = data.PianoReviewComments.Where(c => c.PianoReviewID == review.PianoReviewID).ToList();
-                review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
-                
-                ViewData["listing"] = listing;
-                ViewData["review"] = review;
-
+                try
+                {
+                    var listing = data.PianoListings.Where(l => l.PianoID == id).Single();
+                    listing.FillProperties();
+                    var review = data.PianoReviews.Where(r => r.PianoListingID == id).Single();
+                    review.FillProperties();
+                    ViewData["listing"] = listing;
+                    ViewData["review"] = review;
+                }
+                catch
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
                 return View();
             }
         }
@@ -207,7 +217,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("Listing/Edit/{reviewId}")]
+        [Url("Review/{reviewId}/Edit")]
         [Authorize]
         public ActionResult Edit(long reviewId)
         {
@@ -230,7 +240,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [Url("Listing/Edit")]
+        [Url("Review/Edit")]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)

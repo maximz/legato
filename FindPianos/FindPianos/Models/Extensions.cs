@@ -96,6 +96,11 @@ namespace FindPianos.Models
     }
     public partial class PianoListing
     {
+        public List<PianoListingComment> Comments
+        {
+            get;
+            internal set;
+        }
         /// <summary>
         /// The average overall rating given by the reviews for this PianoListing. This property is filled only when the PianoListing.FillProperties() method is called.
         /// </summary>
@@ -148,6 +153,7 @@ namespace FindPianos.Models
             var reviewCount = 0;
             using (var db = new PianoDataContext())
             {
+                Comments = db.PianoListingComments.Where(c => c.PianoListingID == this.PianoID).OrderBy(c=>c.CommentID).ToList();
                 foreach (var review in db.PianoReviews.Where(rev => rev.PianoListingID == PianoID))
                 {
                     var LatestRevision = db.PianoReviewRevisions.Where(revision => revision.PianoReviewID == review.PianoReviewID).OrderByDescending(revision => revision.RevisionNumberOfReview).Take(1).ToList()[0];
@@ -176,6 +182,15 @@ namespace FindPianos.Models
         {
             get;
             set;
+        }
+
+        public void FillProperties()
+        {
+            using (var data = new PianoDataContext())
+            {
+                this.Comments = data.PianoReviewComments.Where(c => c.PianoReviewID == this.PianoReviewID).ToList();
+                this.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == this.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+            }
         }
 
     }
