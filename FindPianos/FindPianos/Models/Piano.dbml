@@ -169,6 +169,7 @@
       <Column Name="PianoListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="AuthorUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="MessageText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="aspnet_User_PianoListingComment" Member="aspnet_User" ThisKey="AuthorUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
       <Association Name="PianoListing_PianoListingComment" Member="PianoListing" ThisKey="PianoListingID" OtherKey="PianoID" Type="PianoListing" IsForeignKey="true" />
     </Type>
@@ -205,6 +206,7 @@
       <Column Name="PianoReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="AuthorUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="MessageText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="aspnet_User_PianoReviewComment" Member="aspnet_User" ThisKey="AuthorUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
       <Association Name="PianoReview_PianoReviewComment" Member="PianoReview" ThisKey="PianoReviewID" OtherKey="PianoReviewID" Type="PianoReview" IsForeignKey="true" />
     </Type>

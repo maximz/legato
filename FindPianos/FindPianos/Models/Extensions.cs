@@ -250,4 +250,17 @@ namespace FindPianos.Models
         { get; set; }
 
     }
+    public class AjaxCommentContainer
+    {
+        public long idOfPost
+        {
+            get;
+            set;
+        }
+        public string comment
+        {
+            get;
+            set;
+        }
+    }
 }

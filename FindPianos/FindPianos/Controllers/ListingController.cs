@@ -323,7 +323,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        [Url("Listings/Flag")]
+        [Url("Listing/Flag")]
         public ActionResult AjaxFlagListing(AjaxFlagContainer postData)
         {
             if (!User.IsInRole("ActiveUser"))
@@ -368,7 +368,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        [Url("Reviews/Flag")]
+        [Url("Review/Flag")]
         public ActionResult AjaxFlagReview(AjaxFlagContainer postData)
         {
             if (!User.IsInRole("ActiveUser"))
@@ -379,7 +379,7 @@ namespace FindPianos.Controllers
             {
                 using (var db = new PianoDataContext())
                 {
-                    //Check whether the given listing exists before creating a possibly-useless record
+                    //Check whether the given review exists before creating a possibly-useless record
                     if (db.PianoReviews.Where(l => l.PianoReviewID == postData.idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
@@ -413,7 +413,97 @@ namespace FindPianos.Controllers
         #endregion
 
         #region AJAX: Comment on Listings and Reviews
+        [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
+        [Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Url("Listing/Comment")]
+        public ActionResult AjaxCommentListing(AjaxCommentContainer postData)
+        {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    //Check whether the given listing exists before creating a possibly-useless record
+                    if (db.PianoListings.Where(l => l.PianoID == postData.idOfPost).Count() != 1)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
 
+                    //If we've gotten this far, everything's probably A-OK.
+                    var comment = new PianoListingComment();
+                    comment.DateOfSubmission = DateTime.Now;
+                    comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    comment.MessageText = postData.comment;
+                    comment.PianoListingID = postData.idOfPost;
+                    db.PianoListingComments.InsertOnSubmit(comment);
+                    db.SubmitChanges();
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return new EmptyResult();
+                }
+            }
+            catch
+            {
+                /* on jQuery side:
+                  
+                    if error = code 500, we have reached here.
+                 * 
+                    if error = code 409 (conflict), user has failed rate limit check.*/
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new EmptyResult();
+            }
+
+        }
+
+        [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
+        [Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Url("Review/Comment")]
+        public ActionResult AjaxCommentReview(AjaxCommentContainer postData)
+        {
+            if (!User.IsInRole("ActiveUser"))
+            {
+                RedirectToAction("ShowSuspensionStatus", "Account");
+            }
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    //Check whether the given review exists before creating a possibly-useless record
+                    if (db.PianoReviews.Where(l => l.PianoReviewID == postData.idOfPost).Count() != 1)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+
+                    //If we've gotten this far, everything's probably A-OK.
+                    var comment = new PianoReviewComment();
+                    comment.DateOfSubmission = DateTime.Now;
+                    comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    comment.MessageText = postData.comment;
+                    comment.PianoReviewID = postData.idOfPost;
+                    db.PianoReviewComments.InsertOnSubmit(comment);
+                    db.SubmitChanges();
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return new EmptyResult();
+                }
+            }
+            catch
+            {
+                /* on jQuery side:
+                  
+                    if error = code 500, we have reached here.
+                 * 
+                    if error = code 409 (conflict), user has failed rate limit check.*/
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new EmptyResult();
+            }
+
+        }
 
         #endregion
     }
