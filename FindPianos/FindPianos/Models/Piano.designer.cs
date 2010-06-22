@@ -3830,6 +3830,8 @@ namespace FindPianos.Models
 		
 		private string _MessageText;
 		
+		private System.DateTime _DateOfSubmission;
+		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
 		private EntityRef<PianoListing> _PianoListing;
@@ -3846,6 +3848,8 @@ namespace FindPianos.Models
     partial void OnAuthorUserIDChanged();
     partial void OnMessageTextChanging(string value);
     partial void OnMessageTextChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
     #endregion
 		
 		public PianoListingComment()
@@ -3939,6 +3943,26 @@ namespace FindPianos.Models
 					this._MessageText = value;
 					this.SendPropertyChanged("MessageText");
 					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
 				}
 			}
 		}
@@ -4634,6 +4658,8 @@ namespace FindPianos.Models
 		
 		private string _MessageText;
 		
+		private System.DateTime _DateOfSubmission;
+		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
 		private EntityRef<PianoReview> _PianoReview;
@@ -4650,6 +4676,8 @@ namespace FindPianos.Models
     partial void OnAuthorUserIDChanged();
     partial void OnMessageTextChanging(string value);
     partial void OnMessageTextChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
     #endregion
 		
 		public PianoReviewComment()
@@ -4743,6 +4771,26 @@ namespace FindPianos.Models
 					this._MessageText = value;
 					this.SendPropertyChanged("MessageText");
 					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
 				}
 			}
 		}
