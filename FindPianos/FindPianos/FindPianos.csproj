@@ -125,6 +125,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Views\Listing\Edit.aspx" />
+    <Content Include="Views\Listing\IndividualReview.aspx" />
+    <Content Include="Views\Listing\List.aspx" />
+    <Content Include="Views\Listing\Read.aspx" />
+    <Content Include="Views\Listing\ReviewTimeline.aspx" />
+    <Content Include="Views\Listing\Submit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

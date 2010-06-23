@@ -9,6 +9,7 @@ essentially give Post action some URL and then in View, do <% using (Html.BeginF
 
 my profile page - accountcontroller! write!!!
 put outputcache attributes on accountcontroller (my profile page)
+delete Ajax containers and rewrite Actions
 
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
