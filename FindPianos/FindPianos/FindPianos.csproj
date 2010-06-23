@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AccountProfile.cs" />
-    <Compile Include="Components\AuthorizeExceptSuspended.cs" />
+    <Compile Include="Components\AuthorizeExceptSuspendedAttribute.cs" />
     <Compile Include="Components\RateLimitAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />

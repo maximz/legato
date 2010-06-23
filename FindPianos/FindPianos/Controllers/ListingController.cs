@@ -308,14 +308,14 @@ namespace FindPianos.Controllers
         [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Listing/Flag")]
-        public ActionResult AjaxFlagListing(AjaxFlagContainer postData)
+        public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
             try
             {
                 using (var db = new PianoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.PianoListings.Where(l => l.PianoID == postData.idOfPost).Count() != 1)
+                    if (db.PianoListings.Where(l => l.PianoID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
@@ -324,8 +324,8 @@ namespace FindPianos.Controllers
                     var flag = new PianoListingFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    flag.TypeID = postData.flagTypeId;
-                    flag.ListingID = postData.idOfPost;
+                    flag.TypeID = flagTypeId;
+                    flag.ListingID = idOfPost;
                     db.PianoListingFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
@@ -349,14 +349,14 @@ namespace FindPianos.Controllers
         [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Review/Flag")]
-        public ActionResult AjaxFlagReview(AjaxFlagContainer postData)
+        public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
             try
             {
                 using (var db = new PianoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.PianoReviews.Where(l => l.PianoReviewID == postData.idOfPost).Count() != 1)
+                    if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
@@ -365,8 +365,8 @@ namespace FindPianos.Controllers
                     var flag = new PianoReviewFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    flag.TypeID = postData.flagTypeId;
-                    flag.ReviewID = postData.idOfPost;
+                    flag.TypeID = flagTypeId;
+                    flag.ReviewID = idOfPost;
                     db.PianoReviewFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
@@ -393,14 +393,14 @@ namespace FindPianos.Controllers
         [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Listing/Comment")]
-        public ActionResult AjaxCommentListing(AjaxCommentContainer postData)
+        public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
             try
             {
                 using (var db = new PianoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.PianoListings.Where(l => l.PianoID == postData.idOfPost).Count() != 1)
+                    if (db.PianoListings.Where(l => l.PianoID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
@@ -409,8 +409,8 @@ namespace FindPianos.Controllers
                     var comment = new PianoListingComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    comment.MessageText = postData.comment;
-                    comment.PianoListingID = postData.idOfPost;
+                    comment.MessageText = commentText;
+                    comment.PianoListingID = idOfPost;
                     db.PianoListingComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
@@ -435,14 +435,14 @@ namespace FindPianos.Controllers
         [AuthorizeExceptSuspended]
         [AcceptVerbs(HttpVerbs.Post)]
         [Url("Review/Comment")]
-        public ActionResult AjaxCommentReview(AjaxCommentContainer postData)
+        public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {
             try
             {
                 using (var db = new PianoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.PianoReviews.Where(l => l.PianoReviewID == postData.idOfPost).Count() != 1)
+                    if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
@@ -451,8 +451,8 @@ namespace FindPianos.Controllers
                     var comment = new PianoReviewComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    comment.MessageText = postData.comment;
-                    comment.PianoReviewID = postData.idOfPost;
+                    comment.MessageText = commentText;
+                    comment.PianoReviewID = idOfPost;
                     db.PianoReviewComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
