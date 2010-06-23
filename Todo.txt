@@ -7,12 +7,7 @@ XML documentation
 [url] with POST and with ? querystring/URL parameters - http://code.haacked.com/mvc-1.0/RouteTesterDemo.zip and http://stackoverflow.com/questions/3078165/using-the-asp-net-mvc-attribute-based-route-mapper
 essentially give Post action some URL and then in View, do <% using (Html.BeginForm("foo", "home", new { id = "123" })) { %> (foo is the URL you gave it)
 
-validation for create, edit, and for searchform
 my profile page - accountcontroller! write!!!
-
-Stack Overflow ask: how to do jQuery $.ajax POST and model bind in ASP.NET MVC action into a custom class: ListingController.AjaxFlagPost(); also, how to send two things through $.ajax POST: ListingController.AjaxSubmitReviewComment() (long reviewId, string comment); also, will authenticated user be transmitted?
-http://stackoverflow.com/questions/560575/asp-net-mvc-how-to-pass-json-object-from-view-to-controller-as-parameter and http://stackoverflow.com/questions/267707/how-to-pass-complex-type-using-json-to-asp-net-mvc-controller
-
 put outputcache attributes on accountcontroller (my profile page)
 
 write views - mimic stack overflow and socareers html markup
