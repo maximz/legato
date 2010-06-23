@@ -10,6 +10,7 @@ using System.Web.UI;
 using MvcReCaptcha;
 using FindPianos.Models;
 using RiaLibrary.Web;
+using FindPianos.Components;
 
 namespace FindPianos.Controllers
 {
@@ -96,7 +97,7 @@ namespace FindPianos.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
+        [AwesomeAuthorize(UnauthorizedRoles="ActiveUser")]
         [Url("Account/Suspended")]
         public ActionResult ShowSuspensionStatus()
         {

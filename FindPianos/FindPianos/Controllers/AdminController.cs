@@ -10,13 +10,13 @@ using System.Globalization;
 
 namespace FindPianos.Controllers
 {
-    [AuthorizeExceptSuspended(Roles="Admin")]
+    [AwesomeAuthorize(AuthorizedRoles="Admin", AuthorizeSuspended=false)]
     public class AdminController : Controller
     {
         //
         // GET: /Admin/
         [Url("Admin")]
-        [AuthorizeExceptSuspended(Roles = "Admin")]
+        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult UserSearchByName()
         {
             return View("UserSearchByNameGET");
@@ -24,7 +24,7 @@ namespace FindPianos.Controllers
 
         [Url("Admin")]
         [AcceptVerbs(HttpVerbs.Post)]
-        [AuthorizeExceptSuspended(Roles = "Admin")]
+        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult UserSearchByName(string nameContains)
         {
             using (var db = new PianoDataContext())
@@ -36,7 +36,7 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/View/{UserID}")]
-        [AuthorizeExceptSuspended(Roles = "Admin")]
+        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult GetUserById(Guid UserId)
         {
             using (var db = new PianoDataContext())
@@ -50,13 +50,13 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/Suspend/{UserID}")]
-        [AuthorizeExceptSuspended(Roles = "Admin")]
+        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult SuspendUser(Guid UserID)
         {
             return View();
         }
         [Url("Admin/Users/Suspend")]
-        [AuthorizeExceptSuspended(Roles = "Admin")]
+        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SuspendUser(Guid UserID, DateTime reinstateDate, string reason)
         {
