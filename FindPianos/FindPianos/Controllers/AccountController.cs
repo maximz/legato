@@ -135,7 +135,7 @@ namespace FindPianos.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-                Roles.AddUserToRole(userName, "ActiveUser"); //TODO: is this the place to put this? I think so!
+                Roles.AddUserToRole(userName, "ActiveUser");
                 AccountProfile.NewUser.Initialize(userName, true);
                 AccountProfile.NewUser.ProfilePictureURL = null;
                 AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
