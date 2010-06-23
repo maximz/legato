@@ -9,7 +9,7 @@ using FindPianos.Components;
 
 namespace FindPianos.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [AuthorizeExceptSuspended(Roles="Admin")]
     public class AdminController : Controller
     {
         //
