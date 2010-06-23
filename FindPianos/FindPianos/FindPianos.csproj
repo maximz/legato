@@ -125,6 +125,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Views\Error\Forbidden.aspx" />
+    <Content Include="Views\Error\NotFound.aspx" />
     <Content Include="Views\Listing\Edit.aspx" />
     <Content Include="Views\Listing\IndividualReview.aspx" />
     <Content Include="Views\Listing\List.aspx" />
@@ -152,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\Piano.dbml">
