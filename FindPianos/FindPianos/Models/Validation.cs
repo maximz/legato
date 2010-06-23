@@ -6,6 +6,36 @@ using System.Data.Linq;
 
 namespace FindPianos.Models
 {
+    public partial class PianoReviewComment
+    {
+        public bool IsValid
+        {
+            get { return (GetRuleViolations().Count() == 0); }
+        }
+
+        public IEnumerable<RuleViolation> GetRuleViolations()
+        {
+            if (!string.IsNullOrEmpty(this.MessageText))
+            {
+                if (this.MessageText.Trim() == "")
+                {
+                    yield return new RuleViolation("No text entered for this comment.", "Message");
+                }
+            }
+            else
+                yield return new RuleViolation("No text entered for this comment.", "Message");
+
+                yield break;
+            
+        }
+
+        partial void OnValidate(ChangeAction action)
+        {
+            if (!IsValid)
+                throw new ApplicationException("Rule violations prevent saving.");
+
+        }
+    }
     public partial class PianoReviewRevision
     {
         public bool IsValid
