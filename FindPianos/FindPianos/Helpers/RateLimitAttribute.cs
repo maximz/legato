@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Caching;
 using System.Net;
 
-namespace FindPianos.Components
+namespace FindPianos.Helpers
 {
     /// <summary>
     /// Decorates any MVC route that needs to have client requests limited by time.

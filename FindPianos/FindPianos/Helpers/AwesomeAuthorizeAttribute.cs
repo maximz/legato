@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using FindPianos.Controllers;
 using System.Web.Security;
 
-namespace FindPianos.Components
+namespace FindPianos.Helpers
 {
     public class AwesomeAuthorizeAttribute : ActionFilterAttribute
     {
