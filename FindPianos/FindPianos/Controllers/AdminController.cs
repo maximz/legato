@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FindPianos.Models;
 using RiaLibrary.Web;
-using FindPianos.Components;
+using FindPianos.Helpers;
 using System.Globalization;
 
 namespace FindPianos.Controllers
@@ -15,7 +15,7 @@ namespace FindPianos.Controllers
     {
         //
         // GET: /Admin/
-        [Url("Admin")]
+        [Url("Admin")][HttpGet]
         [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult UserSearchByName()
         {
@@ -23,7 +23,7 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin")]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult UserSearchByName(string nameContains)
         {
@@ -49,7 +49,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Url("Admin/Users/Suspend/{UserID}")]
+        [Url("Admin/Users/Suspend/{UserID}")][HttpGet]
         [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
         public ActionResult SuspendUser(Guid UserID)
         {
@@ -57,7 +57,7 @@ namespace FindPianos.Controllers
         }
         [Url("Admin/Users/Suspend")]
         [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult SuspendUser(Guid UserID, DateTime reinstateDate, string reason)
         {
             var sus = new PianoUserSuspension();

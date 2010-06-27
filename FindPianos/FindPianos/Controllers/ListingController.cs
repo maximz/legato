@@ -9,7 +9,7 @@ using RiaLibrary.Web;
 using GeoCoding;
 using GeoCoding.Google;
 using System.Web.Security;
-using FindPianos.Components;
+using FindPianos.Helpers;
 using System.Net;
 
 namespace FindPianos.Controllers
@@ -103,7 +103,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Search/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")]
-        [AcceptVerbs(HttpVerbs.Get)][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new PianoDataContext())
@@ -138,6 +138,7 @@ namespace FindPianos.Controllers
 
         #region Submission and Editing methods
         [Url("Listing/Create")]
+        [HttpGet]
         [AwesomeAuthorize(AuthorizeSuspended=false)]
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
@@ -146,7 +147,7 @@ namespace FindPianos.Controllers
         }
         [Url("Listing/Create")]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
@@ -227,6 +228,7 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Review/Edit/{reviewId}")]
+        [HttpGet]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
@@ -248,7 +250,7 @@ namespace FindPianos.Controllers
         }
         [Url("Review/Edit")]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
@@ -306,7 +308,7 @@ namespace FindPianos.Controllers
         #region AJAX: Flag Listings and Reviews
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Url("Listing/Flag")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
@@ -347,7 +349,7 @@ namespace FindPianos.Controllers
         }
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Url("Review/Flag")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
@@ -391,7 +393,7 @@ namespace FindPianos.Controllers
         #region AJAX: Comment on Listings and Reviews
         [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Url("Listing/Comment")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
@@ -433,7 +435,7 @@ namespace FindPianos.Controllers
 
         [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
         [AwesomeAuthorize(AuthorizeSuspended = false)]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [Url("Review/Comment")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {

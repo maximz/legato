@@ -82,9 +82,13 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\AccountProfile.cs" />
-    <Compile Include="Components\AwesomeAuthorizeAttribute.cs" />
-    <Compile Include="Components\RateLimitAttribute.cs" />
+    <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\AwesomeAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\Inflector.cs" />
+    <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="Helpers\RateLimitAttribute.cs" />
+    <Compile Include="Helpers\RedirectPermanentResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\APIController.cs" />
@@ -112,9 +116,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\GeoCoding.dll" />
-    <Content Include="Components\MvcReCaptcha.dll" />
-    <Content Include="Components\RiaLibrary.Web.dll" />
+    <Content Include="Helpers\GeoCoding.dll" />
+    <Content Include="Helpers\MvcReCaptcha.dll" />
+    <Content Include="Helpers\RiaLibrary.Web.dll" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />

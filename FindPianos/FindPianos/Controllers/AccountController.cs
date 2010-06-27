@@ -10,7 +10,7 @@ using System.Web.UI;
 using MvcReCaptcha;
 using FindPianos.Models;
 using RiaLibrary.Web;
-using FindPianos.Components;
+using FindPianos.Helpers;
 
 namespace FindPianos.Controllers
 {
@@ -47,14 +47,14 @@ namespace FindPianos.Controllers
             get;
             private set;
         }
-
+        [HttpGet]
         public ActionResult LogOn()
         {
 
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]
         public ActionResult LogOn(string userName, string password, bool rememberMe, string returnUrl)
@@ -111,7 +111,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
+        [HttpGet]
         public ActionResult Register()
         {
 
@@ -120,7 +120,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)][CaptchaValidator]
+        [HttpPost][CaptchaValidator]
         public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
         {
 
@@ -156,7 +156,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize][HttpGet]
         public ActionResult ChangePassword()
         {
 
@@ -166,7 +166,7 @@ namespace FindPianos.Controllers
         }
 
         [Authorize]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in password not being changed.")]
         public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)

@@ -7,6 +7,9 @@ XML documentation
 my profile page - accountcontroller! write!!!
 put outputcache attributes on accountcontroller (my profile page)
 
+html.begincollectionitem
+rework validation
+
 write views - mimic stack overflow and socareers html markup
 copy stack overflow and socareers css and then change
 
