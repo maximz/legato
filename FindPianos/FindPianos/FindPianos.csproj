@@ -46,6 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\MvcReCaptcha.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RiaLibrary.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Components\RiaLibrary.Web.dll</HintPath>
@@ -118,6 +119,7 @@
   <ItemGroup>
     <Content Include="Helpers\GeoCoding.dll" />
     <Content Include="Helpers\MvcReCaptcha.dll" />
+    <Content Include="Helpers\Recaptcha.dll" />
     <Content Include="Helpers\RiaLibrary.Web.dll" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />

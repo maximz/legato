@@ -7,6 +7,8 @@ XML documentation
 my profile page - accountcontroller! write!!!
 put outputcache attributes on accountcontroller (my profile page)
 
+implement css: h2 .centerPageHeading - gray, centered - sorta like main heading on careers, but not as colorful and not as big
+42.97, -75.30 = center of map
 html.begincollectionitem
 rework validation
 

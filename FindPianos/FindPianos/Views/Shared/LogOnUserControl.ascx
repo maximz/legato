@@ -3,12 +3,13 @@
     if (Request.IsAuthenticated) {
 %>
         Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b>!
-        [ <%= Html.ActionLink("Log Off", "LogOff", "Account") %> ]
+        [ <%= Html.ActionLink("Logout", "LogOff", "Account") %> ]
 <%
     }
     else {
 %> 
-        [ <%= Html.ActionLink("Log On", "LogOn", "Account") %> ]
+        [ <%= Html.ActionLink("Login", "LogOn", "Account") %> ]
+        [ <%= Html.ActionLink("Register", "Register", "Account") %> ]
 <%
     }
 %>

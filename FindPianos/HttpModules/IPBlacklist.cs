@@ -62,17 +62,24 @@ namespace HttpModules
         public static StringDictionary GetBlockedIPs(string configPath)
         {
             StringDictionary retval = new StringDictionary();
-            using(StreamReader sr = new StreamReader(configPath))
+            try
             {
-                string line;
-                while((line = sr.ReadLine()) != null)
+                using (StreamReader sr = new StreamReader(configPath))
                 {
-                    line = line.Trim();
-                    if(line.Length!=0)
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        retval.Add(line, null);
+                        line = line.Trim();
+                        if (line.Length != 0)
+                        {
+                            retval.Add(line, null);
+                        }
                     }
                 }
+            }
+            catch
+            {
+                //Usually this will be a file not found exception - swallow!
             }
             return retval;
         }
