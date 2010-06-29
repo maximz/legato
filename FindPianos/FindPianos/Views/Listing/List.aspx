@@ -49,14 +49,22 @@ function ProcessAjaxData() // TODO: implement - http://code.google.com/apis/maps
 			position: myLatlng,
 			map: map,
 			title: "Address"
-});
-var marker2 = new google.maps.Marker({
-	position: new google.maps.LatLng(42.97, -75.30),
-	map: map,
-	title: 'Address',
-	clickable: true,
-	icon: 'http://google-maps-icons.googlecode.com/files/music-classical.png'
-});
+
+});
+
+var marker2 = new google.maps.Marker({
+
+	position: new google.maps.LatLng(42.97, -75.30),
+
+	map: map,
+
+	title: 'Address',
+
+	clickable: true,
+
+	icon: 'http://google-maps-icons.googlecode.com/files/music-classical.png'
+
+});
 	  }
 	</script>
 </asp:Content>

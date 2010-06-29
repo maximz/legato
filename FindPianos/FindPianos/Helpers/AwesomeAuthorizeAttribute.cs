@@ -10,22 +10,51 @@ namespace FindPianos.Helpers
 {
     public class AwesomeAuthorizeAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether suspended users are authorized.
+        /// </summary>
+        /// <value><c>true</c> if suspended users are authorized; otherwise, <c>false</c>.</value>
+        /// <remarks>Default value: <c>false</c></remarks>
         public bool AuthorizeSuspended
         {
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether users who have not confirmed their email addresses are authorized.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if users who have not confirmed their email addresses are authorized; otherwise, <c>false</c>.
+        /// </value>
+        /// <remarks>Default value: <c>false</c></remarks>
+        public bool AuthorizeEmailNotConfirmed
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Gets or sets the authorized roles.
+        /// </summary>
+        /// <value>The authorized roles.</value>
         public string AuthorizedRoles
         {
             get;
             set; 
         }
+        /// <summary>
+        /// Gets or sets the unauthorized roles.
+        /// </summary>
+        /// <value>The unauthorized roles.</value>
         public string UnauthorizedRoles
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Called by the MVC framework before the action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
                 if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
@@ -42,14 +71,17 @@ namespace FindPianos.Helpers
                 }
                 else //User is authenticated
                 {
-                    if (AuthorizeSuspended != null)
+                    if (!AuthorizeSuspended && !filterContext.HttpContext.User.IsInRole("ActiveUser"))
                     {
-                        if (!AuthorizeSuspended && !filterContext.HttpContext.User.IsInRole("ActiveUser"))
-                        {
-                            //Is suspended
-                            filterContext.Result = (RedirectToRouteResult)new AccountController().ShowSuspensionStatus();
-                            return;
-                        }
+                        //Is suspended
+                        filterContext.Result = (RedirectToRouteResult)new AccountController().ShowSuspensionStatus();
+                        return;
+                    }
+                    if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole("EmailNotConfirmed"))
+                    {
+                        //Email hasn't been confirmed
+                        filterContext.Result = (RedirectToRouteResult)new AccountController().ShowEmailAddressVerificationStatus();
+                        return;
                     }
                     //Unauthorized roles
                     bool isUnAuthorized = false;

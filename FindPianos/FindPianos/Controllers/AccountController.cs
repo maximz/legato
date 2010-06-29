@@ -11,6 +11,8 @@ using MvcReCaptcha;
 using FindPianos.Models;
 using RiaLibrary.Web;
 using FindPianos.Helpers;
+using System.Text;
+using System.Web.Mail;
 
 namespace FindPianos.Controllers
 {
@@ -98,7 +100,7 @@ namespace FindPianos.Controllers
         }
 
         [AwesomeAuthorize(UnauthorizedRoles="ActiveUser")]
-        [Url("Account/Suspended")]
+        [Url("Account/Status/Suspended")]
         public ActionResult ShowSuspensionStatus()
         {
             using (var db = new PianoDataContext())
@@ -109,6 +111,78 @@ namespace FindPianos.Controllers
                     return View();
                 }
                 return RedirectToAction("Index", "Home");
+            }
+        }
+        [AwesomeAuthorize(AuthorizeSuspended=false)]
+        [Url("Account/Status/NotVerified")]
+        public ActionResult ShowEmailAddressVerificationStatus()
+        {
+            if(!User.IsInRole("EmailNotConfirmed"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View("TimeToValidateYourEmailAddress");
+        }
+        [AwesomeAuthorize(AuthorizeSuspended=false)]
+        [Url("Account/VerifyEmail/Resend")]
+        public ActionResult ResendVerificationEmail()
+        {
+            if(!User.IsInRole("EmailNotConfirmed"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            using(var db = new PianoDataContext())
+            {
+                var user = Membership.GetUser();
+                ConfirmEmailAddress confirm;
+                try
+                {
+                    confirm = db.ConfirmEmailAddresses.Where(a => a.UserID == (Guid)user.ProviderUserKey).Single();
+                    
+                }
+                catch
+                {
+                    Roles.RemoveUserFromRole(User.Identity.Name, "EmailNotConfirmed");
+                    return RedirectToAction("Index", "Home");
+                }
+                try
+                {
+                    SendVerificationEmail(user.Email, confirm.ConfirmID);
+                }
+                catch
+                {
+                    return RedirectToAction("InternalServerError", "Error");
+                }
+                return View("TimeToValidateYourEmailAddress");
+            }
+        }
+        [AwesomeAuthorize(AuthorizedRoles="EmailNotConfirmed", AuthorizeSuspended=false)]
+        [Url("Account/Verify/{confirmId}")]
+        public ActionResult VerifyEmailAddress(Guid confirmId)
+        {
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var confirm = db.ConfirmEmailAddresses.Where(a => a.ConfirmID == confirmId).SingleOrDefault();
+                    if (confirm == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    if ((Guid)Membership.GetUser().ProviderUserKey != confirm.UserID)
+                    {
+                        //wrong user
+                        return RedirectToAction("Forbidden", "Error");
+                    }
+                    db.ConfirmEmailAddresses.DeleteOnSubmit(confirm);
+                    db.SubmitChanges();
+                    Roles.RemoveUserFromRole(User.Identity.Name, "EmailNotConfirmed");
+                    return View("VerifyEmailAddressSuccess");
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
             }
         }
         [HttpGet]
@@ -136,19 +210,38 @@ namespace FindPianos.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-                Roles.AddUserToRole(userName, "ActiveUser");
+                Roles.AddUserToRoles(userName, new string[]{"ActiveUser","EmailNotConfirmed"});
                 AccountProfile.NewUser.Initialize(userName, true);
                 AccountProfile.NewUser.ProfilePictureURL = null;
                 AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
                 AccountProfile.NewUser.Save();
+                using(var db = new PianoDataContext())
+                {
+                    try
+                    {
+                        var confirm = new ConfirmEmailAddress();
+                        confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
+                        db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
+                        db.SubmitChanges();
+                        SendVerificationEmail(email, confirm.ConfirmID);
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                        return View();
+                    }
+                }
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuth.SignIn(userName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+                    ViewData["email"] = email;
+                    return View("TimeToValidateYourEmailAddress");
                 }
                 else
                 {
                     ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                    return View();
                 }
             }
 
@@ -202,6 +295,44 @@ namespace FindPianos.Controllers
         {
 
             return View();
+        }
+
+
+        internal void SendVerificationEmail(string emailAddress, Guid id)
+        {
+            const string subject = "Legato Network - verify your email address";
+            const string fromName = "Legato Network";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hello!");
+            sb.Append(Environment.NewLine);
+            sb.Append("Thank you for registering at Legato Network. To complete the sign up process, please verify your email address by clicking the link below.");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("Click this link to verify: ");
+            sb.Append("http://legatonetwork.com/Account/Verify/");
+            sb.Append(id.ToString());
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
+            sb.Append(Environment.NewLine);
+            sb.Append("- Legato Network :)");
+
+            string body = sb.ToString();
+
+            var emailmessage = new System.Web.Mail.MailMessage()
+                                   {
+                                       Subject = subject,
+                                       Body = body,
+                                       From = "\"Legato Network\" <noreply@legatonetwork.com>",
+                                       To = emailAddress,
+                                       BodyFormat = MailFormat.Text,
+                                       Priority = MailPriority.Normal
+                                   };
+
+            SmtpMail.SmtpServer = "relay-hosting.secureserver.net";
+            SmtpMail.Send(emailmessage);
+
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -389,6 +520,7 @@ namespace FindPianos.Controllers
             MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
             return currentUser.ChangePassword(oldPassword, newPassword);
         }
+
 
 
     }

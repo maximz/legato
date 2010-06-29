@@ -26,5 +26,12 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        [Url("500")]
+        public ActionResult InternalServerError()
+        {
+            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return View();
+        }
+
     }
 }

@@ -135,6 +135,8 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
+    <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
+    <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
     <Content Include="Views\Admin\GetUserById.aspx" />
     <Content Include="Views\Admin\SuspendUser.aspx" />
     <Content Include="Views\Admin\UserSearchByNameGET.aspx" />

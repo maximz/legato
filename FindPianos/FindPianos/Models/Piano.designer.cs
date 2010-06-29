@@ -66,6 +66,9 @@ namespace FindPianos.Models
     partial void Insertaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
     partial void Updateaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
     partial void Deleteaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
+    partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void InsertPianoFlagType(PianoFlagType instance);
     partial void UpdatePianoFlagType(PianoFlagType instance);
     partial void DeletePianoFlagType(PianoFlagType instance);
@@ -239,6 +242,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<aspnet_WebEvent_Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ConfirmEmailAddress> ConfirmEmailAddresses
+		{
+			get
+			{
+				return this.GetTable<ConfirmEmailAddress>();
 			}
 		}
 		
@@ -807,6 +818,8 @@ namespace FindPianos.Models
 		
 		private string _Comment;
 		
+		private EntitySet<ConfirmEmailAddress> _ConfirmEmailAddresses;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
 		private EntityRef<aspnet_User> _aspnet_User;
@@ -861,6 +874,7 @@ namespace FindPianos.Models
 		
 		public aspnet_Membership()
 		{
+			this._ConfirmEmailAddresses = new EntitySet<ConfirmEmailAddress>(new Action<ConfirmEmailAddress>(this.attach_ConfirmEmailAddresses), new Action<ConfirmEmailAddress>(this.detach_ConfirmEmailAddresses));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -1294,6 +1308,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ConfirmEmailAddress", Storage="_ConfirmEmailAddresses", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<ConfirmEmailAddress> ConfirmEmailAddresses
+		{
+			get
+			{
+				return this._ConfirmEmailAddresses;
+			}
+			set
+			{
+				this._ConfirmEmailAddresses.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_Membership", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -1380,6 +1407,18 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ConfirmEmailAddresses(ConfirmEmailAddress entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = this;
+		}
+		
+		private void detach_ConfirmEmailAddresses(ConfirmEmailAddress entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = null;
 		}
 	}
 	
@@ -3674,6 +3713,133 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ConfirmEmailAddresses")]
+	public partial class ConfirmEmailAddress : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _ConfirmID;
+		
+		private System.Guid _UserID;
+		
+		private EntityRef<aspnet_Membership> _aspnet_Membership;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnConfirmIDChanging(System.Guid value);
+    partial void OnConfirmIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    #endregion
+		
+		public ConfirmEmailAddress()
+		{
+			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ConfirmID
+		{
+			get
+			{
+				return this._ConfirmID;
+			}
+			set
+			{
+				if ((this._ConfirmID != value))
+				{
+					this.OnConfirmIDChanging(value);
+					this.SendPropertyChanging();
+					this._ConfirmID = value;
+					this.SendPropertyChanged("ConfirmID");
+					this.OnConfirmIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_Membership.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ConfirmEmailAddress", Storage="_aspnet_Membership", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_Membership aspnet_Membership
+		{
+			get
+			{
+				return this._aspnet_Membership.Entity;
+			}
+			set
+			{
+				aspnet_Membership previousValue = this._aspnet_Membership.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_Membership.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_Membership.Entity = null;
+						previousValue.ConfirmEmailAddresses.Remove(this);
+					}
+					this._aspnet_Membership.Entity = value;
+					if ((value != null))
+					{
+						value.ConfirmEmailAddresses.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_Membership");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PianoFlagTypes")]
 	public partial class PianoFlagType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4450,7 +4616,7 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
 		public string StreetAddress
 		{
 			get
@@ -6274,9 +6440,9 @@ namespace FindPianos.Models
 		
 		private int _DayOfWeek;
 		
-		private System.DateTime _StartTime;
+		private System.Nullable<System.DateTime> _StartTime;
 		
-		private System.DateTime _EndTime;
+		private System.Nullable<System.DateTime> _EndTime;
 		
 		private EntityRef<PianoReviewRevision> _PianoReviewRevision;
 		
@@ -6292,9 +6458,9 @@ namespace FindPianos.Models
     partial void OnReviewRevisionIDChanged();
     partial void OnDayOfWeekChanging(int value);
     partial void OnDayOfWeekChanged();
-    partial void OnStartTimeChanging(System.DateTime value);
+    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.DateTime value);
+    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnEndTimeChanged();
     #endregion
 		
@@ -6373,8 +6539,8 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime NOT NULL")]
-		public System.DateTime StartTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartTime
 		{
 			get
 			{
@@ -6393,8 +6559,8 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime NOT NULL")]
-		public System.DateTime EndTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndTime
 		{
 			get
 			{
