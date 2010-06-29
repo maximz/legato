@@ -4,13 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | PianoSeek</title>
-    <link href="../../static/Site/css" rel="stylesheet" type="text/css" />
-    <link rel="Shortcut Icon" href="../../static/favicon/png" />
-    <link rel="apple-touch-icon" href="../../static/apple-touch-icon/png" />
+    <link href="../../Content/Site/css" rel="stylesheet" type="text/css" />
+    <link rel="Shortcut Icon" href="../../Content/favicon/png" />
+    <link rel="apple-touch-icon" href="../../Content/apple-touch-icon/png" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
-            document.write(unescape("%3Cscript src='../../scripts/jQuery/1.4.1' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='../../Scripts/jQuery/1.4.1' type='text/javascript'%3E%3C/script%3E"));
         }
     </script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server"/>
