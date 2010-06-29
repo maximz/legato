@@ -16,7 +16,7 @@
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server"/>
 </head>
 
-<asp:ContentPlaceHolder ID="BodyOpeningTag" runat="server" />
+<body>
     <div class="page">
 
         <div id="header">
