@@ -102,7 +102,7 @@ namespace FindPianos.Controllers
         {
             return View();
         }
-        [Url("Search/EnumerateBox/{lat1}/{long1}/{lat2}/{long2}")]
+        [Url("Search/EnumerateBox")]
         [HttpPost][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
