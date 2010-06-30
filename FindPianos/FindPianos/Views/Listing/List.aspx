@@ -72,7 +72,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 	<h2 class="centerPageHeading">find a piano</h2>
-	<div id="map_canvas" style="width: 400px; height: 400px">
+	<div id="map_canvas" style="width: 800px; height: 800px">
 	</div>
 
 </asp:Content>

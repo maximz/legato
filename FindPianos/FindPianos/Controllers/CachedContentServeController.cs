@@ -12,7 +12,6 @@ namespace FindPianos.Controllers
     /// Caches content.
     /// </summary>
     [HandleError]
-    [OutputCache(Duration = 7200, VaryByParam = "None")] //two hours
     public class CachedContentServeController : Controller
     {
         /// <summary>
@@ -21,6 +20,7 @@ namespace FindPianos.Controllers
         /// <param name="id">The file name (without .png).</param>
         /// <returns></returns>
         [Url("Content/{id}/png")]
+        [OutputCache(Duration = 7200, VaryByParam = "id")] //two hours
         public ActionResult PngImage(string id)
         {
             return File(MakeContentPath("Content",id,"png"), "image/png");
@@ -31,6 +31,7 @@ namespace FindPianos.Controllers
         /// <param name="id">The file name (without .css).</param>
         /// <returns></returns>
         [Url("Content/{id}/css")]
+        [OutputCache(Duration = 7200, VaryByParam = "id")] //two hours
         public ActionResult StyleSheet(string id)
         {
             return File(MakeContentPath("Content",id, "css"), "text/css");

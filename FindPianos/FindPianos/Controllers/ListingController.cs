@@ -25,7 +25,7 @@ namespace FindPianos.Controllers
 
         #region Read Listings and Reviews
         [Url("Listing/View/{listingId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        [OutputCache(Duration = 7200, VaryByParam = "listingId")]
         public ActionResult Read(long listingId)
         {
             using (var data = new PianoDataContext())
@@ -51,7 +51,7 @@ namespace FindPianos.Controllers
         }
         
         [Url("Review/View/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult IndividualReview(long reviewId)
         {
             using (var data = new PianoDataContext())
@@ -76,7 +76,7 @@ namespace FindPianos.Controllers
 
         #region Individual Review timeline- and revision-listing method
         [Url("Review/Timeline/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult ReviewTimeline(long reviewId)
         {
             try
@@ -103,7 +103,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Search/EnumerateBox")]
-        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new PianoDataContext())

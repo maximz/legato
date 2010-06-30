@@ -8,24 +8,23 @@ using FindPianos.Models;
 namespace FindPianos.Controllers
 {
     [HandleError]
-    [OutputCache(Duration = 7200, VaryByParam = "None")]
+    [OutputCache(Duration = 7200, VaryByParam = "*")]
     public class APIController : Controller
     {
+        [OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
-
-            return View();
+            return Content("NotImplemented");
         }
-
+        [OutputCache(Duration = 7200, VaryByParam = "*")][HttpPost]
         public ActionResult GetListings(BoundingBox bounds, DateTime? startDateSubmission, DateTime? endDateSubmission, int? stars, int? pagenumber)
         {
-            return View();
+            return Content("NotImplemented");
         }
-
+        [OutputCache(Duration = 7200, VaryByParam = "*")][HttpPost]
         public ActionResult GetUsers(string nameContains, DateTime? startRegistration, DateTime? endRegistration, DateTime? startLastPost, DateTime? endLastPost, int? pagenumber)
         {
-            return View();
+            return Content("NotImplemented");
         }
     }
 }
