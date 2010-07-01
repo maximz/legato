@@ -5,8 +5,8 @@
 </asp:Content>
 
 <asp:Content ID="aboutContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2 class="centerPageHeading">welcome to [PianoFind LOGO]</h2>
+    <h2 class="centerPageHeading">welcome to the [LEGATO NETWORK LOGO]</h2>
     <p>
-        Put content here.
+        Put about content here.
     </p>
 </asp:Content>

@@ -40,14 +40,24 @@ namespace FindPianos.Controllers
         /// Returns a version of jQuery.min.js.
         /// </summary>
         /// <param name="jqueryVersion">The requested version of jQuery.</param>
-        /// <returns></returns>
+        /// <returns>The file.</returns>
         [OutputCache(Duration=4838400, VaryByParam="jqueryVersion")] //8 weeks
         [Url("Scripts/jQuery/{jqueryVersion}")]
         public ActionResult jQuery(string jqueryVersion)
         {
             return File(MakeContentPath("Scripts","jquery-"+jqueryVersion+".min", "js"), "text/javascript");
         }
-
+        /// <summary>
+        /// Gets a JavaScript script by name; cached for 8 weeks.
+        /// </summary>
+        /// <param name="name">The name of the file, without its extension.</param>
+        /// <returns>The file.</returns>
+        [OutputCache(Duration = 4838400, VaryByParam = "*")] //8 weeks
+        [Url("Scripts/js/{name}")]
+        public ActionResult getSomeJavascript(string name)
+        {
+            return File(MakeContentPath("Scripts", name, "js"), "text/javascript");
+        }
 
         /// <summary>
         /// Creates a path to a Content file (for public ContentServeController methods)
