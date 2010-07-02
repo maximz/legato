@@ -276,7 +276,7 @@ namespace FindPianos.Controllers
             {
                 if (MembershipService.ChangePassword(User.Identity.Name, currentPassword, newPassword))
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    return View("ChangePasswordSuccess");
                 }
                 else
                 {
@@ -291,12 +291,40 @@ namespace FindPianos.Controllers
             }
         }
 
-        public ActionResult ChangePasswordSuccess()
+        [Authorize]
+        [HttpGet]
+        public ActionResult ChangeEmail()
         {
-
+            ViewData["current"] = Membership.GetUser().Email;
             return View();
         }
 
+        [Authorize]
+        [HttpPost]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Exceptions result in email not being changed.")]
+        public ActionResult ChangeEmail(string NewEmail, string ConfirmEmail)
+        {
+
+            if (!ValidateChangeEmail(NewEmail, ConfirmEmail))
+            {
+                return View();
+            }
+
+            try
+            {
+                var u = Membership.GetUser();
+                u.Email = NewEmail;
+                Membership.UpdateUser(u);
+                ViewData["new"] = NewEmail;
+                return View("ChangeEmailSuccess");
+            }
+            catch
+            {
+                ModelState.AddModelError("_FORM", "There was an error changing your email address. Please try again.");
+                return View();
+            }
+        }
 
         internal void SendVerificationEmail(string emailAddress, Guid id)
         {
@@ -324,7 +352,7 @@ namespace FindPianos.Controllers
                                    {
                                        Subject = subject,
                                        Body = body,
-                                       From = "\"Legato Network\" <noreply@legatonetwork.com>",
+                                       From = "\""+fromName+"\" <no-reply@legatonetwork.com>",
                                        To = emailAddress,
                                        BodyFormat = MailFormat.Text,
                                        Priority = MailPriority.Normal
@@ -345,6 +373,52 @@ namespace FindPianos.Controllers
 
         #region Validation Methods
 
+        private bool ValidateChangeEmail(string newEmail, string confirmEmail)
+        {
+            if (String.IsNullOrEmpty(newEmail))
+            {
+                ModelState.AddModelError("NewEmail", "You must specify a new email address.");
+            }
+            else
+            {
+                try
+                {
+                    var a = new System.Net.Mail.MailAddress(newEmail);
+                    a = null;
+
+                    //check whether email is already taken
+                    if(!string.IsNullOrEmpty(Membership.GetUserNameByEmail(newEmail))
+                    {
+                        ModelState.AddModelError("NewEmail", "A user already exists with this email address.");
+                    }
+                }
+                catch
+                {
+                    ModelState.AddModelError("NewEmail", "You must specify a valid email address.");
+                }
+            }
+            if (String.IsNullOrEmpty(confirmEmail))
+            {
+                ModelState.AddModelError("ConfirmEmail", "You must enter the new email address a second time.");
+            }
+            else
+            {
+                try
+                {
+                    var a = new System.Net.Mail.MailAddress(confirmEmail);
+                    a = null;
+                }
+                catch
+                {
+                    ModelState.AddModelError("ConfirmEmail", "You must specify a valid email address.");
+                }
+            }
+            if (!String.Equals(newEmail, confirmEmail, StringComparison.Ordinal))
+            {
+                ModelState.AddModelError("_FORM", "The new email and confirmation email do not match.");
+            }
+            return ModelState.IsValid;
+        }
         private bool ValidateChangePassword(string currentPassword, string newPassword, string confirmPassword)
         {
             if (String.IsNullOrEmpty(currentPassword))
@@ -394,6 +468,17 @@ namespace FindPianos.Controllers
             if (String.IsNullOrEmpty(email))
             {
                 ModelState.AddModelError("email", "You must specify an email address.");
+            }
+            try
+            {
+                //validate email
+                var a = new System.Net.Mail.MailAddress(email);
+                a = null;
+            }
+            catch
+            {
+                //if an exception occurred, the email is invalid
+                ModelState.AddModelError("email", "You must specify a valid email address.");
             }
             if (password == null || password.Length < MembershipService.MinPasswordLength)
             {

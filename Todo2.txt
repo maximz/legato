@@ -1,0 +1,8 @@
+todo:
+
+change awesomeauthorizeattribute to have a bool that doesn't allow AUTHENTICATED users, only allows non-logged in users.
+apply this to Account/Login and Account/Register.
+
+Views: ForgotPassword, ForgotUsername
+forgot password? reset password?
+forgot username? getusernamebyemail

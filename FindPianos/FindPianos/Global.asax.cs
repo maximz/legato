@@ -24,8 +24,11 @@ namespace FindPianos
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-            routes.MapRoute("Catch All", "{*path}",
-        new { controller = "Error", action = "NotFound" });
+            routes.MapRoute(
+                "Catch All",
+                "{*path}",
+                new { controller = "Error", action = "NotFound" }
+            );
 
         }
 
