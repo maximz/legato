@@ -19,13 +19,13 @@
             <p>
                 <label for="NewEmail">
                     New email:</label>
-                <%= Html.Password("NewEmail") %>
+                <%= Html.TextBox("NewEmail") %>
                 <%= Html.ValidationMessage("NewEmail") %>
             </p>
             <p>
                 <label for="ConfirmEmail">
                     Confirm new email:</label>
-                <%= Html.Password("ConfirmEmail") %>
+                <%= Html.TextBox("ConfirmEmail") %>
                 <%= Html.ValidationMessage("ConfirmEmail") %>
             </p>
             <p>

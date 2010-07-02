@@ -17,7 +17,6 @@
       <Column Name="WeekDayID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="WeekDayName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="WeekDay_PianoVenueHour" Member="PianoVenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="PianoVenueHour" />
-      <Association Name="WeekDay_ToiletVenueHour" Member="ToiletVenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="ToiletVenueHour" />
     </Type>
   </Table>
   <Table Name="dbo.aspnet_Membership" Member="aspnet_Memberships">
@@ -44,6 +43,7 @@
       <Column Name="FailedPasswordAnswerAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="ConfirmEmailAddresses" ThisKey="UserId" OtherKey="UserID" Type="ConfirmEmailAddress" />
+      <Association Name="aspnet_Membership_ResetPasswordRecord" Member="ResetPasswordRecords" ThisKey="UserId" OtherKey="UserID" Type="ResetPasswordRecord" />
       <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
@@ -293,64 +293,11 @@
       <Association Name="WeekDay_PianoVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ToiletListings" Member="ToiletListings">
-    <Type Name="ToiletListing">
-      <Column Name="ToiletID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OriginalSubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="ToiletListing_ToiletReview" Member="ToiletReviews" ThisKey="ToiletID" OtherKey="ToiletListingID" Type="ToiletReview" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ToiletReviews" Member="ToiletReviews">
-    <Type Name="ToiletReview">
-      <Column Name="ToiletReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ToiletListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="ToiletStyleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UrinalCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StallCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SinkCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BabyChangingStationCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RatingCleanliness" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RatingAvailability" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TypicalWait" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="SubmitterUserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfLastUsageOfToiletBySubmitter" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="ToiletListing_ToiletReview" Member="ToiletListing" ThisKey="ToiletListingID" OtherKey="ToiletID" Type="ToiletListing" IsForeignKey="true" />
-      <Association Name="ToiletStyle_ToiletReview" Member="ToiletStyle" ThisKey="ToiletStyleID" OtherKey="ToiletStyleID" Type="ToiletStyle" IsForeignKey="true" />
-      <Association Name="ToiletVenue_ToiletReview" Member="ToiletVenue" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenue" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ToiletStyles" Member="ToiletStyles">
-    <Type Name="ToiletStyle">
-      <Column Name="ToiletStyleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="ToiletStyle_ToiletReview" Member="ToiletReviews" ThisKey="ToiletStyleID" OtherKey="ToiletStyleID" Type="ToiletReview" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ToiletVenueHours" Member="ToiletVenueHours">
-    <Type Name="ToiletVenueHour">
-      <Column Name="VenueHoursID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="DayOfWeek" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="WeekDay_ToiletVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
-      <Association Name="ToiletVenue_ToiletVenueHour" Member="ToiletVenue" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenue" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ToiletVenues" Member="ToiletVenues">
-    <Type Name="ToiletVenue">
-      <Column Name="VenueID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="VenueName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="ToiletVenue_ToiletReview" Member="ToiletReviews" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletReview" />
-      <Association Name="ToiletVenue_ToiletVenueHour" Member="ToiletVenueHours" ThisKey="VenueID" OtherKey="VenueID" Type="ToiletVenueHour" />
+  <Table Name="dbo.ResetPasswordRecords" Member="ResetPasswordRecords">
+    <Type Name="ResetPasswordRecord">
+      <Column Name="ResetID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Membership_ResetPasswordRecord" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

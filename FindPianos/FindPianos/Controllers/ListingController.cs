@@ -139,14 +139,14 @@ namespace FindPianos.Controllers
         #region Submission and Editing methods
         [Url("Listing/Create")]
         [HttpGet]
-        [AwesomeAuthorize(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
             return View();
         }
         [Url("Listing/Create")]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
         public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
@@ -229,7 +229,7 @@ namespace FindPianos.Controllers
         }
         [Url("Review/Edit/{reviewId}")]
         [HttpGet]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
         {
@@ -249,7 +249,7 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Review/Edit")]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
         public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
@@ -307,7 +307,7 @@ namespace FindPianos.Controllers
         #endregion
         #region AJAX: Flag Listings and Reviews
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Listing/Flag")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
@@ -348,7 +348,7 @@ namespace FindPianos.Controllers
 
         }
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Review/Flag")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
@@ -392,7 +392,7 @@ namespace FindPianos.Controllers
 
         #region AJAX: Comment on Listings and Reviews
         [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Listing/Comment")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
@@ -434,7 +434,7 @@ namespace FindPianos.Controllers
         }
 
         [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
-        [AwesomeAuthorize(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Review/Comment")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)

@@ -102,21 +102,9 @@ namespace FindPianos.Models
     partial void InsertPianoVenueHour(PianoVenueHour instance);
     partial void UpdatePianoVenueHour(PianoVenueHour instance);
     partial void DeletePianoVenueHour(PianoVenueHour instance);
-    partial void InsertToiletListing(ToiletListing instance);
-    partial void UpdateToiletListing(ToiletListing instance);
-    partial void DeleteToiletListing(ToiletListing instance);
-    partial void InsertToiletReview(ToiletReview instance);
-    partial void UpdateToiletReview(ToiletReview instance);
-    partial void DeleteToiletReview(ToiletReview instance);
-    partial void InsertToiletStyle(ToiletStyle instance);
-    partial void UpdateToiletStyle(ToiletStyle instance);
-    partial void DeleteToiletStyle(ToiletStyle instance);
-    partial void InsertToiletVenueHour(ToiletVenueHour instance);
-    partial void UpdateToiletVenueHour(ToiletVenueHour instance);
-    partial void DeleteToiletVenueHour(ToiletVenueHour instance);
-    partial void InsertToiletVenue(ToiletVenue instance);
-    partial void UpdateToiletVenue(ToiletVenue instance);
-    partial void DeleteToiletVenue(ToiletVenue instance);
+    partial void InsertResetPasswordRecord(ResetPasswordRecord instance);
+    partial void UpdateResetPasswordRecord(ResetPasswordRecord instance);
+    partial void DeleteResetPasswordRecord(ResetPasswordRecord instance);
     #endregion
 		
 		public PianoDataContext() : 
@@ -341,43 +329,11 @@ namespace FindPianos.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ToiletListing> ToiletListings
+		public System.Data.Linq.Table<ResetPasswordRecord> ResetPasswordRecords
 		{
 			get
 			{
-				return this.GetTable<ToiletListing>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ToiletReview> ToiletReviews
-		{
-			get
-			{
-				return this.GetTable<ToiletReview>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ToiletStyle> ToiletStyles
-		{
-			get
-			{
-				return this.GetTable<ToiletStyle>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ToiletVenueHour> ToiletVenueHours
-		{
-			get
-			{
-				return this.GetTable<ToiletVenueHour>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ToiletVenue> ToiletVenues
-		{
-			get
-			{
-				return this.GetTable<ToiletVenue>();
+				return this.GetTable<ResetPasswordRecord>();
 			}
 		}
 	}
@@ -640,8 +596,6 @@ namespace FindPianos.Models
 		
 		private EntitySet<PianoVenueHour> _PianoVenueHours;
 		
-		private EntitySet<ToiletVenueHour> _ToiletVenueHours;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -655,7 +609,6 @@ namespace FindPianos.Models
 		public WeekDay()
 		{
 			this._PianoVenueHours = new EntitySet<PianoVenueHour>(new Action<PianoVenueHour>(this.attach_PianoVenueHours), new Action<PianoVenueHour>(this.detach_PianoVenueHours));
-			this._ToiletVenueHours = new EntitySet<ToiletVenueHour>(new Action<ToiletVenueHour>(this.attach_ToiletVenueHours), new Action<ToiletVenueHour>(this.detach_ToiletVenueHours));
 			OnCreated();
 		}
 		
@@ -712,19 +665,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_ToiletVenueHour", Storage="_ToiletVenueHours", ThisKey="WeekDayID", OtherKey="DayOfWeek")]
-		public EntitySet<ToiletVenueHour> ToiletVenueHours
-		{
-			get
-			{
-				return this._ToiletVenueHours;
-			}
-			set
-			{
-				this._ToiletVenueHours.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -752,18 +692,6 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_PianoVenueHours(PianoVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.WeekDay = null;
-		}
-		
-		private void attach_ToiletVenueHours(ToiletVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.WeekDay = this;
-		}
-		
-		private void detach_ToiletVenueHours(ToiletVenueHour entity)
 		{
 			this.SendPropertyChanging();
 			entity.WeekDay = null;
@@ -820,6 +748,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<ConfirmEmailAddress> _ConfirmEmailAddresses;
 		
+		private EntitySet<ResetPasswordRecord> _ResetPasswordRecords;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
 		private EntityRef<aspnet_User> _aspnet_User;
@@ -875,6 +805,7 @@ namespace FindPianos.Models
 		public aspnet_Membership()
 		{
 			this._ConfirmEmailAddresses = new EntitySet<ConfirmEmailAddress>(new Action<ConfirmEmailAddress>(this.attach_ConfirmEmailAddresses), new Action<ConfirmEmailAddress>(this.detach_ConfirmEmailAddresses));
+			this._ResetPasswordRecords = new EntitySet<ResetPasswordRecord>(new Action<ResetPasswordRecord>(this.attach_ResetPasswordRecords), new Action<ResetPasswordRecord>(this.detach_ResetPasswordRecords));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -1321,6 +1252,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ResetPasswordRecord", Storage="_ResetPasswordRecords", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<ResetPasswordRecord> ResetPasswordRecords
+		{
+			get
+			{
+				return this._ResetPasswordRecords;
+			}
+			set
+			{
+				this._ResetPasswordRecords.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_Membership", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -1416,6 +1360,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_ConfirmEmailAddresses(ConfirmEmailAddress entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = null;
+		}
+		
+		private void attach_ResetPasswordRecords(ResetPasswordRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = this;
+		}
+		
+		private void detach_ResetPasswordRecords(ResetPasswordRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_Membership = null;
@@ -6668,736 +6624,108 @@ namespace FindPianos.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ToiletListings")]
-	public partial class ToiletListing : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResetPasswordRecords")]
+	public partial class ResetPasswordRecord : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private long _ToiletID;
+		private System.Guid _ResetID;
 		
-		private decimal _Lat;
+		private System.Guid _UserID;
 		
-		private decimal _Long;
-		
-		private string _StreetAddress;
-		
-		private long _OriginalSubmitterUserID;
-		
-		private System.DateTime _DateOfSubmission;
-		
-		private EntitySet<ToiletReview> _ToiletReviews;
+		private EntityRef<aspnet_Membership> _aspnet_Membership;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnToiletIDChanging(long value);
-    partial void OnToiletIDChanged();
-    partial void OnLatChanging(decimal value);
-    partial void OnLatChanged();
-    partial void OnLongChanging(decimal value);
-    partial void OnLongChanged();
-    partial void OnStreetAddressChanging(string value);
-    partial void OnStreetAddressChanged();
-    partial void OnOriginalSubmitterUserIDChanging(long value);
-    partial void OnOriginalSubmitterUserIDChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
+    partial void OnResetIDChanging(System.Guid value);
+    partial void OnResetIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
     #endregion
 		
-		public ToiletListing()
+		public ResetPasswordRecord()
 		{
-			this._ToiletReviews = new EntitySet<ToiletReview>(new Action<ToiletReview>(this.attach_ToiletReviews), new Action<ToiletReview>(this.detach_ToiletReviews));
+			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long ToiletID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResetID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ResetID
 		{
 			get
 			{
-				return this._ToiletID;
+				return this._ResetID;
 			}
 			set
 			{
-				if ((this._ToiletID != value))
+				if ((this._ResetID != value))
 				{
-					this.OnToiletIDChanging(value);
+					this.OnResetIDChanging(value);
 					this.SendPropertyChanging();
-					this._ToiletID = value;
-					this.SendPropertyChanged("ToiletID");
-					this.OnToiletIDChanged();
+					this._ResetID = value;
+					this.SendPropertyChanged("ResetID");
+					this.OnResetIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Lat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
 		{
 			get
 			{
-				return this._Lat;
+				return this._UserID;
 			}
 			set
 			{
-				if ((this._Lat != value))
+				if ((this._UserID != value))
 				{
-					this.OnLatChanging(value);
-					this.SendPropertyChanging();
-					this._Lat = value;
-					this.SendPropertyChanged("Lat");
-					this.OnLatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Long
-		{
-			get
-			{
-				return this._Long;
-			}
-			set
-			{
-				if ((this._Long != value))
-				{
-					this.OnLongChanging(value);
-					this.SendPropertyChanging();
-					this._Long = value;
-					this.SendPropertyChanged("Long");
-					this.OnLongChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX)")]
-		public string StreetAddress
-		{
-			get
-			{
-				return this._StreetAddress;
-			}
-			set
-			{
-				if ((this._StreetAddress != value))
-				{
-					this.OnStreetAddressChanging(value);
-					this.SendPropertyChanging();
-					this._StreetAddress = value;
-					this.SendPropertyChanged("StreetAddress");
-					this.OnStreetAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSubmitterUserID", DbType="BigInt NOT NULL")]
-		public long OriginalSubmitterUserID
-		{
-			get
-			{
-				return this._OriginalSubmitterUserID;
-			}
-			set
-			{
-				if ((this._OriginalSubmitterUserID != value))
-				{
-					this.OnOriginalSubmitterUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._OriginalSubmitterUserID = value;
-					this.SendPropertyChanged("OriginalSubmitterUserID");
-					this.OnOriginalSubmitterUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfSubmission
-		{
-			get
-			{
-				return this._DateOfSubmission;
-			}
-			set
-			{
-				if ((this._DateOfSubmission != value))
-				{
-					this.OnDateOfSubmissionChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfSubmission = value;
-					this.SendPropertyChanged("DateOfSubmission");
-					this.OnDateOfSubmissionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletListing_ToiletReview", Storage="_ToiletReviews", ThisKey="ToiletID", OtherKey="ToiletListingID")]
-		public EntitySet<ToiletReview> ToiletReviews
-		{
-			get
-			{
-				return this._ToiletReviews;
-			}
-			set
-			{
-				this._ToiletReviews.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletListing = this;
-		}
-		
-		private void detach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletListing = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ToiletReviews")]
-	public partial class ToiletReview : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _ToiletReviewID;
-		
-		private long _ToiletListingID;
-		
-		private int _ToiletStyleID;
-		
-		private System.Nullable<int> _UrinalCount;
-		
-		private System.Nullable<int> _StallCount;
-		
-		private System.Nullable<int> _SinkCount;
-		
-		private System.Nullable<int> _BabyChangingStationCount;
-		
-		private int _RatingOverall;
-		
-		private System.Nullable<int> _RatingCleanliness;
-		
-		private System.Nullable<int> _RatingAvailability;
-		
-		private System.Nullable<double> _TypicalWait;
-		
-		private string _Message;
-		
-		private long _VenueID;
-		
-		private System.DateTime _DateOfSubmission;
-		
-		private long _SubmitterUserID;
-		
-		private System.DateTime _DateOfLastUsageOfToiletBySubmitter;
-		
-		private EntityRef<ToiletListing> _ToiletListing;
-		
-		private EntityRef<ToiletStyle> _ToiletStyle;
-		
-		private EntityRef<ToiletVenue> _ToiletVenue;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnToiletReviewIDChanging(long value);
-    partial void OnToiletReviewIDChanged();
-    partial void OnToiletListingIDChanging(long value);
-    partial void OnToiletListingIDChanged();
-    partial void OnToiletStyleIDChanging(int value);
-    partial void OnToiletStyleIDChanged();
-    partial void OnUrinalCountChanging(System.Nullable<int> value);
-    partial void OnUrinalCountChanged();
-    partial void OnStallCountChanging(System.Nullable<int> value);
-    partial void OnStallCountChanged();
-    partial void OnSinkCountChanging(System.Nullable<int> value);
-    partial void OnSinkCountChanged();
-    partial void OnBabyChangingStationCountChanging(System.Nullable<int> value);
-    partial void OnBabyChangingStationCountChanged();
-    partial void OnRatingOverallChanging(int value);
-    partial void OnRatingOverallChanged();
-    partial void OnRatingCleanlinessChanging(System.Nullable<int> value);
-    partial void OnRatingCleanlinessChanged();
-    partial void OnRatingAvailabilityChanging(System.Nullable<int> value);
-    partial void OnRatingAvailabilityChanged();
-    partial void OnTypicalWaitChanging(System.Nullable<double> value);
-    partial void OnTypicalWaitChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    partial void OnSubmitterUserIDChanging(long value);
-    partial void OnSubmitterUserIDChanged();
-    partial void OnDateOfLastUsageOfToiletBySubmitterChanging(System.DateTime value);
-    partial void OnDateOfLastUsageOfToiletBySubmitterChanged();
-    #endregion
-		
-		public ToiletReview()
-		{
-			this._ToiletListing = default(EntityRef<ToiletListing>);
-			this._ToiletStyle = default(EntityRef<ToiletStyle>);
-			this._ToiletVenue = default(EntityRef<ToiletVenue>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletReviewID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long ToiletReviewID
-		{
-			get
-			{
-				return this._ToiletReviewID;
-			}
-			set
-			{
-				if ((this._ToiletReviewID != value))
-				{
-					this.OnToiletReviewIDChanging(value);
-					this.SendPropertyChanging();
-					this._ToiletReviewID = value;
-					this.SendPropertyChanged("ToiletReviewID");
-					this.OnToiletReviewIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletListingID", DbType="BigInt NOT NULL")]
-		public long ToiletListingID
-		{
-			get
-			{
-				return this._ToiletListingID;
-			}
-			set
-			{
-				if ((this._ToiletListingID != value))
-				{
-					if (this._ToiletListing.HasLoadedOrAssignedValue)
+					if (this._aspnet_Membership.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnToiletListingIDChanging(value);
+					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
-					this._ToiletListingID = value;
-					this.SendPropertyChanged("ToiletListingID");
-					this.OnToiletListingIDChanged();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletStyleID", DbType="Int NOT NULL")]
-		public int ToiletStyleID
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ResetPasswordRecord", Storage="_aspnet_Membership", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_Membership aspnet_Membership
 		{
 			get
 			{
-				return this._ToiletStyleID;
+				return this._aspnet_Membership.Entity;
 			}
 			set
 			{
-				if ((this._ToiletStyleID != value))
-				{
-					if (this._ToiletStyle.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnToiletStyleIDChanging(value);
-					this.SendPropertyChanging();
-					this._ToiletStyleID = value;
-					this.SendPropertyChanged("ToiletStyleID");
-					this.OnToiletStyleIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UrinalCount", DbType="Int")]
-		public System.Nullable<int> UrinalCount
-		{
-			get
-			{
-				return this._UrinalCount;
-			}
-			set
-			{
-				if ((this._UrinalCount != value))
-				{
-					this.OnUrinalCountChanging(value);
-					this.SendPropertyChanging();
-					this._UrinalCount = value;
-					this.SendPropertyChanged("UrinalCount");
-					this.OnUrinalCountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StallCount", DbType="Int")]
-		public System.Nullable<int> StallCount
-		{
-			get
-			{
-				return this._StallCount;
-			}
-			set
-			{
-				if ((this._StallCount != value))
-				{
-					this.OnStallCountChanging(value);
-					this.SendPropertyChanging();
-					this._StallCount = value;
-					this.SendPropertyChanged("StallCount");
-					this.OnStallCountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SinkCount", DbType="Int")]
-		public System.Nullable<int> SinkCount
-		{
-			get
-			{
-				return this._SinkCount;
-			}
-			set
-			{
-				if ((this._SinkCount != value))
-				{
-					this.OnSinkCountChanging(value);
-					this.SendPropertyChanging();
-					this._SinkCount = value;
-					this.SendPropertyChanged("SinkCount");
-					this.OnSinkCountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BabyChangingStationCount", DbType="Int")]
-		public System.Nullable<int> BabyChangingStationCount
-		{
-			get
-			{
-				return this._BabyChangingStationCount;
-			}
-			set
-			{
-				if ((this._BabyChangingStationCount != value))
-				{
-					this.OnBabyChangingStationCountChanging(value);
-					this.SendPropertyChanging();
-					this._BabyChangingStationCount = value;
-					this.SendPropertyChanged("BabyChangingStationCount");
-					this.OnBabyChangingStationCountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingOverall", DbType="Int NOT NULL")]
-		public int RatingOverall
-		{
-			get
-			{
-				return this._RatingOverall;
-			}
-			set
-			{
-				if ((this._RatingOverall != value))
-				{
-					this.OnRatingOverallChanging(value);
-					this.SendPropertyChanging();
-					this._RatingOverall = value;
-					this.SendPropertyChanged("RatingOverall");
-					this.OnRatingOverallChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingCleanliness", DbType="Int")]
-		public System.Nullable<int> RatingCleanliness
-		{
-			get
-			{
-				return this._RatingCleanliness;
-			}
-			set
-			{
-				if ((this._RatingCleanliness != value))
-				{
-					this.OnRatingCleanlinessChanging(value);
-					this.SendPropertyChanging();
-					this._RatingCleanliness = value;
-					this.SendPropertyChanged("RatingCleanliness");
-					this.OnRatingCleanlinessChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingAvailability", DbType="Int")]
-		public System.Nullable<int> RatingAvailability
-		{
-			get
-			{
-				return this._RatingAvailability;
-			}
-			set
-			{
-				if ((this._RatingAvailability != value))
-				{
-					this.OnRatingAvailabilityChanging(value);
-					this.SendPropertyChanging();
-					this._RatingAvailability = value;
-					this.SendPropertyChanged("RatingAvailability");
-					this.OnRatingAvailabilityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypicalWait", DbType="Float")]
-		public System.Nullable<double> TypicalWait
-		{
-			get
-			{
-				return this._TypicalWait;
-			}
-			set
-			{
-				if ((this._TypicalWait != value))
-				{
-					this.OnTypicalWaitChanging(value);
-					this.SendPropertyChanging();
-					this._TypicalWait = value;
-					this.SendPropertyChanged("TypicalWait");
-					this.OnTypicalWaitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
-		public string Message
-		{
-			get
-			{
-				return this._Message;
-			}
-			set
-			{
-				if ((this._Message != value))
-				{
-					this.OnMessageChanging(value);
-					this.SendPropertyChanging();
-					this._Message = value;
-					this.SendPropertyChanged("Message");
-					this.OnMessageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", DbType="BigInt NOT NULL")]
-		public long VenueID
-		{
-			get
-			{
-				return this._VenueID;
-			}
-			set
-			{
-				if ((this._VenueID != value))
-				{
-					if (this._ToiletVenue.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnVenueIDChanging(value);
-					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfSubmission
-		{
-			get
-			{
-				return this._DateOfSubmission;
-			}
-			set
-			{
-				if ((this._DateOfSubmission != value))
-				{
-					this.OnDateOfSubmissionChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfSubmission = value;
-					this.SendPropertyChanged("DateOfSubmission");
-					this.OnDateOfSubmissionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmitterUserID", DbType="BigInt NOT NULL")]
-		public long SubmitterUserID
-		{
-			get
-			{
-				return this._SubmitterUserID;
-			}
-			set
-			{
-				if ((this._SubmitterUserID != value))
-				{
-					this.OnSubmitterUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._SubmitterUserID = value;
-					this.SendPropertyChanged("SubmitterUserID");
-					this.OnSubmitterUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastUsageOfToiletBySubmitter", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfLastUsageOfToiletBySubmitter
-		{
-			get
-			{
-				return this._DateOfLastUsageOfToiletBySubmitter;
-			}
-			set
-			{
-				if ((this._DateOfLastUsageOfToiletBySubmitter != value))
-				{
-					this.OnDateOfLastUsageOfToiletBySubmitterChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfLastUsageOfToiletBySubmitter = value;
-					this.SendPropertyChanged("DateOfLastUsageOfToiletBySubmitter");
-					this.OnDateOfLastUsageOfToiletBySubmitterChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletListing_ToiletReview", Storage="_ToiletListing", ThisKey="ToiletListingID", OtherKey="ToiletID", IsForeignKey=true)]
-		public ToiletListing ToiletListing
-		{
-			get
-			{
-				return this._ToiletListing.Entity;
-			}
-			set
-			{
-				ToiletListing previousValue = this._ToiletListing.Entity;
+				aspnet_Membership previousValue = this._aspnet_Membership.Entity;
 				if (((previousValue != value) 
-							|| (this._ToiletListing.HasLoadedOrAssignedValue == false)))
+							|| (this._aspnet_Membership.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._ToiletListing.Entity = null;
-						previousValue.ToiletReviews.Remove(this);
+						this._aspnet_Membership.Entity = null;
+						previousValue.ResetPasswordRecords.Remove(this);
 					}
-					this._ToiletListing.Entity = value;
+					this._aspnet_Membership.Entity = value;
 					if ((value != null))
 					{
-						value.ToiletReviews.Add(this);
-						this._ToiletListingID = value.ToiletID;
+						value.ResetPasswordRecords.Add(this);
+						this._UserID = value.UserId;
 					}
 					else
 					{
-						this._ToiletListingID = default(long);
+						this._UserID = default(System.Guid);
 					}
-					this.SendPropertyChanged("ToiletListing");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletStyle_ToiletReview", Storage="_ToiletStyle", ThisKey="ToiletStyleID", OtherKey="ToiletStyleID", IsForeignKey=true)]
-		public ToiletStyle ToiletStyle
-		{
-			get
-			{
-				return this._ToiletStyle.Entity;
-			}
-			set
-			{
-				ToiletStyle previousValue = this._ToiletStyle.Entity;
-				if (((previousValue != value) 
-							|| (this._ToiletStyle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ToiletStyle.Entity = null;
-						previousValue.ToiletReviews.Remove(this);
-					}
-					this._ToiletStyle.Entity = value;
-					if ((value != null))
-					{
-						value.ToiletReviews.Add(this);
-						this._ToiletStyleID = value.ToiletStyleID;
-					}
-					else
-					{
-						this._ToiletStyleID = default(int);
-					}
-					this.SendPropertyChanged("ToiletStyle");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletVenue_ToiletReview", Storage="_ToiletVenue", ThisKey="VenueID", OtherKey="VenueID", IsForeignKey=true)]
-		public ToiletVenue ToiletVenue
-		{
-			get
-			{
-				return this._ToiletVenue.Entity;
-			}
-			set
-			{
-				ToiletVenue previousValue = this._ToiletVenue.Entity;
-				if (((previousValue != value) 
-							|| (this._ToiletVenue.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ToiletVenue.Entity = null;
-						previousValue.ToiletReviews.Remove(this);
-					}
-					this._ToiletVenue.Entity = value;
-					if ((value != null))
-					{
-						value.ToiletReviews.Add(this);
-						this._VenueID = value.VenueID;
-					}
-					else
-					{
-						this._VenueID = default(long);
-					}
-					this.SendPropertyChanged("ToiletVenue");
+					this.SendPropertyChanged("aspnet_Membership");
 				}
 			}
 		}
@@ -7420,502 +6748,6 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ToiletStyles")]
-	public partial class ToiletStyle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ToiletStyleID;
-		
-		private string _Name;
-		
-		private EntitySet<ToiletReview> _ToiletReviews;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnToiletStyleIDChanging(int value);
-    partial void OnToiletStyleIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public ToiletStyle()
-		{
-			this._ToiletReviews = new EntitySet<ToiletReview>(new Action<ToiletReview>(this.attach_ToiletReviews), new Action<ToiletReview>(this.detach_ToiletReviews));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToiletStyleID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ToiletStyleID
-		{
-			get
-			{
-				return this._ToiletStyleID;
-			}
-			set
-			{
-				if ((this._ToiletStyleID != value))
-				{
-					this.OnToiletStyleIDChanging(value);
-					this.SendPropertyChanging();
-					this._ToiletStyleID = value;
-					this.SendPropertyChanged("ToiletStyleID");
-					this.OnToiletStyleIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletStyle_ToiletReview", Storage="_ToiletReviews", ThisKey="ToiletStyleID", OtherKey="ToiletStyleID")]
-		public EntitySet<ToiletReview> ToiletReviews
-		{
-			get
-			{
-				return this._ToiletReviews;
-			}
-			set
-			{
-				this._ToiletReviews.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletStyle = this;
-		}
-		
-		private void detach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletStyle = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ToiletVenueHours")]
-	public partial class ToiletVenueHour : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _VenueHoursID;
-		
-		private long _VenueID;
-		
-		private int _DayOfWeek;
-		
-		private System.DateTime _StartTime;
-		
-		private System.DateTime _EndTime;
-		
-		private EntityRef<WeekDay> _WeekDay;
-		
-		private EntityRef<ToiletVenue> _ToiletVenue;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnVenueHoursIDChanging(long value);
-    partial void OnVenueHoursIDChanged();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
-    partial void OnDayOfWeekChanging(int value);
-    partial void OnDayOfWeekChanged();
-    partial void OnStartTimeChanging(System.DateTime value);
-    partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.DateTime value);
-    partial void OnEndTimeChanged();
-    #endregion
-		
-		public ToiletVenueHour()
-		{
-			this._WeekDay = default(EntityRef<WeekDay>);
-			this._ToiletVenue = default(EntityRef<ToiletVenue>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueHoursID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long VenueHoursID
-		{
-			get
-			{
-				return this._VenueHoursID;
-			}
-			set
-			{
-				if ((this._VenueHoursID != value))
-				{
-					this.OnVenueHoursIDChanging(value);
-					this.SendPropertyChanging();
-					this._VenueHoursID = value;
-					this.SendPropertyChanged("VenueHoursID");
-					this.OnVenueHoursIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", DbType="BigInt NOT NULL")]
-		public long VenueID
-		{
-			get
-			{
-				return this._VenueID;
-			}
-			set
-			{
-				if ((this._VenueID != value))
-				{
-					if (this._ToiletVenue.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnVenueIDChanging(value);
-					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayOfWeek", DbType="Int NOT NULL")]
-		public int DayOfWeek
-		{
-			get
-			{
-				return this._DayOfWeek;
-			}
-			set
-			{
-				if ((this._DayOfWeek != value))
-				{
-					if (this._WeekDay.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDayOfWeekChanging(value);
-					this.SendPropertyChanging();
-					this._DayOfWeek = value;
-					this.SendPropertyChanged("DayOfWeek");
-					this.OnDayOfWeekChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime NOT NULL")]
-		public System.DateTime StartTime
-		{
-			get
-			{
-				return this._StartTime;
-			}
-			set
-			{
-				if ((this._StartTime != value))
-				{
-					this.OnStartTimeChanging(value);
-					this.SendPropertyChanging();
-					this._StartTime = value;
-					this.SendPropertyChanged("StartTime");
-					this.OnStartTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime NOT NULL")]
-		public System.DateTime EndTime
-		{
-			get
-			{
-				return this._EndTime;
-			}
-			set
-			{
-				if ((this._EndTime != value))
-				{
-					this.OnEndTimeChanging(value);
-					this.SendPropertyChanging();
-					this._EndTime = value;
-					this.SendPropertyChanged("EndTime");
-					this.OnEndTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_ToiletVenueHour", Storage="_WeekDay", ThisKey="DayOfWeek", OtherKey="WeekDayID", IsForeignKey=true)]
-		public WeekDay WeekDay
-		{
-			get
-			{
-				return this._WeekDay.Entity;
-			}
-			set
-			{
-				WeekDay previousValue = this._WeekDay.Entity;
-				if (((previousValue != value) 
-							|| (this._WeekDay.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._WeekDay.Entity = null;
-						previousValue.ToiletVenueHours.Remove(this);
-					}
-					this._WeekDay.Entity = value;
-					if ((value != null))
-					{
-						value.ToiletVenueHours.Add(this);
-						this._DayOfWeek = value.WeekDayID;
-					}
-					else
-					{
-						this._DayOfWeek = default(int);
-					}
-					this.SendPropertyChanged("WeekDay");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletVenue_ToiletVenueHour", Storage="_ToiletVenue", ThisKey="VenueID", OtherKey="VenueID", IsForeignKey=true)]
-		public ToiletVenue ToiletVenue
-		{
-			get
-			{
-				return this._ToiletVenue.Entity;
-			}
-			set
-			{
-				ToiletVenue previousValue = this._ToiletVenue.Entity;
-				if (((previousValue != value) 
-							|| (this._ToiletVenue.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ToiletVenue.Entity = null;
-						previousValue.ToiletVenueHours.Remove(this);
-					}
-					this._ToiletVenue.Entity = value;
-					if ((value != null))
-					{
-						value.ToiletVenueHours.Add(this);
-						this._VenueID = value.VenueID;
-					}
-					else
-					{
-						this._VenueID = default(long);
-					}
-					this.SendPropertyChanged("ToiletVenue");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ToiletVenues")]
-	public partial class ToiletVenue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _VenueID;
-		
-		private string _VenueName;
-		
-		private EntitySet<ToiletReview> _ToiletReviews;
-		
-		private EntitySet<ToiletVenueHour> _ToiletVenueHours;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnVenueIDChanging(long value);
-    partial void OnVenueIDChanged();
-    partial void OnVenueNameChanging(string value);
-    partial void OnVenueNameChanged();
-    #endregion
-		
-		public ToiletVenue()
-		{
-			this._ToiletReviews = new EntitySet<ToiletReview>(new Action<ToiletReview>(this.attach_ToiletReviews), new Action<ToiletReview>(this.detach_ToiletReviews));
-			this._ToiletVenueHours = new EntitySet<ToiletVenueHour>(new Action<ToiletVenueHour>(this.attach_ToiletVenueHours), new Action<ToiletVenueHour>(this.detach_ToiletVenueHours));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long VenueID
-		{
-			get
-			{
-				return this._VenueID;
-			}
-			set
-			{
-				if ((this._VenueID != value))
-				{
-					this.OnVenueIDChanging(value);
-					this.SendPropertyChanging();
-					this._VenueID = value;
-					this.SendPropertyChanged("VenueID");
-					this.OnVenueIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string VenueName
-		{
-			get
-			{
-				return this._VenueName;
-			}
-			set
-			{
-				if ((this._VenueName != value))
-				{
-					this.OnVenueNameChanging(value);
-					this.SendPropertyChanging();
-					this._VenueName = value;
-					this.SendPropertyChanged("VenueName");
-					this.OnVenueNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletVenue_ToiletReview", Storage="_ToiletReviews", ThisKey="VenueID", OtherKey="VenueID")]
-		public EntitySet<ToiletReview> ToiletReviews
-		{
-			get
-			{
-				return this._ToiletReviews;
-			}
-			set
-			{
-				this._ToiletReviews.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ToiletVenue_ToiletVenueHour", Storage="_ToiletVenueHours", ThisKey="VenueID", OtherKey="VenueID")]
-		public EntitySet<ToiletVenueHour> ToiletVenueHours
-		{
-			get
-			{
-				return this._ToiletVenueHours;
-			}
-			set
-			{
-				this._ToiletVenueHours.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletVenue = this;
-		}
-		
-		private void detach_ToiletReviews(ToiletReview entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletVenue = null;
-		}
-		
-		private void attach_ToiletVenueHours(ToiletVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletVenue = this;
-		}
-		
-		private void detach_ToiletVenueHours(ToiletVenueHour entity)
-		{
-			this.SendPropertyChanging();
-			entity.ToiletVenue = null;
 		}
 	}
 }

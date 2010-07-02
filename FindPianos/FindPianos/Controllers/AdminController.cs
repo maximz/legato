@@ -10,13 +10,13 @@ using System.Globalization;
 
 namespace FindPianos.Controllers
 {
-    [AwesomeAuthorize(AuthorizedRoles="Admin", AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
+    [CustomAuthorization(AuthorizedRoles="Admin", AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
     public class AdminController : Controller
     {
         //
         // GET: /Admin/
         [Url("Admin")][HttpGet]
-        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult UserSearchByName()
         {
             return View("UserSearchByNameGET");
@@ -24,7 +24,7 @@ namespace FindPianos.Controllers
 
         [Url("Admin")]
         [HttpPost]
-        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult UserSearchByName(string nameContains)
         {
             using (var db = new PianoDataContext())
@@ -36,7 +36,7 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/View/{UserID}")]
-        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult GetUserById(Guid UserId)
         {
             using (var db = new PianoDataContext())
@@ -50,13 +50,13 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin/Users/Suspend/{UserID}")][HttpGet]
-        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult SuspendUser(Guid UserID)
         {
             return View();
         }
         [Url("Admin/Users/Suspend")]
-        [AwesomeAuthorize(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         public ActionResult SuspendUser(Guid UserID, DateTime reinstateDate, string reason)
         {

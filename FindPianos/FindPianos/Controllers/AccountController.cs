@@ -49,7 +49,7 @@ namespace FindPianos.Controllers
             get;
             private set;
         }
-        [HttpGet]
+        [HttpGet][CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
         public ActionResult LogOn()
         {
 
@@ -57,6 +57,7 @@ namespace FindPianos.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]
         public ActionResult LogOn(string userName, string password, bool rememberMe, string returnUrl)
@@ -99,7 +100,7 @@ namespace FindPianos.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [AwesomeAuthorize(UnauthorizedRoles="ActiveUser")]
+        [CustomAuthorization(UnauthorizedRoles="ActiveUser")]
         [Url("Account/Status/Suspended")]
         public ActionResult ShowSuspensionStatus()
         {
@@ -113,7 +114,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [AwesomeAuthorize(AuthorizeSuspended=false)]
+        [CustomAuthorization(AuthorizeSuspended=false)]
         [Url("Account/Status/NotVerified")]
         public ActionResult ShowEmailAddressVerificationStatus()
         {
@@ -123,7 +124,7 @@ namespace FindPianos.Controllers
             }
             return View("TimeToValidateYourEmailAddress");
         }
-        [AwesomeAuthorize(AuthorizeSuspended=false)]
+        [CustomAuthorization(AuthorizeSuspended=false)]
         [Url("Account/VerifyEmail/Resend")]
         public ActionResult ResendVerificationEmail()
         {
@@ -156,7 +157,7 @@ namespace FindPianos.Controllers
                 return View("TimeToValidateYourEmailAddress");
             }
         }
-        [AwesomeAuthorize(AuthorizedRoles="EmailNotConfirmed", AuthorizeSuspended=false)]
+        [CustomAuthorization(AuthorizedRoles="EmailNotConfirmed", AuthorizeSuspended=false)]
         [Url("Account/Verify/{confirmId}")]
         public ActionResult VerifyEmailAddress(Guid confirmId)
         {
@@ -186,6 +187,63 @@ namespace FindPianos.Controllers
             }
         }
         [HttpGet]
+        [Url("http://legatonetwork.com/Account/Options/ResetPassword/{resetId}")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ResetPassword(Guid resetId)
+        {
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var reset = db.ResetPasswordRecords.Where(a => a.ResetID == resetId).SingleOrDefault();
+                    if (reset == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+                    return View();
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [HttpPost]
+        [Url("http://legatonetwork.com/Account/Options/ResetPassword")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ResetPassword(Guid resetId, string newPassword, string confirmPassword)
+        {
+            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+
+            if (!ValidateResetPassword(newPassword, confirmPassword))
+            {
+                return View();
+            }
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var reset = db.ResetPasswordRecords.Where(a => a.ResetID == resetId).SingleOrDefault();
+                    if (reset == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    var u = Membership.GetUser(reset.UserID);
+                    u.ChangePassword(u.GetPassword(), newPassword);
+                    Membership.UpdateUser(u);
+                    db.ResetPasswordRecords.DeleteOnSubmit(reset);
+                    db.SubmitChanges();
+                    return RedirectToAction("Index","Home");
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [HttpGet]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult Register()
         {
 
@@ -194,7 +252,9 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [HttpPost][CaptchaValidator]
+        [HttpPost]
+        [CaptchaValidator]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
         {
 
@@ -249,7 +309,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Authorize][HttpGet]
+        [Authorize][HttpGet][Url("Account/Options/Password")]
         public ActionResult ChangePassword()
         {
 
@@ -260,6 +320,7 @@ namespace FindPianos.Controllers
 
         [Authorize]
         [HttpPost]
+        [Url("Account/Options/Password")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in password not being changed.")]
         public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
@@ -292,6 +353,7 @@ namespace FindPianos.Controllers
         }
 
         [Authorize]
+        [Url("Account/Options/Email")]
         [HttpGet]
         public ActionResult ChangeEmail()
         {
@@ -300,6 +362,7 @@ namespace FindPianos.Controllers
         }
 
         [Authorize]
+        [Url("Account/Options/Email")]
         [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in email not being changed.")]
@@ -325,10 +388,118 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        [Url("Account/Recover/Username")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotUsername()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [Url("Account/Recover/Username")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotUsername(string email)
+        {
+            //validate that email is a valid email address
+            try
+            {
+                var e = new System.Net.Mail.MailAddress(email);
+            }
+            catch
+            {
+                ModelState.AddModelError("email", "Please enter a valid email address.");
+                return View();
+            }
+            var result = Membership.GetUserNameByEmail(email);
+            if(string.IsNullOrEmpty(result))
+            {
+                ModelState.AddModelError("email", "We weren't able to find a user with this email address. Please make sure that the address is correct.");
+                return View();
+            }
+            ViewData["result"] = result;
+            return View("ForgotUsernameResult");
+        }
+        [HttpGet]
+        [Url("Account/Recover/Password")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Url("Account/Recover/Password")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotPassword(string username)
+        {
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var r = new ResetPasswordRecord();
+                    var u = Membership.GetUser(username);
+                    if(u==null)
+                    {
+                        throw new ApplicationException();
+                    }
+                    r.UserID = (Guid)u.ProviderUserKey;
+                    db.ResetPasswordRecords.InsertOnSubmit(r);
+                    db.SubmitChanges();
+                    SendPasswordResetEmail(u.Email, r.ResetID);
+
+                    return View("ForgotPasswordEmailSent");
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("username", "No such user exists.");
+                return View();
+            }
+            return View();
+        }
+
+        internal void SendPasswordResetEmail(string emailAddress, Guid id)
+        {
+            const string subject = "Reset your password - Legato Network";
+            const string fromName = "Legato Network";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hello!");
+            sb.Append(Environment.NewLine);
+            sb.Append("You have selected to reset your password. To do so, please follow the link below.");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("Click this link to reset your password: ");
+            sb.Append("http://legatonetwork.com/Account/Options/ResetPassword");
+            sb.Append(id.ToString());
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("If you did NOT select to reset your password at Legato Network and believe you received this email in error, please ignore this message.");
+            sb.Append(Environment.NewLine);
+            sb.Append("- Legato Network :)");
+
+            
+
+            string body = sb.ToString();
+
+            var emailmessage = new System.Web.Mail.MailMessage()
+                                   {
+                                       Subject = subject,
+                                       Body = body,
+                                       From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
+                                       To = emailAddress,
+                                       BodyFormat = MailFormat.Text,
+                                       Priority = MailPriority.Normal
+                                   };
+
+            SmtpMail.SmtpServer = "relay-hosting.secureserver.net";
+            SmtpMail.Send(emailmessage);
+
+        }
         internal void SendVerificationEmail(string emailAddress, Guid id)
         {
-            const string subject = "Legato Network - verify your email address";
+            const string subject = "Verify your email address - Legato Network";
             const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
@@ -441,6 +612,23 @@ namespace FindPianos.Controllers
             return ModelState.IsValid;
         }
 
+        private bool ValidateResetPassword(string newPassword, string confirmPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword) || newPassword.Length < MembershipService.MinPasswordLength)
+            {
+                ModelState.AddModelError("newPassword",
+                    String.Format(CultureInfo.CurrentCulture,
+                         "You must specify a new password of {0} or more characters.",
+                         MembershipService.MinPasswordLength));
+            }
+
+            if (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal))
+            {
+                ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
+            }
+
+            return ModelState.IsValid;
+        }
         private bool ValidateLogOn(string userName, string password)
         {
             if (String.IsNullOrEmpty(userName))
