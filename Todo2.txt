@@ -1,3 +1,3 @@
-make sure that suspended users can verify their email addresses.
+document AccountController.
 
 on laptop, create EmailNotConfirmed role in DB.

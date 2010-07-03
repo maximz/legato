@@ -49,6 +49,8 @@ namespace FindPianos.Controllers
             get;
             private set;
         }
+
+        #region Login and Logout
         [HttpGet][CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
         public ActionResult LogOn()
         {
@@ -99,7 +101,78 @@ namespace FindPianos.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region Register
+        [HttpGet]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult Register()
+        {
+
+            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+
+            return View();
+        }
+
+        [HttpPost]
+        [CaptchaValidator]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
+        {
+
+            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+
+            if (!captchaValid)
+            {
+                ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
+                return View();
+            }
+
+            if (ValidateRegistration(userName, email, password, confirmPassword))
+            {
+                // Attempt to register the user
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
+                Roles.AddUserToRoles(userName, new string[] { "ActiveUser", "EmailNotConfirmed" });
+                AccountProfile.NewUser.Initialize(userName, true);
+                AccountProfile.NewUser.ProfilePictureURL = null;
+                AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
+                AccountProfile.NewUser.Save();
+                using (var db = new PianoDataContext())
+                {
+                    try
+                    {
+                        var confirm = new ConfirmEmailAddress();
+                        confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
+                        db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
+                        db.SubmitChanges();
+                        SendVerificationEmail(email, confirm.ConfirmID);
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                        return View();
+                    }
+                }
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    FormsAuth.SignIn(userName, false /* createPersistentCookie */);
+                    //return RedirectToAction("Index", "Home");
+                    ViewData["email"] = email;
+                    return View("TimeToValidateYourEmailAddress");
+                }
+                else
+                {
+                    ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                    return View();
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View();
+        }
+        #endregion
+
+        #region Suspended Users
         [CustomAuthorization(UnauthorizedRoles="ActiveUser")]
         [Url("Account/Status/Suspended")]
         public ActionResult ShowSuspensionStatus()
@@ -115,7 +188,10 @@ namespace FindPianos.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [CustomAuthorization(AuthorizeSuspended=false)]
+        #endregion
+
+        #region Email Verification
+        [CustomAuthorization]
         [Url("Account/Status/NotVerified")]
         public ActionResult ShowEmailAddressVerificationStatus()
         {
@@ -158,10 +234,14 @@ namespace FindPianos.Controllers
                 return View("TimeToValidateYourEmailAddress");
             }
         }
-        [CustomAuthorization(AuthorizedRoles="EmailNotConfirmed")]
+        [CustomAuthorization]
         [Url("Account/Verify/{confirmId}")]
         public ActionResult VerifyEmailAddress(Guid confirmId)
         {
+            if (!User.IsInRole("EmailNotConfirmed"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             try
             {
                 using (var db = new PianoDataContext())
@@ -187,6 +267,9 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
+        #endregion
+
+        #region Forgot Username or Password
         [HttpGet]
         [Url("http://legatonetwork.com/Account/Options/ResetPassword/{resetId}")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -246,72 +329,77 @@ namespace FindPianos.Controllers
             }
         }
         [HttpGet]
+        [Url("Account/Recover/Username")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult Register()
+        public ActionResult ForgotUsername()
         {
-
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-
             return View();
         }
 
         [HttpPost]
-        [CaptchaValidator]
+        [Url("Account/Recover/Username")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
+        public ActionResult ForgotUsername(string email)
         {
-
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-
-            if (!captchaValid)
+            //validate that email is a valid email address
+            try
             {
-                ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
+                var e = new System.Net.Mail.MailAddress(email);
+            }
+            catch
+            {
+                ModelState.AddModelError("email", "Please enter a valid email address.");
                 return View();
             }
-
-            if (ValidateRegistration(userName, email, password, confirmPassword))
+            var result = Membership.GetUserNameByEmail(email);
+            if (string.IsNullOrEmpty(result))
             {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-                Roles.AddUserToRoles(userName, new string[]{"ActiveUser","EmailNotConfirmed"});
-                AccountProfile.NewUser.Initialize(userName, true);
-                AccountProfile.NewUser.ProfilePictureURL = null;
-                AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
-                AccountProfile.NewUser.Save();
-                using(var db = new PianoDataContext())
-                {
-                    try
-                    {
-                        var confirm = new ConfirmEmailAddress();
-                        confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
-                        db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
-                        db.SubmitChanges();
-                        SendVerificationEmail(email, confirm.ConfirmID);
-                    }
-                    catch
-                    {
-                        ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
-                        return View();
-                    }
-                }
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuth.SignIn(userName, false /* createPersistentCookie */);
-                    //return RedirectToAction("Index", "Home");
-                    ViewData["email"] = email;
-                    return View("TimeToValidateYourEmailAddress");
-                }
-                else
-                {
-                    ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
-                    return View();
-                }
+                ModelState.AddModelError("email", "We weren't able to find a user with this email address. Please make sure that the address is correct.");
+                return View();
             }
-
-            // If we got this far, something failed, redisplay form
+            ViewData["result"] = result;
+            return View("ForgotUsernameResult");
+        }
+        [HttpGet]
+        [Url("Account/Recover/Password")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotPassword()
+        {
             return View();
         }
 
+        [HttpPost]
+        [Url("Account/Recover/Password")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotPassword(string username)
+        {
+            try
+            {
+                using (var db = new PianoDataContext())
+                {
+                    var r = new ResetPasswordRecord();
+                    var u = Membership.GetUser(username, false);
+                    if (u == null)
+                    {
+                        throw new ApplicationException();
+                    }
+                    r.UserID = (Guid)u.ProviderUserKey;
+                    db.ResetPasswordRecords.InsertOnSubmit(r);
+                    db.SubmitChanges();
+                    SendPasswordResetEmail(u.Email, r.ResetID);
+
+                    return View("ForgotPasswordEmailSent");
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("username", "No such user exists.");
+                return View();
+            }
+        }
+        #endregion
+
+        #region Profile Edit
         [CustomAuthorization][HttpGet][Url("Account/Options/Password")]
         public ActionResult ChangePassword()
         {
@@ -391,75 +479,7 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        [HttpGet]
-        [Url("Account/Recover/Username")]
-        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult ForgotUsername()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [Url("Account/Recover/Username")]
-        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult ForgotUsername(string email)
-        {
-            //validate that email is a valid email address
-            try
-            {
-                var e = new System.Net.Mail.MailAddress(email);
-            }
-            catch
-            {
-                ModelState.AddModelError("email", "Please enter a valid email address.");
-                return View();
-            }
-            var result = Membership.GetUserNameByEmail(email);
-            if(string.IsNullOrEmpty(result))
-            {
-                ModelState.AddModelError("email", "We weren't able to find a user with this email address. Please make sure that the address is correct.");
-                return View();
-            }
-            ViewData["result"] = result;
-            return View("ForgotUsernameResult");
-        }
-        [HttpGet]
-        [Url("Account/Recover/Password")]
-        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [Url("Account/Recover/Password")]
-        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult ForgotPassword(string username)
-        {
-            try
-            {
-                using (var db = new PianoDataContext())
-                {
-                    var r = new ResetPasswordRecord();
-                    var u = Membership.GetUser(username, false);
-                    if(u==null)
-                    {
-                        throw new ApplicationException();
-                    }
-                    r.UserID = (Guid)u.ProviderUserKey;
-                    db.ResetPasswordRecords.InsertOnSubmit(r);
-                    db.SubmitChanges();
-                    SendPasswordResetEmail(u.Email, r.ResetID);
-
-                    return View("ForgotPasswordEmailSent");
-                }
-            }
-            catch
-            {
-                ModelState.AddModelError("username", "No such user exists.");
-                return View();
-            }
-        }
+        
         [HttpGet]
         [CustomAuthorization]
         [Url("Account/Profile")]
@@ -470,7 +490,9 @@ namespace FindPianos.Controllers
             ViewData["IsSuspended"] = !User.IsInRole("ActiveUser");
             return View();
         }
+        #endregion
 
+        #region Email Sending Methods
         internal void SendPasswordResetEmail(string emailAddress, Guid id)
         {
             const string subject = "Reset your password - Legato Network";
@@ -545,6 +567,7 @@ namespace FindPianos.Controllers
             SmtpMail.Send(emailmessage);
 
         }
+        #endregion
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
