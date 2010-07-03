@@ -1,3 +1,1 @@
-put captcha on AccountController.ResetPassword() form.
-
 on laptop, create EmailNotConfirmed role in DB.

@@ -34,6 +34,10 @@
 				<%= Html.ValidationMessage("confirmPassword") %>
 			</p>
 			<p>
+				<label for="CAPTCHA">Verification word(s):</label>
+				<%= Html.GenerateCaptcha() %>
+			</p>
+			<p>
 				<input type="submit" value="Reset Password" />
 			</p>
 		</fieldset>

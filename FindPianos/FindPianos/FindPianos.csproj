@@ -136,7 +136,14 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Views\Account\ChangeEmail.aspx" />
+    <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
+    <Content Include="Views\Account\ForgotPassword.aspx" />
+    <Content Include="Views\Account\ForgotPasswordEmailSent.aspx" />
+    <Content Include="Views\Account\ForgotUsername.aspx" />
+    <Content Include="Views\Account\ForgotUsernameResult.aspx" />
     <Content Include="Views\Account\MyProfile.aspx" />
+    <Content Include="Views\Account\ResetPassword.aspx" />
     <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />

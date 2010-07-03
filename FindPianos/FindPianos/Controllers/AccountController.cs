@@ -355,12 +355,18 @@ namespace FindPianos.Controllers
         /// <param name="confirmPassword">The confirm password.</param>
         /// <returns></returns>
         [HttpPost]
+        [CaptchaValidator]
         [Url("Account/Options/ResetPassword")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult ResetPassword(Guid resetId, string newPassword, string confirmPassword)
+        public ActionResult ResetPassword(Guid resetId, string newPassword, string confirmPassword, bool captchaValid)
         {
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
 
+            if (!captchaValid)
+            {
+                ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
+                return View();
+            }
             if (!ValidateResetPassword(newPassword, confirmPassword))
             {
                 return View();
