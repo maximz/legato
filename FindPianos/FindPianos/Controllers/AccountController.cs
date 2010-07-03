@@ -17,6 +17,9 @@ using System.Web.Mail;
 namespace FindPianos.Controllers
 {
 
+    /// <summary>
+    /// Handles account methods.
+    /// </summary>
     [HandleError]
     public class AccountController : Controller
     {
@@ -51,6 +54,10 @@ namespace FindPianos.Controllers
         }
 
         #region Login and Logout
+        /// <summary>
+        /// Handles login.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet][CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
         public ActionResult LogOn()
         {
@@ -58,6 +65,14 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles login.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="rememberMe">if set to <c>true</c> the user's session does not end when the browser is closed.</param>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns></returns>
         [HttpPost]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
@@ -94,6 +109,10 @@ namespace FindPianos.Controllers
             }
         }
 
+        /// <summary>
+        /// Handles logoff.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOff()
         {
 
@@ -104,6 +123,10 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Register
+        /// <summary>
+        /// Handles user registration.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult Register()
@@ -114,6 +137,15 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles user registration.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <param name="captchaValid">if set to <c>true</c> the CAPTCHA is valid.</param>
+        /// <returns></returns>
         [HttpPost]
         [CaptchaValidator]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -145,7 +177,7 @@ namespace FindPianos.Controllers
                         confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
                         db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
                         db.SubmitChanges();
-                        SendVerificationEmail(email, confirm.ConfirmID);
+                        SendEmailVerificationEmail(email, confirm.ConfirmID);
                     }
                     catch
                     {
@@ -173,6 +205,10 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Suspended Users
+        /// <summary>
+        /// Shows the suspension status of a user.
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorization(UnauthorizedRoles="ActiveUser")]
         [Url("Account/Status/Suspended")]
         public ActionResult ShowSuspensionStatus()
@@ -191,6 +227,10 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Email Verification
+        /// <summary>
+        /// Shows the email address verification status.
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/Status/NotVerified")]
         public ActionResult ShowEmailAddressVerificationStatus()
@@ -201,6 +241,10 @@ namespace FindPianos.Controllers
             }
             return View("TimeToValidateYourEmailAddress");
         }
+        /// <summary>
+        /// Resends the verification email.
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/VerifyEmail/Resend")]
         public ActionResult ResendVerificationEmail()
@@ -225,7 +269,7 @@ namespace FindPianos.Controllers
                 }
                 try
                 {
-                    SendVerificationEmail(user.Email, confirm.ConfirmID);
+                    SendEmailVerificationEmail(user.Email, confirm.ConfirmID);
                 }
                 catch
                 {
@@ -234,6 +278,11 @@ namespace FindPianos.Controllers
                 return View("TimeToValidateYourEmailAddress");
             }
         }
+        /// <summary>
+        /// Verifies the email address.
+        /// </summary>
+        /// <param name="confirmId">The confirm id.</param>
+        /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/Verify/{confirmId}")]
         public ActionResult VerifyEmailAddress(Guid confirmId)
@@ -270,8 +319,13 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Forgot Username or Password
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="resetId">The reset id.</param>
+        /// <returns></returns>
         [HttpGet]
-        [Url("http://legatonetwork.com/Account/Options/ResetPassword/{resetId}")]
+        [Url("Account/Options/ResetPassword/{resetId}")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult ResetPassword(Guid resetId)
         {
@@ -293,8 +347,15 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="resetId">The reset id.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <returns></returns>
         [HttpPost]
-        [Url("http://legatonetwork.com/Account/Options/ResetPassword")]
+        [Url("Account/Options/ResetPassword")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult ResetPassword(Guid resetId, string newPassword, string confirmPassword)
         {
@@ -328,6 +389,10 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
+        /// <summary>
+        /// Retrieves the username.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Url("Account/Recover/Username")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -336,6 +401,11 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Retrieves the username.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [HttpPost]
         [Url("Account/Recover/Username")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -360,6 +430,10 @@ namespace FindPianos.Controllers
             ViewData["result"] = result;
             return View("ForgotUsernameResult");
         }
+        /// <summary>
+        /// Allows user to reset their password if they forgot it.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Url("Account/Recover/Password")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -368,6 +442,11 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Allows user to reset their password if they forgot it.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
         [HttpPost]
         [Url("Account/Recover/Password")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -400,6 +479,10 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Profile Edit
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorization][HttpGet][Url("Account/Options/Password")]
         public ActionResult ChangePassword()
         {
@@ -409,6 +492,13 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="currentPassword">The current password.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <returns></returns>
         [CustomAuthorization]
         [HttpPost]
         [Url("Account/Options/Password")]
@@ -443,6 +533,10 @@ namespace FindPianos.Controllers
             }
         }
 
+        /// <summary>
+        /// Changes the email.
+        /// </summary>
+        /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/Options/Email")]
         [HttpGet]
@@ -452,6 +546,12 @@ namespace FindPianos.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Changes the email.
+        /// </summary>
+        /// <param name="NewEmail">The new email.</param>
+        /// <param name="ConfirmEmail">The confirm email.</param>
+        /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/Options/Email")]
         [HttpPost]
@@ -479,7 +579,11 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        
+
+        /// <summary>
+        /// Displays a My Profile page.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [CustomAuthorization]
         [Url("Account/Profile")]
@@ -493,6 +597,11 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Email Sending Methods
+        /// <summary>
+        /// Sends password reset emails.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <param name="id">The id.</param>
         internal void SendPasswordResetEmail(string emailAddress, Guid id)
         {
             const string subject = "Reset your password - Legato Network";
@@ -531,7 +640,12 @@ namespace FindPianos.Controllers
             SmtpMail.Send(emailmessage);
 
         }
-        internal void SendVerificationEmail(string emailAddress, Guid id)
+        /// <summary>
+        /// Sends email verification email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <param name="id">The id.</param>
+        internal void SendEmailVerificationEmail(string emailAddress, Guid id)
         {
             const string subject = "Verify your email address - Legato Network";
             const string fromName = "Legato Network";
@@ -579,6 +693,12 @@ namespace FindPianos.Controllers
 
         #region Validation Methods
 
+        /// <summary>
+        /// Validates the change of email.
+        /// </summary>
+        /// <param name="newEmail">The new email.</param>
+        /// <param name="confirmEmail">The confirm email.</param>
+        /// <returns></returns>
         private bool ValidateChangeEmail(string newEmail, string confirmEmail)
         {
             if (String.IsNullOrEmpty(newEmail))
@@ -625,6 +745,13 @@ namespace FindPianos.Controllers
             }
             return ModelState.IsValid;
         }
+        /// <summary>
+        /// Validates the change of password.
+        /// </summary>
+        /// <param name="currentPassword">The current password.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <returns></returns>
         private bool ValidateChangePassword(string currentPassword, string newPassword, string confirmPassword)
         {
             if (String.IsNullOrEmpty(currentPassword))
@@ -647,6 +774,12 @@ namespace FindPianos.Controllers
             return ModelState.IsValid;
         }
 
+        /// <summary>
+        /// Validates the reset change of password.
+        /// </summary>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <returns></returns>
         private bool ValidateResetPassword(string newPassword, string confirmPassword)
         {
             if (string.IsNullOrEmpty(newPassword) || newPassword.Length < MembershipService.MinPasswordLength)
@@ -664,6 +797,12 @@ namespace FindPianos.Controllers
 
             return ModelState.IsValid;
         }
+        /// <summary>
+        /// Validates the log on.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         private bool ValidateLogOn(string userName, string password)
         {
             if (String.IsNullOrEmpty(userName))
@@ -682,6 +821,14 @@ namespace FindPianos.Controllers
             return ModelState.IsValid;
         }
 
+        /// <summary>
+        /// Validates the registration.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="confirmPassword">The confirm password.</param>
+        /// <returns></returns>
         private bool ValidateRegistration(string userName, string email, string password, string confirmPassword)
         {
             if (String.IsNullOrEmpty(userName))
