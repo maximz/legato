@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | PianoSeek</title>
+    <link href="../../Content/reset/css" rel="Stylesheet" type="text/css" />
     <link href="../../Content/Site/css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/960/css" rel="Stylesheet" type="text/css" />
     <link rel="Shortcut Icon" href="../../Content/favicon/png" />
     <link rel="apple-touch-icon" href="../../Content/apple-touch-icon/png" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
@@ -17,7 +19,7 @@
 </head>
 
 <body>
-    <div class="page">
+    <div class="page container_12">
 
         <div id="header">
             <div id="title">

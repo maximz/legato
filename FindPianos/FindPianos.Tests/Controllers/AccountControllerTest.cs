@@ -112,19 +112,6 @@ namespace FindPianos.Tests.Controllers
         }
 
         [TestMethod]
-        public void ChangePasswordSuccess()
-        {
-            // Arrange
-            AccountController controller = GetAccountController();
-
-            // Act
-            ViewResult result = (ViewResult)controller.ChangePasswordSuccess();
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
         public void ConstructorSetsProperties()
         {
             // Arrange

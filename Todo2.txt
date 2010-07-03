@@ -1,2 +1,1 @@
-todo:
-Update views: Login (add links to ForgotUsername and ForgotPassword), partial view that controls what is seen on every page.
+Update view: partial view that controls what is seen on every page.

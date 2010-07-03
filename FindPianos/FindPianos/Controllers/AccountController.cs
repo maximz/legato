@@ -558,7 +558,7 @@ namespace FindPianos.Controllers
                     a = null;
 
                     //check whether email is already taken
-                    if(!string.IsNullOrEmpty(Membership.GetUserNameByEmail(newEmail))
+                    if(!string.IsNullOrEmpty(Membership.GetUserNameByEmail(newEmail)))
                     {
                         ModelState.AddModelError("NewEmail", "A user already exists with this email address.");
                     }

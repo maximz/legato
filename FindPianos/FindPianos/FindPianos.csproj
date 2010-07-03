@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AccountProfile.cs" />
-    <Compile Include="Helpers\AwesomeAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Inflector.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
@@ -120,6 +120,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\960.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Helpers\GeoCoding.dll" />
     <Content Include="Helpers\MvcReCaptcha.dll" />
     <Content Include="Helpers\Recaptcha.dll" />
