@@ -438,7 +438,7 @@ namespace FindPianos.Controllers
                 using (var db = new PianoDataContext())
                 {
                     var r = new ResetPasswordRecord();
-                    var u = Membership.GetUser(username);
+                    var u = Membership.GetUser(username, false);
                     if(u==null)
                     {
                         throw new ApplicationException();
@@ -456,6 +456,16 @@ namespace FindPianos.Controllers
                 ModelState.AddModelError("username", "No such user exists.");
                 return View();
             }
+            return View();
+        }
+        [HttpGet]
+        [CustomAuthorization]
+        [Url("Account/Profile")]
+        public ActionResult MyProfile()
+        {
+            ViewData["MainInfo"] = Membership.GetUser();
+            ViewData["IsEmailNotConfirmed"] = User.IsInRole("EmailNotConfirmed");
+            ViewData["IsSuspended"] = !User.IsInRole("ActiveUser");
             return View();
         }
 

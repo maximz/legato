@@ -32,6 +32,16 @@ namespace FindPianos.Helpers
             response.End();
         }
 
-        //public 
+        public static bool Flip(this bool b)
+        {
+            if(b)
+            {
+                return !b;
+            }
+            else
+            {
+                return b;
+            }
+        }
     }
 }

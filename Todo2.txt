@@ -1,1 +1,6 @@
-Update view: partial view that controls what is seen on every page.
+in AccountController, when using Membership.GetUser() with or without any parameters, decide where to state whether user is online or not! this means whether to update the user's last activity time.
+this applies to ForgotPassword(), ForgotUsername(), and all other such methods, as well as methods where we're getting information about a different user (admincontroller, accountcontroller).
+
+remove all unreachable code
+
+on laptop, create EmailNotConfirmed role in DB.
