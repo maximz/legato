@@ -191,7 +191,7 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            if (Lat == null || Long == null)
+            if (Lat == 0 || Long == 0)
                 yield return new RuleViolation("We weren't able to locate that street address.", "StreetAddress");
             if (string.IsNullOrEmpty(StreetAddress))
                 yield return new RuleViolation("A street address is required", "StreetAddress");

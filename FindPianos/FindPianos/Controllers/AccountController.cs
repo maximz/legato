@@ -104,11 +104,12 @@ namespace FindPianos.Controllers
         [Url("Account/Status/Suspended")]
         public ActionResult ShowSuspensionStatus()
         {
+            var u = Membership.GetUser();
             using (var db = new PianoDataContext())
             {
-                if (!(AccountProfile.GetProfileOfUser(Membership.GetUser().UserName).ReinstateDate < DateTime.Now))
+                if (!(AccountProfile.GetProfileOfUser(u.UserName).ReinstateDate < DateTime.Now))
                 {
-                    ViewData["suspension"] = db.PianoUserSuspensions.Where(s => s.UserID == (Guid)Membership.GetUser().ProviderUserKey).OrderByDescending(k => k.ReinstateDate).Take(1).ToList()[0];
+                    ViewData["suspension"] = db.PianoUserSuspensions.Where(s => s.UserID == (Guid)u.ProviderUserKey).OrderByDescending(k => k.ReinstateDate).Take(1).ToList()[0];
                     return View();
                 }
                 return RedirectToAction("Index", "Home");
@@ -124,7 +125,7 @@ namespace FindPianos.Controllers
             }
             return View("TimeToValidateYourEmailAddress");
         }
-        [CustomAuthorization(AuthorizeSuspended=false)]
+        [CustomAuthorization]
         [Url("Account/VerifyEmail/Resend")]
         public ActionResult ResendVerificationEmail()
         {
@@ -157,7 +158,7 @@ namespace FindPianos.Controllers
                 return View("TimeToValidateYourEmailAddress");
             }
         }
-        [CustomAuthorization(AuthorizedRoles="EmailNotConfirmed", AuthorizeSuspended=false)]
+        [CustomAuthorization(AuthorizedRoles="EmailNotConfirmed")]
         [Url("Account/Verify/{confirmId}")]
         public ActionResult VerifyEmailAddress(Guid confirmId)
         {
@@ -170,7 +171,7 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-                    if ((Guid)Membership.GetUser().ProviderUserKey != confirm.UserID)
+                    if ((Guid)Membership.GetUser(false).ProviderUserKey != confirm.UserID)
                     {
                         //wrong user
                         return RedirectToAction("Forbidden", "Error");
@@ -229,11 +230,13 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-                    var u = Membership.GetUser(reset.UserID);
+                    var u = Membership.GetUser(reset.UserID, false);
                     u.ChangePassword(u.GetPassword(), newPassword);
                     Membership.UpdateUser(u);
                     db.ResetPasswordRecords.DeleteOnSubmit(reset);
                     db.SubmitChanges();
+                    FormsAuth.SignIn(u.UserName, false);
+                    u = null;
                     return RedirectToAction("Index","Home");
                 }
             }
@@ -309,7 +312,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Authorize][HttpGet][Url("Account/Options/Password")]
+        [CustomAuthorization][HttpGet][Url("Account/Options/Password")]
         public ActionResult ChangePassword()
         {
 
@@ -318,7 +321,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Authorize]
+        [CustomAuthorization]
         [HttpPost]
         [Url("Account/Options/Password")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
@@ -352,7 +355,7 @@ namespace FindPianos.Controllers
             }
         }
 
-        [Authorize]
+        [CustomAuthorization]
         [Url("Account/Options/Email")]
         [HttpGet]
         public ActionResult ChangeEmail()
@@ -361,7 +364,7 @@ namespace FindPianos.Controllers
             return View();
         }
 
-        [Authorize]
+        [CustomAuthorization]
         [Url("Account/Options/Email")]
         [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
@@ -456,7 +459,6 @@ namespace FindPianos.Controllers
                 ModelState.AddModelError("username", "No such user exists.");
                 return View();
             }
-            return View();
         }
         [HttpGet]
         [CustomAuthorization]

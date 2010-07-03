@@ -7,6 +7,7 @@ using FindPianos.Models;
 using RiaLibrary.Web;
 using FindPianos.Helpers;
 using System.Globalization;
+using System.Web.Security;
 
 namespace FindPianos.Controllers
 {
@@ -41,7 +42,7 @@ namespace FindPianos.Controllers
         {
             using (var db = new PianoDataContext())
             {
-                ViewData["userInfo"] = db.aspnet_Users.Where(u => u.UserId == UserId).SingleOrDefault();
+                ViewData["userInfo"] = Membership.GetUser(UserId, false);
                 var suspensions = db.PianoUserSuspensions.Where(s => s.UserID == UserId).ToList();
                 ViewData["suspensionList"] = suspensions;
                 ViewData["reinstateDate"] = suspensions.Max(r => r.ReinstateDate);
@@ -65,7 +66,7 @@ namespace FindPianos.Controllers
             {
                 using (var db = new PianoDataContext())
                 {
-                    var username = db.aspnet_Users.Where(u => u.UserId == UserID).SingleOrDefault().UserName;
+                    var username = Membership.GetUser(UserID,false).UserName;
                     sus = new PianoUserSuspension()
                     {
                         SuspensionDate = DateTime.Now,
