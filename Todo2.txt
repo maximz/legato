@@ -1,5 +1,7 @@
 on laptop, create EmailNotConfirmed role in DB.
 
+ask on SO about how to scroll down in ASP.NET MVC.
+
 implement ViewModel for everything: http://stackoverflow.com/questions/3174041/creating-a-dropdownlist-from-database-entries-and-then-binding-it-in-form-submiss/3174067#3174067
 this is especially good for simplifying validation: http://weblogs.asp.net/shijuvarghese/archive/2010/02/01/view-model-pattern-and-automapper-in-asp-net-mvc-applications.aspx
 see also: http://stackoverflow.com/questions/664205/viewmodel-best-practices/694179#694179
@@ -9,3 +11,30 @@ best strategy - mixing the two. http://geekswithblogs.net/michelotti/archive/200
 read about Lucene.Net for searching, possibly implement: http://codeclimber.net.nz/archive/2009/09/02/lucene.net-your-first-application.aspx
 
 uploading files = http://www.highoncoding.com/Articles/689_Uploading_and_Displaying_Files_Using_ASP_NET_MVC_Framework.aspx
+
+add AboutMe section to AccountProfile and allow editing of it through MyProfile page
+
+fix IPBlacklist: in its .cs file and then enable it in web.config
+
+viewmodels:
+ListingContrller:
+INCLUDE instrumentname in ListingViewModel, with special ValidationAttribute that verifies that such an instrument exists in the DB
+DB tables: instruments, instrumenttypes, instrumentstyles
+3. SubmitViewModel : EditViewModel - only adds ListingViewModel
+4. EditViewModel - has ReviewRevisionViewModel, PianoVenueHourViewModel
+5. see whiteboard
+
+
+        //documentation in viewmodels
+		//add [DisplayName] to viewmodels
+        //also, make Review.FillProperties() not fill all revisions, only current one, unless asked by means of a bool parameter
+
+		ratingoverall
+		reviewid (not shown)
+		ratingtuning
+		ratingtonequality
+		ratingplayingcapability
+		message
+		priceperhourinUSD
+		venuename - make this not required in DB!
+		dateoflastusage

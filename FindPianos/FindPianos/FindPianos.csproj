@@ -89,7 +89,9 @@
     <Compile Include="Helpers\AccountProfile.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\GeocodableAttribute.cs" />
     <Compile Include="Helpers\Inflector.cs" />
+    <Compile Include="Helpers\InstrumentNameVerificationAttribute.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
@@ -118,6 +120,14 @@
     </Compile>
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EditViewModel.cs" />
+    <Compile Include="ViewModels\EquipmentViewModel.cs" />
+    <Compile Include="ViewModels\ListingSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\ReadListingViewModel.cs" />
+    <Compile Include="ViewModels\RevisionListViewModel.cs" />
+    <Compile Include="ViewModels\RevisionSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\SubmitViewModel.cs" />
+    <Compile Include="ViewModels\VenueHourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\960.css" />
