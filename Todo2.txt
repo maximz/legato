@@ -1,1 +1,11 @@
 on laptop, create EmailNotConfirmed role in DB.
+
+implement ViewModel for everything: http://stackoverflow.com/questions/3174041/creating-a-dropdownlist-from-database-entries-and-then-binding-it-in-form-submiss/3174067#3174067
+this is especially good for simplifying validation: http://weblogs.asp.net/shijuvarghese/archive/2010/02/01/view-model-pattern-and-automapper-in-asp-net-mvc-applications.aspx
+see also: http://stackoverflow.com/questions/664205/viewmodel-best-practices/694179#694179
+if you don't define a custom viewmodel, we'll just have to rework all the controller->view lines so that we don't use ViewData[], as the Model won't work. instead, do ViewData.Model = new List<stuff>() { blah, blah}; return View(); //http://stephenwalther.com/blog/archive/2009/04/13/asp.net-mvc-tip-50-ndash-create-view-models.aspx
+best strategy - mixing the two. http://geekswithblogs.net/michelotti/archive/2009/10/25/asp.net-mvc-view-model-patterns.aspx
+
+read about Lucene.Net for searching, possibly implement: http://codeclimber.net.nz/archive/2009/09/02/lucene.net-your-first-application.aspx
+
+uploading files = http://www.highoncoding.com/Articles/689_Uploading_and_Displaying_Files_Using_ASP_NET_MVC_Framework.aspx
