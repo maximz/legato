@@ -153,8 +153,8 @@ namespace FindPianos.Models
             var reviewCount = 0;
             using (var db = new LegatoDataContext())
             {
-                Comments = db.ListingComments.Where(c => c.ListingID == this.PianoID).OrderBy(c=>c.CommentID).ToList();
-                foreach (var review in db.Reviews.Where(rev => rev.ListingID == PianoID))
+                Comments = db.ListingComments.Where(c => c.ListingID == this.ListingID).OrderBy(c=>c.CommentID).ToList();
+                foreach (var review in db.Reviews.Where(rev => rev.ListingID == ListingID))
                 {
                     var LatestRevision = db.ReviewRevisions.Where(revision => revision.ReviewID == review.ReviewID).OrderByDescending(revision => revision.RevisionNumberOfReview).Take(1).ToList()[0];
                     OverallRatings.Add(LatestRevision.RatingOverall);

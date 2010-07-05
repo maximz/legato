@@ -30,7 +30,7 @@ namespace FindPianos.Controllers
             {
                 try
                 {
-                    var listing = data.Listings.Where(l => l.PianoID == listingId).Single();
+                    var listing = data.Listings.Where(l => l.ListingID == listingId).Single();
                     listing.FillProperties();
                     var reviews = data.PianoReviews.Where(r => r.ListingID == listingId).ToList();
                     foreach (var r in reviews)
@@ -56,7 +56,7 @@ namespace FindPianos.Controllers
             {
                 try
                 {
-                    var listing = data.Listings.Where(l => l.PianoID == reviewId).Single();
+                    var listing = data.Listings.Where(l => l.ListingID == reviewId).Single();
                     listing.FillProperties();
                     var review = data.PianoReviews.Where(r => r.ListingID == reviewId).Single();
                     review.FillProperties();
@@ -147,7 +147,7 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
-        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]Listing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
+        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]ReviewRevision r, [Bind(Exclude="ListingID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]Listing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
@@ -314,7 +314,7 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.PianoID == idOfPost).Count() != 1)
+                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
@@ -399,7 +399,7 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.PianoID == idOfPost).Count() != 1)
+                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }

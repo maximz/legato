@@ -7,3 +7,4 @@
 7. Configure IPBlacklist in:
 	a. its .cs file
 	b. web.config (uncomment its line to enable it)
+8. sitemap, robots.txt

@@ -10,7 +10,7 @@ namespace FindPianos.Helpers
         public static GeoResponse CallGeoWS(string address)
         {
             string url = string.Format(
-                    "http://maps.google.com/maps/api/geocode/json?address={0}&region=dk&sensor=false",
+                    "http://maps.google.com/maps/api/geocode/json?address={0}&sensor=false",
                     HttpUtility.UrlEncode(address)
                     );
             var request = (HttpWebRequest)HttpWebRequest.Create(url);
