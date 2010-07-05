@@ -169,7 +169,7 @@ namespace FindPianos.Controllers
                 AccountProfile.NewUser.ProfilePictureURL = null;
                 AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
                 AccountProfile.NewUser.Save();
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     try
                     {
@@ -214,7 +214,7 @@ namespace FindPianos.Controllers
         public ActionResult ShowSuspensionStatus()
         {
             var u = Membership.GetUser();
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
                 if (!(AccountProfile.GetProfileOfUser(u.UserName).ReinstateDate < DateTime.Now))
                 {
@@ -253,7 +253,7 @@ namespace FindPianos.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
                 var user = Membership.GetUser();
                 ConfirmEmailAddress confirm;
@@ -293,7 +293,7 @@ namespace FindPianos.Controllers
             }
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var confirm = db.ConfirmEmailAddresses.Where(a => a.ConfirmID == confirmId).SingleOrDefault();
                     if (confirm == null)
@@ -331,7 +331,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var reset = db.ResetPasswordRecords.Where(a => a.ResetID == resetId).SingleOrDefault();
                     if (reset == null)
@@ -373,7 +373,7 @@ namespace FindPianos.Controllers
             }
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var reset = db.ResetPasswordRecords.Where(a => a.ResetID == resetId).SingleOrDefault();
                     if (reset == null)
@@ -460,7 +460,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var r = new ResetPasswordRecord();
                     var u = Membership.GetUser(username, false);

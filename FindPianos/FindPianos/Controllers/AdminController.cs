@@ -28,7 +28,7 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult UserSearchByName(string nameContains)
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
                 var results = db.aspnet_Users.Where(u => u.UserName.Contains(nameContains)).Take(50).ToList();
                 ViewData["table"] = results;
@@ -40,7 +40,7 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult GetUserById(Guid UserId)
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
                 ViewData["userInfo"] = Membership.GetUser(UserId, false);
                 var suspensions = db.PianoUserSuspensions.Where(s => s.UserID == UserId).ToList();
@@ -64,7 +64,7 @@ namespace FindPianos.Controllers
             var sus = new PianoUserSuspension();
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var username = Membership.GetUser(UserID,false).UserName;
                     sus = new PianoUserSuspension()

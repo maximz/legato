@@ -5,24 +5,24 @@ using System.Web;
 
 namespace FindPianos.Models
 {
-    public partial class PianoDataContext
+    public partial class LegatooDataContext
     {
         /// <summary>
         /// Processes a complex SearchForm.
         /// </summary>
         /// <param name="form">The SearchForm in question.</param>
-        /// <returns>A List of PianoListings, with some extra properties that should be displayed on the results page</returns>
-        public List<PianoListing> ProcessSearchForm(SearchForm form)
+        /// <returns>A List of Listings, with some extra properties that should be displayed on the results page</returns>
+        public List<Listing> ProcessSearchForm(SearchForm form)
         {
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
-                IQueryable<PianoListing> query = null;
+                IQueryable<Listing> query = null;
 
                 //Bounding box: latitude processing
                 if (form.bounds.extent1.latitude <= form.bounds.extent2.latitude)
-                    query = db.PianoListings.Where(l => l.Lat >= form.bounds.extent1.latitude && l.Lat <= form.bounds.extent2.latitude);
+                    query = db.Listings.Where(l => l.Lat >= form.bounds.extent1.latitude && l.Lat <= form.bounds.extent2.latitude);
                 else
-                    query = db.PianoListings.Where(l => l.Lat >= form.bounds.extent2.latitude && l.Lat <= form.bounds.extent1.latitude);
+                    query = db.Listings.Where(l => l.Lat >= form.bounds.extent2.latitude && l.Lat <= form.bounds.extent1.latitude);
 
                 //Bounding box: longitude processing
                 if (form.bounds.extent1.longitude <= form.bounds.extent2.longitude)
@@ -62,18 +62,18 @@ namespace FindPianos.Models
         /// Process a simple search. Accepts AJAX requests from the Google Map on the search page.
         /// </summary>
         /// <param name="box">BoundingBox of the map.</param>
-        /// <returns>A List of PianoListings inside the BoundingBox, along with some extra properties that should be displayed in the search results.</returns>
-        public List<PianoListing> ProcessAjaxMapSearch(BoundingBox box)
+        /// <returns>A List of Listings inside the BoundingBox, along with some extra properties that should be displayed in the search results.</returns>
+        public List<Listing> ProcessAjaxMapSearch(BoundingBox box)
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
-                IQueryable<PianoListing> query = null;
+                IQueryable<Listing> query = null;
 
                 //Bounding box: latitude processing
                 if (box.extent1.latitude <= box.extent2.latitude)
-                    query = db.PianoListings.Where(l => l.Lat >= box.extent1.latitude && l.Lat <= box.extent2.latitude);
+                    query = db.Listings.Where(l => l.Lat >= box.extent1.latitude && l.Lat <= box.extent2.latitude);
                 else
-                    query = db.PianoListings.Where(l => l.Lat >= box.extent2.latitude && l.Lat <= box.extent1.latitude);
+                    query = db.Listings.Where(l => l.Lat >= box.extent2.latitude && l.Lat <= box.extent1.latitude);
 
                 //Bounding box: longitude processing
                 if (box.extent1.longitude <= box.extent2.longitude)
@@ -94,15 +94,15 @@ namespace FindPianos.Models
             }
         }
     }
-    public partial class PianoListing
+    public partial class Listing
     {
-        public List<PianoListingComment> Comments
+        public List<ListingComment> Comments
         {
             get;
             internal set;
         }
         /// <summary>
-        /// The average overall rating given by the reviews for this PianoListing. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// The average overall rating given by the reviews for this Listing. This property is filled only when the Listing.FillProperties() method is called.
         /// </summary>
         public int AverageOverallRating
         {
@@ -110,7 +110,7 @@ namespace FindPianos.Models
             internal set;
         }
         /// <summary>
-        /// The last time a review for this PianoListing was revised. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// The last time a review for this Listing was revised. This property is filled only when the Listing.FillProperties() method is called.
         /// </summary>
         public DateTime LatestReviewRevisionDate
         {
@@ -118,7 +118,7 @@ namespace FindPianos.Models
             internal set;
         }
         /// <summary>
-        /// The latest time a reviewer for this PianoListing used the piano. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// The latest time a reviewer for this Listing used the piano. This property is filled only when the Listing.FillProperties() method is called.
         /// </summary>
         public DateTime LatestUseOfPianoDate
         {
@@ -126,7 +126,7 @@ namespace FindPianos.Models
             internal set;
         }
         /// <summary>
-        /// The number of reviews that have been written for this PianoListing. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// The number of reviews that have been written for this Listing. This property is filled only when the Listing.FillProperties() method is called.
         /// </summary>
         public int NumberOfReviews
         {
@@ -134,7 +134,7 @@ namespace FindPianos.Models
             internal set;
         }
         /// <summary>
-        /// The average price reviewers of this PianoListing paid to use this piano, expressed in United States Dollars. This property is filled only when the PianoListing.FillProperties() method is called.
+        /// The average price reviewers of this Listing paid to use this piano, expressed in United States Dollars. This property is filled only when the Listing.FillProperties() method is called.
         /// </summary>
         public double AveragePricePerHourInUSD
         {
@@ -142,7 +142,7 @@ namespace FindPianos.Models
             internal set;
         }
         /// <summary>
-        /// Fills supplementary properties of PianoListing: AverageOverallRating, LatestReviewRevisionDate, LatestUseOfPianoDate, NumberOfReviews, and AveragePricePerHourInUSD.
+        /// Fills supplementary properties of Listing: AverageOverallRating, LatestReviewRevisionDate, LatestUseOfPianoDate, NumberOfReviews, and AveragePricePerHourInUSD.
         /// </summary>
         public void FillProperties()
         {
@@ -151,12 +151,12 @@ namespace FindPianos.Models
             var UseOfPianoDates = new List<DateTime>();
             var Prices = new List<double>();
             var reviewCount = 0;
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
-                Comments = db.PianoListingComments.Where(c => c.PianoListingID == this.PianoID).OrderBy(c=>c.CommentID).ToList();
-                foreach (var review in db.PianoReviews.Where(rev => rev.PianoListingID == PianoID))
+                Comments = db.ListingComments.Where(c => c.ListingID == this.PianoID).OrderBy(c=>c.CommentID).ToList();
+                foreach (var review in db.Reviews.Where(rev => rev.ListingID == PianoID))
                 {
-                    var LatestRevision = db.PianoReviewRevisions.Where(revision => revision.PianoReviewID == review.PianoReviewID).OrderByDescending(revision => revision.RevisionNumberOfReview).Take(1).ToList()[0];
+                    var LatestRevision = db.ReviewRevisions.Where(revision => revision.ReviewID == review.ReviewID).OrderByDescending(revision => revision.RevisionNumberOfReview).Take(1).ToList()[0];
                     OverallRatings.Add(LatestRevision.RatingOverall);
                     RevisionDates.Add(LatestRevision.DateOfRevision);
                     UseOfPianoDates.Add(LatestRevision.DateOfLastUsageOfPianoBySubmitter);
@@ -171,14 +171,14 @@ namespace FindPianos.Models
             AveragePricePerHourInUSD = Prices.Average();
         }
     }
-    public partial class PianoReview
+    public partial class Review
     {
-        public List<PianoReviewComment> Comments
+        public List<ReviewComment> Comments
         {
             get;
             set;
         }
-        public List<PianoReviewRevision> Revisions
+        public List<ReviewRevision> Revisions
         {
             get;
             set;
@@ -186,10 +186,10 @@ namespace FindPianos.Models
 
         public void FillProperties()
         {
-            using (var data = new PianoDataContext())
+            using (var data = new LegatoDataContext())
             {
-                this.Comments = data.PianoReviewComments.Where(c => c.PianoReviewID == this.PianoReviewID).ToList();
-                this.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == this.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                this.Comments = data.ReviewComments.Where(c => c.ReviewID == this.ReviewID).ToList();
+                this.Revisions = data.ReviewRevisions.Where(rev => rev.ReviewID == this.ReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
             }
         }
 

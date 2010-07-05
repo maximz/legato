@@ -7,7 +7,7 @@ using System.Data.Linq;
 namespace FindPianos.Models
 {
     #region Validation Models
-    public partial class PianoUserSuspension
+    public partial class UserSuspension
     {
         public bool IsValid
         {
@@ -33,7 +33,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoListingFlag
+    public partial class ListingFlag
     {
         public bool IsValid
         {
@@ -42,15 +42,15 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
                 if (ListingID == null)
                     yield return new RuleViolation("Invalid listing.", "ListingID");
-                else if (db.PianoListings.Where(l => l.PianoID == this.ListingID).Count() != 1)
+                else if (db.Listings.Where(l => l.ListingID == this.ListingID).Count() != 1)
                     yield return new RuleViolation("Invalid listing.", "ListingID");
                 if (TypeID == null)
                     yield return new RuleViolation("Invalid flag type.", "TypeID");
-                else if (db.PianoFlagTypes.Where(t => t.FlagTypeID == this.TypeID).Count() != 1)
+                else if (db.FlagTypes.Where(t => t.FlagTypeID == this.TypeID).Count() != 1)
                     yield return new RuleViolation("Invalid flag type.", "TypeID");
 
             yield break;
@@ -64,7 +64,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoReviewFlag
+    public partial class ReviewFlag
     {
         public bool IsValid
         {
@@ -73,15 +73,15 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
                 if (ReviewID == null)
                     yield return new RuleViolation("Invalid review.", "ReviewID");
-                else if (db.PianoReviews.Where(l => l.PianoReviewID == this.ReviewID).Count() != 1)
+                else if (db.Reviews.Where(l => l.PianoReviewID == this.ReviewID).Count() != 1)
                     yield return new RuleViolation("Invalid review.", "ReviewID");
                 if (TypeID == null)
                     yield return new RuleViolation("Invalid flag type.", "TypeID");
-                else if (db.PianoFlagTypes.Where(t => t.FlagTypeID == this.TypeID).Count() != 1)
+                else if (db.FlagTypes.Where(t => t.FlagTypeID == this.TypeID).Count() != 1)
                     yield return new RuleViolation("Invalid flag type.", "TypeID");
 
                 yield break;
@@ -95,7 +95,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoReviewComment
+    public partial class ReviewComment
     {
         public bool IsValid
         {
@@ -155,7 +155,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoReview
+    public partial class Review
     {
         public bool IsValid
         {
@@ -164,11 +164,11 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
-                if (this.PianoListingID == null)
+                if (this.ListingID == null)
                     yield return new RuleViolation("Listing ID is required", "ListingID");
-                else if (db.PianoListings.Where(l=>l.PianoID==this.PianoListingID).Count() != -1)
+                else if (db.Listings.Where(l=>l.ListingID==this.ListingID).Count() != -1)
                     yield return new RuleViolation("Listing doesn't exist", "ListingID");
 
                 yield break;
@@ -182,7 +182,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoListing
+    public partial class Listing
     {
         public bool IsValid
         {
@@ -205,7 +205,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoReviewRevision
+    public partial class ReviewRevision
     {
         public bool IsValid
         {
@@ -214,7 +214,7 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
                 if (PianoReviewID == null)
                     yield return new RuleViolation("PianoReview is required", "PianoReviewID");
@@ -251,7 +251,7 @@ namespace FindPianos.Models
 
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
                 if (ReviewRevisionID == null)
                     yield return new RuleViolation("Review revision ID is required.", "ReviewRevisionID");

@@ -28,13 +28,13 @@ namespace FindPianos.Controllers
         [OutputCache(Duration = 7200, VaryByParam = "listingId")]
         public ActionResult Read(long listingId)
         {
-            using (var data = new PianoDataContext())
+            using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var listing = data.PianoListings.Where(l => l.PianoID == listingId).Single();
+                    var listing = data.Listings.Where(l => l.PianoID == listingId).Single();
                     listing.FillProperties();
-                    var reviews = data.PianoReviews.Where(r => r.PianoListingID == listingId).ToList();
+                    var reviews = data.PianoReviews.Where(r => r.ListingID == listingId).ToList();
                     foreach (var r in reviews)
                     {
                         r.FillProperties();
@@ -54,13 +54,13 @@ namespace FindPianos.Controllers
         [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult IndividualReview(long reviewId)
         {
-            using (var data = new PianoDataContext())
+            using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var listing = data.PianoListings.Where(l => l.PianoID == reviewId).Single();
+                    var listing = data.Listings.Where(l => l.PianoID == reviewId).Single();
                     listing.FillProperties();
-                    var review = data.PianoReviews.Where(r => r.PianoListingID == reviewId).Single();
+                    var review = data.PianoReviews.Where(r => r.ListingID == reviewId).Single();
                     review.FillProperties();
                     ViewData["listing"] = listing;
                     ViewData["review"] = review;
@@ -81,7 +81,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var data = new PianoDataContext())
+                using (var data = new LegatoDataContext())
                 {
                     var review = data.PianoReviews.Where(r => r.PianoReviewID == reviewId).Single();
                     review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
@@ -106,7 +106,7 @@ namespace FindPianos.Controllers
         [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
-            using (var db = new PianoDataContext())
+            using (var db = new LegatoDataContext())
             {
                 var results = db.ProcessAjaxMapSearch(new BoundingBox()
             {
@@ -127,7 +127,7 @@ namespace FindPianos.Controllers
         //    //execute search
             
 
-        //    using (var db = new PianoDataContext())
+        //    using (var db = new LegatoDataContext())
         //    {
         //        ViewData["listings"] = db.ProcessSearchForm(s);
         //    }
@@ -149,14 +149,14 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
-        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]PianoListing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
+        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude="PianoID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]Listing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
             //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     var time = DateTime.Now;
 
@@ -182,12 +182,12 @@ namespace FindPianos.Controllers
                         ModelState.SetModelValue("Address", new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
                         return View();
                     }
-                    db.PianoListings.InsertOnSubmit(listing);
+                    db.Listings.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
                     //REVIEW:
                     var review = new PianoReview();
-                    review.PianoListing = listing;
+                    review.Listing = listing;
                     db.PianoReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
@@ -214,7 +214,7 @@ namespace FindPianos.Controllers
                     }
                     db.SubmitChanges();
                 }
-                return RedirectToAction("Read", new { id = r.PianoReview.PianoListingID }); //shows details for that submission thread, with only one revision!
+                return RedirectToAction("Read", new { id = r.PianoReview.ListingID }); //shows details for that submission thread, with only one revision!
 
             }
             catch
@@ -233,7 +233,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
         {
-            using(var db = new PianoDataContext())
+            using(var db = new LegatoDataContext())
             {
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
@@ -256,7 +256,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
@@ -291,7 +291,7 @@ namespace FindPianos.Controllers
                     }
                     db.SubmitChanges();
                 }
-                return RedirectToAction("Read", new { id = r.PianoReview.PianoListingID }); //shows details for that submission thread, with only one revision!
+                return RedirectToAction("Read", new { id = r.PianoReview.ListingID }); //shows details for that submission thread, with only one revision!
 
             }
             catch
@@ -314,21 +314,21 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.PianoListings.Where(l => l.PianoID == idOfPost).Count() != 1)
+                    if (db.Listings.Where(l => l.PianoID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new PianoListingFlag();
+                    var flag = new ListingFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
                     flag.ListingID = idOfPost;
-                    db.PianoListingFlags.InsertOnSubmit(flag);
+                    db.ListingFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -355,7 +355,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
                     if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)
@@ -399,21 +399,21 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.PianoListings.Where(l => l.PianoID == idOfPost).Count() != 1)
+                    if (db.Listings.Where(l => l.PianoID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var comment = new PianoListingComment();
+                    var comment = new ListingComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
                     comment.MessageText = commentText;
-                    comment.PianoListingID = idOfPost;
-                    db.PianoListingComments.InsertOnSubmit(comment);
+                    comment.ListingID = idOfPost;
+                    db.ListingComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -441,7 +441,7 @@ namespace FindPianos.Controllers
         {
             try
             {
-                using (var db = new PianoDataContext())
+                using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
                     if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)

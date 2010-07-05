@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace FindPianos.ViewModels
 {
@@ -20,11 +21,13 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
+        [DisplayName("Start Time")]
         public DateTime StartTime
         {
             get;
             set;
         }
+        [DisplayName("End Time")]
         public DateTime EndTime
         {
             get;set;

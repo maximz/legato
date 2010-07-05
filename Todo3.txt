@@ -1,0 +1,12 @@
+1. implement the custom viewmodel validation attributes
+2. implement geocoding
+3. [DisplayName] for all things in ViewModels, plus XML comments
+5. Other DB stuff:
+	a. Rename all Piano tables to Legato
+	b. Rename LINQ-to-SQL data context from Piano to Legato
+6. Implement connection to ViewModels from:
+	a. Controllers
+	b. Views
+7. Configure IPBlacklist in:
+	a. its .cs file
+	b. web.config (uncomment its line to enable it)

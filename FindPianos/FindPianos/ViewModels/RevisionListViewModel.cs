@@ -10,7 +10,7 @@ namespace FindPianos.ViewModels
     public class RevisionListViewModel
     {
         [Required(ErrorMessage="The revision list is required.")]
-        public List<PianoReviewRevision> Revisions
+        public List<ReviewRevision> Revisions
         {
             get;
             set;
