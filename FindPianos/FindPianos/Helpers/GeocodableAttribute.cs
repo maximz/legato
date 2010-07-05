@@ -19,18 +19,11 @@ namespace FindPianos.Helpers
                 return true;
             }
             var address = (string)value;
-            //TODO
-            throw new NotImplementedException();
-            //if (price < MinPrice)
-            //{
-            //    return false;
-            //}
-            //double cents = price - Math.Truncate(price);
-            //if (cents < 0.99 || cents >= 0.995)
-            //{
-            //    return false;
-            //}
-
+            var response = Geocoder.CallGeoWS(address.Trim());
+            if(response.Status=="ZERO_RESULTS")
+            {
+                return false;
+            }
             return true;
         }
     }

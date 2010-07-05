@@ -1,9 +1,6 @@
 1. implement the custom viewmodel validation attributes
-2. implement geocoding
-3. [DisplayName] for all things in ViewModels, plus XML comments
-5. Other DB stuff:
-	a. Rename all Piano tables to Legato
-	b. Rename LINQ-to-SQL data context from Piano to Legato
+2. fix geocoding in Geocoder in Helpers: http://stackoverflow.com/questions/3178218/using-the-wcf-datacontractjsonserializer-in-net-3-5
+3. create linq-to-sql classes in legato.dbml
 6. Implement connection to ViewModels from:
 	a. Controllers
 	b. Views

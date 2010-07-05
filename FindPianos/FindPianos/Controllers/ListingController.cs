@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using FindPianos.Models;
 using System.Globalization;
 using RiaLibrary.Web;
-using GeoCoding;
-using GeoCoding.Google;
 using System.Web.Security;
 using FindPianos.Helpers;
 using System.Net;
@@ -166,14 +164,13 @@ namespace FindPianos.Controllers
                     listing.DateOfSubmission = time;
                     try
                     {
-                        IGeoCoder geocode = new GoogleGeoCoder("ABQIAAAAbyfszEVR0VTKZImYRp5b6BS9l0G0i7V22ZGVaQxYRD7DXNsCeRQYuExgpEMwCaudHBGK5MIz8RlXCg"); //key for maximzaslavsky.com
-                        var addresses = geocode.GeoCode(listing.StreetAddress);
-                        if (addresses.Length < 1)
-                            throw new ApplicationException();
+                        var addresses = Geocoder.CallGeoWS(listing.StreetAddress);
+                        if (addresses.Status = "ZERO_RESULTS")
+                            return RedirectToAction("InternalServerError", "Error");
                         else
                         {
-                            listing.Lat = (decimal)addresses[0].Coordinates.Latitude;
-                            listing.Long = (decimal)addresses[0].Coordinates.Longitude;
+                            listing.Lat = (decimal)addresses.Results[0].Geometry.Location.Lat;
+                            listing.Long = (decimal)addresses.Results[0].Geometry.Location.Lng;
                         }
                     }
                     catch
