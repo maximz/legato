@@ -1,6 +1,4 @@
 1. implement the custom viewmodel validation attributes
-2. fix geocoding in Geocoder in Helpers: http://stackoverflow.com/questions/3178218/using-the-wcf-datacontractjsonserializer-in-net-3-5
-3. create linq-to-sql classes in legato.dbml
 6. Implement connection to ViewModels from:
 	a. Controllers
 	b. Views
@@ -8,3 +6,8 @@
 	a. its .cs file
 	b. web.config (uncomment its line to enable it)
 8. sitemap, robots.txt
+9. configure how flags affect which reviews/listings are displayed or not
+
+wherever we have ModelState.AddModelError(...), add ModelState.SetModelValue("NameOfField", new ValueProviderResult(null, null, CultureInfo.InvariantCulture)); underneath!!!
+
+2. geocodable attribute - apply to whole viewmodel, put result into lat and long viewmodel parameter - instead of two geocoding requests, we only do 1 now. Does this break client side validation for other things (that use [Required] and such?) - http://stackoverflow.com/questions/3182744/building-a-custom-componentmodel-dataannotations-validationattribute-and-applying

@@ -16,6 +16,7 @@ namespace FindPianos.ViewModels
         /// <value>The brand.</value>
         [Required(ErrorMessage="Brand name is required.")]
         [DisplayName("Instrument brand")]
+        [StringLength(50,ErrorMessage="The brand name is too long. It must be under 50 characters in length.")]
         public string Brand
         {
             get;
@@ -26,6 +27,7 @@ namespace FindPianos.ViewModels
         /// </summary>
         /// <value>The model.</value>
         [DisplayName("Instrument model")]
+        [StringLength(50, ErrorMessage = "The model name is too long. It must be under 50 characters in length.")]
         public string Model
         {
             get;

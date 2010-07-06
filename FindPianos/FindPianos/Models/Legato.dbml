@@ -185,6 +185,7 @@
       <Column Name="StyleID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="StyleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="InstrumentStyle_Listing" Member="Listings" ThisKey="StyleID" OtherKey="InstrumentStyleID" Type="Listing" />
       <Association Name="Instrument_InstrumentStyle" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
     </Type>
   </Table>
@@ -193,6 +194,7 @@
       <Column Name="TypeID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="TypeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="InstrumentType_Listing" Member="Listings" ThisKey="TypeID" OtherKey="InstrumentTypeID" Type="Listing" />
       <Association Name="Instrument_InstrumentType" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
     </Type>
   </Table>
@@ -228,10 +230,16 @@
       <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="OriginalSubmitterUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentBrand" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentModel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InstrumentTypeID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentStyleID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Association Name="Listing_ListingComment" Member="ListingComments" ThisKey="ListingID" OtherKey="ListingID" Type="ListingComment" />
       <Association Name="Listing_ListingFlag" Member="ListingFlags" ThisKey="ListingID" OtherKey="ListingID" Type="ListingFlag" />
       <Association Name="Listing_Review" Member="Reviews" ThisKey="ListingID" OtherKey="ListingID" Type="Review" />
       <Association Name="Instrument_Listing" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
+      <Association Name="InstrumentStyle_Listing" Member="InstrumentStyle" ThisKey="InstrumentStyleID" OtherKey="StyleID" Type="InstrumentStyle" IsForeignKey="true" />
+      <Association Name="InstrumentType_Listing" Member="InstrumentType" ThisKey="InstrumentTypeID" OtherKey="TypeID" Type="InstrumentType" IsForeignKey="true" />
       <Association Name="aspnet_User_Listing" Member="aspnet_User" ThisKey="OriginalSubmitterUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -269,9 +277,6 @@
     <Type Name="ReviewRevision">
       <Column Name="ReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="StyleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Brand" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RatingTuning" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="RatingToneQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />

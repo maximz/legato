@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FindPianos.Models
 {
-    public partial class LegatooDataContext
+    public partial class LegatoDataContext
     {
         /// <summary>
         /// Processes a complex SearchForm.

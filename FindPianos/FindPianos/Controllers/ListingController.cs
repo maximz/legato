@@ -9,6 +9,7 @@ using RiaLibrary.Web;
 using System.Web.Security;
 using FindPianos.Helpers;
 using System.Net;
+using FindPianos.ViewModels;
 
 namespace FindPianos.Controllers
 {
@@ -32,19 +33,22 @@ namespace FindPianos.Controllers
                 {
                     var listing = data.Listings.Where(l => l.ListingID == listingId).Single();
                     listing.FillProperties();
-                    var reviews = data.PianoReviews.Where(r => r.ListingID == listingId).ToList();
+                    var reviews = data.Reviews.Where(r => r.ListingID == listingId).ToList();
                     foreach (var r in reviews)
                     {
                         r.FillProperties();
                     }
-                    ViewData["listing"] = listing;
-                    ViewData["reviews"] = reviews;
+                    var model = new ReadListingViewModel
+                    {
+                        Listing = listing,
+                        Reviews = reviews
+                    };
+                    return View(model);
                 }
                 catch
                 {
                     return RedirectToAction("NotFound", "Error");
                 }
-                return View();
             }
         }
         
@@ -58,16 +62,20 @@ namespace FindPianos.Controllers
                 {
                     var listing = data.Listings.Where(l => l.ListingID == reviewId).Single();
                     listing.FillProperties();
-                    var review = data.PianoReviews.Where(r => r.ListingID == reviewId).Single();
+                    var review = data.Reviews.Where(r => r.ListingID == reviewId).Single();
                     review.FillProperties();
-                    ViewData["listing"] = listing;
-                    ViewData["review"] = review;
+                    var model = new ReadListingViewModel()
+                    {
+                        Listing = listing,
+                        Reviews = new List<Review>()
+                    };
+                    model.Reviews.Add(review);
+                    return View(model);
                 }
                 catch
                 {
                     return RedirectToAction("NotFound", "Error");
                 }
-                return View();
             }
         }
         #endregion
@@ -81,10 +89,9 @@ namespace FindPianos.Controllers
             {
                 using (var data = new LegatoDataContext())
                 {
-                    var review = data.PianoReviews.Where(r => r.PianoReviewID == reviewId).Single();
-                    review.Revisions = data.PianoReviewRevisions.Where(rev => rev.PianoReviewID == review.PianoReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
-                    ViewData["review"] = review;
-                    return View();
+                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
+                    review.Revisions = data.ReviewRevisions.Where(rev => rev.ReviewID == review.ReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                    return View(review);
                 }
             }
             catch
@@ -115,23 +122,6 @@ namespace FindPianos.Controllers
             }
 
         }
-        //[Url("Search")]
-        //[AcceptVerbs(HttpVerbs.Post)]
-        //public ActionResult List(SearchForm s)
-        //{
-        //    //validate
-
-
-        //    //execute search
-            
-
-        //    using (var db = new LegatoDataContext())
-        //    {
-        //        ViewData["listings"] = db.ProcessSearchForm(s);
-        //    }
-        //    return View();
-        //}
-
         #endregion
 
         #region Submission and Editing methods
@@ -141,13 +131,14 @@ namespace FindPianos.Controllers
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
-            return View();
+            //TODO: load styles and types into the model; or rather, don't. that will be ajax.
+            return View(new SubmitViewModel());
         }
         [Url("Listing/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
-        public ActionResult Submit([Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]ReviewRevision r, [Bind(Exclude="ListingID, Lat, Long, OriginalSubmitterUserID, DateOfSubmission")]Listing listing, [Bind(Exclude="ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
+        public ActionResult Submit(SubmitViewModel model)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
@@ -159,13 +150,66 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
 
                     //LISTING:
+                    var listing = new Listing();
+
+                    listing.StreetAddress = model.Listing.StreetAddress;
+                    listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
+                    if(model.Listing.Equipment.Model.IsNullOrEmpty())
+                        listing.InstrumentModel = null;
+                    else
+                        listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
+
+                    /*Matching instrument and style:
+                     * 1. take instrument name, find match in Instruments table
+                     * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
+                     * 3. Match name to a record in InstrumentTypes with InstrumentID from step 1 and Name from step 2
+                     * 4. Apply ID of record in #3 to Listing
+                     * 5. Same for Styles
+                     * that's how we do it! */
+                    var instrument = db.Instruments.Where(i => i.Name == model.Listing.InstrumentName).SingleOrDefault();
+                    if(instrument==null)
+                    {
+                        ModelState.AddModelError("InstrumentName", "No such instrument exists.");
+                        return View();
+                    }
+                    var style = model.Listing.Equipment.Styles.ElementAtOrDefault(model.Listing.Equipment.SelectedStyle);
+                    if(style==null)
+                    {
+                        ModelState.AddModelError("Style", "No such style exists.");
+                        return View();
+                    }
+                    var modelStyle = db.InstrumentStyles.Where(s => s.InstrumentID == instrument.InstrumentID && s.StyleName == style.Value).SingleOrDefault(); //TODO: is it style.Value or style.Text?
+                    if(modelStyle==null)
+                    {
+                        ModelState.AddModelError("Style", "No such style exists.");
+                        return View();
+                    }
+                    listing.InstrumentStyleID = modelStyle.StyleID;
+                    style = null;
+                    modelStyle = null;
+                    var type = model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType);
+                    if (type == null)
+                    {
+                        ModelState.AddModelError("Type", "No such type exists.");
+                        return View();
+                    }
+                    var modelType = db.InstrumentTypes.Where(t => t.InstrumentID == instrument.InstrumentID && t.TypeName == type.Value).SingleOrDefault(); //TODO: is it type.Value or type.Text?
+                    if (modelType == null)
+                    {
+                        ModelState.AddModelError("Type", "No such type exists.");
+                        return View();
+                    }
+                    listing.InstrumentTypeID = modelType.TypeID;
+                    type = null;
+                    modelType = null;
+
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     listing.OriginalSubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
                     try
                     {
                         var addresses = Geocoder.CallGeoWS(listing.StreetAddress);
-                        if (addresses.Status = "ZERO_RESULTS")
+                        if (addresses.Status == "ZERO_RESULTS")
                             return RedirectToAction("InternalServerError", "Error");
                         else
                         {

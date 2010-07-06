@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -91,6 +92,7 @@
     <Compile Include="Helpers\Inflector.cs" />
     <Compile Include="Helpers\InstrumentNameVerificationAttribute.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="Helpers\PropertiesMustMatch.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -115,26 +117,51 @@
     </Compile>
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\EditViewModel.cs" />
-    <Compile Include="ViewModels\EquipmentViewModel.cs" />
-    <Compile Include="ViewModels\ListingSubmissionViewModel.cs" />
-    <Compile Include="ViewModels\ReadListingViewModel.cs" />
-    <Compile Include="ViewModels\RevisionListViewModel.cs" />
-    <Compile Include="ViewModels\RevisionSubmissionViewModel.cs" />
-    <Compile Include="ViewModels\SubmitViewModel.cs" />
-    <Compile Include="ViewModels\VenueHourViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\EditViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\EquipmentViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\ListingSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\ReadListingViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\RevisionSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\SubmitViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\VenueHourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\960.css" />
+    <Content Include="Content\fluster_m1.png" />
+    <Content Include="Content\fluster_m2.png" />
+    <Content Include="Content\fluster_m3.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_diagonal-maze_20_6e4f1c_10x10.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_diagonal-maze_40_000000_10x10.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_10_eceadf_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_10_f8f7f6_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_15_eceadf_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_15_f7f3de_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_15_ffffff_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_65_654b24_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-bg_fine-grain_68_b83400_60x60.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_3572ac_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_8c291d_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_b83400_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_fbdb93_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jqueryui\pepper-grinder\jquery-ui-1.8.2.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Helpers\MvcReCaptcha.dll" />
     <Content Include="Helpers\Recaptcha.dll" />
     <Content Include="Helpers\RiaLibrary.Web.dll" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Fluster2.packed.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.4.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.timeago.js" />
+    <Content Include="Scripts\jquery.timers-1.2.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

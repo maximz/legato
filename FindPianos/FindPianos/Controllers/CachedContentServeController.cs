@@ -48,6 +48,17 @@ namespace FindPianos.Controllers
             return File(MakeContentPath("Scripts","jquery-"+jqueryVersion+".min", "js"), "text/javascript");
         }
         /// <summary>
+        /// Returns a version of jQueryUI.min.js.
+        /// </summary>
+        /// <param name="jqueryVersion">The requested version of jQuery UI.</param>
+        /// <returns>The file.</returns>
+        [OutputCache(Duration = 4838400, VaryByParam = "jqueryVersion")] //8 weeks
+        [Url("Scripts/jQueryUI/{jqueryUIVersion}")]
+        public ActionResult jQueryUI(string jqueryUIVersion)
+        {
+            return File(MakeContentPath("Scripts", "jquery-ui-" + jqueryUIVersion + ".min", "js"), "text/javascript");
+        }
+        /// <summary>
         /// Gets a JavaScript script by name; cached for 8 weeks.
         /// </summary>
         /// <param name="name">The name of the file, without its extension.</param>

@@ -5,16 +5,22 @@
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | PianoSeek</title>
     <link href="../../Content/reset/css" rel="Stylesheet" type="text/css" />
+    <link href="../../Content/jqueryui/pepper-grinder/jquery-ui-1.8.2/css" rel="Stylesheet"
+        type="text/css" />
     <link href="../../Content/Site/css" rel="stylesheet" type="text/css" />
     <link href="../../Content/960/css" rel="Stylesheet" type="text/css" />
     <link rel="Shortcut Icon" href="../../Content/favicon/png" />
     <link rel="apple-touch-icon" href="../../Content/apple-touch-icon/png" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
-            document.write(unescape("%3Cscript src='../../Scripts/jQuery/1.4.1' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='../../Scripts/jQuery/1.4.2' type='text/javascript'%3E%3C/script%3E"));
         }
     </script>
+    <% if(false) { %>
+    <script type="text/javascript" src="../../Scripts/jquery-1.4.2-vsdoc.js"></script>
+    <% } %>
+    <script type="text/javascript" src="../../Scripts/jQueryUI/1.8.2"></script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server"/>
 </head>
 

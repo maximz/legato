@@ -4142,6 +4142,8 @@ namespace FindPianos.Models
 		
 		private string _StyleName;
 		
+		private EntitySet<Listing> _Listings;
+		
 		private EntityRef<Instrument> _Instrument;
 		
     #region Extensibility Method Definitions
@@ -4158,6 +4160,7 @@ namespace FindPianos.Models
 		
 		public InstrumentStyle()
 		{
+			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
 			this._Instrument = default(EntityRef<Instrument>);
 			OnCreated();
 		}
@@ -4226,6 +4229,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentStyle_Listing", Storage="_Listings", ThisKey="StyleID", OtherKey="InstrumentStyleID")]
+		public EntitySet<Listing> Listings
+		{
+			get
+			{
+				return this._Listings;
+			}
+			set
+			{
+				this._Listings.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentStyle", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
 		public Instrument Instrument
 		{
@@ -4279,6 +4295,18 @@ namespace FindPianos.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Listings(Listing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentStyle = this;
+		}
+		
+		private void detach_Listings(Listing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentStyle = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentTypes")]
@@ -4292,6 +4320,8 @@ namespace FindPianos.Models
 		private long _InstrumentID;
 		
 		private string _TypeName;
+		
+		private EntitySet<Listing> _Listings;
 		
 		private EntityRef<Instrument> _Instrument;
 		
@@ -4309,6 +4339,7 @@ namespace FindPianos.Models
 		
 		public InstrumentType()
 		{
+			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
 			this._Instrument = default(EntityRef<Instrument>);
 			OnCreated();
 		}
@@ -4377,6 +4408,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_Listing", Storage="_Listings", ThisKey="TypeID", OtherKey="InstrumentTypeID")]
+		public EntitySet<Listing> Listings
+		{
+			get
+			{
+				return this._Listings;
+			}
+			set
+			{
+				this._Listings.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentType", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
 		public Instrument Instrument
 		{
@@ -4429,6 +4473,18 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Listings(Listing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = this;
+		}
+		
+		private void detach_Listings(Listing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = null;
 		}
 	}
 	
@@ -4973,6 +5029,14 @@ namespace FindPianos.Models
 		
 		private System.DateTime _DateOfSubmission;
 		
+		private string _InstrumentBrand;
+		
+		private string _InstrumentModel;
+		
+		private long _InstrumentTypeID;
+		
+		private long _InstrumentStyleID;
+		
 		private EntitySet<ListingComment> _ListingComments;
 		
 		private EntitySet<ListingFlag> _ListingFlags;
@@ -4980,6 +5044,10 @@ namespace FindPianos.Models
 		private EntitySet<Review> _Reviews;
 		
 		private EntityRef<Instrument> _Instrument;
+		
+		private EntityRef<InstrumentStyle> _InstrumentStyle;
+		
+		private EntityRef<InstrumentType> _InstrumentType;
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
@@ -5001,6 +5069,14 @@ namespace FindPianos.Models
     partial void OnOriginalSubmitterUserIDChanged();
     partial void OnDateOfSubmissionChanging(System.DateTime value);
     partial void OnDateOfSubmissionChanged();
+    partial void OnInstrumentBrandChanging(string value);
+    partial void OnInstrumentBrandChanged();
+    partial void OnInstrumentModelChanging(string value);
+    partial void OnInstrumentModelChanged();
+    partial void OnInstrumentTypeIDChanging(long value);
+    partial void OnInstrumentTypeIDChanged();
+    partial void OnInstrumentStyleIDChanging(long value);
+    partial void OnInstrumentStyleIDChanged();
     #endregion
 		
 		public Listing()
@@ -5009,6 +5085,8 @@ namespace FindPianos.Models
 			this._ListingFlags = new EntitySet<ListingFlag>(new Action<ListingFlag>(this.attach_ListingFlags), new Action<ListingFlag>(this.detach_ListingFlags));
 			this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
 			this._Instrument = default(EntityRef<Instrument>);
+			this._InstrumentStyle = default(EntityRef<InstrumentStyle>);
+			this._InstrumentType = default(EntityRef<InstrumentType>);
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
 		}
@@ -5161,6 +5239,94 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentBrand", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string InstrumentBrand
+		{
+			get
+			{
+				return this._InstrumentBrand;
+			}
+			set
+			{
+				if ((this._InstrumentBrand != value))
+				{
+					this.OnInstrumentBrandChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentBrand = value;
+					this.SendPropertyChanged("InstrumentBrand");
+					this.OnInstrumentBrandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentModel", DbType="NVarChar(50)")]
+		public string InstrumentModel
+		{
+			get
+			{
+				return this._InstrumentModel;
+			}
+			set
+			{
+				if ((this._InstrumentModel != value))
+				{
+					this.OnInstrumentModelChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentModel = value;
+					this.SendPropertyChanged("InstrumentModel");
+					this.OnInstrumentModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentTypeID", DbType="BigInt NOT NULL")]
+		public long InstrumentTypeID
+		{
+			get
+			{
+				return this._InstrumentTypeID;
+			}
+			set
+			{
+				if ((this._InstrumentTypeID != value))
+				{
+					if (this._InstrumentType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentTypeID = value;
+					this.SendPropertyChanged("InstrumentTypeID");
+					this.OnInstrumentTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentStyleID", DbType="BigInt NOT NULL")]
+		public long InstrumentStyleID
+		{
+			get
+			{
+				return this._InstrumentStyleID;
+			}
+			set
+			{
+				if ((this._InstrumentStyleID != value))
+				{
+					if (this._InstrumentStyle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentStyleIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentStyleID = value;
+					this.SendPropertyChanged("InstrumentStyleID");
+					this.OnInstrumentStyleIDChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Listing_ListingComment", Storage="_ListingComments", ThisKey="ListingID", OtherKey="ListingID")]
 		public EntitySet<ListingComment> ListingComments
 		{
@@ -5230,6 +5396,74 @@ namespace FindPianos.Models
 						this._InstrumentID = default(long);
 					}
 					this.SendPropertyChanged("Instrument");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentStyle_Listing", Storage="_InstrumentStyle", ThisKey="InstrumentStyleID", OtherKey="StyleID", IsForeignKey=true)]
+		public InstrumentStyle InstrumentStyle
+		{
+			get
+			{
+				return this._InstrumentStyle.Entity;
+			}
+			set
+			{
+				InstrumentStyle previousValue = this._InstrumentStyle.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentStyle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentStyle.Entity = null;
+						previousValue.Listings.Remove(this);
+					}
+					this._InstrumentStyle.Entity = value;
+					if ((value != null))
+					{
+						value.Listings.Add(this);
+						this._InstrumentStyleID = value.StyleID;
+					}
+					else
+					{
+						this._InstrumentStyleID = default(long);
+					}
+					this.SendPropertyChanged("InstrumentStyle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_Listing", Storage="_InstrumentType", ThisKey="InstrumentTypeID", OtherKey="TypeID", IsForeignKey=true)]
+		public InstrumentType InstrumentType
+		{
+			get
+			{
+				return this._InstrumentType.Entity;
+			}
+			set
+			{
+				InstrumentType previousValue = this._InstrumentType.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentType.Entity = null;
+						previousValue.Listings.Remove(this);
+					}
+					this._InstrumentType.Entity = value;
+					if ((value != null))
+					{
+						value.Listings.Add(this);
+						this._InstrumentTypeID = value.TypeID;
+					}
+					else
+					{
+						this._InstrumentTypeID = default(long);
+					}
+					this.SendPropertyChanged("InstrumentType");
 				}
 			}
 		}
@@ -5983,12 +6217,6 @@ namespace FindPianos.Models
 		
 		private long _ReviewID;
 		
-		private int _StyleID;
-		
-		private string _Brand;
-		
-		private string _Model;
-		
 		private int _RatingOverall;
 		
 		private System.Nullable<int> _RatingTuning;
@@ -6025,12 +6253,6 @@ namespace FindPianos.Models
     partial void OnReviewRevisionIDChanged();
     partial void OnReviewIDChanging(long value);
     partial void OnReviewIDChanged();
-    partial void OnStyleIDChanging(int value);
-    partial void OnStyleIDChanged();
-    partial void OnBrandChanging(string value);
-    partial void OnBrandChanged();
-    partial void OnModelChanging(string value);
-    partial void OnModelChanged();
     partial void OnRatingOverallChanging(int value);
     partial void OnRatingOverallChanged();
     partial void OnRatingTuningChanging(System.Nullable<int> value);
@@ -6103,66 +6325,6 @@ namespace FindPianos.Models
 					this._ReviewID = value;
 					this.SendPropertyChanged("ReviewID");
 					this.OnReviewIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StyleID", DbType="Int NOT NULL")]
-		public int StyleID
-		{
-			get
-			{
-				return this._StyleID;
-			}
-			set
-			{
-				if ((this._StyleID != value))
-				{
-					this.OnStyleIDChanging(value);
-					this.SendPropertyChanging();
-					this._StyleID = value;
-					this.SendPropertyChanged("StyleID");
-					this.OnStyleIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="NVarChar(MAX)")]
-		public string Brand
-		{
-			get
-			{
-				return this._Brand;
-			}
-			set
-			{
-				if ((this._Brand != value))
-				{
-					this.OnBrandChanging(value);
-					this.SendPropertyChanging();
-					this._Brand = value;
-					this.SendPropertyChanged("Brand");
-					this.OnBrandChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(MAX)")]
-		public string Model
-		{
-			get
-			{
-				return this._Model;
-			}
-			set
-			{
-				if ((this._Model != value))
-				{
-					this.OnModelChanging(value);
-					this.SendPropertyChanging();
-					this._Model = value;
-					this.SendPropertyChanged("Model");
-					this.OnModelChanged();
 				}
 			}
 		}
