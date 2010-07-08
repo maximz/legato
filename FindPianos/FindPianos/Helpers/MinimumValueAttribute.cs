@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FindPianos.Helpers
 {
+    /// <summary>
+    /// Requires the value of the property to be greater than or equal to a certain minimum value.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class MinimumValueAttribute : RangeAttribute
     {
