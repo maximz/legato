@@ -85,14 +85,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="Helpers\GeocodableAttribute.cs" />
+    <Compile Include="Helpers\Validation\GeocodableAttribute.cs" />
     <Compile Include="Helpers\Geocoder.cs" />
     <Compile Include="Helpers\Inflector.cs" />
-    <Compile Include="Helpers\InstrumentNameVerificationAttribute.cs" />
+    <Compile Include="Helpers\Validation\InstrumentNameVerificationAttribute.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
-    <Compile Include="Helpers\PropertiesMustMatch.cs" />
+    <Compile Include="Helpers\Validation\MaximumValueAttribute.cs" />
+    <Compile Include="Helpers\Validation\MinimumValueAttribute.cs" />
+    <Compile Include="Helpers\Validation\PropertiesMustMatchAttribute.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
