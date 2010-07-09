@@ -30,7 +30,7 @@ namespace HttpModules
         }
 
         private const string BLOCKEDIPSKEY = "blockedips";
-        private const string BLOCKEDIPSFILE = "SiteConfig/blockedips.config";
+        private const string BLOCKEDIPSFILE = "blockedips.config";
 
         public static StringDictionary GetBlockedIPs(HttpContext context)
         {
@@ -99,7 +99,7 @@ namespace HttpModules
                 StringDictionary badIPs = GetBlockedIPs(app.Context);
                 if(badIPs != null && badIPs.ContainsKey(IPAddr))
                 {
-                    app.Context.Response.StatusCode = 404;
+                    app.Context.Response.StatusCode = 403;
                     app.Context.Response.SuppressContent = true;
                     app.Context.Response.End();
                     return;

@@ -1,4 +1,3 @@
-1. implement the custom viewmodel validation attributes
 6. Implement connection to ViewModels from:
 	a. Controllers
 	b. Views
@@ -9,5 +8,3 @@
 9. configure how flags affect which reviews/listings are displayed or not
 
 wherever we have ModelState.AddModelError(...), add ModelState.SetModelValue("NameOfField", new ValueProviderResult(null, null, CultureInfo.InvariantCulture)); underneath!!!
-
-2. geocodable attribute - apply to whole viewmodel, put result into lat and long viewmodel parameter - instead of two geocoding requests, we only do 1 now. Does this break client side validation for other things (that use [Required] and such?) - http://stackoverflow.com/questions/3182744/building-a-custom-componentmodel-dataannotations-validationattribute-and-applying
