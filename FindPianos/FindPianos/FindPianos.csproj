@@ -84,6 +84,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\SiteMetadataController.cs" />
     <Compile Include="Helpers\AccountProfile.cs" />
     <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
@@ -226,11 +227,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="blockedips.config" />
     <None Include="Models\Legato.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Legato.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="robots.txt.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\Legato.dbml.layout">

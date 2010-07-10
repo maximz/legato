@@ -1,9 +1,6 @@
 6. Implement connection to ViewModels from:
 	a. Controllers
 	b. Views
-7. Configure IPBlacklist in:
-	a. its .cs file
-	b. web.config (uncomment its line to enable it)
 8. sitemap, robots.txt
 9. configure how flags affect which reviews/listings are displayed or not
 
