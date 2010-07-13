@@ -35,3 +35,5 @@ using System.Resources;
 [assembly: AssemblyVersion("0.0.0.1")]
 [assembly: AssemblyFileVersion("0.0.0.1")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
+
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FindPianos.Tests")]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using FindPianos.Helpers;
 
 namespace FindPianos.ViewModels
 {
@@ -52,7 +53,7 @@ namespace FindPianos.ViewModels
         }
         [Required(ErrorMessage="Price is required.")]
         [DisplayName("Price Per Hour (in USD)")]
-        //TODO: validate that it's not less than 0.
+        [MinimumValue(0)]
         public double PricePerHour
         {
             get;
@@ -66,6 +67,7 @@ namespace FindPianos.ViewModels
         }
         [Required(ErrorMessage="The date you last used this instrument is required.")]
         [DisplayName("Date of Last Usage")]
+        [CompareValue(ComparisonValue=DateTime.Now,LessThanAllowed=true,EqualToAllowed=true,GreaterThanAllowed=false,AllowNullValues=true,ErrorMessage="Date of last usage must be in the past.")]
         public DateTime DateOfLastUsage
         {
             get;

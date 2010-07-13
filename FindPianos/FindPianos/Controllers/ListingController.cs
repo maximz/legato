@@ -60,10 +60,12 @@ namespace FindPianos.Controllers
             {
                 try
                 {
-                    var listing = data.Listings.Where(l => l.ListingID == reviewId).Single();
-                    listing.FillProperties();
-                    var review = data.Reviews.Where(r => r.ListingID == reviewId).Single();
+                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
                     review.FillProperties();
+
+                    var listing = review.Listing;
+                    listing.FillProperties();
+
                     var model = new ReadListingViewModel()
                     {
                         Listing = listing,

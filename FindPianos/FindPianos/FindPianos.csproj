@@ -84,8 +84,17 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\DiscussController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SiteMetadataController.cs" />
     <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\HtmlUtilities.cs" />
+    <Compile Include="Helpers\PagedList.cs" />
+    <Compile Include="Helpers\PageNumber.cs" />
+    <Compile Include="Helpers\PageSizer.cs" />
     <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -120,10 +129,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Legato.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\StoreExtensions.cs" />
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Admin\SuspendUserViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserInformationViewModel.cs" />
+    <Compile Include="ViewModels\Store\EditViewModel.cs" />
+    <Compile Include="ViewModels\Store\EquipmentViewModel.cs" />
+    <Compile Include="ViewModels\Store\StoreListingSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\Store\ReadStoreListingViewModel.cs" />
+    <Compile Include="ViewModels\Store\StoreRevisionSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\Store\SubmitViewModel.cs" />
+    <Compile Include="ViewModels\Store\VenueHourViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EditViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\ListingSubmissionViewModel.cs" />
@@ -198,6 +215,12 @@
     <Content Include="Views\Listing\Read.aspx" />
     <Content Include="Views\Listing\ReviewTimeline.aspx" />
     <Content Include="Views\Listing\Submit.aspx" />
+    <Content Include="Views\Shared\PageNumbers.ascx" />
+    <Content Include="Views\Shared\SubHeader.ascx" />
+    <Content Include="Views\Shared\User.ascx" />
+    <Content Include="Views\User\Edit.aspx" />
+    <Content Include="Views\User\Index.aspx" />
+    <Content Include="Views\User\Show.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -231,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blockedips.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Models\Legato.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Legato.designer.cs</LastGenOutput>

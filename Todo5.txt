@@ -1,0 +1,37 @@
+implement:
+VIEWS:
+	account/show - Shows a user profile
+		if logged in as the user whose profile you're viewing or as admin:
+			link to account/edit
+			show suspension status and link to suspension status page (Account Standing)
+			show email address
+			show openids
+			show email address verification status and link to email verification resend email page
+		show user's activity in:
+			For temporary use - listings, reviews, comments
+			For sale - listings, reviews, comments
+			Stores - listings, reviews, comments
+			Discussion - "started [ThreadnameAndLink]" or "replied to [ThreadnameAndLinkToPost]"
+			Musicians
+			Jobs
+	account/edit - Edits a user profile
+	shared/User - partial view for showing user information all across site
+CONTROLLERS:
+	start with DiscussController
+		should be easiest to implement
+		features:
+			readthread
+				pagedlist
+			readthread and browse to a post in the thread!!!
+				manipulate pagedlist
+			flag post
+			edit post
+				can't edit title of thread
+			create thread
+				write post
+				write title
+				choose tags
+			create reply
+				only write post
+	next, implement StoreController
+		almost exactly like ListingController

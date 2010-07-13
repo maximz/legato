@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 26.75, 68.625" name="Legato">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 26.75, 69.5" name="Legato">
   <DataContextMoniker Name="/LegatoDataContext" />
   <nestedChildShapes>
     <classShape Id="942b2bbb-72ee-4240-ab7d-d466e803b80c" absoluteBounds="0.75, 40, 2, 1.5785953776041737">
@@ -266,12 +266,6 @@
         <elementListCompartment Id="e0dacaab-8354-4950-9883-5e42630876f4" absoluteBounds="11.765, 54.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7f039f72-9f03-4b47-a399-4c1b31bebb78" absoluteBounds="11.75, 65.625, 2, 2.7324039713541595">
-      <DataClassMoniker Name="/LegatoDataContext/StoreReviewRevision" />
-      <nestedChildShapes>
-        <elementListCompartment Id="3e004cf0-c203-49d8-9f0d-3b2fb75c1332" absoluteBounds="11.765, 66.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" absoluteBounds="9, 61.375, 2, 1.1939925130208309">
       <DataClassMoniker Name="/LegatoDataContext/StoreReview" />
       <nestedChildShapes>
@@ -302,98 +296,98 @@
         <elementListCompartment Id="f432dcce-1e07-4eb4-a353-58ec3a2290a6" absoluteBounds="24.515, 45.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 40.4094962565104); (3.88541416666667 : 40.4094962565104 : JumpStart); (4.05208083333333 : 40.4094962565104 : JumpEnd); (4.68229291666667 : 40.4094962565104 : JumpStart); (4.84895958333333 : 40.4094962565104 : JumpEnd); (5.21354541666667 : 40.4094962565104 : JumpStart); (5.38021208333333 : 40.4094962565104 : JumpEnd); (5.54166666666667 : 40.4094962565104 : JumpStart); (5.95833333333333 : 40.4094962565104 : JumpEnd); (5.97916666666667 : 40.4094962565104 : JumpStart); (6.14583333333333 : 40.4094962565104 : JumpEnd); (8.79166666666667 : 40.4094962565104 : JumpStart); (8.95833333333333 : 40.4094962565104 : JumpEnd); (9.07291666666667 : 40.4094962565104 : JumpStart); (9.23958333333333 : 40.4094962565104 : JumpEnd); (11.3229166666667 : 40.4094962565104 : JumpStart); (11.4895833333333 : 40.4094962565104 : JumpEnd); (11.7916666666667 : 40.4094962565104 : JumpStart); (12.1458333333333 : 40.4094962565104 : JumpEnd); (13.6666661666667 : 40.4094962565104 : JumpStart); (13.8333328333333 : 40.4094962565104 : JumpEnd); (14.6666666666667 : 40.4094962565104 : JumpStart); (14.8333333333333 : 40.4094962565104 : JumpEnd); (15.25 : 40.4094962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 40.4094962565104); (3.88541416666667 : 40.4094962565104 : JumpStart); (4.05208083333333 : 40.4094962565104 : JumpEnd); (4.68229291666667 : 40.4094962565104 : JumpStart); (4.84895958333333 : 40.4094962565104 : JumpEnd); (5.21354541666667 : 40.4094962565104 : JumpStart); (5.38021208333333 : 40.4094962565104 : JumpEnd); (5.66666666666667 : 40.4094962565104 : JumpStart); (5.95833333333333 : 40.4094962565104 : JumpEnd); (5.97916666666667 : 40.4094962565104 : JumpStart); (6.14583333333333 : 40.4094962565104 : JumpEnd); (9.07291666666667 : 40.4094962565104 : JumpStart); (9.23958333333333 : 40.4094962565104 : JumpEnd); (11.3229166666667 : 40.4094962565104 : JumpStart); (11.4895833333333 : 40.4094962565104 : JumpEnd); (11.7916666666667 : 40.4094962565104 : JumpStart); (11.9583333333333 : 40.4094962565104 : JumpEnd); (11.9791666666667 : 40.4094962565104 : JumpStart); (12.1458333333333 : 40.4094962565104 : JumpEnd); (13.6666661666667 : 40.4094962565104 : JumpStart); (13.8333328333333 : 40.4094962565104 : JumpEnd); (14.6666666666667 : 40.4094962565104 : JumpStart); (14.8333333333333 : 40.4094962565104 : JumpEnd); (15.25 : 40.4094962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Application/aspnet_Application_aspnet_Membership" />
       <nodes>
         <classShapeMoniker Id="942b2bbb-72ee-4240-ab7d-d466e803b80c" />
         <classShapeMoniker Id="04820a01-aaec-4655-afb5-0999f2a5b483" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 40); (1.75 : 33.4142976888021); (3.5 : 33.4142976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 40); (1.75 : 33.4142976888021); (3.5 : 33.4142976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Application/aspnet_Application_aspnet_Path" />
       <nodes>
         <classShapeMoniker Id="942b2bbb-72ee-4240-ab7d-d466e803b80c" />
         <classShapeMoniker Id="c179f2fe-58b7-48ca-96a2-577d01a3b78e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 33.4431469726563); (6.25 : 33.4431469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 33.4431469726563); (6.25 : 33.4431469726563)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Path/aspnet_Path_aspnet_PersonalizationAllUser" />
       <nodes>
         <classShapeMoniker Id="c179f2fe-58b7-48ca-96a2-577d01a3b78e" />
         <classShapeMoniker Id="5d094e8c-ecce-4de1-a988-3f15929794db" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 34.2035953776042); (5.875 : 34.5785953776042); (5.875 : 41.5104484049479); (5.97916666666667 : 41.5104484049479 : JumpStart); (6.14583333333333 : 41.5104484049479 : JumpEnd); (6.25 : 41.5104484049479)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 34.2035953776042); (5.875 : 34.5785953776042); (5.875 : 41.5104484049479); (6.25 : 41.5104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Path/aspnet_Path_aspnet_PersonalizationPerUser" />
       <nodes>
         <classShapeMoniker Id="c179f2fe-58b7-48ca-96a2-577d01a3b78e" />
         <classShapeMoniker Id="332ec2cf-f603-4f65-858e-aa24b31d45d1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.2812525 : 40); (2.2812525 : 35.8854484049479); (3.5 : 35.8854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.2812525 : 40); (2.2812525 : 35.8854484049479); (3.5 : 35.8854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Application/aspnet_Application_aspnet_Role" />
       <nodes>
         <classShapeMoniker Id="942b2bbb-72ee-4240-ab7d-d466e803b80c" />
         <classShapeMoniker Id="1a88cd99-12f3-41b8-9dc0-29a40850691d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 42.125); (4.5 : 40.5172506282552); (4.68229291666667 : 40.5172506282552 : JumpStart); (4.84895958333333 : 40.5172506282552 : JumpEnd); (5.21354541666667 : 40.5172506282552 : JumpStart); (5.38021208333333 : 40.5172506282552 : JumpEnd); (5.54166666666667 : 40.5172506282552 : JumpStart); (5.95833333333333 : 40.5172506282552 : JumpEnd); (5.97916666666667 : 40.5172506282552 : JumpStart); (6.14583333333333 : 40.5172506282552 : JumpEnd); (8.79166666666667 : 40.5172506282552 : JumpStart); (8.95833333333333 : 40.5172506282552 : JumpEnd); (9.07291666666667 : 40.5172506282552 : JumpStart); (9.23958333333333 : 40.5172506282552 : JumpEnd); (11.3229166666667 : 40.5172506282552 : JumpStart); (11.4895833333333 : 40.5172506282552 : JumpEnd); (11.7916666666667 : 40.5172506282552 : JumpStart); (12.1458333333333 : 40.5172506282552 : JumpEnd); (13.6666661666667 : 40.5172506282552 : JumpStart); (13.8333328333333 : 40.5172506282552 : JumpEnd); (14.6666666666667 : 40.5172506282552 : JumpStart); (14.8333333333333 : 40.5172506282552 : JumpEnd); (15.25 : 40.5172506282552)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 42.125); (4.5 : 40.5172506282552); (4.68229291666667 : 40.5172506282552 : JumpStart); (4.84895958333333 : 40.5172506282552 : JumpEnd); (5.21354541666667 : 40.5172506282552 : JumpStart); (5.38021208333333 : 40.5172506282552 : JumpEnd); (5.66666666666667 : 40.5172506282552 : JumpStart); (5.95833333333333 : 40.5172506282552 : JumpEnd); (5.97916666666667 : 40.5172506282552 : JumpStart); (6.14583333333333 : 40.5172506282552 : JumpEnd); (8.79166666666667 : 40.5172506282552 : JumpStart); (8.95833333333333 : 40.5172506282552 : JumpEnd); (9.07291666666667 : 40.5172506282552 : JumpStart); (9.23958333333333 : 40.5172506282552 : JumpEnd); (11.3229166666667 : 40.5172506282552 : JumpStart); (11.4895833333333 : 40.5172506282552 : JumpEnd); (11.7916666666667 : 40.5172506282552 : JumpStart); (12.1458333333333 : 40.5172506282552 : JumpEnd); (13.6666661666667 : 40.5172506282552 : JumpStart); (13.8333328333333 : 40.5172506282552 : JumpEnd); (14.6666666666667 : 40.5172506282552 : JumpStart); (14.8333333333333 : 40.5172506282552 : JumpEnd); (15.25 : 40.5172506282552)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_aspnet_Membership" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="04820a01-aaec-4655-afb5-0999f2a5b483" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.0312525 : 42.125); (5.0312525 : 41.036471702474); (5.21354541666667 : 41.036471702474 : JumpStart); (5.38021208333333 : 41.036471702474 : JumpEnd); (5.54166666666667 : 41.036471702474 : JumpStart); (5.95833333333333 : 41.036471702474 : JumpEnd); (5.97916666666667 : 41.036471702474 : JumpStart); (6.14583333333333 : 41.036471702474 : JumpEnd); (6.25 : 41.036471702474)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.0312525 : 42.125); (5.0312525 : 41.036471702474); (5.21354541666667 : 41.036471702474 : JumpStart); (5.38021208333333 : 41.036471702474 : JumpEnd); (5.66666666666667 : 41.036471702474 : JumpStart); (5.95833333333333 : 41.036471702474 : JumpEnd); (6.25 : 41.036471702474)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_aspnet_PersonalizationPerUser" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="332ec2cf-f603-4f65-858e-aa24b31d45d1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.9687475 : 42.125); (3.9687475 : 38.3854484049479); (4.65104041666667 : 38.3854484049479 : JumpStart); (4.81770708333333 : 38.3854484049479 : JumpEnd); (5.54166666666667 : 38.3854484049479 : JumpStart); (5.95833333333333 : 38.3854484049479 : JumpEnd); (5.97916666666667 : 38.3854484049479 : JumpStart); (6.14583333333333 : 38.3854484049479 : JumpEnd); (6.25 : 38.3854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.9687475 : 42.125); (3.9687475 : 38.3854484049479); (4.65104041666667 : 38.3854484049479 : JumpStart); (4.81770708333333 : 38.3854484049479 : JumpEnd); (5.66666666666667 : 38.3854484049479 : JumpStart); (5.95833333333333 : 38.3854484049479 : JumpEnd); (6.25 : 38.3854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_aspnet_Profile" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="d97830ca-94e1-4340-b66e-e7838a40fe4a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 41.3075335400391); (3.70312125 : 41.3075335400391); (3.70312125 : 42.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 41.3075335400391); (3.70312125 : 41.3075335400391); (3.70312125 : 42.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Application/aspnet_Application_aspnet_User" />
       <nodes>
         <classShapeMoniker Id="942b2bbb-72ee-4240-ab7d-d466e803b80c" />
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.73437375 : 36.7708968098958); (4.73437375 : 39.7636946614583); (5.54166666666667 : 39.7636946614583 : JumpStart); (5.95833333333333 : 39.7636946614583 : JumpEnd); (5.97916666666667 : 39.7636946614583 : JumpStart); (6.14583333333333 : 39.7636946614583 : JumpEnd); (8.79166666666667 : 39.7636946614583 : JumpStart); (8.95833333333333 : 39.7636946614583 : JumpEnd); (9.07291666666667 : 39.7636946614583 : JumpStart); (9.23958333333333 : 39.7636946614583 : JumpEnd); (9.25 : 39.7636946614583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.73437375 : 36.7708968098958); (4.73437375 : 39.7636946614583); (5.66666666666667 : 39.7636946614583 : JumpStart); (5.83333333333333 : 39.7636946614583 : JumpEnd); (9.07291666666667 : 39.7636946614583 : JumpStart); (9.23958333333333 : 39.7636946614583 : JumpEnd); (9.25 : 39.7636946614583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Role/aspnet_Role_aspnet_UsersInRole" />
       <nodes>
         <classShapeMoniker Id="1a88cd99-12f3-41b8-9dc0-29a40850691d" />
         <classShapeMoniker Id="5a1e3fb6-b039-4607-a9a7-dc995a1e9f9d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.29687875 : 42.125); (5.29687875 : 40.0100960872396); (5.54166666666667 : 40.0100960872396 : JumpStart); (5.95833333333333 : 40.0100960872396 : JumpEnd); (5.97916666666667 : 40.0100960872396 : JumpStart); (6.14583333333333 : 40.0100960872396 : JumpEnd); (8.79166666666667 : 40.0100960872396 : JumpStart); (8.95833333333333 : 40.0100960872396 : JumpEnd); (9.07291666666667 : 40.0100960872396 : JumpStart); (9.23958333333333 : 40.0100960872396 : JumpEnd); (9.25 : 40.0100960872396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.29687875 : 42.125); (5.29687875 : 40.0100960872396); (5.66666666666667 : 40.0100960872396 : JumpStart); (5.83333333333333 : 40.0100960872396 : JumpEnd); (9.07291666666667 : 40.0100960872396 : JumpStart); (9.23958333333333 : 40.0100960872396 : JumpEnd); (9.25 : 40.0100960872396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_aspnet_UsersInRole" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="5a1e3fb6-b039-4607-a9a7-dc995a1e9f9d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17.25 : 41.2219962565104); (17.4166666666667 : 41.2219962565104 : JumpStart); (17.8333333333333 : 41.2219962565104 : JumpEnd); (18 : 41.2219962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17.25 : 41.2219962565104); (17.6666666666667 : 41.2219962565104 : JumpStart); (17.8333333333333 : 41.2219962565104 : JumpEnd); (18 : 41.2219962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Membership/aspnet_Membership_ConfirmEmailAddress" />
       <nodes>
         <classShapeMoniker Id="04820a01-aaec-4655-afb5-0999f2a5b483" />
         <classShapeMoniker Id="e0a9c174-ccfc-4807-9c38-c6e7f9ded0e2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 43.8277498372396); (5.54166666666667 : 43.8277498372396 : JumpStart); (5.70833333333333 : 43.8277498372396 : JumpEnd); (6.25 : 43.8277498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 43.8277498372396); (6.25 : 43.8277498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_DiscussPostFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="fab201a4-e6d7-4a3f-867d-54cc7623467a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 42.1865374615385); (5.56607443490112 : 42.1204630266373 : JumpStart); (5.68392556509888 : 42.0026118964396 : JumpEnd); (5.69107443490112 : 41.9954630266373 : JumpStart); (5.80892556509888 : 41.8776118964396 : JumpEnd); (6.0625 : 41.6240374615385); (6.0625 : 36.7812505); (8.79166666666667 : 36.7812505 : JumpStart); (8.95833333333333 : 36.7812505 : JumpEnd); (9.07291666666667 : 36.7812505 : JumpStart); (9.23958333333333 : 36.7812505 : JumpEnd); (9.25 : 36.7812505)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 42.1865374615385); (5.69107443490112 : 41.9954630266374 : JumpStart); (5.80892556509888 : 41.8776118964396 : JumpEnd); (6.0625 : 41.6240374615385); (6.0625 : 36.7812505); (9.07291666666667 : 36.7812505 : JumpStart); (9.23958333333333 : 36.7812505 : JumpEnd); (9.25 : 36.7812505)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_DiscussPostRevision" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
@@ -407,35 +401,35 @@
         <classShapeMoniker Id="fab201a4-e6d7-4a3f-867d-54cc7623467a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.3749975 : 30.8862939453125); (8.3749975 : 36.42187275); (8.79166666666667 : 36.42187275 : JumpStart); (8.95833333333333 : 36.42187275 : JumpEnd); (9.07291666666667 : 36.42187275 : JumpStart); (9.23958333333333 : 36.42187275 : JumpEnd); (9.25 : 36.42187275)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.3749975 : 30.8862939453125); (8.3749975 : 36.42187275); (9.25 : 36.42187275)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/DiscussPost/DiscussPost_DiscussPostRevision" />
       <nodes>
         <classShapeMoniker Id="8f5e9c8e-ae0b-4b8f-a97f-b9353fa19175" />
         <classShapeMoniker Id="131aab50-e8c0-4bd0-86c4-1d790d43a5a6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 30.1931469726563); (6.5 : 30.1931469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 30.1931469726563); (6.5 : 30.1931469726563)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/DiscussThread/DiscussThread_DiscussPost" />
       <nodes>
         <classShapeMoniker Id="974ed4b7-433a-4b1f-b5ac-c7ca4ab4f9a7" />
         <classShapeMoniker Id="8f5e9c8e-ae0b-4b8f-a97f-b9353fa19175" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3 : 30.2219962565104); (3.75 : 30.2219962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 30.2219962565104); (3.75 : 30.2219962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/DiscussBoard/DiscussBoard_DiscussThread" />
       <nodes>
         <classShapeMoniker Id="70234f3e-a14c-4366-97bd-4629c3e5d3b1" />
         <classShapeMoniker Id="974ed4b7-433a-4b1f-b5ac-c7ca4ab4f9a7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(18 : 35.7187505); (13.3333333333333 : 35.7187505 : JumpStart); (13.1666666666667 : 35.7187505 : JumpEnd); (12.8020808333333 : 35.7187505 : JumpStart); (12.6354141666667 : 35.7187505 : JumpEnd); (12.1458333333333 : 35.7187505 : JumpStart); (11.9791666666667 : 35.7187505 : JumpEnd); (11.9583333333333 : 35.7187505 : JumpStart); (11.7916666666667 : 35.7187505 : JumpEnd); (11.5208358333333 : 35.7187505 : JumpStart); (11.3229166666667 : 35.7187505 : JumpEnd); (9.23958333333333 : 35.7187505 : JumpStart); (9.07291666666667 : 35.7187505 : JumpEnd); (8.95833333333333 : 35.7187505 : JumpStart); (8.79166666666667 : 35.7187505 : JumpEnd); (8.45833083333333 : 35.7187505 : JumpStart); (8.29166416666667 : 35.7187505 : JumpEnd); (5.95833333333333 : 35.7187505 : JumpStart); (5.79166666666667 : 35.7187505 : JumpEnd); (5.75 : 35.7187505); (5.75 : 43); (7.218748 : 43); (7.218748 : 43.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(18 : 35.7187505); (11.4895833333333 : 35.7187505 : JumpStart); (11.3229166666667 : 35.7187505 : JumpEnd); (8.45833083333333 : 35.7187505 : JumpStart); (8.29166416666667 : 35.7187505 : JumpEnd); (5.75 : 35.7187505); (5.75 : 43); (7.218748 : 43); (7.218748 : 43.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_DiscussPostFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="fab201a4-e6d7-4a3f-867d-54cc7623467a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(10.5 : 33.375); (10.5 : 31.8862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(10.5 : 33.375); (10.5 : 31.8862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Instrument/Instrument_InstrumentStyle" />
       <nodes>
         <classShapeMoniker Id="a7d12179-b4b4-499f-8d56-2925fc9ae06e" />
@@ -449,21 +443,21 @@
         <classShapeMoniker Id="e5629484-dcfa-40b0-a7b7-f3c72a06dd6a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 44.2804996744792); (4.5 : 65.4623527018229); (6.25 : 65.4623527018229)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 44.2804996744792); (4.5 : 65.4623527018229); (6.25 : 65.4623527018229)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_Job" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="b309ba36-bf16-41b4-bde8-95bec1ec2743" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 42.6666984049479); (5.54166666666667 : 42.6666984049479 : JumpStart); (5.83333333333333 : 42.6666984049479 : JumpEnd); (8.54166666666667 : 42.6666984049479 : JumpStart); (9.23958333333333 : 42.6666984049479 : JumpEnd); (9.25 : 42.6666984049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 42.6666984049479); (5.66666666666667 : 42.6666984049479 : JumpStart); (5.83333333333333 : 42.6666984049479 : JumpEnd); (9.07291666666667 : 42.6666984049479 : JumpStart); (9.23958333333333 : 42.6666984049479 : JumpEnd); (9.25 : 42.6666984049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_ListingComment" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="40b88963-756b-4e2f-ad54-6b9e1a794547" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.0312525 : 44.2804996744792); (5.0312525 : 45.84375); (5.08073229166667 : 45.84375 : JumpStart); (5.24739895833333 : 45.84375 : JumpEnd); (5.34635854166667 : 45.84375 : JumpStart); (5.51302520833333 : 45.84375 : JumpEnd); (5.54166666666667 : 45.84375 : JumpStart); (5.70833333333333 : 45.84375 : JumpEnd); (8.54166666666667 : 45.84375 : JumpStart); (8.70833333333333 : 45.84375 : JumpEnd); (9.04166666666667 : 45.84375 : JumpStart); (9.23958333333333 : 45.84375 : JumpEnd); (9.25 : 45.84375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.0312525 : 44.2804996744792); (5.0312525 : 45.84375); (5.34635854166667 : 45.84375 : JumpStart); (5.51302520833333 : 45.84375 : JumpEnd); (9.07291666666667 : 45.84375 : JumpStart); (9.23958333333333 : 45.84375 : JumpEnd); (9.25 : 45.84375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_ListingFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
@@ -477,354 +471,360 @@
         <classShapeMoniker Id="d83040af-418d-4c3a-851f-650aaf648b11" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(12.25 : 43.2604484049479); (11.9583333333333 : 43.2604484049479 : JumpStart); (11.7916666666667 : 43.2604484049479 : JumpEnd); (11.25 : 43.2604484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(12.25 : 43.2604484049479); (11.25 : 43.2604484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Listing/Listing_ListingComment" />
       <nodes>
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
         <classShapeMoniker Id="40b88963-756b-4e2f-ad54-6b9e1a794547" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(12.25 : 44.6747054036458); (11.875 : 45.0497054036458); (11.875 : 46.2917004049479); (11.25 : 46.2917004049479)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(12.25 : 44.6747054036458); (11.875 : 45.0497054036458); (11.875 : 46.2917004049479); (11.25 : 46.2917004049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Listing/Listing_ListingFlag" />
       <nodes>
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
         <classShapeMoniker Id="d83040af-418d-4c3a-851f-650aaf648b11" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.40625 : 34.7612939453125); (11.40625 : 42.03125); (11.7916666666667 : 42.03125 : JumpStart); (11.9583333333333 : 42.03125 : JumpEnd); (11.9791666666667 : 42.03125 : JumpStart); (12.1458333333333 : 42.03125 : JumpEnd); (12.25 : 42.03125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.40625 : 34.7612939453125); (11.40625 : 42.03125); (12.25 : 42.03125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Instrument/Instrument_Listing" />
       <nodes>
         <classShapeMoniker Id="a7d12179-b4b4-499f-8d56-2925fc9ae06e" />
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.5 : 31.8862939453125); (11.875 : 32.2612939453125); (11.875 : 43.9675769042969); (12.25 : 43.9675769042969)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.5 : 31.8862939453125); (11.875 : 32.2612939453125); (11.875 : 43.9675769042969); (12.25 : 43.9675769042969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/InstrumentStyle/InstrumentStyle_Listing" />
       <nodes>
         <classShapeMoniker Id="3e8ca5c9-fbdc-4a66-9257-115c33880f55" />
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.5 : 28.9494429077524); (12.0625 : 29.5119429077524); (12.0625 : 42.645849202474); (12.25 : 42.645849202474)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.5 : 28.9494429077524); (12.0625 : 29.5119429077524); (12.0625 : 42.645849202474); (12.25 : 42.645849202474)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/InstrumentType/InstrumentType_Listing" />
       <nodes>
         <classShapeMoniker Id="e5629484-dcfa-40b0-a7b7-f3c72a06dd6a" />
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 43.15625); (5.54166666666667 : 43.15625 : JumpStart); (5.70833333333333 : 43.15625 : JumpEnd); (7.13541466666667 : 43.15625 : JumpStart); (7.30208133333333 : 43.15625 : JumpEnd); (8.38541666666667 : 43.15625 : JumpStart); (8.83333333333333 : 43.15625 : JumpEnd); (9 : 43.15625); (9 : 41.5); (9.04166666666667 : 41.5 : JumpStart); (9.23958333333333 : 41.5 : JumpEnd); (11.3229166666667 : 41.5 : JumpStart); (11.4895833333333 : 41.5 : JumpEnd); (11.7916666666667 : 41.5 : JumpStart); (11.9583333333333 : 41.5 : JumpEnd); (11.9791666666667 : 41.5 : JumpStart); (12.1458333333333 : 41.5 : JumpEnd); (13.25 : 41.5); (13.25 : 41.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 43.15625); (7.13541466666667 : 43.15625 : JumpStart); (7.30208133333333 : 43.15625 : JumpEnd); (8.66666666666667 : 43.15625 : JumpStart); (8.83333333333333 : 43.15625 : JumpEnd); (9 : 43.15625); (9 : 41.5); (9.04166666666667 : 41.5 : JumpStart); (9.23958333333333 : 41.5 : JumpEnd); (11.3229166666667 : 41.5 : JumpStart); (11.4895833333333 : 41.5 : JumpEnd); (11.7916666666667 : 41.5 : JumpStart); (11.9583333333333 : 41.5 : JumpEnd); (11.9791666666667 : 41.5 : JumpStart); (12.1458333333333 : 41.5 : JumpEnd); (13.25 : 41.5); (13.25 : 41.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_Listing" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17.25 : 43.0969962565104); (17.4166666666667 : 43.0969962565104 : JumpStart); (17.8333333333333 : 43.0969962565104 : JumpEnd); (18 : 43.0969962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17.25 : 43.0969962565104); (17.4166666666667 : 43.0969962565104 : JumpStart); (17.5833333333333 : 43.0969962565104 : JumpEnd); (17.6666666666667 : 43.0969962565104 : JumpStart); (17.8333333333333 : 43.0969962565104 : JumpEnd); (18 : 43.0969962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_Membership/aspnet_Membership_ResetPasswordRecord" />
       <nodes>
         <classShapeMoniker Id="04820a01-aaec-4655-afb5-0999f2a5b483" />
         <classShapeMoniker Id="9aabe145-1169-4b2a-ae48-2ea00711b253" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.9687475 : 44.2804996744792); (3.9687475 : 48.4479484049479); (4.28385354166667 : 48.4479484049479 : JumpStart); (4.71614645833333 : 48.4479484049479 : JumpEnd); (4.81510604166667 : 48.4479484049479 : JumpStart); (4.98177270833333 : 48.4479484049479 : JumpEnd); (5.08073229166667 : 48.4479484049479 : JumpStart); (5.24739895833333 : 48.4479484049479 : JumpEnd); (5.34635854166667 : 48.4479484049479 : JumpStart); (5.51302520833333 : 48.4479484049479 : JumpEnd); (9.07291666666667 : 48.4479484049479 : JumpStart); (9.23958333333333 : 48.4479484049479 : JumpEnd); (11.3229166666667 : 48.4479484049479 : JumpStart); (11.4895833333333 : 48.4479484049479 : JumpEnd); (12.25 : 48.4479484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.9687475 : 44.2804996744792); (3.9687475 : 48.4479484049479); (4.28385354166667 : 48.4479484049479 : JumpStart); (4.58333333333333 : 48.4479484049479 : JumpEnd); (4.81510604166667 : 48.4479484049479 : JumpStart); (4.98177270833333 : 48.4479484049479 : JumpEnd); (5.08073229166667 : 48.4479484049479 : JumpStart); (5.24739895833333 : 48.4479484049479 : JumpEnd); (5.34635854166667 : 48.4479484049479 : JumpStart); (5.51302520833333 : 48.4479484049479 : JumpEnd); (9.07291666666667 : 48.4479484049479 : JumpStart); (9.23958333333333 : 48.4479484049479 : JumpEnd); (11.3229166666667 : 48.4479484049479 : JumpStart); (11.4895833333333 : 48.4479484049479 : JumpEnd); (12.25 : 48.4479484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_Resume" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="9c1b01cf-43fe-438b-83f5-e5b04ed07f20" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.40625 : 63.625); (11.40625 : 47.7969201074219); (12.25 : 47.7969201074219)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.40625 : 63.625); (11.40625 : 47.7969201074219); (12.25 : 47.7969201074219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/ResumeType/ResumeType_Resume" />
       <nodes>
         <classShapeMoniker Id="24dec944-b818-4c9f-8fed-ea273fc0f74d" />
         <classShapeMoniker Id="9c1b01cf-43fe-438b-83f5-e5b04ed07f20" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.29687875 : 44.2804996744792); (5.29687875 : 45.2604484049479); (5.34635854166667 : 45.2604484049479 : JumpStart); (5.51302520833333 : 45.2604484049479 : JumpEnd); (5.54166666666667 : 45.2604484049479 : JumpStart); (5.70833333333333 : 45.2604484049479 : JumpEnd); (8.54166666666667 : 45.2604484049479 : JumpStart); (8.83333333333333 : 45.2604484049479 : JumpEnd); (9.04166666666667 : 45.2604484049479 : JumpStart); (9.23958333333333 : 45.2604484049479 : JumpEnd); (11.2812182617188 : 45.2604484049479 : JumpStart); (11.4478849283854 : 45.2604484049479 : JumpEnd); (11.7916666666667 : 45.2604484049479 : JumpStart); (11.9583333333333 : 45.2604484049479 : JumpEnd); (14.5416666666667 : 45.2604484049479 : JumpStart); (14.7083333333333 : 45.2604484049479 : JumpEnd); (17.4166666666667 : 45.2604484049479 : JumpStart); (17.5833333333333 : 45.2604484049479 : JumpEnd); (17.6666666666667 : 45.2604484049479 : JumpStart); (17.8333333333333 : 45.2604484049479 : JumpEnd); (18.4166666666667 : 45.2604484049479 : JumpStart); (18.5833333333333 : 45.2604484049479 : JumpEnd); (18.75 : 45.2604484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.29687875 : 44.2804996744792); (5.29687875 : 45.2604484049479); (5.34635854166667 : 45.2604484049479 : JumpStart); (5.51302520833333 : 45.2604484049479 : JumpEnd); (9.07291666666667 : 45.2604484049479 : JumpStart); (9.23958333333333 : 45.2604484049479 : JumpEnd); (17.6666666666667 : 45.2604484049479 : JumpStart); (17.8333333333333 : 45.2604484049479 : JumpEnd); (18.75 : 45.2604484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_ReviewComment" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="bcb50857-d0f7-481d-a320-f54135f2510b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 42.864601702474); (5.54166666666667 : 42.864601702474 : JumpStart); (5.83333333333333 : 42.864601702474 : JumpEnd); (8.54166666666667 : 42.864601702474 : JumpStart); (9.08333333333333 : 42.864601702474 : JumpEnd); (9.125 : 42.864601702474); (9.125 : 47.3958968098958); (12 : 47.3958968098958); (12 : 45.875); (14.5416666666667 : 45.875 : JumpStart); (14.7083333333333 : 45.875 : JumpEnd); (14.75 : 45.875); (14.75 : 47.0689925130208); (15.9166666666667 : 47.0689925130208 : JumpStart); (16.0833333333333 : 47.0689925130208 : JumpEnd); (17.4166666666667 : 47.0689925130208 : JumpStart); (17.5833333333333 : 47.0689925130208 : JumpEnd); (17.6666666666667 : 47.0689925130208 : JumpStart); (17.8333333333333 : 47.0689925130208 : JumpEnd); (18.75 : 47.0689925130208); (18.75 : 47.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 42.864601702474); (5.66666666666667 : 42.864601702474 : JumpStart); (5.83333333333333 : 42.864601702474 : JumpEnd); (8.66666666666667 : 42.864601702474 : JumpStart); (8.83333333333333 : 42.864601702474 : JumpEnd); (8.91666666666667 : 42.864601702474 : JumpStart); (9.08333333333333 : 42.864601702474 : JumpEnd); (9.125 : 42.864601702474); (9.125 : 47.3958968098958); (12 : 47.3958968098958); (12 : 45.875); (14.5416666666667 : 45.875 : JumpStart); (14.7083333333333 : 45.875 : JumpEnd); (14.75 : 45.875); (14.75 : 47.0689925130208); (15.9166666666667 : 47.0689925130208 : JumpStart); (16.0833333333333 : 47.0689925130208 : JumpEnd); (17.6666666666667 : 47.0689925130208 : JumpStart); (17.8333333333333 : 47.0689925130208 : JumpEnd); (18.75 : 47.0689925130208); (18.75 : 47.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_ReviewFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="19503e15-f627-4b49-b707-1ab887759d60" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(18 : 36.1438715065104); (17.75 : 36.1438715065104); (17.75 : 47.25); (18.6666666666667 : 47.25 : JumpStart); (18.8333333333333 : 47.25 : JumpEnd); (19.281252 : 47.25); (19.281252 : 47.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(18 : 36.1438715065104); (17.75 : 36.1438715065104); (17.75 : 47.25); (19.281252 : 47.25); (19.281252 : 47.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_ReviewFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="19503e15-f627-4b49-b707-1ab887759d60" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.76562625 : 44.2804996744792); (4.76562625 : 45.5296541341146); (4.81510604166667 : 45.5296541341146 : JumpStart); (5.24739895833333 : 45.5296541341146 : JumpEnd); (5.34635854166667 : 45.5296541341146 : JumpStart); (5.51302520833333 : 45.5296541341146 : JumpEnd); (5.54166666666667 : 45.5296541341146 : JumpStart); (5.70833333333333 : 45.5296541341146 : JumpEnd); (8.54166666666667 : 45.5296541341146 : JumpStart); (8.70833333333333 : 45.5296541341146 : JumpEnd); (8.75 : 45.5296541341146); (8.75 : 45.125); (9.04166666666667 : 45.125 : JumpStart); (9.23958333333333 : 45.125 : JumpEnd); (11.4166666666667 : 45.125 : JumpStart); (11.5833333333333 : 45.125 : JumpEnd); (17.4166666666667 : 45.125 : JumpStart); (17.5833333333333 : 45.125 : JumpEnd); (17.6666666666667 : 45.125 : JumpStart); (17.8333333333333 : 45.125 : JumpEnd); (18.5 : 45.125); (18.5 : 46.6458968098958); (21.375 : 46.6458968098958); (21.375 : 45.5296541341146); (21.75 : 45.5296541341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.76562625 : 44.2804996744792); (4.76562625 : 45.5296541341146); (4.81510604166667 : 45.5296541341146 : JumpStart); (5.11458583333333 : 45.5296541341146 : JumpEnd); (5.34635854166667 : 45.5296541341146 : JumpStart); (5.51302520833333 : 45.5296541341146 : JumpEnd); (8.75 : 45.5296541341146); (8.75 : 45.125); (9.07291666666667 : 45.125 : JumpStart); (9.23958333333333 : 45.125 : JumpEnd); (17.6666666666667 : 45.125 : JumpStart); (17.8333333333333 : 45.125 : JumpEnd); (18.5 : 45.125); (18.5 : 46.6458968098958); (21.375 : 46.6458968098958); (21.375 : 45.5296541341146); (21.75 : 45.5296541341146)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_ReviewRevision" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="8dea7566-0894-4553-9f67-0a21f310656b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17 : 46.0104484049479); (17.4166666666667 : 46.0104484049479 : JumpStart); (17.5833333333333 : 46.0104484049479 : JumpEnd); (17.6666666666667 : 46.0104484049479 : JumpStart); (17.8333333333333 : 46.0104484049479 : JumpEnd); (18.4166666666667 : 46.0104484049479 : JumpStart); (18.5833333333333 : 46.0104484049479 : JumpEnd); (18.75 : 46.0104484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17 : 46.0104484049479); (17.4166666666667 : 46.0104484049479 : JumpStart); (17.5833333333333 : 46.0104484049479 : JumpEnd); (17.6666666666667 : 46.0104484049479 : JumpStart); (17.8333333333333 : 46.0104484049479 : JumpEnd); (18.4166666666667 : 46.0104484049479 : JumpStart); (18.5833333333333 : 46.0104484049479 : JumpEnd); (18.75 : 46.0104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Review/Review_ReviewComment" />
       <nodes>
         <classShapeMoniker Id="f4dd7d32-a32d-4028-887f-e96c52c18dd0" />
         <classShapeMoniker Id="bcb50857-d0f7-481d-a320-f54135f2510b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(16 : 46.8189925130208); (16 : 48.5104484049479); (17.4166666666667 : 48.5104484049479 : JumpStart); (17.5833333333333 : 48.5104484049479 : JumpEnd); (17.75 : 48.5104484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(16 : 46.8189925130208); (16 : 48.5104484049479); (17.75 : 48.5104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Review/Review_ReviewFlag" />
       <nodes>
         <classShapeMoniker Id="f4dd7d32-a32d-4028-887f-e96c52c18dd0" />
         <classShapeMoniker Id="19503e15-f627-4b49-b707-1ab887759d60" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17 : 46.4896468098958); (17.4166666666667 : 46.4896468098958 : JumpStart); (17.5833333333333 : 46.4896468098958 : JumpEnd); (17.6666666666667 : 46.4896468098958 : JumpStart); (17.8333333333333 : 46.4896468098958 : JumpEnd); (18.4166666666667 : 46.4896468098958 : JumpStart); (18.5833333333333 : 46.4896468098958 : JumpEnd); (21.2916666666667 : 46.4896468098958 : JumpStart); (21.4583333333333 : 46.4896468098958 : JumpEnd); (21.75 : 46.4896468098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17 : 46.4896468098958); (17.4166666666667 : 46.4896468098958 : JumpStart); (17.5833333333333 : 46.4896468098958 : JumpEnd); (17.6666666666667 : 46.4896468098958 : JumpStart); (17.8333333333333 : 46.4896468098958 : JumpEnd); (18.4166666666667 : 46.4896468098958 : JumpStart); (18.5833333333333 : 46.4896468098958 : JumpEnd); (21.2916666666667 : 46.4896468098958 : JumpStart); (21.4583333333333 : 46.4896468098958 : JumpEnd); (21.75 : 46.4896468098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Review/Review_ReviewRevision" />
       <nodes>
         <classShapeMoniker Id="f4dd7d32-a32d-4028-887f-e96c52c18dd0" />
         <classShapeMoniker Id="8dea7566-0894-4553-9f67-0a21f310656b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(14.25 : 44.6731659421074); (14.625 : 45.0481659421074); (14.625 : 46.3469957565104); (14.6666666666667 : 46.3469957565104 : JumpStart); (14.8333333333333 : 46.3469957565104 : JumpEnd); (15 : 46.3469957565104)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(14.25 : 44.6731659421074); (14.625 : 45.0481659421074); (14.625 : 46.3469957565104); (15 : 46.3469957565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Listing/Listing_Review" />
       <nodes>
         <classShapeMoniker Id="180e825c-bd0d-4b18-83dd-c92e6eb075ac" />
         <classShapeMoniker Id="f4dd7d32-a32d-4028-887f-e96c52c18dd0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.23437375 : 44.2804996744792); (4.23437375 : 47.2604484049479); (4.28385354166667 : 47.2604484049479 : JumpStart); (4.71614645833333 : 47.2604484049479 : JumpEnd); (4.81510604166667 : 47.2604484049479 : JumpStart); (4.98177270833333 : 47.2604484049479 : JumpEnd); (5.08073229166667 : 47.2604484049479 : JumpStart); (5.24739895833333 : 47.2604484049479 : JumpEnd); (5.34635854166667 : 47.2604484049479 : JumpStart); (5.51302520833333 : 47.2604484049479 : JumpEnd); (6.25 : 47.2604484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.23437375 : 44.2804996744792); (4.23437375 : 47.2604484049479); (4.28385354166667 : 47.2604484049479 : JumpStart); (4.45052020833333 : 47.2604484049479 : JumpEnd); (4.81510604166667 : 47.2604484049479 : JumpStart); (4.98177270833333 : 47.2604484049479 : JumpEnd); (5.34635854166667 : 47.2604484049479 : JumpStart); (5.51302520833333 : 47.2604484049479 : JumpEnd); (6.25 : 47.2604484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_SaleListingFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="730ca452-ccd7-41fa-8e78-03ac7478d9eb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(18 : 35.92187775); (13.3333333333333 : 35.92187775 : JumpStart); (13.1666666666667 : 35.92187775 : JumpEnd); (12.8020808333333 : 35.92187775 : JumpStart); (12.6354141666667 : 35.92187775 : JumpEnd); (12.1458333333333 : 35.92187775 : JumpStart); (11.9791666666667 : 35.92187775 : JumpEnd); (11.9583333333333 : 35.92187775 : JumpStart); (11.7916666666667 : 35.92187775 : JumpEnd); (11.5208358333333 : 35.92187775 : JumpStart); (11.3229166666667 : 35.92187775 : JumpEnd); (9.23958333333333 : 35.92187775 : JumpStart); (9.07291666666667 : 35.92187775 : JumpEnd); (8.95833333333333 : 35.92187775 : JumpStart); (8.79166666666667 : 35.92187775 : JumpEnd); (8.45833083333333 : 35.92187775 : JumpStart); (8.29166416666667 : 35.92187775 : JumpEnd); (5.95833333333333 : 35.92187775 : JumpStart); (5.66666666666667 : 35.92187775 : JumpEnd); (5.625 : 35.92187775); (5.625 : 46); (7.25 : 46); (7.25 : 46.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(18 : 35.92187775); (13.3333333333333 : 35.92187775 : JumpStart); (13.1666666666667 : 35.92187775 : JumpEnd); (12.8020808333333 : 35.92187775 : JumpStart); (12.6354141666667 : 35.92187775 : JumpEnd); (12.1458333333333 : 35.92187775 : JumpStart); (11.9791666666667 : 35.92187775 : JumpEnd); (11.9583333333333 : 35.92187775 : JumpStart); (11.7916666666667 : 35.92187775 : JumpEnd); (11.5208358333333 : 35.92187775 : JumpStart); (11.3229166666667 : 35.92187775 : JumpEnd); (9.23958333333333 : 35.92187775 : JumpStart); (9.07291666666667 : 35.92187775 : JumpEnd); (8.95833333333333 : 35.92187775 : JumpStart); (8.79166666666667 : 35.92187775 : JumpEnd); (8.45833083333333 : 35.92187775 : JumpStart); (8.29166416666667 : 35.92187775 : JumpEnd); (5.95833333333333 : 35.92187775 : JumpStart); (5.66666666666667 : 35.92187775 : JumpEnd); (5.625 : 35.92187775); (5.625 : 46); (7.25 : 46); (7.25 : 46.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_SaleListingFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="730ca452-ccd7-41fa-8e78-03ac7478d9eb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(12.3115374615385 : 40.1362125651042); (12.1214255650989 : 40.3263244615438 : JumpStart); (12.0035744349011 : 40.4441755917415 : JumpEnd); (11.9339255650989 : 40.5138244615438 : JumpStart); (11.8160744349011 : 40.6316755917415 : JumpEnd); (11.6240374615385 : 40.8237125651042); (11.4895833333333 : 40.8237125651042 : JumpStart); (11.3229166666667 : 40.8237125651042 : JumpEnd); (9.23958333333333 : 40.8237125651042 : JumpStart); (9.07291666666667 : 40.8237125651042 : JumpEnd); (8.95833333333333 : 40.8237125651042 : JumpStart); (8.79166666666667 : 40.8237125651042 : JumpEnd); (8.625 : 40.8237125651042); (8.625 : 46); (8.25 : 46.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(12.3115374615385 : 40.1362125651042); (12.1214255650989 : 40.3263244615438 : JumpStart); (12.0035744349011 : 40.4441755917416 : JumpEnd); (11.9339255650989 : 40.5138244615438 : JumpStart); (11.8160744349011 : 40.6316755917416 : JumpEnd); (11.6240374615385 : 40.8237125651042); (11.4895833333333 : 40.8237125651042 : JumpStart); (11.3229166666667 : 40.8237125651042 : JumpEnd); (9.23958333333333 : 40.8237125651042 : JumpStart); (9.07291666666667 : 40.8237125651042 : JumpEnd); (8.625 : 40.8237125651042); (8.625 : 46); (8.25 : 46.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/SaleListing/SaleListing_SaleListingFlag" />
       <nodes>
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
         <classShapeMoniker Id="730ca452-ccd7-41fa-8e78-03ac7478d9eb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 42.5312951074219); (5.54166666666667 : 42.5312951074219 : JumpStart); (5.83333333333333 : 42.5312951074219 : JumpEnd); (8.54166666666667 : 42.5312951074219 : JumpStart); (9.08333333333333 : 42.5312951074219 : JumpEnd); (9.125 : 42.5312951074219); (9.125 : 41.25); (11.3229166666667 : 41.25 : JumpStart); (11.4895833333333 : 41.25 : JumpEnd); (11.7916666666667 : 41.25 : JumpStart); (11.9583333333333 : 41.25 : JumpEnd); (11.9791666666667 : 41.25 : JumpStart); (12.1458333333333 : 41.25 : JumpEnd); (13.7499995 : 41.25); (13.7499995 : 40.1362125651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 42.5312951074219); (5.66666666666667 : 42.5312951074219 : JumpStart); (5.83333333333333 : 42.5312951074219 : JumpEnd); (8.66666666666667 : 42.5312951074219 : JumpStart); (8.83333333333333 : 42.5312951074219 : JumpEnd); (9.125 : 42.5312951074219); (9.125 : 41.25); (11.3229166666667 : 41.25 : JumpStart); (11.4895833333333 : 41.25 : JumpEnd); (11.7916666666667 : 41.25 : JumpStart); (11.9583333333333 : 41.25 : JumpEnd); (11.9791666666667 : 41.25 : JumpStart); (12.1458333333333 : 41.25 : JumpEnd); (13.7499995 : 41.25); (13.7499995 : 40.1362125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_SaleListing" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.4375025 : 34.7612939453125); (11.4375025 : 38.6402498372396); (11.7916666666667 : 38.6402498372396 : JumpStart); (11.9583333333333 : 38.6402498372396 : JumpEnd); (11.9791666666667 : 38.6402498372396 : JumpStart); (12.1458333333333 : 38.6402498372396 : JumpEnd); (12.25 : 38.6402498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.4375025 : 34.7612939453125); (11.4375025 : 38.6402498372396); (11.7916666666667 : 38.6402498372396 : JumpStart); (11.9583333333333 : 38.6402498372396 : JumpEnd); (11.9791666666667 : 38.6402498372396 : JumpStart); (12.1458333333333 : 38.6402498372396 : JumpEnd); (12.25 : 38.6402498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/Instrument/Instrument_SaleListing" />
       <nodes>
         <classShapeMoniker Id="a7d12179-b4b4-499f-8d56-2925fc9ae06e" />
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.5 : 31.1618944726563); (11.9791666666667 : 31.1618944726563 : JumpStart); (12.1458333333333 : 31.1618944726563 : JumpEnd); (12.6354141666667 : 31.1618944726563 : JumpStart); (12.8020808333333 : 31.1618944726563 : JumpEnd); (13.25 : 31.1618944726563); (13.25 : 36.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.5 : 31.1618944726563); (13.25 : 31.1618944726563); (13.25 : 36.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/InstrumentStyle/InstrumentStyle_SaleListing" />
       <nodes>
         <classShapeMoniker Id="3e8ca5c9-fbdc-4a66-9257-115c33880f55" />
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.5 : 28.2559689538762); (12.7187475 : 28.2559689538762); (12.7187475 : 36.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.5 : 28.2559689538762); (12.7187475 : 28.2559689538762); (12.7187475 : 36.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/InstrumentType/InstrumentType_SaleListing" />
       <nodes>
         <classShapeMoniker Id="e5629484-dcfa-40b0-a7b7-f3c72a06dd6a" />
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.76562625 : 42.125); (4.76562625 : 40.3237125651042); (5.21354541666667 : 40.3237125651042 : JumpStart); (5.38021208333333 : 40.3237125651042 : JumpEnd); (5.54166666666667 : 40.3237125651042 : JumpStart); (5.95833333333333 : 40.3237125651042 : JumpEnd); (5.97916666666667 : 40.3237125651042 : JumpStart); (6.14583333333333 : 40.3237125651042 : JumpEnd); (8.79166666666667 : 40.3237125651042 : JumpStart); (8.95833333333333 : 40.3237125651042 : JumpEnd); (9.07291666666667 : 40.3237125651042 : JumpStart); (9.23958333333333 : 40.3237125651042 : JumpEnd); (11.3229166666667 : 40.3237125651042 : JumpStart); (11.4895833333333 : 40.3237125651042 : JumpEnd); (11.7916666666667 : 40.3237125651042 : JumpStart); (11.9583333333333 : 40.3237125651042 : JumpEnd); (11.9791666666667 : 40.3237125651042 : JumpStart); (12.2073707948718 : 40.3237125651042 : JumpEnd); (13.6666661666667 : 40.3237125651042 : JumpStart); (13.8333328333333 : 40.3237125651042 : JumpEnd); (14.6666666666667 : 40.3237125651042 : JumpStart); (14.8333333333333 : 40.3237125651042 : JumpEnd); (15 : 40.3237125651042); (15 : 39.0104484049479); (17.4166666666667 : 39.0104484049479 : JumpStart); (17.8333333333333 : 39.0104484049479 : JumpEnd); (18.1666666666667 : 39.0104484049479 : JumpStart); (18.3333333333333 : 39.0104484049479 : JumpEnd); (18.75 : 39.0104484049479)]" fixedFrom="Algorithm" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.76562625 : 42.125); (4.76562625 : 40.3237125651042); (5.21354541666667 : 40.3237125651042 : JumpStart); (5.38021208333333 : 40.3237125651042 : JumpEnd); (5.66666666666667 : 40.3237125651042 : JumpStart); (5.95833333333333 : 40.3237125651042 : JumpEnd); (5.97916666666667 : 40.3237125651042 : JumpStart); (6.14583333333333 : 40.3237125651042 : JumpEnd); (9.07291666666667 : 40.3237125651042 : JumpStart); (9.23958333333333 : 40.3237125651042 : JumpEnd); (11.3229166666667 : 40.3237125651042 : JumpStart); (11.4895833333333 : 40.3237125651042 : JumpEnd); (11.7916666666667 : 40.3237125651042 : JumpStart); (11.9583333333333 : 40.3237125651042 : JumpEnd); (11.9791666666667 : 40.3237125651042 : JumpStart); (12.1458333333333 : 40.3237125651042 : JumpEnd); (13.6666661666667 : 40.3237125651042 : JumpStart); (13.8333328333333 : 40.3237125651042 : JumpEnd); (14.6666666666667 : 40.3237125651042 : JumpStart); (14.8333333333333 : 40.3237125651042 : JumpEnd); (15 : 40.3237125651042); (15 : 39.0104484049479); (17.4166666666667 : 39.0104484049479 : JumpStart); (17.5833333333333 : 39.0104484049479 : JumpEnd); (17.6666666666667 : 39.0104484049479 : JumpStart); (17.8333333333333 : 39.0104484049479 : JumpEnd); (18.1666666666667 : 39.0104484049479 : JumpStart); (18.3333333333333 : 39.0104484049479 : JumpEnd); (18.75 : 39.0104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_SaleReviewComment" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="812a6dc1-2d4c-4391-9996-16abb999a616" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 43.0468725); (5.54166666666667 : 43.0468725 : JumpStart); (5.70833333333333 : 43.0468725 : JumpEnd); (8.54166666666667 : 43.0468725 : JumpStart); (8.83333333333333 : 43.0468725 : JumpEnd); (9.0625 : 43.0468725); (9.0625 : 44.7997054036458); (9.07291666666667 : 44.7997054036458 : JumpStart); (9.23958333333333 : 44.7997054036458 : JumpEnd); (12.0416666666667 : 44.7997054036458 : JumpStart); (12.2083333333333 : 44.7997054036458 : JumpEnd); (14.2932061282051 : 44.7997054036458 : JumpStart); (14.4598727948718 : 44.7997054036458 : JumpEnd); (17.4166666666667 : 44.7997054036458 : JumpStart); (17.8333333333333 : 44.7997054036458 : JumpEnd); (18.5 : 44.7997054036458); (18.5 : 44.375); (21.5 : 44.375); (21.5 : 43.625); (21.75 : 43.625); (21.75 : 42.8958968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 43.0468725); (8.66666666666667 : 43.0468725 : JumpStart); (8.83333333333333 : 43.0468725 : JumpEnd); (9.0625 : 43.0468725); (9.0625 : 44.7997054036458); (9.07291666666667 : 44.7997054036458 : JumpStart); (9.23958333333333 : 44.7997054036458 : JumpEnd); (14.2932061282051 : 44.7997054036458 : JumpStart); (14.4598727948717 : 44.7997054036458 : JumpEnd); (17.4166666666667 : 44.7997054036458 : JumpStart); (17.5833333333333 : 44.7997054036458 : JumpEnd); (17.6666666666667 : 44.7997054036458 : JumpStart); (17.8333333333333 : 44.7997054036458 : JumpEnd); (18.5 : 44.7997054036458); (18.5 : 44.375); (21.5 : 44.375); (21.5 : 43.625); (21.75 : 43.625); (21.75 : 42.8958968098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_SaleReviewFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="bdad7e8d-4718-464c-85f5-57f0365ced19" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(20 : 35.84375); (21.25 : 35.84375); (21.25 : 41.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(20 : 35.84375); (21.25 : 35.84375); (21.25 : 41.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_SaleReviewFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="bdad7e8d-4718-464c-85f5-57f0365ced19" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 43.2656275); (5.54166666666667 : 43.2656275 : JumpStart); (5.70833333333333 : 43.2656275 : JumpEnd); (7.13541466666667 : 43.2656275 : JumpStart); (7.30208133333333 : 43.2656275 : JumpEnd); (8.27603916666667 : 43.2656275 : JumpStart); (8.44270583333333 : 43.2656275 : JumpEnd); (8.54166666666667 : 43.2656275 : JumpStart); (8.70833333333333 : 43.2656275 : JumpEnd); (8.75 : 43.2656275); (8.75 : 41.625); (8.79166666666667 : 41.625 : JumpStart); (9.23958333333333 : 41.625 : JumpEnd); (11.3229166666667 : 41.625 : JumpStart); (11.4895833333333 : 41.625 : JumpEnd); (11.7916666666667 : 41.625 : JumpStart); (11.9583333333333 : 41.625 : JumpEnd); (11.9791666666667 : 41.625 : JumpStart); (12.1458333333333 : 41.625 : JumpEnd); (13.1666666666667 : 41.625 : JumpStart); (13.3333333333333 : 41.625 : JumpEnd); (14.75 : 41.625); (14.75 : 39.5); (14.9166666666667 : 39.5 : JumpStart); (15.0833333333333 : 39.5 : JumpEnd); (17.4166666666667 : 39.5 : JumpStart); (17.8333333333333 : 39.5 : JumpEnd); (18.1666666666667 : 39.5 : JumpStart); (18.3333333333333 : 39.5 : JumpEnd); (18.5 : 39.5); (18.5 : 40.1458968098958); (21.1666666666667 : 40.1458968098958 : JumpStart); (21.3333333333333 : 40.1458968098958 : JumpEnd); (22.75 : 40.1458968098958); (22.75 : 39.4920068359375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 43.2656275); (7.13541466666667 : 43.2656275 : JumpStart); (7.30208133333333 : 43.2656275 : JumpEnd); (8.75 : 43.2656275); (8.75 : 41.625); (9.07291666666667 : 41.625 : JumpStart); (9.23958333333333 : 41.625 : JumpEnd); (11.3229166666667 : 41.625 : JumpStart); (11.4895833333333 : 41.625 : JumpEnd); (11.7916666666667 : 41.625 : JumpStart); (11.9583333333333 : 41.625 : JumpEnd); (11.9791666666667 : 41.625 : JumpStart); (12.1458333333333 : 41.625 : JumpEnd); (14.75 : 41.625); (14.75 : 39.5); (17.6666666666667 : 39.5 : JumpStart); (17.8333333333333 : 39.5 : JumpEnd); (18.1666666666667 : 39.5 : JumpStart); (18.3333333333333 : 39.5 : JumpEnd); (18.5 : 39.5); (18.5 : 40.1458968098958); (22.75 : 40.1458968098958); (22.75 : 39.4920068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_SaleReviewRevision" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="a7236bdf-f169-40f2-bf8b-ef5dca8366bc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17 : 38.4719962565104); (17.4166666666667 : 38.4719962565104 : JumpStart); (17.8333333333333 : 38.4719962565104 : JumpEnd); (18.1666666666667 : 38.4719962565104 : JumpStart); (18.3333333333333 : 38.4719962565104 : JumpEnd); (18.75 : 38.4719962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17 : 38.4719962565104); (17.6666666666667 : 38.4719962565104 : JumpStart); (17.8333333333333 : 38.4719962565104 : JumpEnd); (18.75 : 38.4719962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/SaleReview/SaleReview_SaleReviewComment" />
       <nodes>
         <classShapeMoniker Id="25f83bf9-e058-4552-bb50-ecc494806a24" />
         <classShapeMoniker Id="812a6dc1-2d4c-4391-9996-16abb999a616" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17 : 38.0172461282552); (17.4166666666667 : 38.0172461282552 : JumpStart); (17.8333333333333 : 38.0172461282552 : JumpEnd); (18.25 : 38.0172461282552); (18.25 : 40.2708968098958); (21.1666666666667 : 40.2708968098958 : JumpStart); (21.3333333333333 : 40.2708968098958 : JumpEnd); (22.031252 : 40.2708968098958); (22.031252 : 41.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17 : 38.0172461282552); (17.6666666666667 : 38.0172461282552 : JumpStart); (17.8333333333333 : 38.0172461282552 : JumpEnd); (18.25 : 38.0172461282552); (18.25 : 40.2708968098958); (22.031252 : 40.2708968098958); (22.031252 : 41.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/SaleReview/SaleReview_SaleReviewFlag" />
       <nodes>
         <classShapeMoniker Id="25f83bf9-e058-4552-bb50-ecc494806a24" />
         <classShapeMoniker Id="bdad7e8d-4718-464c-85f5-57f0365ced19" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(17 : 37.7586230641276); (17.4166666666667 : 37.7586230641276 : JumpStart); (17.8333333333333 : 37.7586230641276 : JumpEnd); (21.1666666666667 : 37.7586230641276 : JumpStart); (21.3333333333333 : 37.7586230641276 : JumpEnd); (21.75 : 37.7586230641276)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(17 : 37.7586230641276); (17.6666666666667 : 37.7586230641276 : JumpStart); (17.8333333333333 : 37.7586230641276 : JumpEnd); (21.75 : 37.7586230641276)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/SaleReview/SaleReview_SaleReviewRevision" />
       <nodes>
         <classShapeMoniker Id="25f83bf9-e058-4552-bb50-ecc494806a24" />
         <classShapeMoniker Id="a7236bdf-f169-40f2-bf8b-ef5dca8366bc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(14.25 : 38.2219962565104); (15 : 38.2219962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(14.25 : 38.2219962565104); (15 : 38.2219962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/SaleListing/SaleListing_SaleReview" />
       <nodes>
         <classShapeMoniker Id="0a54881f-02dd-46be-a803-68a3a8239ff5" />
         <classShapeMoniker Id="25f83bf9-e058-4552-bb50-ecc494806a24" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.70312125 : 44.2804996744792); (3.70312125 : 52.6354484049479); (4.28385354166667 : 52.6354484049479 : JumpStart); (4.71614645833333 : 52.6354484049479 : JumpEnd); (5.08073229166667 : 52.6354484049479 : JumpStart); (5.24739895833333 : 52.6354484049479 : JumpEnd); (8.54166666666667 : 52.6354484049479 : JumpStart); (8.70833333333333 : 52.6354484049479 : JumpEnd); (9 : 52.6354484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.70312125 : 44.2804996744792); (3.70312125 : 52.6354484049479); (9 : 52.6354484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_StoreListingComment" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="a6bf00a7-bde8-4bdd-a518-75e1d14be52d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.429691875 : 44.2804996744792); (5.429691875 : 49.6354484049479); (9 : 49.6354484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.429691875 : 44.2804996744792); (5.429691875 : 49.6354484049479); (9 : 49.6354484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_StoreListingFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="739d5f6f-a08f-460e-bba4-0247bb6263b2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(18 : 35.51562275); (13.3333333333333 : 35.51562275 : JumpStart); (13.1666666666667 : 35.51562275 : JumpEnd); (12.8020808333333 : 35.51562275 : JumpStart); (12.6354141666667 : 35.51562275 : JumpEnd); (12.1458333333333 : 35.51562275 : JumpStart); (11.9791666666667 : 35.51562275 : JumpEnd); (11.9583333333333 : 35.51562275 : JumpStart); (11.7916666666667 : 35.51562275 : JumpEnd); (11.5208358333333 : 35.51562275 : JumpStart); (11.3229166666667 : 35.51562275 : JumpEnd); (9.15625 : 35.51562275); (9.15625 : 48.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(18 : 35.51562275); (11.4895833333333 : 35.51562275 : JumpStart); (11.3229166666667 : 35.51562275 : JumpEnd); (9.15625 : 35.51562275); (9.15625 : 48.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_StoreListingFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="739d5f6f-a08f-460e-bba4-0247bb6263b2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 60.8453836153846); (8.8125 : 60.2828836153846); (8.8125 : 53.1094246074219); (9 : 53.1094246074219)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 60.8453836153846); (8.8125 : 60.2828836153846); (8.8125 : 53.1094246074219); (9 : 53.1094246074219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreListing/StoreListing_StoreListingComment" />
       <nodes>
         <classShapeMoniker Id="fa671edf-ff9c-4509-840c-238c763cfbe7" />
         <classShapeMoniker Id="a6bf00a7-bde8-4bdd-a518-75e1d14be52d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.21769230769231 : 60.75); (8.625 : 60.3426923076923); (8.625 : 50.1094246074219); (9 : 50.1094246074219)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.21769230769231 : 60.75); (8.625 : 60.3426923076923); (8.625 : 50.1094246074219); (9 : 50.1094246074219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreListing/StoreListing_StoreListingFlag" />
       <nodes>
         <classShapeMoniker Id="fa671edf-ff9c-4509-840c-238c763cfbe7" />
         <classShapeMoniker Id="739d5f6f-a08f-460e-bba4-0247bb6263b2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.164065625 : 44.2804996744792); (5.164065625 : 61.9239005533854); (6.25 : 61.9239005533854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.164065625 : 44.2804996744792); (5.164065625 : 61.9239005533854); (6.25 : 61.9239005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_StoreListing" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="fa671edf-ff9c-4509-840c-238c763cfbe7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.898439375 : 44.2804996744792); (4.898439375 : 51.59375); (5.08073229166667 : 51.59375 : JumpStart); (5.24739895833333 : 51.59375 : JumpEnd); (8.54166666666667 : 51.59375 : JumpStart); (8.70833333333333 : 51.59375 : JumpEnd); (11.3229166666667 : 51.59375 : JumpStart); (11.4895833333333 : 51.59375 : JumpEnd); (11.75 : 51.59375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.898439375 : 44.2804996744792); (4.898439375 : 51.59375); (8.54166666666667 : 51.59375 : JumpStart); (8.70833333333333 : 51.59375 : JumpEnd); (11.3229166666667 : 51.59375 : JumpStart); (11.4895833333333 : 51.59375 : JumpEnd); (11.75 : 51.59375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_StoreReviewComment" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="de8fdf39-daa3-4622-93f4-42ee83d92e69" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.632813125 : 44.2804996744792); (4.632813125 : 54.78125); (5.08073229166667 : 54.78125 : JumpStart); (5.24739895833333 : 54.78125 : JumpEnd); (8.54166666666667 : 54.78125 : JumpStart); (8.70833333333333 : 54.78125 : JumpEnd); (8.72916666666667 : 54.78125 : JumpStart); (8.89583333333333 : 54.78125 : JumpEnd); (11.3229166666667 : 54.78125 : JumpStart); (11.4895833333333 : 54.78125 : JumpEnd); (11.5416666666667 : 54.78125 : JumpStart); (11.7083333333333 : 54.78125 : JumpEnd); (11.75 : 54.78125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.632813125 : 44.2804996744792); (4.632813125 : 54.78125); (5.08073229166667 : 54.78125 : JumpStart); (5.24739895833333 : 54.78125 : JumpEnd); (8.54166666666667 : 54.78125 : JumpStart); (8.70833333333333 : 54.78125 : JumpEnd); (8.72916666666667 : 54.78125 : JumpStart); (8.89583333333333 : 54.78125 : JumpEnd); (11.3229166666667 : 54.78125 : JumpStart); (11.4895833333333 : 54.78125 : JumpEnd); (11.75 : 54.78125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_StoreReviewFlag" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="51f7caae-75e9-4b8e-8cfd-b8a057ce9e5f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(19.031252 : 36.5689925130208); (19.031252 : 37.625); (17.8333333333333 : 37.625 : JumpStart); (17.5416666666667 : 37.625 : JumpEnd); (17.5 : 37.625); (17.5 : 55.3854484049479); (13.75 : 55.3854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(19.031252 : 36.5689925130208); (19.031252 : 37.625); (17.8333333333333 : 37.625 : JumpStart); (17.6666666666667 : 37.625 : JumpEnd); (17.5 : 37.625); (17.5 : 55.3854484049479); (13.75 : 55.3854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/FlagType/FlagType_StoreReviewFlag" />
       <nodes>
         <classShapeMoniker Id="bcbd8b56-af2a-4fa1-a3bf-011de51a8ad5" />
         <classShapeMoniker Id="51f7caae-75e9-4b8e-8cfd-b8a057ce9e5f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 61.375); (11.3473244349011 : 61.0276755650989 : JumpStart); (11.4651755650989 : 60.9098244349011 : JumpEnd); (11.625 : 60.75); (11.625 : 52.4635754049479); (11.75 : 52.4635754049479)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11 : 61.375); (11.3473244349011 : 61.0276755650989 : JumpStart); (11.4651755650989 : 60.9098244349011 : JumpEnd); (11.625 : 60.75); (11.625 : 52.4635754049479); (11.75 : 52.4635754049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreReview/StoreReview_StoreReviewComment" />
       <nodes>
         <classShapeMoniker Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" />
         <classShapeMoniker Id="de8fdf39-daa3-4622-93f4-42ee83d92e69" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 62.0032487565104); (11.3229166666667 : 62.0032487565104 : JumpStart); (11.4895833333333 : 62.0032487565104 : JumpEnd); (12.75 : 62.0032487565104); (12.75 : 56.2708968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11 : 62.0032487565104); (11.3229166666667 : 62.0032487565104 : JumpStart); (11.4895833333333 : 62.0032487565104 : JumpEnd); (12.75 : 62.0032487565104); (12.75 : 56.2708968098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreReview/StoreReview_StoreReviewFlag" />
       <nodes>
         <classShapeMoniker Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" />
         <classShapeMoniker Id="51f7caae-75e9-4b8e-8cfd-b8a057ce9e5f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.21875 : 62.5689925130208); (9.21875 : 66.9912019856771); (11.75 : 66.9912019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/LegatoDataContext/StoreReview/StoreReview_StoreReviewRevision" />
-      <nodes>
-        <classShapeMoniker Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" />
-        <classShapeMoniker Id="7f039f72-9f03-4b47-a399-4c1b31bebb78" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 61.9719962565104); (9 : 61.9719962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 61.9719962565104); (9 : 61.9719962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreListing/StoreListing_StoreReview" />
       <nodes>
         <classShapeMoniker Id="fa671edf-ff9c-4509-840c-238c763cfbe7" />
         <classShapeMoniker Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.20259365384615 : 60.75); (7.20259365384615 : 58.8854484049479); (8.54166666666667 : 58.8854484049479 : JumpStart); (8.70833333333333 : 58.8854484049479 : JumpEnd); (8.72916666666667 : 58.8854484049479 : JumpStart); (8.89583333333333 : 58.8854484049479 : JumpEnd); (9 : 58.8854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.20259365384615 : 60.75); (7.20259365384615 : 58.8854484049479); (8.54166666666667 : 58.8854484049479 : JumpStart); (8.70833333333333 : 58.8854484049479 : JumpEnd); (8.72916666666667 : 58.8854484049479 : JumpStart); (8.89583333333333 : 58.8854484049479 : JumpEnd); (9 : 58.8854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/StoreListing/StoreListing_StoreVenueHour" />
       <nodes>
         <classShapeMoniker Id="fa671edf-ff9c-4509-840c-238c763cfbe7" />
         <classShapeMoniker Id="5cf398e1-a05c-4338-90ea-5f65b42e723d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(22.75 : 50.0689925130208); (22.75 : 58.8854484049479); (12.8333333333333 : 58.8854484049479 : JumpStart); (12.6666666666667 : 58.8854484049479 : JumpEnd); (11.7083333333333 : 58.8854484049479 : JumpStart); (11.5416666666667 : 58.8854484049479 : JumpEnd); (11.4895833333333 : 58.8854484049479 : JumpStart); (11.3229166666667 : 58.8854484049479 : JumpEnd); (11 : 58.8854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(22.75 : 50.0689925130208); (22.75 : 58.8854484049479); (11 : 58.8854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/WeekDay/WeekDay_StoreVenueHour" />
       <nodes>
         <classShapeMoniker Id="763d1e41-fe71-44a1-adb9-49a2fc058d41" />
         <classShapeMoniker Id="5cf398e1-a05c-4338-90ea-5f65b42e723d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.367186875 : 44.2804996744792); (4.367186875 : 56.0104484049479); (4.41666666666667 : 56.0104484049479 : JumpStart); (4.58333333333333 : 56.0104484049479 : JumpEnd); (5.08073229166667 : 56.0104484049479 : JumpStart); (5.24739895833333 : 56.0104484049479 : JumpEnd); (6.25 : 56.0104484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.367186875 : 44.2804996744792); (4.367186875 : 56.0104484049479); (6.25 : 56.0104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/aspnet_User/aspnet_User_UserSuspension" />
       <nodes>
         <classShapeMoniker Id="2a05df34-f781-4b79-be4b-802ca622e8b6" />
         <classShapeMoniker Id="ab3d72b5-55ce-42f0-978b-0cbd2ed12a89" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(23.75 : 45.5104484049479); (24.5 : 45.5104484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(23.75 : 45.5104484049479); (24.5 : 45.5104484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/ReviewRevision/ReviewRevision_VenueHour" />
       <nodes>
         <classShapeMoniker Id="8dea7566-0894-4553-9f67-0a21f310656b" />
         <classShapeMoniker Id="ae04fc0c-9237-4716-b27e-0746d2216b9e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(23.75 : 49.4719962565104); (25.5 : 49.4719962565104); (25.5 : 46.3958968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(23.75 : 49.4719962565104); (25.5 : 49.4719962565104); (25.5 : 46.3958968098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LegatoDataContext/WeekDay/WeekDay_VenueHour" />
       <nodes>
         <classShapeMoniker Id="763d1e41-fe71-44a1-adb9-49a2fc058d41" />
         <classShapeMoniker Id="ae04fc0c-9237-4716-b27e-0746d2216b9e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="96adf92b-1605-476b-bba7-28fa7ab58b24" absoluteBounds="13, 66.375, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/LegatoDataContext/StoreReviewRevision" />
+      <nestedChildShapes>
+        <elementListCompartment Id="232240eb-d556-4dff-81e3-c5122dbf043e" absoluteBounds="13.015, 66.835, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.21875 : 62.5689925130208); (9.21875 : 67.8373527018229); (13 : 67.8373527018229)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LegatoDataContext/StoreReview/StoreReview_StoreReviewRevision" />
+      <nodes>
+        <classShapeMoniker Id="78b1d4f6-14e9-47da-97c2-7fa0fc5f5199" />
+        <classShapeMoniker Id="96adf92b-1605-476b-bba7-28fa7ab58b24" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

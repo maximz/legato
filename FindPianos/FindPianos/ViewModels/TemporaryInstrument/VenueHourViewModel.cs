@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using FindPianos.Helpers;
 
 namespace FindPianos.ViewModels
 {
+    [CompareProperties(ComparisonProperty1="StartTime",ComparisonProperty2="EndTime",LessThanAllowed=false,GreaterThanAllowed=true,EqualToAllowed=false,AllowNullValues=true,ErrorMessage="End time must be after start time.")]
     public class VenueHourViewModel
     {
         [Required(ErrorMessage="Day of week ID is required.")]

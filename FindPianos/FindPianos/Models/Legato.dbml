@@ -576,21 +576,6 @@
       <Association Name="StoreReview_StoreReviewFlag" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.StoreReviewRevisions" Member="StoreReviewRevisions">
-    <Type Name="StoreReviewRevision">
-      <Column Name="StoreReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RatingService" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RatingProductQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfLastVisit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfLastPurchase" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="StoreReview_StoreReviewRevision" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.StoreReviews" Member="StoreReviews">
     <Type Name="StoreReview">
       <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -638,6 +623,22 @@
       <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="ReviewRevision_VenueHour" Member="ReviewRevision" ThisKey="ReviewRevisionID" OtherKey="ReviewRevisionID" Type="ReviewRevision" IsForeignKey="true" />
       <Association Name="WeekDay_VenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreReviewRevisions" Member="StoreReviewRevisions">
+    <Type Name="StoreReviewRevision">
+      <Column Name="StoreReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingService" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingProductQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingEnvironment" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastVisit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastPurchase" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="StoreReview_StoreReviewRevision" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

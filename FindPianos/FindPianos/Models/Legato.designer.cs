@@ -162,9 +162,6 @@ namespace FindPianos.Models
     partial void InsertStoreReviewFlag(StoreReviewFlag instance);
     partial void UpdateStoreReviewFlag(StoreReviewFlag instance);
     partial void DeleteStoreReviewFlag(StoreReviewFlag instance);
-    partial void InsertStoreReviewRevision(StoreReviewRevision instance);
-    partial void UpdateStoreReviewRevision(StoreReviewRevision instance);
-    partial void DeleteStoreReviewRevision(StoreReviewRevision instance);
     partial void InsertStoreReview(StoreReview instance);
     partial void UpdateStoreReview(StoreReview instance);
     partial void DeleteStoreReview(StoreReview instance);
@@ -180,6 +177,9 @@ namespace FindPianos.Models
     partial void InsertVenueHour(VenueHour instance);
     partial void UpdateVenueHour(VenueHour instance);
     partial void DeleteVenueHour(VenueHour instance);
+    partial void InsertStoreReviewRevision(StoreReviewRevision instance);
+    partial void UpdateStoreReviewRevision(StoreReviewRevision instance);
+    partial void DeleteStoreReviewRevision(StoreReviewRevision instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -564,14 +564,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<StoreReviewRevision> StoreReviewRevisions
-		{
-			get
-			{
-				return this.GetTable<StoreReviewRevision>();
-			}
-		}
-		
 		public System.Data.Linq.Table<StoreReview> StoreReviews
 		{
 			get
@@ -609,6 +601,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<VenueHour>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreReviewRevision> StoreReviewRevisions
+		{
+			get
+			{
+				return this.GetTable<StoreReviewRevision>();
 			}
 		}
 	}
@@ -13341,325 +13341,6 @@ namespace FindPianos.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviewRevisions")]
-	public partial class StoreReviewRevision : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _StoreReviewRevisionID;
-		
-		private long _ReviewID;
-		
-		private int _RatingOverall;
-		
-		private System.Nullable<int> _RatingService;
-		
-		private System.Nullable<int> _RatingProductQuality;
-		
-		private string _Message;
-		
-		private System.DateTime _RevisionDate;
-		
-		private int _EditNumber;
-		
-		private System.DateTime _DateOfLastVisit;
-		
-		private System.DateTime _DateOfLastPurchase;
-		
-		private EntityRef<StoreReview> _StoreReview;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnStoreReviewRevisionIDChanging(long value);
-    partial void OnStoreReviewRevisionIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnRatingOverallChanging(int value);
-    partial void OnRatingOverallChanged();
-    partial void OnRatingServiceChanging(System.Nullable<int> value);
-    partial void OnRatingServiceChanged();
-    partial void OnRatingProductQualityChanging(System.Nullable<int> value);
-    partial void OnRatingProductQualityChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnRevisionDateChanging(System.DateTime value);
-    partial void OnRevisionDateChanged();
-    partial void OnEditNumberChanging(int value);
-    partial void OnEditNumberChanged();
-    partial void OnDateOfLastVisitChanging(System.DateTime value);
-    partial void OnDateOfLastVisitChanged();
-    partial void OnDateOfLastPurchaseChanging(System.DateTime value);
-    partial void OnDateOfLastPurchaseChanged();
-    #endregion
-		
-		public StoreReviewRevision()
-		{
-			this._StoreReview = default(EntityRef<StoreReview>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreReviewRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long StoreReviewRevisionID
-		{
-			get
-			{
-				return this._StoreReviewRevisionID;
-			}
-			set
-			{
-				if ((this._StoreReviewRevisionID != value))
-				{
-					this.OnStoreReviewRevisionIDChanging(value);
-					this.SendPropertyChanging();
-					this._StoreReviewRevisionID = value;
-					this.SendPropertyChanged("StoreReviewRevisionID");
-					this.OnStoreReviewRevisionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
-		public long ReviewID
-		{
-			get
-			{
-				return this._ReviewID;
-			}
-			set
-			{
-				if ((this._ReviewID != value))
-				{
-					if (this._StoreReview.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnReviewIDChanging(value);
-					this.SendPropertyChanging();
-					this._ReviewID = value;
-					this.SendPropertyChanged("ReviewID");
-					this.OnReviewIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingOverall", DbType="Int NOT NULL")]
-		public int RatingOverall
-		{
-			get
-			{
-				return this._RatingOverall;
-			}
-			set
-			{
-				if ((this._RatingOverall != value))
-				{
-					this.OnRatingOverallChanging(value);
-					this.SendPropertyChanging();
-					this._RatingOverall = value;
-					this.SendPropertyChanged("RatingOverall");
-					this.OnRatingOverallChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingService", DbType="Int")]
-		public System.Nullable<int> RatingService
-		{
-			get
-			{
-				return this._RatingService;
-			}
-			set
-			{
-				if ((this._RatingService != value))
-				{
-					this.OnRatingServiceChanging(value);
-					this.SendPropertyChanging();
-					this._RatingService = value;
-					this.SendPropertyChanged("RatingService");
-					this.OnRatingServiceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingProductQuality", DbType="Int")]
-		public System.Nullable<int> RatingProductQuality
-		{
-			get
-			{
-				return this._RatingProductQuality;
-			}
-			set
-			{
-				if ((this._RatingProductQuality != value))
-				{
-					this.OnRatingProductQualityChanging(value);
-					this.SendPropertyChanging();
-					this._RatingProductQuality = value;
-					this.SendPropertyChanged("RatingProductQuality");
-					this.OnRatingProductQualityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
-		public string Message
-		{
-			get
-			{
-				return this._Message;
-			}
-			set
-			{
-				if ((this._Message != value))
-				{
-					this.OnMessageChanging(value);
-					this.SendPropertyChanging();
-					this._Message = value;
-					this.SendPropertyChanged("Message");
-					this.OnMessageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
-		public System.DateTime RevisionDate
-		{
-			get
-			{
-				return this._RevisionDate;
-			}
-			set
-			{
-				if ((this._RevisionDate != value))
-				{
-					this.OnRevisionDateChanging(value);
-					this.SendPropertyChanging();
-					this._RevisionDate = value;
-					this.SendPropertyChanged("RevisionDate");
-					this.OnRevisionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
-		public int EditNumber
-		{
-			get
-			{
-				return this._EditNumber;
-			}
-			set
-			{
-				if ((this._EditNumber != value))
-				{
-					this.OnEditNumberChanging(value);
-					this.SendPropertyChanging();
-					this._EditNumber = value;
-					this.SendPropertyChanged("EditNumber");
-					this.OnEditNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastVisit", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfLastVisit
-		{
-			get
-			{
-				return this._DateOfLastVisit;
-			}
-			set
-			{
-				if ((this._DateOfLastVisit != value))
-				{
-					this.OnDateOfLastVisitChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfLastVisit = value;
-					this.SendPropertyChanged("DateOfLastVisit");
-					this.OnDateOfLastVisitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastPurchase", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfLastPurchase
-		{
-			get
-			{
-				return this._DateOfLastPurchase;
-			}
-			set
-			{
-				if ((this._DateOfLastPurchase != value))
-				{
-					this.OnDateOfLastPurchaseChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfLastPurchase = value;
-					this.SendPropertyChanged("DateOfLastPurchase");
-					this.OnDateOfLastPurchaseChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewRevision", Storage="_StoreReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
-		public StoreReview StoreReview
-		{
-			get
-			{
-				return this._StoreReview.Entity;
-			}
-			set
-			{
-				StoreReview previousValue = this._StoreReview.Entity;
-				if (((previousValue != value) 
-							|| (this._StoreReview.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StoreReview.Entity = null;
-						previousValue.StoreReviewRevisions.Remove(this);
-					}
-					this._StoreReview.Entity = value;
-					if ((value != null))
-					{
-						value.StoreReviewRevisions.Add(this);
-						this._ReviewID = value.ReviewID;
-					}
-					else
-					{
-						this._ReviewID = default(long);
-					}
-					this.SendPropertyChanged("StoreReview");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviews")]
 	public partial class StoreReview : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -14635,6 +14316,349 @@ namespace FindPianos.Models
 						this._DayOfWeek = default(int);
 					}
 					this.SendPropertyChanged("WeekDay");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviewRevisions")]
+	public partial class StoreReviewRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StoreReviewRevisionID;
+		
+		private long _ReviewID;
+		
+		private int _RatingOverall;
+		
+		private System.Nullable<int> _RatingService;
+		
+		private System.Nullable<int> _RatingProductQuality;
+		
+		private System.Nullable<int> _RatingEnvironment;
+		
+		private string _Message;
+		
+		private System.DateTime _RevisionDate;
+		
+		private int _EditNumber;
+		
+		private System.DateTime _DateOfLastVisit;
+		
+		private System.DateTime _DateOfLastPurchase;
+		
+		private EntityRef<StoreReview> _StoreReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStoreReviewRevisionIDChanging(long value);
+    partial void OnStoreReviewRevisionIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnRatingOverallChanging(int value);
+    partial void OnRatingOverallChanged();
+    partial void OnRatingServiceChanging(System.Nullable<int> value);
+    partial void OnRatingServiceChanged();
+    partial void OnRatingProductQualityChanging(System.Nullable<int> value);
+    partial void OnRatingProductQualityChanged();
+    partial void OnRatingEnvironmentChanging(System.Nullable<int> value);
+    partial void OnRatingEnvironmentChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnRevisionDateChanging(System.DateTime value);
+    partial void OnRevisionDateChanged();
+    partial void OnEditNumberChanging(int value);
+    partial void OnEditNumberChanged();
+    partial void OnDateOfLastVisitChanging(System.DateTime value);
+    partial void OnDateOfLastVisitChanged();
+    partial void OnDateOfLastPurchaseChanging(System.DateTime value);
+    partial void OnDateOfLastPurchaseChanged();
+    #endregion
+		
+		public StoreReviewRevision()
+		{
+			this._StoreReview = default(EntityRef<StoreReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreReviewRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StoreReviewRevisionID
+		{
+			get
+			{
+				return this._StoreReviewRevisionID;
+			}
+			set
+			{
+				if ((this._StoreReviewRevisionID != value))
+				{
+					this.OnStoreReviewRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreReviewRevisionID = value;
+					this.SendPropertyChanged("StoreReviewRevisionID");
+					this.OnStoreReviewRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._StoreReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingOverall", DbType="Int NOT NULL")]
+		public int RatingOverall
+		{
+			get
+			{
+				return this._RatingOverall;
+			}
+			set
+			{
+				if ((this._RatingOverall != value))
+				{
+					this.OnRatingOverallChanging(value);
+					this.SendPropertyChanging();
+					this._RatingOverall = value;
+					this.SendPropertyChanged("RatingOverall");
+					this.OnRatingOverallChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingService", DbType="Int")]
+		public System.Nullable<int> RatingService
+		{
+			get
+			{
+				return this._RatingService;
+			}
+			set
+			{
+				if ((this._RatingService != value))
+				{
+					this.OnRatingServiceChanging(value);
+					this.SendPropertyChanging();
+					this._RatingService = value;
+					this.SendPropertyChanged("RatingService");
+					this.OnRatingServiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingProductQuality", DbType="Int")]
+		public System.Nullable<int> RatingProductQuality
+		{
+			get
+			{
+				return this._RatingProductQuality;
+			}
+			set
+			{
+				if ((this._RatingProductQuality != value))
+				{
+					this.OnRatingProductQualityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingProductQuality = value;
+					this.SendPropertyChanged("RatingProductQuality");
+					this.OnRatingProductQualityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingEnvironment", DbType="Int")]
+		public System.Nullable<int> RatingEnvironment
+		{
+			get
+			{
+				return this._RatingEnvironment;
+			}
+			set
+			{
+				if ((this._RatingEnvironment != value))
+				{
+					this.OnRatingEnvironmentChanging(value);
+					this.SendPropertyChanging();
+					this._RatingEnvironment = value;
+					this.SendPropertyChanged("RatingEnvironment");
+					this.OnRatingEnvironmentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RevisionDate
+		{
+			get
+			{
+				return this._RevisionDate;
+			}
+			set
+			{
+				if ((this._RevisionDate != value))
+				{
+					this.OnRevisionDateChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionDate = value;
+					this.SendPropertyChanged("RevisionDate");
+					this.OnRevisionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
+		public int EditNumber
+		{
+			get
+			{
+				return this._EditNumber;
+			}
+			set
+			{
+				if ((this._EditNumber != value))
+				{
+					this.OnEditNumberChanging(value);
+					this.SendPropertyChanging();
+					this._EditNumber = value;
+					this.SendPropertyChanged("EditNumber");
+					this.OnEditNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastVisit", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfLastVisit
+		{
+			get
+			{
+				return this._DateOfLastVisit;
+			}
+			set
+			{
+				if ((this._DateOfLastVisit != value))
+				{
+					this.OnDateOfLastVisitChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfLastVisit = value;
+					this.SendPropertyChanged("DateOfLastVisit");
+					this.OnDateOfLastVisitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastPurchase", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfLastPurchase
+		{
+			get
+			{
+				return this._DateOfLastPurchase;
+			}
+			set
+			{
+				if ((this._DateOfLastPurchase != value))
+				{
+					this.OnDateOfLastPurchaseChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfLastPurchase = value;
+					this.SendPropertyChanged("DateOfLastPurchase");
+					this.OnDateOfLastPurchaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewRevision", Storage="_StoreReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
+		public StoreReview StoreReview
+		{
+			get
+			{
+				return this._StoreReview.Entity;
+			}
+			set
+			{
+				StoreReview previousValue = this._StoreReview.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreReview.Entity = null;
+						previousValue.StoreReviewRevisions.Remove(this);
+					}
+					this._StoreReview.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewRevisions.Add(this);
+						this._ReviewID = value.ReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("StoreReview");
 				}
 			}
 		}

@@ -33,16 +33,23 @@ namespace FindPianos
             get { return System.Web.HttpContext.Current.Profile as AccountProfile; }
         }
 
-        public string ProfilePictureURL
-        {
-            get { return ((string)(base["ProfilePictureURL"])); }
-            set { base["ProfilePictureURL"] = value; Save(); }
-        }
 
         public DateTime ReinstateDate
         {
             get { return ((DateTime)(base["ReinstateDate"])); }
             set { base["ReinstateDate"] = value; Save(); }
+        }
+
+        public string Location
+        {
+            get { return ((string)(base["Location"])); }
+            set { base["Location"] = value; Save(); }
+        }
+
+        public string AboutMe
+        {
+            get { return ((string)(base["AboutMe"])); }
+            set { base["AboutMe"] = value; Save(); }
         }
         // add additional properties here
 
