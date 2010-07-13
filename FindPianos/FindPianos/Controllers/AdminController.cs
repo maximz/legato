@@ -8,6 +8,7 @@ using RiaLibrary.Web;
 using FindPianos.Helpers;
 using System.Globalization;
 using System.Web.Security;
+using FindPianos.ViewModels;
 
 namespace FindPianos.Controllers
 {
@@ -28,70 +29,79 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult UserSearchByName(string nameContains)
         {
-            using (var db = new LegatoDataContext())
+            try
             {
-                var results = db.aspnet_Users.Where(u => u.UserName.Contains(nameContains)).Take(50).ToList();
-                ViewData["table"] = results;
+                using (var db = new LegatoDataContext())
+                {
+                    var results = db.aspnet_Users.Where(u => u.UserName.Contains(nameContains)).Take(50).ToList();
+                    return View("UserSearchByNamePOST", results);
+                }
             }
-            return View("UserSearchByNamePOST");
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+            
         }
 
-        [Url("Admin/Users/View/{UserID}")]
+        [Url("Admin/Users/View/{UserId}")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult GetUserById(Guid UserId)
         {
             using (var db = new LegatoDataContext())
             {
-                ViewData["userInfo"] = Membership.GetUser(UserId, false);
-                var suspensions = db.PianoUserSuspensions.Where(s => s.UserID == UserId).ToList();
-                ViewData["suspensionList"] = suspensions;
-                ViewData["reinstateDate"] = suspensions.Max(r => r.ReinstateDate);
+                var model = new UserInformationViewModel();
+                model.User = Membership.GetUser(UserId, false);
+                if(model.User==null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+                model.Suspensions = db.UserSuspensions.Where(s => s.UserID == UserId).ToList();
+                model.ReinstateDate = model.Suspensions.Max(r => r.ReinstateDate);
+                return View(model);
             }
-            return View();
         }
 
-        [Url("Admin/Users/Suspend/{UserID}")][HttpGet]
+        [Url("Admin/Users/Suspend/{UserId}")][HttpGet]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        public ActionResult SuspendUser(Guid UserID)
+        public ActionResult SuspendUser(Guid UserId)
         {
-            return View();
+            return View(new SuspendUserViewModel() { UserID=UserId });
         }
         [Url("Admin/Users/Suspend")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        public ActionResult SuspendUser(Guid UserID, DateTime reinstateDate, string reason)
+        public ActionResult SuspendUser(SuspendUserViewModel model)
         {
-            var sus = new PianoUserSuspension();
+            var sus = new UserSuspension();
             try
             {
                 using (var db = new LegatoDataContext())
                 {
-                    var username = Membership.GetUser(UserID,false).UserName;
-                    sus = new PianoUserSuspension()
+                    var username = Membership.GetUser(model.UserID,false).UserName;
+                    sus = new UserSuspension()
                     {
                         SuspensionDate = DateTime.Now,
-                        ReinstateDate = reinstateDate,
-                        Reason = reason,
-                        UserID = UserID
+                        Reason = model.Reason,
+                        UserID = model.UserID
                     };
-                    db.PianoUserSuspensions.InsertOnSubmit(sus);
+                    if(model.ReinstateDate==null)
+                    {
+                        sus.ReinstateDate = DateTime.MaxValue;
+                    }
+                    db.UserSuspensions.InsertOnSubmit(sus);
                     db.SubmitChanges();
-                    AccountProfile.GetProfileOfUser(username).ReinstateDate = reinstateDate;
+                    AccountProfile.GetProfileOfUser(username).ReinstateDate = sus.ReinstateDate;
                     AccountProfile.GetProfileOfUser(username).Save();
                     return RedirectToAction("GetUserById", new
                     {
-                        UserId = UserID
+                        UserId = model.UserID
                     });
                 }
             }
             catch
             {
-                foreach (RuleViolation rv in sus.GetRuleViolations())
-                {
-                    ModelState.AddModelError(rv.PropertyName, rv.ErrorMessage);
-                    ModelState.SetModelValue(rv.PropertyName, new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-                }
-                return View();
+                return View("NotFound","Error");
             }
         }
 

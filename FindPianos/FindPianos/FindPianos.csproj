@@ -89,6 +89,7 @@
     <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\Validation\CompareValueAttribute.cs" />
     <Compile Include="Helpers\Validation\GeocodableAttribute.cs" />
     <Compile Include="Helpers\Geocoder.cs" />
     <Compile Include="Helpers\Inflector.cs" />
@@ -121,6 +122,8 @@
     </Compile>
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Admin\SuspendUserViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UserInformationViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EditViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\ListingSubmissionViewModel.cs" />
