@@ -258,7 +258,7 @@ namespace FindPianos.Controllers
                         db.VenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
-                    return RedirectToAction("Read", new { id = r.Review.ListingID }); //shows details for that submission thread, with only one revision!
+                    return RedirectToAction("Read", new { id = listing.ListingID}); //shows details for that submission thread, with only one revision!
                 }
             }
             catch
@@ -286,7 +286,53 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    return View(revision);
+                    var listing = db.Listings.Where(l => l.ListingID == revision.Review.ListingID).Single();
+                    var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
+                    var revisionmodel = new RevisionSubmissionViewModel()
+                    {
+                        DateOfLastUsage=revision.DateOfLastUsageOfPianoBySubmitter,
+                        Message=revision.Message,
+                        PricePerHour=revision.PricePerHourInUSD,
+                        RatingOverall=revision.RatingOverall,
+                        RatingPlayingCapability=(int)revision.RatingPlayingCapability,
+                        RatingToneQuality=(int)revision.RatingToneQuality,
+                        RatingTuning=(int)revision.RatingTuning,
+                        ReviewId=(int)revision.ReviewID,
+                        VenueName=revision.VenueName
+                    };
+                    var hourmodel = new List<VenueHourViewModel>();
+                    foreach(var h in hours)
+                    {
+                        var item = new VenueHourViewModel();
+                        item.DayOfWeekId = h.WeekDay.WeekDayID;
+                        item.DayOfWeekName = h.WeekDay.WeekDayName;
+                        if(h.StartTime==null||!h.StartTime.HasValue||h.StartTime==DateTime.MinValue) //we only need to check one of them, because if one's null the other one is, too
+                        {
+                            item.StartTime = DateTime.MinValue;
+                            item.EndTime = DateTime.MinValue;
+                            item.Closed = true;
+                        }
+                        else
+                        {
+                            item.Closed = false;
+                            item.StartTime = (DateTime)h.StartTime;
+                            item.EndTime = (DateTime)h.EndTime;
+                        }
+                        hourmodel.Add(item);
+                    }
+                    var listingmodel = new ReadListingViewModel()
+                    {
+                        Listing=listing,
+                        Reviews=null
+                    };
+
+                    var model = new EditViewModel()
+                    {
+                        ReviewRevision=revisionmodel,
+                        Hours=hourmodel,
+                        Listing=listingmodel
+                    };
+                    return View(model);
                 }
             }
             catch

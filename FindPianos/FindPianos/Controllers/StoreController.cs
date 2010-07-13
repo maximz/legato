@@ -112,34 +112,29 @@ namespace FindPianos.Controllers
         [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
-            using (var db = new LegatoDataContext())
-            {
-                var results = db.ProcessAjaxMapSearch(new BoundingBox()
+            var results = StoreListing.ProcessAjaxMapSearch(new BoundingBox()
             {
                 extent1 = new LatLong() { latitude = lat1, longitude = long1 },
                 extent2 = new LatLong() { latitude = lat2, longitude = long2 }
             });
-                return Json(results);
-            }
-
+            return Json(results);
         }
         #endregion
 
         #region Submission and Editing methods
-        [Url("Listing/Create")]
+        [Url("Stores/Create")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name="ListingSubmitGET", Seconds=600)]
+        [RateLimit(Name="StoreSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
-            //TODO: load styles and types into the model; or rather, don't. that will be Ajax.
-            return View(new SubmitViewModel());
+            return View(new StoreSubmitViewModel());
         }
-        [Url("Listing/Create")]
+        [Url("Stores/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
-        public ActionResult Submit(SubmitViewModel model)
+        [RateLimit(Name="StoreSubmitPOST", Seconds=600)]
+        public ActionResult Submit(StoreSubmitViewModel model)
         {
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
@@ -151,97 +146,52 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
 
                     //LISTING:
-                    var listing = new Listing();
+                    var listing = new StoreListing();
 
-                    listing.StreetAddress = model.Listing.StreetAddress;
+                    listing.Address = model.Listing.StreetAddress;
                     listing.Lat = model.Listing.Lat;
                     listing.Long = model.Listing.Long;
-                    listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
-                    if(model.Listing.Equipment.Model.IsNullOrEmpty())
-                        listing.InstrumentModel = null;
-                    else
-                        listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
 
-                    /*Matching instrument and style:
-                     * 1. take instrument name, find match in Instruments table
-                     * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
-                     * 3. Match name to a record in InstrumentTypes with InstrumentID from step 1 and Name from step 2
-                     * 4. Apply ID of record in #3 to Listing
-                     * 5. Same for Styles
-                     * that's how we do it! */
-                    var instrument = db.Instruments.Where(i => i.Name == model.Listing.InstrumentName).SingleOrDefault();
-                    if(instrument==null)
-                    {
-                        ModelState.AddModelError("InstrumentName", "No such instrument exists.");
-                        return View();
-                    }
-                    var style = model.Listing.Equipment.Styles.ElementAtOrDefault(model.Listing.Equipment.SelectedStyle);
-                    if(style==null)
-                    {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
-                    }
-                    var modelStyle = db.InstrumentStyles.Where(s => s.InstrumentID == instrument.InstrumentID && s.StyleName == style.Value).SingleOrDefault(); //TODO: is it style.Value or style.Text?
-                    if(modelStyle==null)
-                    {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
-                    }
-                    listing.InstrumentStyleID = modelStyle.StyleID;
-                    style = null;
-                    modelStyle = null;
-                    var type = model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType);
-                    if (type == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    var modelType = db.InstrumentTypes.Where(t => t.InstrumentID == instrument.InstrumentID && t.TypeName == type.Value).SingleOrDefault(); //TODO: is it type.Value or type.Text?
-                    if (modelType == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    listing.InstrumentTypeID = modelType.TypeID;
-                    type = null;
-                    modelType = null;
+                    listing.Name = model.Listing.Name;
+                    listing.Description = model.Listing.Description;
+
+                    listing.IsSubmitterAffiliatedWithStore = model.Listing.IsSubmitterAffiliatedWithStore;
 
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    listing.OriginalSubmitterUserID = userGuid;
+                    listing.SubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
 
-                    db.Listings.InsertOnSubmit(listing);
+                    db.StoreListings.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
                     //REVIEW:
-                    var review = new Review();
-                    review.Listing = listing;
-                    db.Reviews.InsertOnSubmit(review);
+                    var review = new StoreReview();
+                    review.StoreListing = listing;
+                    db.StoreReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
                     //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
+                    var r = new StoreReviewRevision();
+                    r.DateOfLastVisit = model.ReviewRevision.DateOfLastVisit;
+                    r.DateOfLastPurchase = model.ReviewRevision.DateOfLastPurchase;
                     r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
                     r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.Review = review;
+                    r.RatingProductQuality= model.ReviewRevision.RatingProductQuality;
+                    r.RatingService = model.ReviewRevision.RatingService;
+                    r.RatingEnvironment = model.ReviewRevision.RatingEnvironment;
+                    r.RevisionDate = time;
+                    r.StoreReview = review;
                     //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
                     //                            where rev.PianoReviewID == review.PianoReviewID
                     //                            select rev.RevisionNumberOfReview).Max() + 1;
-                    r.RevisionNumberOfReview = 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.EditNumber = 1;
+                    db.StoreReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
                     foreach (var hour in model.Hours)
                     {
-                        var submit = new VenueHour();
+                        var submit = new StoreVenueHour();
                         submit.DayOfWeek = hour.DayOfWeekId;
                         if(!hour.Closed)
                         {
@@ -253,11 +203,11 @@ namespace FindPianos.Controllers
                             submit.StartTime = null;
                             submit.EndTime = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        submit.StoreReviewRevision = r;
+                        db.StoreVenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
-                    return RedirectToAction("Read", new { id = r.Review.ListingID }); //shows details for that submission thread, with only one revision!
+                    return RedirectToAction("Read", new { id = listing.StoreListingID }); //shows details for that submission thread, with only one revision!
                 }
             }
             catch
@@ -265,11 +215,11 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Review/Edit/{reviewId}")]
+        [Url("Stores/Review/Edit/{reviewId}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name = "ListingEditGET", Seconds = 600)]
-        public ActionResult Edit(long reviewId)
+        [RateLimit(Name = "StoreReviewEditGET", Seconds = 600)]
+        public ActionResult EditReview(long reviewId)
         {
             //edit an individual review
             try
@@ -278,14 +228,59 @@ namespace FindPianos.Controllers
                 {
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    var query = db.ReviewRevisions.Where(r => r.ReviewID == reviewId).OrderByDescending(r => r.RevisionNumberOfReview);
+                    var query = db.StoreReviewRevisions.Where(r => r.ReviewID == reviewId).OrderByDescending(r => r.EditNumber);
                     var revision = query.First();
-                    var submitterGuid = query.Last().SubmitterUserID;
+                    var submitterGuid = query.Last().UserID;
                     if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    return View(revision);
+                    var listing = db.StoreListings.Where(l => l.StoreListingID == revision.StoreReview.StoreID).Single();
+                    var hours = db.StoreVenueHours.Where(h => h.StoreReviewRevisionID == revision.StoreReviewRevisionID).ToList();
+                    var revisionmodel = new StoreRevisionSubmissionViewModel()
+                    {
+                        DateOfLastVisit = revision.DateOfLastVisit,
+                        DateOfLastPurchase = revision.DateOfLastPurchase,
+                        Message = revision.Message,
+                        RatingOverall = revision.RatingOverall,
+                        RatingProductQuality= (int)revision.RatingProductQuality,
+                        RatingEnvironment= (int)revision.RatingEnvironment,
+                        RatingService = (int)revision.RatingService,
+                        ReviewId = (int)revision.ReviewID
+                    };
+                    var hourmodel = new List<StoreHourViewModel>();
+                    foreach (var h in hours)
+                    {
+                        var item = new StoreHourViewModel();
+                        item.DayOfWeekId = h.WeekDay.WeekDayID;
+                        item.DayOfWeekName = h.WeekDay.WeekDayName;
+                        if (h.StartTime == null || !h.StartTime.HasValue || h.StartTime == DateTime.MinValue) //we only need to check one of them, because if one's null the other one is, too
+                        {
+                            item.StartTime = DateTime.MinValue;
+                            item.EndTime = DateTime.MinValue;
+                            item.Closed = true;
+                        }
+                        else
+                        {
+                            item.Closed = false;
+                            item.StartTime = (DateTime)h.StartTime;
+                            item.EndTime = (DateTime)h.EndTime;
+                        }
+                        hourmodel.Add(item);
+                    }
+                    var listingmodel = new ReadStoreListingViewModel()
+                    {
+                        Listing = listing,
+                        Reviews = null
+                    };
+
+                    var model = new StoreEditViewModel()
+                    {
+                        ReviewRevision = revisionmodel,
+                        Hours = hourmodel,
+                        Listing = listingmodel
+                    };
+                    return View(model);
                 }
             }
             catch
@@ -293,11 +288,11 @@ namespace FindPianos.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
         }
-        [Url("Review/Edit")]
+        [Url("Stores/Review/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
-        public ActionResult Edit(EditViewModel model)
+        [RateLimit(Name = "StoreReviewEditPOST", Seconds = 600)]
+        public ActionResult EditReview(StoreEditViewModel model)
         {
             try
             {
@@ -321,27 +316,26 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
 
                     //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
+                    var r = new StoreReviewRevision();
+                    r.DateOfLastPurchase = model.ReviewRevision.DateOfLastPurchase;
+                    r.DateOfLastVisit = model.ReviewRevision.DateOfLastVisit;
                     r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
                     r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
+                    r.RatingEnvironment = model.ReviewRevision.RatingEnvironment;
+                    r.RatingProductQuality= model.ReviewRevision.RatingProductQuality;
+                    r.RatingService = model.ReviewRevision.RatingService;
+                    r.RevisionDate = time;
                     r.ReviewID = model.ReviewRevision.ReviewId;
-                    r.RevisionNumberOfReview = (from rev in db.ReviewRevisions
-                                                where rev.ReviewID == model.ReviewRevision.ReviewId
-                                                select rev.RevisionNumberOfReview).Max() + 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.EditNumber = (from rev in db.StoreReviewRevisions
+                                    where rev.ReviewID == model.ReviewRevision.ReviewId
+                                    select rev.EditNumber).Max() + 1;
+                    db.StoreReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
                     foreach (var hour in model.Hours)
                     {
-                        var submit = new VenueHour();
+                        var submit = new StoreVenueHour();
                         submit.DayOfWeek = hour.DayOfWeekId;
                         if (!hour.Closed)
                         {
@@ -353,8 +347,8 @@ namespace FindPianos.Controllers
                             submit.StartTime = null;
                             submit.EndTime = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        submit.StoreReviewRevision = r;
+                        db.StoreVenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
                     return RedirectToAction("ReviewTimeline", new { reviewId = model.ReviewRevision.ReviewId});
@@ -367,10 +361,10 @@ namespace FindPianos.Controllers
         }
         #endregion
         #region AJAX: Flag Listings and Reviews
-        [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
+        [RateLimit(Name="StoreFlagListingPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Flag")]
+        [Url("Stores/Listing/Flag")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
             try
@@ -378,18 +372,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
+                    if (db.StoreListings.Where(l => l.StoreListingID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ListingFlag();
+                    var flag = new StoreListingFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
                     flag.ListingID = idOfPost;
-                    db.ListingFlags.InsertOnSubmit(flag);
+                    db.StoreListingFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -408,10 +402,10 @@ namespace FindPianos.Controllers
             }
 
         }
-        [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
+        [RateLimit(Name = "StoreFlagReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Review/Flag")]
+        [Url("Stores/Review/Flag")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
             try
@@ -419,18 +413,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
+                    if (db.StoreReviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ReviewFlag();
+                    var flag = new StoreReviewFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
                     flag.ReviewID = idOfPost;
-                    db.ReviewFlags.InsertOnSubmit(flag);
+                    db.StoreReviewFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -452,10 +446,10 @@ namespace FindPianos.Controllers
         #endregion
 
         #region AJAX: Comment on Listings and Reviews
-        [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
+        [RateLimit(Name = "StoreListingCommentPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Comment")]
+        [Url("Stores/Listing/Comment")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
             try
@@ -463,18 +457,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
+                    if (db.StoreListings.Where(l => l.StoreListingID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var comment = new ListingComment();
+                    var comment = new StoreListingComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
                     comment.MessageText = commentText;
                     comment.ListingID = idOfPost;
-                    db.ListingComments.InsertOnSubmit(comment);
+                    db.StoreListingComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -494,10 +488,10 @@ namespace FindPianos.Controllers
 
         }
 
-        [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
+        [RateLimit(Name = "StoreReviewCommentPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Review/Comment")]
+        [Url("Stores/Review/Comment")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {
             try
@@ -505,18 +499,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
+                    if (db.StoreReviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var comment = new ReviewComment();
+                    var comment = new StoreReviewComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
                     comment.MessageText = commentText;
                     comment.ReviewID = idOfPost;
-                    db.ReviewComments.InsertOnSubmit(comment);
+                    db.StoreReviewComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;

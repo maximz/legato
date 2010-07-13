@@ -71,6 +71,42 @@ namespace FindPianos.Models
             LatestVisitOrPurchaseDate = VisitAndPurchaseDates.Max();
             NumberOfReviews = reviewCount;
         }
+
+        /// <summary>
+        /// Process a simple search. Accepts AJAX requests from the Google Map on the search page.
+        /// </summary>
+        /// <param name="box">BoundingBox of the map.</param>
+        /// <returns>A List of StoreListings inside the BoundingBox, along with some extra properties that should be displayed in the search results.</returns>
+        public static List<StoreListing> ProcessAjaxMapSearch(BoundingBox box)
+        {
+            using (var db = new LegatoDataContext())
+            {
+                IQueryable<StoreListing> query = null;
+
+                //Bounding box: latitude processing
+                if (box.extent1.latitude <= box.extent2.latitude)
+                    query = db.StoreListings.Where(l => l.Lat >= box.extent1.latitude && l.Lat <= box.extent2.latitude);
+                else
+                    query = db.StoreListings.Where(l => l.Lat >= box.extent2.latitude && l.Lat <= box.extent1.latitude);
+
+                //Bounding box: longitude processing
+                if (box.extent1.longitude <= box.extent2.longitude)
+                    query = query.Where(l => l.Long >= box.extent1.longitude && l.Long <= box.extent2.longitude);
+                else
+                    query = query.Where(l => l.Long >= box.extent2.longitude && l.Long <= box.extent1.longitude);
+                //query = query.Take(25);
+
+                //Execute query
+                var results = query.ToList();
+
+                foreach (var r in results)
+                {
+                    r.FillProperties();
+                }
+                return results;
+
+            }
+        }
     }
     public partial class StoreReview
     {

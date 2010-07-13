@@ -134,13 +134,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Admin\SuspendUserViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserInformationViewModel.cs" />
-    <Compile Include="ViewModels\Store\EditViewModel.cs" />
-    <Compile Include="ViewModels\Store\EquipmentViewModel.cs" />
+    <Compile Include="ViewModels\Store\StoreEditViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreListingSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Store\ReadStoreListingViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreRevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Store\SubmitViewModel.cs" />
-    <Compile Include="ViewModels\Store\VenueHourViewModel.cs" />
+    <Compile Include="ViewModels\Store\StoreHourViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EditViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\ListingSubmissionViewModel.cs" />

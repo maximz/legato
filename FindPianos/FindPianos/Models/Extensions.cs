@@ -80,7 +80,7 @@ namespace FindPianos.Models
                     query = query.Where(l => l.Long >= box.extent1.longitude && l.Long <= box.extent2.longitude);
                 else
                     query = query.Where(l => l.Long >= box.extent2.longitude && l.Long <= box.extent1.longitude);
-                query = query.Take(25);
+                //query = query.Take(25);
 
                 //Execute query
                 var results = query.ToList();
