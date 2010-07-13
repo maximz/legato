@@ -131,7 +131,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
-            //TODO: load styles and types into the model; or rather, don't. that will be ajax.
+            //TODO: load styles and types into the model; or rather, don't. that will be Ajax.
             return View(new SubmitViewModel());
         }
         [Url("Listing/Create")]
@@ -153,6 +153,8 @@ namespace FindPianos.Controllers
                     var listing = new Listing();
 
                     listing.StreetAddress = model.Listing.StreetAddress;
+                    listing.Lat = model.Listing.Lat;
+                    listing.Long = model.Listing.Long;
                     listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
                     if(model.Listing.Equipment.Model.IsNullOrEmpty())
                         listing.InstrumentModel = null;
@@ -206,66 +208,60 @@ namespace FindPianos.Controllers
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     listing.OriginalSubmitterUserID = userGuid;
                     listing.DateOfSubmission = time;
-                    try
-                    {
-                        var addresses = Geocoder.CallGeoWS(listing.StreetAddress);
-                        if (addresses.Status == "ZERO_RESULTS")
-                            return RedirectToAction("InternalServerError", "Error");
-                        else
-                        {
-                            listing.Lat = (decimal)addresses.Results[0].Geometry.Location.Lat;
-                            listing.Long = (decimal)addresses.Results[0].Geometry.Location.Lng;
-                        }
-                    }
-                    catch
-                    {
-                        ModelState.AddModelError("Address", "Sorry, but we couldn't find this location. Are you sure it's correct?");
-                        ModelState.SetModelValue("Address", new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-                        return View();
-                    }
+
                     db.Listings.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
                     //REVIEW:
-                    var review = new PianoReview();
+                    var review = new Review();
                     review.Listing = listing;
-                    db.PianoReviews.InsertOnSubmit(review);
+                    db.Reviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
                     //REVISION:
+                    var r = new ReviewRevision();
+                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
+                    r.Message = model.ReviewRevision.Message;
+                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
+                    r.RatingOverall = model.ReviewRevision.RatingOverall;
+                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
+                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
+                    r.RatingTuning = model.ReviewRevision.RatingTuning;
+                    r.VenueName = model.ReviewRevision.VenueName;
                     r.DateOfRevision = time;
-                    r.PianoReview = review;
+                    r.Review = review;
                     //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
                     //                            where rev.PianoReviewID == review.PianoReviewID
                     //                            select rev.RevisionNumberOfReview).Max() + 1;
                     r.RevisionNumberOfReview = 1;
-                    db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-                    if (!r.IsValid)
-                    {
-                        throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
-                    }
+                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
-                    foreach (PianoVenueHour hour in hours)
+                    foreach (var hour in model.Hours)
                     {
-                        hour.PianoReviewRevision = r;
-                        //TODO: How will DayOfWeek be binded???
-                        db.PianoVenueHours.InsertOnSubmit(hour);
+                        var submit = new VenueHour();
+                        submit.DayOfWeek = hour.DayOfWeekId;
+                        if(!hour.Closed)
+                        {
+                            submit.StartTime = hour.StartTime;
+                            submit.EndTime = hour.EndTime;
+                        }
+                        else
+                        {
+                            submit.StartTime = null;
+                            submit.EndTime = null;
+                        }
+                        submit.ReviewRevision = r;
+                        db.VenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
+                    return RedirectToAction("Read", new { id = r.Review.ListingID }); //shows details for that submission thread, with only one revision!
                 }
-                return RedirectToAction("Read", new { id = r.PianoReview.ListingID }); //shows details for that submission thread, with only one revision!
-
             }
             catch
             {
-                foreach (RuleViolation rv in r.GetRuleViolations())
-                {
-                    ModelState.AddModelError(rv.PropertyName, rv.ErrorMessage);
-                    ModelState.SetModelValue(rv.PropertyName, new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-                }
-                return View();
+                return RedirectToAction("InternalServerError", "Error");
             }
         }
         [Url("Review/Edit/{reviewId}")]
@@ -274,75 +270,98 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
         public ActionResult Edit(long reviewId)
         {
-            using(var db = new LegatoDataContext())
-            {
-                //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                var revisions = db.PianoReviewRevisions.Where(r => r.PianoReviewID == reviewId).ToList();
-                var submitterGuid = revisions[0].SubmitterUserID;
-                if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ViewData["revisions"] = revisions;
-                return View();
-            }
-        }
-        [Url("Review/Edit")]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
-        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
-        public ActionResult Edit(long reviewId, [Bind(Exclude = "PianoReviewRevisionID, PianoReviewID, DateOfRevision, RevisionNumberOfReview")]PianoReviewRevision r, [Bind(Exclude = "ReviewRevisionID,VenueHoursID")]ICollection<PianoVenueHour> hours)
-        {
+            //edit an individual review
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    var revisions = db.PianoReviewRevisions.Where(revisionforcheck => revisionforcheck.PianoReviewID == reviewId).Take(1).ToList();
-                    var submitterGuid = revisions[0].SubmitterUserID;
+                    var query = db.ReviewRevisions.Where(r => r.ReviewID == reviewId).OrderByDescending(r => r.RevisionNumberOfReview);
+                    var revision = query.First();
+                    var submitterGuid = query.Last().SubmitterUserID;
                     if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Forbidden", "Error");
+                    }
+                    return View(revision);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+        }
+        [Url("Review/Edit")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
+        [HttpPost]
+        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
+        public ActionResult Edit(EditViewModel model)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    try
+                    {
+                        //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                        var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                        var submitterGuid = db.ReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewId).First().SubmitterUserID;
+                        if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                        {
+                            return RedirectToAction("Forbidden", "Error");
+                        }
+                    }
+                    catch
+                    {
+                        return RedirectToAction("NotFound", "Error");
                     }
                    
                     var time = DateTime.Now;
 
                     //REVISION:
+                    var r = new ReviewRevision();
+                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
+                    r.Message = model.ReviewRevision.Message;
+                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
+                    r.RatingOverall = model.ReviewRevision.RatingOverall;
+                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
+                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
+                    r.RatingTuning = model.ReviewRevision.RatingTuning;
+                    r.VenueName = model.ReviewRevision.VenueName;
                     r.DateOfRevision = time;
-                    r.PianoReviewID = reviewId;
-                    r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
-                                                where rev.PianoReviewID == reviewId
+                    r.ReviewID = model.ReviewRevision.ReviewId;
+                    r.RevisionNumberOfReview = (from rev in db.ReviewRevisions
+                                                where rev.ReviewID == model.ReviewRevision.ReviewId
                                                 select rev.RevisionNumberOfReview).Max() + 1;
-                    db.PianoReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-                    if (!r.IsValid)
-                    {
-                        throw new Exception(); //just in case insertonsubmit doesn't throw exception correctly
-                    }
+                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
-                    foreach (PianoVenueHour hour in hours)
+                    foreach (var hour in model.Hours)
                     {
-                        hour.PianoReviewRevision = r;
-                        //TODO: How will DayOfWeek be binded???
-                        db.PianoVenueHours.InsertOnSubmit(hour);
+                        var submit = new VenueHour();
+                        submit.DayOfWeek = hour.DayOfWeekId;
+                        if (!hour.Closed)
+                        {
+                            submit.StartTime = hour.StartTime;
+                            submit.EndTime = hour.EndTime;
+                        }
+                        else
+                        {
+                            submit.StartTime = null;
+                            submit.EndTime = null;
+                        }
+                        submit.ReviewRevision = r;
+                        db.VenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
+                    return RedirectToAction("ReviewTimeline", new { reviewId = model.ReviewRevision.ReviewId});
                 }
-                return RedirectToAction("Read", new { id = r.PianoReview.ListingID }); //shows details for that submission thread, with only one revision!
-
             }
             catch
             {
-                foreach (RuleViolation rv in r.GetRuleViolations())
-                {
-                    ModelState.AddModelError(rv.PropertyName, rv.ErrorMessage);
-                    ModelState.SetModelValue(rv.PropertyName, new ValueProviderResult(null, null, CultureInfo.InvariantCulture));
-                }
-                return View();
+                return RedirectToAction("InternalServerError", "Error");
             }
         }
         #endregion
@@ -399,18 +418,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)
+                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new PianoReviewFlag();
+                    var flag = new ReviewFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
                     flag.ReviewID = idOfPost;
-                    db.PianoReviewFlags.InsertOnSubmit(flag);
+                    db.ReviewFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
@@ -485,18 +504,18 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given review exists before creating a possibly-useless record
-                    if (db.PianoReviews.Where(l => l.PianoReviewID == idOfPost).Count() != 1)
+                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var comment = new PianoReviewComment();
+                    var comment = new ReviewComment();
                     comment.DateOfSubmission = DateTime.Now;
                     comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
                     comment.MessageText = commentText;
-                    comment.PianoReviewID = idOfPost;
-                    db.PianoReviewComments.InsertOnSubmit(comment);
+                    comment.ReviewID = idOfPost;
+                    db.ReviewComments.InsertOnSubmit(comment);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;

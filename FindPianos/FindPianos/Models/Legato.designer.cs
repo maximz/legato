@@ -69,6 +69,21 @@ namespace FindPianos.Models
     partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void InsertDiscussBoard(DiscussBoard instance);
+    partial void UpdateDiscussBoard(DiscussBoard instance);
+    partial void DeleteDiscussBoard(DiscussBoard instance);
+    partial void InsertDiscussPostFlag(DiscussPostFlag instance);
+    partial void UpdateDiscussPostFlag(DiscussPostFlag instance);
+    partial void DeleteDiscussPostFlag(DiscussPostFlag instance);
+    partial void InsertDiscussPostRevision(DiscussPostRevision instance);
+    partial void UpdateDiscussPostRevision(DiscussPostRevision instance);
+    partial void DeleteDiscussPostRevision(DiscussPostRevision instance);
+    partial void InsertDiscussPost(DiscussPost instance);
+    partial void UpdateDiscussPost(DiscussPost instance);
+    partial void DeleteDiscussPost(DiscussPost instance);
+    partial void InsertDiscussThread(DiscussThread instance);
+    partial void UpdateDiscussThread(DiscussThread instance);
+    partial void DeleteDiscussThread(DiscussThread instance);
     partial void InsertFlagType(FlagType instance);
     partial void UpdateFlagType(FlagType instance);
     partial void DeleteFlagType(FlagType instance);
@@ -81,6 +96,9 @@ namespace FindPianos.Models
     partial void InsertInstrumentType(InstrumentType instance);
     partial void UpdateInstrumentType(InstrumentType instance);
     partial void DeleteInstrumentType(InstrumentType instance);
+    partial void InsertJob(Job instance);
+    partial void UpdateJob(Job instance);
+    partial void DeleteJob(Job instance);
     partial void InsertListingComment(ListingComment instance);
     partial void UpdateListingComment(ListingComment instance);
     partial void DeleteListingComment(ListingComment instance);
@@ -93,6 +111,12 @@ namespace FindPianos.Models
     partial void InsertResetPasswordRecord(ResetPasswordRecord instance);
     partial void UpdateResetPasswordRecord(ResetPasswordRecord instance);
     partial void DeleteResetPasswordRecord(ResetPasswordRecord instance);
+    partial void InsertResume(Resume instance);
+    partial void UpdateResume(Resume instance);
+    partial void DeleteResume(Resume instance);
+    partial void InsertResumeType(ResumeType instance);
+    partial void UpdateResumeType(ResumeType instance);
+    partial void DeleteResumeType(ResumeType instance);
     partial void InsertReviewComment(ReviewComment instance);
     partial void UpdateReviewComment(ReviewComment instance);
     partial void DeleteReviewComment(ReviewComment instance);
@@ -105,6 +129,51 @@ namespace FindPianos.Models
     partial void InsertReview(Review instance);
     partial void UpdateReview(Review instance);
     partial void DeleteReview(Review instance);
+    partial void InsertSaleListingFlag(SaleListingFlag instance);
+    partial void UpdateSaleListingFlag(SaleListingFlag instance);
+    partial void DeleteSaleListingFlag(SaleListingFlag instance);
+    partial void InsertSaleListing(SaleListing instance);
+    partial void UpdateSaleListing(SaleListing instance);
+    partial void DeleteSaleListing(SaleListing instance);
+    partial void InsertSaleReviewComment(SaleReviewComment instance);
+    partial void UpdateSaleReviewComment(SaleReviewComment instance);
+    partial void DeleteSaleReviewComment(SaleReviewComment instance);
+    partial void InsertSaleReviewFlag(SaleReviewFlag instance);
+    partial void UpdateSaleReviewFlag(SaleReviewFlag instance);
+    partial void DeleteSaleReviewFlag(SaleReviewFlag instance);
+    partial void InsertSaleReviewRevision(SaleReviewRevision instance);
+    partial void UpdateSaleReviewRevision(SaleReviewRevision instance);
+    partial void DeleteSaleReviewRevision(SaleReviewRevision instance);
+    partial void InsertSaleReview(SaleReview instance);
+    partial void UpdateSaleReview(SaleReview instance);
+    partial void DeleteSaleReview(SaleReview instance);
+    partial void InsertStoreListingComment(StoreListingComment instance);
+    partial void UpdateStoreListingComment(StoreListingComment instance);
+    partial void DeleteStoreListingComment(StoreListingComment instance);
+    partial void InsertStoreListingFlag(StoreListingFlag instance);
+    partial void UpdateStoreListingFlag(StoreListingFlag instance);
+    partial void DeleteStoreListingFlag(StoreListingFlag instance);
+    partial void InsertStoreListing(StoreListing instance);
+    partial void UpdateStoreListing(StoreListing instance);
+    partial void DeleteStoreListing(StoreListing instance);
+    partial void InsertStoreReviewComment(StoreReviewComment instance);
+    partial void UpdateStoreReviewComment(StoreReviewComment instance);
+    partial void DeleteStoreReviewComment(StoreReviewComment instance);
+    partial void InsertStoreReviewFlag(StoreReviewFlag instance);
+    partial void UpdateStoreReviewFlag(StoreReviewFlag instance);
+    partial void DeleteStoreReviewFlag(StoreReviewFlag instance);
+    partial void InsertStoreReviewRevision(StoreReviewRevision instance);
+    partial void UpdateStoreReviewRevision(StoreReviewRevision instance);
+    partial void DeleteStoreReviewRevision(StoreReviewRevision instance);
+    partial void InsertStoreReview(StoreReview instance);
+    partial void UpdateStoreReview(StoreReview instance);
+    partial void DeleteStoreReview(StoreReview instance);
+    partial void InsertStoreVenueHour(StoreVenueHour instance);
+    partial void UpdateStoreVenueHour(StoreVenueHour instance);
+    partial void DeleteStoreVenueHour(StoreVenueHour instance);
+    partial void InsertUserOpenId(UserOpenId instance);
+    partial void UpdateUserOpenId(UserOpenId instance);
+    partial void DeleteUserOpenId(UserOpenId instance);
     partial void InsertUserSuspension(UserSuspension instance);
     partial void UpdateUserSuspension(UserSuspension instance);
     partial void DeleteUserSuspension(UserSuspension instance);
@@ -247,6 +316,46 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<DiscussBoard> DiscussBoards
+		{
+			get
+			{
+				return this.GetTable<DiscussBoard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussPostFlag> DiscussPostFlags
+		{
+			get
+			{
+				return this.GetTable<DiscussPostFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this.GetTable<DiscussPostRevision>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussPost> DiscussPosts
+		{
+			get
+			{
+				return this.GetTable<DiscussPost>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussThread> DiscussThreads
+		{
+			get
+			{
+				return this.GetTable<DiscussThread>();
+			}
+		}
+		
 		public System.Data.Linq.Table<FlagType> FlagTypes
 		{
 			get
@@ -276,6 +385,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<InstrumentType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Job> Jobs
+		{
+			get
+			{
+				return this.GetTable<Job>();
 			}
 		}
 		
@@ -311,6 +428,22 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<Resume> Resumes
+		{
+			get
+			{
+				return this.GetTable<Resume>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ResumeType> ResumeTypes
+		{
+			get
+			{
+				return this.GetTable<ResumeType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ReviewComment> ReviewComments
 		{
 			get
@@ -340,6 +473,126 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<Review>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleListingFlag> SaleListingFlags
+		{
+			get
+			{
+				return this.GetTable<SaleListingFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleListing> SaleListings
+		{
+			get
+			{
+				return this.GetTable<SaleListing>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleReviewComment> SaleReviewComments
+		{
+			get
+			{
+				return this.GetTable<SaleReviewComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleReviewFlag> SaleReviewFlags
+		{
+			get
+			{
+				return this.GetTable<SaleReviewFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleReviewRevision> SaleReviewRevisions
+		{
+			get
+			{
+				return this.GetTable<SaleReviewRevision>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SaleReview> SaleReviews
+		{
+			get
+			{
+				return this.GetTable<SaleReview>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreListingComment> StoreListingComments
+		{
+			get
+			{
+				return this.GetTable<StoreListingComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreListingFlag> StoreListingFlags
+		{
+			get
+			{
+				return this.GetTable<StoreListingFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreListing> StoreListings
+		{
+			get
+			{
+				return this.GetTable<StoreListing>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreReviewComment> StoreReviewComments
+		{
+			get
+			{
+				return this.GetTable<StoreReviewComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreReviewFlag> StoreReviewFlags
+		{
+			get
+			{
+				return this.GetTable<StoreReviewFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreReviewRevision> StoreReviewRevisions
+		{
+			get
+			{
+				return this.GetTable<StoreReviewRevision>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreReview> StoreReviews
+		{
+			get
+			{
+				return this.GetTable<StoreReview>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StoreVenueHour> StoreVenueHours
+		{
+			get
+			{
+				return this.GetTable<StoreVenueHour>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UserOpenId> UserOpenIds
+		{
+			get
+			{
+				return this.GetTable<UserOpenId>();
 			}
 		}
 		
@@ -616,6 +869,8 @@ namespace FindPianos.Models
 		
 		private string _WeekDayName;
 		
+		private EntitySet<StoreVenueHour> _StoreVenueHours;
+		
 		private EntitySet<VenueHour> _VenueHours;
 		
     #region Extensibility Method Definitions
@@ -630,11 +885,12 @@ namespace FindPianos.Models
 		
 		public WeekDay()
 		{
+			this._StoreVenueHours = new EntitySet<StoreVenueHour>(new Action<StoreVenueHour>(this.attach_StoreVenueHours), new Action<StoreVenueHour>(this.detach_StoreVenueHours));
 			this._VenueHours = new EntitySet<VenueHour>(new Action<VenueHour>(this.attach_VenueHours), new Action<VenueHour>(this.detach_VenueHours));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WeekDayID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WeekDayID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int WeekDayID
 		{
 			get
@@ -674,6 +930,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_StoreVenueHour", Storage="_StoreVenueHours", ThisKey="WeekDayID", OtherKey="DayOfWeek")]
+		public EntitySet<StoreVenueHour> StoreVenueHours
+		{
+			get
+			{
+				return this._StoreVenueHours;
+			}
+			set
+			{
+				this._StoreVenueHours.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_VenueHour", Storage="_VenueHours", ThisKey="WeekDayID", OtherKey="DayOfWeek")]
 		public EntitySet<VenueHour> VenueHours
 		{
@@ -705,6 +974,18 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_StoreVenueHours(StoreVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.WeekDay = this;
+		}
+		
+		private void detach_StoreVenueHours(StoreVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.WeekDay = null;
 		}
 		
 		private void attach_VenueHours(VenueHour entity)
@@ -2590,17 +2871,45 @@ namespace FindPianos.Models
 		
 		private EntitySet<aspnet_UsersInRole> _aspnet_UsersInRoles;
 		
+		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
+		
+		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
+		
+		private EntitySet<Job> _Jobs;
+		
 		private EntitySet<ListingComment> _ListingComments;
 		
 		private EntitySet<ListingFlag> _ListingFlags;
 		
 		private EntitySet<Listing> _Listings;
 		
+		private EntitySet<Resume> _Resumes;
+		
 		private EntitySet<ReviewComment> _ReviewComments;
 		
 		private EntitySet<ReviewFlag> _ReviewFlags;
 		
 		private EntitySet<ReviewRevision> _ReviewRevisions;
+		
+		private EntitySet<SaleListingFlag> _SaleListingFlags;
+		
+		private EntitySet<SaleListing> _SaleListings;
+		
+		private EntitySet<SaleReviewComment> _SaleReviewComments;
+		
+		private EntitySet<SaleReviewFlag> _SaleReviewFlags;
+		
+		private EntitySet<SaleReviewRevision> _SaleReviewRevisions;
+		
+		private EntitySet<StoreListingComment> _StoreListingComments;
+		
+		private EntitySet<StoreListingFlag> _StoreListingFlags;
+		
+		private EntitySet<StoreListing> _StoreListings;
+		
+		private EntitySet<StoreReviewComment> _StoreReviewComments;
+		
+		private EntitySet<StoreReviewFlag> _StoreReviewFlags;
 		
 		private EntitySet<UserSuspension> _UserSuspensions;
 		
@@ -2632,12 +2941,26 @@ namespace FindPianos.Models
 			this._aspnet_PersonalizationPerUsers = new EntitySet<aspnet_PersonalizationPerUser>(new Action<aspnet_PersonalizationPerUser>(this.attach_aspnet_PersonalizationPerUsers), new Action<aspnet_PersonalizationPerUser>(this.detach_aspnet_PersonalizationPerUsers));
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
+			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
+			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
+			this._Jobs = new EntitySet<Job>(new Action<Job>(this.attach_Jobs), new Action<Job>(this.detach_Jobs));
 			this._ListingComments = new EntitySet<ListingComment>(new Action<ListingComment>(this.attach_ListingComments), new Action<ListingComment>(this.detach_ListingComments));
 			this._ListingFlags = new EntitySet<ListingFlag>(new Action<ListingFlag>(this.attach_ListingFlags), new Action<ListingFlag>(this.detach_ListingFlags));
 			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
+			this._Resumes = new EntitySet<Resume>(new Action<Resume>(this.attach_Resumes), new Action<Resume>(this.detach_Resumes));
 			this._ReviewComments = new EntitySet<ReviewComment>(new Action<ReviewComment>(this.attach_ReviewComments), new Action<ReviewComment>(this.detach_ReviewComments));
 			this._ReviewFlags = new EntitySet<ReviewFlag>(new Action<ReviewFlag>(this.attach_ReviewFlags), new Action<ReviewFlag>(this.detach_ReviewFlags));
 			this._ReviewRevisions = new EntitySet<ReviewRevision>(new Action<ReviewRevision>(this.attach_ReviewRevisions), new Action<ReviewRevision>(this.detach_ReviewRevisions));
+			this._SaleListingFlags = new EntitySet<SaleListingFlag>(new Action<SaleListingFlag>(this.attach_SaleListingFlags), new Action<SaleListingFlag>(this.detach_SaleListingFlags));
+			this._SaleListings = new EntitySet<SaleListing>(new Action<SaleListing>(this.attach_SaleListings), new Action<SaleListing>(this.detach_SaleListings));
+			this._SaleReviewComments = new EntitySet<SaleReviewComment>(new Action<SaleReviewComment>(this.attach_SaleReviewComments), new Action<SaleReviewComment>(this.detach_SaleReviewComments));
+			this._SaleReviewFlags = new EntitySet<SaleReviewFlag>(new Action<SaleReviewFlag>(this.attach_SaleReviewFlags), new Action<SaleReviewFlag>(this.detach_SaleReviewFlags));
+			this._SaleReviewRevisions = new EntitySet<SaleReviewRevision>(new Action<SaleReviewRevision>(this.attach_SaleReviewRevisions), new Action<SaleReviewRevision>(this.detach_SaleReviewRevisions));
+			this._StoreListingComments = new EntitySet<StoreListingComment>(new Action<StoreListingComment>(this.attach_StoreListingComments), new Action<StoreListingComment>(this.detach_StoreListingComments));
+			this._StoreListingFlags = new EntitySet<StoreListingFlag>(new Action<StoreListingFlag>(this.attach_StoreListingFlags), new Action<StoreListingFlag>(this.detach_StoreListingFlags));
+			this._StoreListings = new EntitySet<StoreListing>(new Action<StoreListing>(this.attach_StoreListings), new Action<StoreListing>(this.detach_StoreListings));
+			this._StoreReviewComments = new EntitySet<StoreReviewComment>(new Action<StoreReviewComment>(this.attach_StoreReviewComments), new Action<StoreReviewComment>(this.detach_StoreReviewComments));
+			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
 			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
@@ -2871,6 +3194,45 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostFlag", Storage="_DiscussPostFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<DiscussPostFlag> DiscussPostFlags
+		{
+			get
+			{
+				return this._DiscussPostFlags;
+			}
+			set
+			{
+				this._DiscussPostFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this._DiscussPostRevisions;
+			}
+			set
+			{
+				this._DiscussPostRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Job", Storage="_Jobs", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<Job> Jobs
+		{
+			get
+			{
+				return this._Jobs;
+			}
+			set
+			{
+				this._Jobs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_ListingComment", Storage="_ListingComments", ThisKey="UserId", OtherKey="AuthorUserID")]
 		public EntitySet<ListingComment> ListingComments
 		{
@@ -2910,6 +3272,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Resume", Storage="_Resumes", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<Resume> Resumes
+		{
+			get
+			{
+				return this._Resumes;
+			}
+			set
+			{
+				this._Resumes.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_ReviewComment", Storage="_ReviewComments", ThisKey="UserId", OtherKey="AuthorUserID")]
 		public EntitySet<ReviewComment> ReviewComments
 		{
@@ -2946,6 +3321,136 @@ namespace FindPianos.Models
 			set
 			{
 				this._ReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleListingFlag", Storage="_SaleListingFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<SaleListingFlag> SaleListingFlags
+		{
+			get
+			{
+				return this._SaleListingFlags;
+			}
+			set
+			{
+				this._SaleListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleListing", Storage="_SaleListings", ThisKey="UserId", OtherKey="OriginalSubmitterUserID")]
+		public EntitySet<SaleListing> SaleListings
+		{
+			get
+			{
+				return this._SaleListings;
+			}
+			set
+			{
+				this._SaleListings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewComment", Storage="_SaleReviewComments", ThisKey="UserId", OtherKey="AuthorUserID")]
+		public EntitySet<SaleReviewComment> SaleReviewComments
+		{
+			get
+			{
+				return this._SaleReviewComments;
+			}
+			set
+			{
+				this._SaleReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewFlag", Storage="_SaleReviewFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<SaleReviewFlag> SaleReviewFlags
+		{
+			get
+			{
+				return this._SaleReviewFlags;
+			}
+			set
+			{
+				this._SaleReviewFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewRevision", Storage="_SaleReviewRevisions", ThisKey="UserId", OtherKey="SubmitterUserID")]
+		public EntitySet<SaleReviewRevision> SaleReviewRevisions
+		{
+			get
+			{
+				return this._SaleReviewRevisions;
+			}
+			set
+			{
+				this._SaleReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListingComment", Storage="_StoreListingComments", ThisKey="UserId", OtherKey="AuthorUserID")]
+		public EntitySet<StoreListingComment> StoreListingComments
+		{
+			get
+			{
+				return this._StoreListingComments;
+			}
+			set
+			{
+				this._StoreListingComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListingFlag", Storage="_StoreListingFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<StoreListingFlag> StoreListingFlags
+		{
+			get
+			{
+				return this._StoreListingFlags;
+			}
+			set
+			{
+				this._StoreListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListing", Storage="_StoreListings", ThisKey="UserId", OtherKey="SubmitterUserID")]
+		public EntitySet<StoreListing> StoreListings
+		{
+			get
+			{
+				return this._StoreListings;
+			}
+			set
+			{
+				this._StoreListings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreReviewComment", Storage="_StoreReviewComments", ThisKey="UserId", OtherKey="AuthorUserID")]
+		public EntitySet<StoreReviewComment> StoreReviewComments
+		{
+			get
+			{
+				return this._StoreReviewComments;
+			}
+			set
+			{
+				this._StoreReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreReviewFlag", Storage="_StoreReviewFlags", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<StoreReviewFlag> StoreReviewFlags
+		{
+			get
+			{
+				return this._StoreReviewFlags;
+			}
+			set
+			{
+				this._StoreReviewFlags.Assign(value);
 			}
 		}
 		
@@ -3040,6 +3545,42 @@ namespace FindPianos.Models
 			entity.aspnet_User = null;
 		}
 		
+		private void attach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Jobs(Job entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Jobs(Job entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
 		private void attach_ListingComments(ListingComment entity)
 		{
 			this.SendPropertyChanging();
@@ -3076,6 +3617,18 @@ namespace FindPianos.Models
 			entity.aspnet_User = null;
 		}
 		
+		private void attach_Resumes(Resume entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Resumes(Resume entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
 		private void attach_ReviewComments(ReviewComment entity)
 		{
 			this.SendPropertyChanging();
@@ -3107,6 +3660,126 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_ReviewRevisions(ReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_SaleReviewComments(SaleReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_SaleReviewComments(SaleReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_SaleReviewRevisions(SaleReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_SaleReviewRevisions(SaleReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_StoreListingComments(StoreListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_StoreListingComments(StoreListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_StoreListings(StoreListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_StoreListings(StoreListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_StoreReviewComments(StoreReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_StoreReviewComments(StoreReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_StoreReviewFlags(StoreReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_StoreReviewFlags(StoreReviewFlag entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -3818,6 +4491,1075 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussBoards")]
+	public partial class DiscussBoard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _BoardID;
+		
+		private string _BoardName;
+		
+		private EntitySet<DiscussThread> _DiscussThreads;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBoardIDChanging(long value);
+    partial void OnBoardIDChanged();
+    partial void OnBoardNameChanging(string value);
+    partial void OnBoardNameChanged();
+    #endregion
+		
+		public DiscussBoard()
+		{
+			this._DiscussThreads = new EntitySet<DiscussThread>(new Action<DiscussThread>(this.attach_DiscussThreads), new Action<DiscussThread>(this.detach_DiscussThreads));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long BoardID
+		{
+			get
+			{
+				return this._BoardID;
+			}
+			set
+			{
+				if ((this._BoardID != value))
+				{
+					this.OnBoardIDChanging(value);
+					this.SendPropertyChanging();
+					this._BoardID = value;
+					this.SendPropertyChanged("BoardID");
+					this.OnBoardIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string BoardName
+		{
+			get
+			{
+				return this._BoardName;
+			}
+			set
+			{
+				if ((this._BoardName != value))
+				{
+					this.OnBoardNameChanging(value);
+					this.SendPropertyChanging();
+					this._BoardName = value;
+					this.SendPropertyChanged("BoardName");
+					this.OnBoardNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussBoard_DiscussThread", Storage="_DiscussThreads", ThisKey="BoardID", OtherKey="BoardID")]
+		public EntitySet<DiscussThread> DiscussThreads
+		{
+			get
+			{
+				return this._DiscussThreads;
+			}
+			set
+			{
+				this._DiscussThreads.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DiscussThreads(DiscussThread entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussBoard = this;
+		}
+		
+		private void detach_DiscussThreads(DiscussThread entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussBoard = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostFlags")]
+	public partial class DiscussPostFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _PostID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<DiscussPost> _DiscussPost;
+		
+		private EntityRef<FlagType> _FlagType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnPostIDChanging(long value);
+    partial void OnPostIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public DiscussPostFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._DiscussPost = default(EntityRef<DiscussPost>);
+			this._FlagType = default(EntityRef<FlagType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
+		public long PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._DiscussPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._FlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.DiscussPostFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostFlag", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost
+		{
+			get
+			{
+				return this._DiscussPost.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost.Entity = null;
+						previousValue.DiscussPostFlags.Remove(this);
+					}
+					this._DiscussPost.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostFlags.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(long);
+					}
+					this.SendPropertyChanged("DiscussPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_DiscussPostFlag", Storage="_FlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public FlagType FlagType
+		{
+			get
+			{
+				return this._FlagType.Entity;
+			}
+			set
+			{
+				FlagType previousValue = this._FlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._FlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FlagType.Entity = null;
+						previousValue.DiscussPostFlags.Remove(this);
+					}
+					this._FlagType.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostRevisions")]
+	public partial class DiscussPostRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _PostRevisionID;
+		
+		private System.Guid _UserID;
+		
+		private long _PostID;
+		
+		private string _Markdown;
+		
+		private string _HTML;
+		
+		private System.DateTime _DateOfEdit;
+		
+		private int _EditNumber;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<DiscussPost> _DiscussPost;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPostRevisionIDChanging(long value);
+    partial void OnPostRevisionIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnPostIDChanging(long value);
+    partial void OnPostIDChanged();
+    partial void OnMarkdownChanging(string value);
+    partial void OnMarkdownChanged();
+    partial void OnHTMLChanging(string value);
+    partial void OnHTMLChanged();
+    partial void OnDateOfEditChanging(System.DateTime value);
+    partial void OnDateOfEditChanged();
+    partial void OnEditNumberChanging(int value);
+    partial void OnEditNumberChanged();
+    #endregion
+		
+		public DiscussPostRevision()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._DiscussPost = default(EntityRef<DiscussPost>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long PostRevisionID
+		{
+			get
+			{
+				return this._PostRevisionID;
+			}
+			set
+			{
+				if ((this._PostRevisionID != value))
+				{
+					this.OnPostRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostRevisionID = value;
+					this.SendPropertyChanged("PostRevisionID");
+					this.OnPostRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
+		public long PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._DiscussPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Markdown
+		{
+			get
+			{
+				return this._Markdown;
+			}
+			set
+			{
+				if ((this._Markdown != value))
+				{
+					this.OnMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._Markdown = value;
+					this.SendPropertyChanged("Markdown");
+					this.OnMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string HTML
+		{
+			get
+			{
+				return this._HTML;
+			}
+			set
+			{
+				if ((this._HTML != value))
+				{
+					this.OnHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._HTML = value;
+					this.SendPropertyChanged("HTML");
+					this.OnHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfEdit", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfEdit
+		{
+			get
+			{
+				return this._DateOfEdit;
+			}
+			set
+			{
+				if ((this._DateOfEdit != value))
+				{
+					this.OnDateOfEditChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfEdit = value;
+					this.SendPropertyChanged("DateOfEdit");
+					this.OnDateOfEditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
+		public int EditNumber
+		{
+			get
+			{
+				return this._EditNumber;
+			}
+			set
+			{
+				if ((this._EditNumber != value))
+				{
+					this.OnEditNumberChanging(value);
+					this.SendPropertyChanging();
+					this._EditNumber = value;
+					this.SendPropertyChanged("EditNumber");
+					this.OnEditNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost
+		{
+			get
+			{
+				return this._DiscussPost.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._DiscussPost.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(long);
+					}
+					this.SendPropertyChanged("DiscussPost");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPosts")]
+	public partial class DiscussPost : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _PostID;
+		
+		private long _ThreadID;
+		
+		private int _PostNumberInThread;
+		
+		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
+		
+		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
+		
+		private EntityRef<DiscussThread> _DiscussThread;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPostIDChanging(long value);
+    partial void OnPostIDChanged();
+    partial void OnThreadIDChanging(long value);
+    partial void OnThreadIDChanged();
+    partial void OnPostNumberInThreadChanging(int value);
+    partial void OnPostNumberInThreadChanged();
+    #endregion
+		
+		public DiscussPost()
+		{
+			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
+			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
+			this._DiscussThread = default(EntityRef<DiscussThread>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThreadID", DbType="BigInt NOT NULL")]
+		public long ThreadID
+		{
+			get
+			{
+				return this._ThreadID;
+			}
+			set
+			{
+				if ((this._ThreadID != value))
+				{
+					if (this._DiscussThread.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnThreadIDChanging(value);
+					this.SendPropertyChanging();
+					this._ThreadID = value;
+					this.SendPropertyChanged("ThreadID");
+					this.OnThreadIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostNumberInThread", DbType="Int NOT NULL")]
+		public int PostNumberInThread
+		{
+			get
+			{
+				return this._PostNumberInThread;
+			}
+			set
+			{
+				if ((this._PostNumberInThread != value))
+				{
+					this.OnPostNumberInThreadChanging(value);
+					this.SendPropertyChanging();
+					this._PostNumberInThread = value;
+					this.SendPropertyChanged("PostNumberInThread");
+					this.OnPostNumberInThreadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostFlag", Storage="_DiscussPostFlags", ThisKey="PostID", OtherKey="PostID")]
+		public EntitySet<DiscussPostFlag> DiscussPostFlags
+		{
+			get
+			{
+				return this._DiscussPostFlags;
+			}
+			set
+			{
+				this._DiscussPostFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="PostID", OtherKey="PostID")]
+		public EntitySet<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this._DiscussPostRevisions;
+			}
+			set
+			{
+				this._DiscussPostRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussThread_DiscussPost", Storage="_DiscussThread", ThisKey="ThreadID", OtherKey="ThreadID", IsForeignKey=true)]
+		public DiscussThread DiscussThread
+		{
+			get
+			{
+				return this._DiscussThread.Entity;
+			}
+			set
+			{
+				DiscussThread previousValue = this._DiscussThread.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussThread.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussThread.Entity = null;
+						previousValue.DiscussPosts.Remove(this);
+					}
+					this._DiscussThread.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPosts.Add(this);
+						this._ThreadID = value.ThreadID;
+					}
+					else
+					{
+						this._ThreadID = default(long);
+					}
+					this.SendPropertyChanged("DiscussThread");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost = this;
+		}
+		
+		private void detach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost = null;
+		}
+		
+		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost = this;
+		}
+		
+		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussThreads")]
+	public partial class DiscussThread : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ThreadID;
+		
+		private long _BoardID;
+		
+		private string _Title;
+		
+		private EntitySet<DiscussPost> _DiscussPosts;
+		
+		private EntityRef<DiscussBoard> _DiscussBoard;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnThreadIDChanging(long value);
+    partial void OnThreadIDChanged();
+    partial void OnBoardIDChanging(long value);
+    partial void OnBoardIDChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    #endregion
+		
+		public DiscussThread()
+		{
+			this._DiscussPosts = new EntitySet<DiscussPost>(new Action<DiscussPost>(this.attach_DiscussPosts), new Action<DiscussPost>(this.detach_DiscussPosts));
+			this._DiscussBoard = default(EntityRef<DiscussBoard>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThreadID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ThreadID
+		{
+			get
+			{
+				return this._ThreadID;
+			}
+			set
+			{
+				if ((this._ThreadID != value))
+				{
+					this.OnThreadIDChanging(value);
+					this.SendPropertyChanging();
+					this._ThreadID = value;
+					this.SendPropertyChanged("ThreadID");
+					this.OnThreadIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardID", DbType="BigInt NOT NULL")]
+		public long BoardID
+		{
+			get
+			{
+				return this._BoardID;
+			}
+			set
+			{
+				if ((this._BoardID != value))
+				{
+					if (this._DiscussBoard.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBoardIDChanging(value);
+					this.SendPropertyChanging();
+					this._BoardID = value;
+					this.SendPropertyChanged("BoardID");
+					this.OnBoardIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussThread_DiscussPost", Storage="_DiscussPosts", ThisKey="ThreadID", OtherKey="ThreadID")]
+		public EntitySet<DiscussPost> DiscussPosts
+		{
+			get
+			{
+				return this._DiscussPosts;
+			}
+			set
+			{
+				this._DiscussPosts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussBoard_DiscussThread", Storage="_DiscussBoard", ThisKey="BoardID", OtherKey="BoardID", IsForeignKey=true)]
+		public DiscussBoard DiscussBoard
+		{
+			get
+			{
+				return this._DiscussBoard.Entity;
+			}
+			set
+			{
+				DiscussBoard previousValue = this._DiscussBoard.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussBoard.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussBoard.Entity = null;
+						previousValue.DiscussThreads.Remove(this);
+					}
+					this._DiscussBoard.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussThreads.Add(this);
+						this._BoardID = value.BoardID;
+					}
+					else
+					{
+						this._BoardID = default(long);
+					}
+					this.SendPropertyChanged("DiscussBoard");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DiscussPosts(DiscussPost entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussThread = this;
+		}
+		
+		private void detach_DiscussPosts(DiscussPost entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussThread = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FlagTypes")]
 	public partial class FlagType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3828,9 +5570,19 @@ namespace FindPianos.Models
 		
 		private string _Name;
 		
+		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
+		
 		private EntitySet<ListingFlag> _ListingFlags;
 		
 		private EntitySet<ReviewFlag> _ReviewFlags;
+		
+		private EntitySet<SaleListingFlag> _SaleListingFlags;
+		
+		private EntitySet<SaleReviewFlag> _SaleReviewFlags;
+		
+		private EntitySet<StoreListingFlag> _StoreListingFlags;
+		
+		private EntitySet<StoreReviewFlag> _StoreReviewFlags;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3844,8 +5596,13 @@ namespace FindPianos.Models
 		
 		public FlagType()
 		{
+			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
 			this._ListingFlags = new EntitySet<ListingFlag>(new Action<ListingFlag>(this.attach_ListingFlags), new Action<ListingFlag>(this.detach_ListingFlags));
 			this._ReviewFlags = new EntitySet<ReviewFlag>(new Action<ReviewFlag>(this.attach_ReviewFlags), new Action<ReviewFlag>(this.detach_ReviewFlags));
+			this._SaleListingFlags = new EntitySet<SaleListingFlag>(new Action<SaleListingFlag>(this.attach_SaleListingFlags), new Action<SaleListingFlag>(this.detach_SaleListingFlags));
+			this._SaleReviewFlags = new EntitySet<SaleReviewFlag>(new Action<SaleReviewFlag>(this.attach_SaleReviewFlags), new Action<SaleReviewFlag>(this.detach_SaleReviewFlags));
+			this._StoreListingFlags = new EntitySet<StoreListingFlag>(new Action<StoreListingFlag>(this.attach_StoreListingFlags), new Action<StoreListingFlag>(this.detach_StoreListingFlags));
+			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
 			OnCreated();
 		}
 		
@@ -3889,6 +5646,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_DiscussPostFlag", Storage="_DiscussPostFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<DiscussPostFlag> DiscussPostFlags
+		{
+			get
+			{
+				return this._DiscussPostFlags;
+			}
+			set
+			{
+				this._DiscussPostFlags.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_ListingFlag", Storage="_ListingFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
 		public EntitySet<ListingFlag> ListingFlags
 		{
@@ -3915,6 +5685,58 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_SaleListingFlag", Storage="_SaleListingFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<SaleListingFlag> SaleListingFlags
+		{
+			get
+			{
+				return this._SaleListingFlags;
+			}
+			set
+			{
+				this._SaleListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_SaleReviewFlag", Storage="_SaleReviewFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<SaleReviewFlag> SaleReviewFlags
+		{
+			get
+			{
+				return this._SaleReviewFlags;
+			}
+			set
+			{
+				this._SaleReviewFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_StoreListingFlag", Storage="_StoreListingFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<StoreListingFlag> StoreListingFlags
+		{
+			get
+			{
+				return this._StoreListingFlags;
+			}
+			set
+			{
+				this._StoreListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_StoreReviewFlag", Storage="_StoreReviewFlags", ThisKey="FlagTypeID", OtherKey="TypeID")]
+		public EntitySet<StoreReviewFlag> StoreReviewFlags
+		{
+			get
+			{
+				return this._StoreReviewFlags;
+			}
+			set
+			{
+				this._StoreReviewFlags.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3933,6 +5755,18 @@ namespace FindPianos.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = this;
+		}
+		
+		private void detach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = null;
 		}
 		
 		private void attach_ListingFlags(ListingFlag entity)
@@ -3958,6 +5792,54 @@ namespace FindPianos.Models
 			this.SendPropertyChanging();
 			entity.FlagType = null;
 		}
+		
+		private void attach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = this;
+		}
+		
+		private void detach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = null;
+		}
+		
+		private void attach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = this;
+		}
+		
+		private void detach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = null;
+		}
+		
+		private void attach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = this;
+		}
+		
+		private void detach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = null;
+		}
+		
+		private void attach_StoreReviewFlags(StoreReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = this;
+		}
+		
+		private void detach_StoreReviewFlags(StoreReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.FlagType = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Instruments")]
@@ -3970,11 +5852,15 @@ namespace FindPianos.Models
 		
 		private string _Name;
 		
+		private bool _IsIncludedInTemporary;
+		
 		private EntitySet<InstrumentStyle> _InstrumentStyles;
 		
 		private EntitySet<InstrumentType> _InstrumentTypes;
 		
 		private EntitySet<Listing> _Listings;
+		
+		private EntitySet<SaleListing> _SaleListings;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3984,6 +5870,8 @@ namespace FindPianos.Models
     partial void OnInstrumentIDChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnIsIncludedInTemporaryChanging(bool value);
+    partial void OnIsIncludedInTemporaryChanged();
     #endregion
 		
 		public Instrument()
@@ -3991,6 +5879,7 @@ namespace FindPianos.Models
 			this._InstrumentStyles = new EntitySet<InstrumentStyle>(new Action<InstrumentStyle>(this.attach_InstrumentStyles), new Action<InstrumentStyle>(this.detach_InstrumentStyles));
 			this._InstrumentTypes = new EntitySet<InstrumentType>(new Action<InstrumentType>(this.attach_InstrumentTypes), new Action<InstrumentType>(this.detach_InstrumentTypes));
 			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
+			this._SaleListings = new EntitySet<SaleListing>(new Action<SaleListing>(this.attach_SaleListings), new Action<SaleListing>(this.detach_SaleListings));
 			OnCreated();
 		}
 		
@@ -4034,6 +5923,26 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsIncludedInTemporary", DbType="Bit NOT NULL")]
+		public bool IsIncludedInTemporary
+		{
+			get
+			{
+				return this._IsIncludedInTemporary;
+			}
+			set
+			{
+				if ((this._IsIncludedInTemporary != value))
+				{
+					this.OnIsIncludedInTemporaryChanging(value);
+					this.SendPropertyChanging();
+					this._IsIncludedInTemporary = value;
+					this.SendPropertyChanged("IsIncludedInTemporary");
+					this.OnIsIncludedInTemporaryChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentStyle", Storage="_InstrumentStyles", ThisKey="InstrumentID", OtherKey="InstrumentID")]
 		public EntitySet<InstrumentStyle> InstrumentStyles
 		{
@@ -4070,6 +5979,19 @@ namespace FindPianos.Models
 			set
 			{
 				this._Listings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_SaleListing", Storage="_SaleListings", ThisKey="InstrumentID", OtherKey="InstrumentID")]
+		public EntitySet<SaleListing> SaleListings
+		{
+			get
+			{
+				return this._SaleListings;
+			}
+			set
+			{
+				this._SaleListings.Assign(value);
 			}
 		}
 		
@@ -4128,6 +6050,18 @@ namespace FindPianos.Models
 			this.SendPropertyChanging();
 			entity.Instrument = null;
 		}
+		
+		private void attach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = this;
+		}
+		
+		private void detach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentStyles")]
@@ -4143,6 +6077,8 @@ namespace FindPianos.Models
 		private string _StyleName;
 		
 		private EntitySet<Listing> _Listings;
+		
+		private EntitySet<SaleListing> _SaleListings;
 		
 		private EntityRef<Instrument> _Instrument;
 		
@@ -4161,6 +6097,7 @@ namespace FindPianos.Models
 		public InstrumentStyle()
 		{
 			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
+			this._SaleListings = new EntitySet<SaleListing>(new Action<SaleListing>(this.attach_SaleListings), new Action<SaleListing>(this.detach_SaleListings));
 			this._Instrument = default(EntityRef<Instrument>);
 			OnCreated();
 		}
@@ -4242,6 +6179,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentStyle_SaleListing", Storage="_SaleListings", ThisKey="StyleID", OtherKey="InstrumentStyleID")]
+		public EntitySet<SaleListing> SaleListings
+		{
+			get
+			{
+				return this._SaleListings;
+			}
+			set
+			{
+				this._SaleListings.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentStyle", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
 		public Instrument Instrument
 		{
@@ -4307,6 +6257,18 @@ namespace FindPianos.Models
 			this.SendPropertyChanging();
 			entity.InstrumentStyle = null;
 		}
+		
+		private void attach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentStyle = this;
+		}
+		
+		private void detach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentStyle = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentTypes")]
@@ -4322,6 +6284,8 @@ namespace FindPianos.Models
 		private string _TypeName;
 		
 		private EntitySet<Listing> _Listings;
+		
+		private EntitySet<SaleListing> _SaleListings;
 		
 		private EntityRef<Instrument> _Instrument;
 		
@@ -4340,6 +6304,7 @@ namespace FindPianos.Models
 		public InstrumentType()
 		{
 			this._Listings = new EntitySet<Listing>(new Action<Listing>(this.attach_Listings), new Action<Listing>(this.detach_Listings));
+			this._SaleListings = new EntitySet<SaleListing>(new Action<SaleListing>(this.attach_SaleListings), new Action<SaleListing>(this.detach_SaleListings));
 			this._Instrument = default(EntityRef<Instrument>);
 			OnCreated();
 		}
@@ -4421,6 +6386,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_SaleListing", Storage="_SaleListings", ThisKey="TypeID", OtherKey="InstrumentTypeID")]
+		public EntitySet<SaleListing> SaleListings
+		{
+			get
+			{
+				return this._SaleListings;
+			}
+			set
+			{
+				this._SaleListings.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentType", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
 		public Instrument Instrument
 		{
@@ -4485,6 +6463,361 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.InstrumentType = null;
+		}
+		
+		private void attach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = this;
+		}
+		
+		private void detach_SaleListings(SaleListing entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Jobs")]
+	public partial class Job : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _JobID;
+		
+		private System.Guid _UserID;
+		
+		private string _StreetAddress;
+		
+		private System.Nullable<decimal> _Lat;
+		
+		private System.Nullable<decimal> _Long;
+		
+		private string _DescriptionMarkdown;
+		
+		private string _RequirementsMarkdown;
+		
+		private string _OtherMarkdown;
+		
+		private string _DescriptionHTML;
+		
+		private string _RequirementsHTML;
+		
+		private string _OtherHTML;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnJobIDChanging(long value);
+    partial void OnJobIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnStreetAddressChanging(string value);
+    partial void OnStreetAddressChanged();
+    partial void OnLatChanging(System.Nullable<decimal> value);
+    partial void OnLatChanged();
+    partial void OnLongChanging(System.Nullable<decimal> value);
+    partial void OnLongChanged();
+    partial void OnDescriptionMarkdownChanging(string value);
+    partial void OnDescriptionMarkdownChanged();
+    partial void OnRequirementsMarkdownChanging(string value);
+    partial void OnRequirementsMarkdownChanged();
+    partial void OnOtherMarkdownChanging(string value);
+    partial void OnOtherMarkdownChanged();
+    partial void OnDescriptionHTMLChanging(string value);
+    partial void OnDescriptionHTMLChanged();
+    partial void OnRequirementsHTMLChanging(string value);
+    partial void OnRequirementsHTMLChanged();
+    partial void OnOtherHTMLChanging(string value);
+    partial void OnOtherHTMLChanged();
+    #endregion
+		
+		public Job()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long JobID
+		{
+			get
+			{
+				return this._JobID;
+			}
+			set
+			{
+				if ((this._JobID != value))
+				{
+					this.OnJobIDChanging(value);
+					this.SendPropertyChanging();
+					this._JobID = value;
+					this.SendPropertyChanged("JobID");
+					this.OnJobIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX)")]
+		public string StreetAddress
+		{
+			get
+			{
+				return this._StreetAddress;
+			}
+			set
+			{
+				if ((this._StreetAddress != value))
+				{
+					this.OnStreetAddressChanging(value);
+					this.SendPropertyChanging();
+					this._StreetAddress = value;
+					this.SendPropertyChanged("StreetAddress");
+					this.OnStreetAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> Lat
+		{
+			get
+			{
+				return this._Lat;
+			}
+			set
+			{
+				if ((this._Lat != value))
+				{
+					this.OnLatChanging(value);
+					this.SendPropertyChanging();
+					this._Lat = value;
+					this.SendPropertyChanged("Lat");
+					this.OnLatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> Long
+		{
+			get
+			{
+				return this._Long;
+			}
+			set
+			{
+				if ((this._Long != value))
+				{
+					this.OnLongChanging(value);
+					this.SendPropertyChanging();
+					this._Long = value;
+					this.SendPropertyChanged("Long");
+					this.OnLongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DescriptionMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DescriptionMarkdown
+		{
+			get
+			{
+				return this._DescriptionMarkdown;
+			}
+			set
+			{
+				if ((this._DescriptionMarkdown != value))
+				{
+					this.OnDescriptionMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._DescriptionMarkdown = value;
+					this.SendPropertyChanged("DescriptionMarkdown");
+					this.OnDescriptionMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequirementsMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string RequirementsMarkdown
+		{
+			get
+			{
+				return this._RequirementsMarkdown;
+			}
+			set
+			{
+				if ((this._RequirementsMarkdown != value))
+				{
+					this.OnRequirementsMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._RequirementsMarkdown = value;
+					this.SendPropertyChanged("RequirementsMarkdown");
+					this.OnRequirementsMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherMarkdown", DbType="NVarChar(MAX)")]
+		public string OtherMarkdown
+		{
+			get
+			{
+				return this._OtherMarkdown;
+			}
+			set
+			{
+				if ((this._OtherMarkdown != value))
+				{
+					this.OnOtherMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._OtherMarkdown = value;
+					this.SendPropertyChanged("OtherMarkdown");
+					this.OnOtherMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DescriptionHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string DescriptionHTML
+		{
+			get
+			{
+				return this._DescriptionHTML;
+			}
+			set
+			{
+				if ((this._DescriptionHTML != value))
+				{
+					this.OnDescriptionHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._DescriptionHTML = value;
+					this.SendPropertyChanged("DescriptionHTML");
+					this.OnDescriptionHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequirementsHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string RequirementsHTML
+		{
+			get
+			{
+				return this._RequirementsHTML;
+			}
+			set
+			{
+				if ((this._RequirementsHTML != value))
+				{
+					this.OnRequirementsHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._RequirementsHTML = value;
+					this.SendPropertyChanged("RequirementsHTML");
+					this.OnRequirementsHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherHTML", DbType="NVarChar(MAX)")]
+		public string OtherHTML
+		{
+			get
+			{
+				return this._OtherHTML;
+			}
+			set
+			{
+				if ((this._OtherHTML != value))
+				{
+					this.OnOtherHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._OtherHTML = value;
+					this.SendPropertyChanged("OtherHTML");
+					this.OnOtherHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Job", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Jobs.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Jobs.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -5686,6 +8019,648 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Resumes")]
+	public partial class Resume : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ResumeID;
+		
+		private int _ResumeTypeID;
+		
+		private System.Guid _UserID;
+		
+		private bool _IsFiled;
+		
+		private System.Nullable<System.DateTime> _FiledStartDate;
+		
+		private System.Nullable<System.DateTime> _FiledEndDate;
+		
+		private string _Name;
+		
+		private string _AboutMarkdown;
+		
+		private string _AchievementsMarkdown;
+		
+		private string _EducationMarkdown;
+		
+		private string _ExperienceMarkdown;
+		
+		private string _OtherMarkdown;
+		
+		private string _AboutHTML;
+		
+		private string _AchievementsHTML;
+		
+		private string _EducationHTML;
+		
+		private string _ExperienceHTML;
+		
+		private string _OtherHTML;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<ResumeType> _ResumeType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnResumeIDChanging(long value);
+    partial void OnResumeIDChanged();
+    partial void OnResumeTypeIDChanging(int value);
+    partial void OnResumeTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnIsFiledChanging(bool value);
+    partial void OnIsFiledChanged();
+    partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFiledStartDateChanged();
+    partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFiledEndDateChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnAboutMarkdownChanging(string value);
+    partial void OnAboutMarkdownChanged();
+    partial void OnAchievementsMarkdownChanging(string value);
+    partial void OnAchievementsMarkdownChanged();
+    partial void OnEducationMarkdownChanging(string value);
+    partial void OnEducationMarkdownChanged();
+    partial void OnExperienceMarkdownChanging(string value);
+    partial void OnExperienceMarkdownChanged();
+    partial void OnOtherMarkdownChanging(string value);
+    partial void OnOtherMarkdownChanged();
+    partial void OnAboutHTMLChanging(string value);
+    partial void OnAboutHTMLChanged();
+    partial void OnAchievementsHTMLChanging(string value);
+    partial void OnAchievementsHTMLChanged();
+    partial void OnEducationHTMLChanging(string value);
+    partial void OnEducationHTMLChanged();
+    partial void OnExperienceHTMLChanging(string value);
+    partial void OnExperienceHTMLChanged();
+    partial void OnOtherHTMLChanging(string value);
+    partial void OnOtherHTMLChanged();
+    #endregion
+		
+		public Resume()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._ResumeType = default(EntityRef<ResumeType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResumeID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ResumeID
+		{
+			get
+			{
+				return this._ResumeID;
+			}
+			set
+			{
+				if ((this._ResumeID != value))
+				{
+					this.OnResumeIDChanging(value);
+					this.SendPropertyChanging();
+					this._ResumeID = value;
+					this.SendPropertyChanged("ResumeID");
+					this.OnResumeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResumeTypeID", DbType="Int NOT NULL")]
+		public int ResumeTypeID
+		{
+			get
+			{
+				return this._ResumeTypeID;
+			}
+			set
+			{
+				if ((this._ResumeTypeID != value))
+				{
+					if (this._ResumeType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnResumeTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._ResumeTypeID = value;
+					this.SendPropertyChanged("ResumeTypeID");
+					this.OnResumeTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsFiled", DbType="Bit NOT NULL")]
+		public bool IsFiled
+		{
+			get
+			{
+				return this._IsFiled;
+			}
+			set
+			{
+				if ((this._IsFiled != value))
+				{
+					this.OnIsFiledChanging(value);
+					this.SendPropertyChanging();
+					this._IsFiled = value;
+					this.SendPropertyChanged("IsFiled");
+					this.OnIsFiledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FiledStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FiledStartDate
+		{
+			get
+			{
+				return this._FiledStartDate;
+			}
+			set
+			{
+				if ((this._FiledStartDate != value))
+				{
+					this.OnFiledStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._FiledStartDate = value;
+					this.SendPropertyChanged("FiledStartDate");
+					this.OnFiledStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FiledEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FiledEndDate
+		{
+			get
+			{
+				return this._FiledEndDate;
+			}
+			set
+			{
+				if ((this._FiledEndDate != value))
+				{
+					this.OnFiledEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._FiledEndDate = value;
+					this.SendPropertyChanged("FiledEndDate");
+					this.OnFiledEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AboutMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AboutMarkdown
+		{
+			get
+			{
+				return this._AboutMarkdown;
+			}
+			set
+			{
+				if ((this._AboutMarkdown != value))
+				{
+					this.OnAboutMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._AboutMarkdown = value;
+					this.SendPropertyChanged("AboutMarkdown");
+					this.OnAboutMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AchievementsMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AchievementsMarkdown
+		{
+			get
+			{
+				return this._AchievementsMarkdown;
+			}
+			set
+			{
+				if ((this._AchievementsMarkdown != value))
+				{
+					this.OnAchievementsMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._AchievementsMarkdown = value;
+					this.SendPropertyChanged("AchievementsMarkdown");
+					this.OnAchievementsMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EducationMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string EducationMarkdown
+		{
+			get
+			{
+				return this._EducationMarkdown;
+			}
+			set
+			{
+				if ((this._EducationMarkdown != value))
+				{
+					this.OnEducationMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._EducationMarkdown = value;
+					this.SendPropertyChanged("EducationMarkdown");
+					this.OnEducationMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExperienceMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string ExperienceMarkdown
+		{
+			get
+			{
+				return this._ExperienceMarkdown;
+			}
+			set
+			{
+				if ((this._ExperienceMarkdown != value))
+				{
+					this.OnExperienceMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._ExperienceMarkdown = value;
+					this.SendPropertyChanged("ExperienceMarkdown");
+					this.OnExperienceMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherMarkdown", DbType="NVarChar(MAX)")]
+		public string OtherMarkdown
+		{
+			get
+			{
+				return this._OtherMarkdown;
+			}
+			set
+			{
+				if ((this._OtherMarkdown != value))
+				{
+					this.OnOtherMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._OtherMarkdown = value;
+					this.SendPropertyChanged("OtherMarkdown");
+					this.OnOtherMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AboutHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AboutHTML
+		{
+			get
+			{
+				return this._AboutHTML;
+			}
+			set
+			{
+				if ((this._AboutHTML != value))
+				{
+					this.OnAboutHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._AboutHTML = value;
+					this.SendPropertyChanged("AboutHTML");
+					this.OnAboutHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AchievementsHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AchievementsHTML
+		{
+			get
+			{
+				return this._AchievementsHTML;
+			}
+			set
+			{
+				if ((this._AchievementsHTML != value))
+				{
+					this.OnAchievementsHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._AchievementsHTML = value;
+					this.SendPropertyChanged("AchievementsHTML");
+					this.OnAchievementsHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EducationHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string EducationHTML
+		{
+			get
+			{
+				return this._EducationHTML;
+			}
+			set
+			{
+				if ((this._EducationHTML != value))
+				{
+					this.OnEducationHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._EducationHTML = value;
+					this.SendPropertyChanged("EducationHTML");
+					this.OnEducationHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExperienceHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string ExperienceHTML
+		{
+			get
+			{
+				return this._ExperienceHTML;
+			}
+			set
+			{
+				if ((this._ExperienceHTML != value))
+				{
+					this.OnExperienceHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._ExperienceHTML = value;
+					this.SendPropertyChanged("ExperienceHTML");
+					this.OnExperienceHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherHTML", DbType="NVarChar(MAX)")]
+		public string OtherHTML
+		{
+			get
+			{
+				return this._OtherHTML;
+			}
+			set
+			{
+				if ((this._OtherHTML != value))
+				{
+					this.OnOtherHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._OtherHTML = value;
+					this.SendPropertyChanged("OtherHTML");
+					this.OnOtherHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Resume", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Resumes.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Resumes.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResumeType_Resume", Storage="_ResumeType", ThisKey="ResumeTypeID", OtherKey="ResumeTypeID", IsForeignKey=true)]
+		public ResumeType ResumeType
+		{
+			get
+			{
+				return this._ResumeType.Entity;
+			}
+			set
+			{
+				ResumeType previousValue = this._ResumeType.Entity;
+				if (((previousValue != value) 
+							|| (this._ResumeType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ResumeType.Entity = null;
+						previousValue.Resumes.Remove(this);
+					}
+					this._ResumeType.Entity = value;
+					if ((value != null))
+					{
+						value.Resumes.Add(this);
+						this._ResumeTypeID = value.ResumeTypeID;
+					}
+					else
+					{
+						this._ResumeTypeID = default(int);
+					}
+					this.SendPropertyChanged("ResumeType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResumeTypes")]
+	public partial class ResumeType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ResumeTypeID;
+		
+		private string _ResumeTypeName;
+		
+		private EntitySet<Resume> _Resumes;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnResumeTypeIDChanging(int value);
+    partial void OnResumeTypeIDChanged();
+    partial void OnResumeTypeNameChanging(string value);
+    partial void OnResumeTypeNameChanged();
+    #endregion
+		
+		public ResumeType()
+		{
+			this._Resumes = new EntitySet<Resume>(new Action<Resume>(this.attach_Resumes), new Action<Resume>(this.detach_Resumes));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResumeTypeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ResumeTypeID
+		{
+			get
+			{
+				return this._ResumeTypeID;
+			}
+			set
+			{
+				if ((this._ResumeTypeID != value))
+				{
+					this.OnResumeTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._ResumeTypeID = value;
+					this.SendPropertyChanged("ResumeTypeID");
+					this.OnResumeTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResumeTypeName", DbType="NVarChar(50)")]
+		public string ResumeTypeName
+		{
+			get
+			{
+				return this._ResumeTypeName;
+			}
+			set
+			{
+				if ((this._ResumeTypeName != value))
+				{
+					this.OnResumeTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._ResumeTypeName = value;
+					this.SendPropertyChanged("ResumeTypeName");
+					this.OnResumeTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResumeType_Resume", Storage="_Resumes", ThisKey="ResumeTypeID", OtherKey="ResumeTypeID")]
+		public EntitySet<Resume> Resumes
+		{
+			get
+			{
+				return this._Resumes;
+			}
+			set
+			{
+				this._Resumes.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Resumes(Resume entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResumeType = this;
+		}
+		
+		private void detach_Resumes(Resume entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResumeType = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ReviewComments")]
 	public partial class ReviewComment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -6875,6 +9850,4374 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.Review = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleListingFlags")]
+	public partial class SaleListingFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ListingID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<FlagType> _FlagType;
+		
+		private EntityRef<SaleListing> _SaleListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnListingIDChanging(long value);
+    partial void OnListingIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public SaleListingFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._FlagType = default(EntityRef<FlagType>);
+			this._SaleListing = default(EntityRef<SaleListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingID", DbType="BigInt NOT NULL")]
+		public long ListingID
+		{
+			get
+			{
+				return this._ListingID;
+			}
+			set
+			{
+				if ((this._ListingID != value))
+				{
+					if (this._SaleListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._ListingID = value;
+					this.SendPropertyChanged("ListingID");
+					this.OnListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._FlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleListingFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.SaleListingFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListingFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_SaleListingFlag", Storage="_FlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public FlagType FlagType
+		{
+			get
+			{
+				return this._FlagType.Entity;
+			}
+			set
+			{
+				FlagType previousValue = this._FlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._FlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FlagType.Entity = null;
+						previousValue.SaleListingFlags.Remove(this);
+					}
+					this._FlagType.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListingFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleListing_SaleListingFlag", Storage="_SaleListing", ThisKey="ListingID", OtherKey="SaleListingID", IsForeignKey=true)]
+		public SaleListing SaleListing
+		{
+			get
+			{
+				return this._SaleListing.Entity;
+			}
+			set
+			{
+				SaleListing previousValue = this._SaleListing.Entity;
+				if (((previousValue != value) 
+							|| (this._SaleListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SaleListing.Entity = null;
+						previousValue.SaleListingFlags.Remove(this);
+					}
+					this._SaleListing.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListingFlags.Add(this);
+						this._ListingID = value.SaleListingID;
+					}
+					else
+					{
+						this._ListingID = default(long);
+					}
+					this.SendPropertyChanged("SaleListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleListings")]
+	public partial class SaleListing : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SaleListingID;
+		
+		private long _InstrumentID;
+		
+		private double _Price;
+		
+		private decimal _Lat;
+		
+		private decimal _Long;
+		
+		private string _StreetAddress;
+		
+		private System.Guid _OriginalSubmitterUserID;
+		
+		private System.DateTime _DateOfSubmission;
+		
+		private string _InstrumentBrand;
+		
+		private string _InstrumentModel;
+		
+		private long _InstrumentTypeID;
+		
+		private long _InstrumentStyleID;
+		
+		private System.Nullable<long> _SoldByStoreID;
+		
+		private bool _IsFiled;
+		
+		private System.Nullable<System.DateTime> _FiledStartDate;
+		
+		private System.Nullable<System.DateTime> _FiledEndDate;
+		
+		private EntitySet<SaleListingFlag> _SaleListingFlags;
+		
+		private EntitySet<SaleReview> _SaleReviews;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<Instrument> _Instrument;
+		
+		private EntityRef<InstrumentStyle> _InstrumentStyle;
+		
+		private EntityRef<InstrumentType> _InstrumentType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSaleListingIDChanging(long value);
+    partial void OnSaleListingIDChanged();
+    partial void OnInstrumentIDChanging(long value);
+    partial void OnInstrumentIDChanged();
+    partial void OnPriceChanging(double value);
+    partial void OnPriceChanged();
+    partial void OnLatChanging(decimal value);
+    partial void OnLatChanged();
+    partial void OnLongChanging(decimal value);
+    partial void OnLongChanged();
+    partial void OnStreetAddressChanging(string value);
+    partial void OnStreetAddressChanged();
+    partial void OnOriginalSubmitterUserIDChanging(System.Guid value);
+    partial void OnOriginalSubmitterUserIDChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
+    partial void OnInstrumentBrandChanging(string value);
+    partial void OnInstrumentBrandChanged();
+    partial void OnInstrumentModelChanging(string value);
+    partial void OnInstrumentModelChanged();
+    partial void OnInstrumentTypeIDChanging(long value);
+    partial void OnInstrumentTypeIDChanged();
+    partial void OnInstrumentStyleIDChanging(long value);
+    partial void OnInstrumentStyleIDChanged();
+    partial void OnSoldByStoreIDChanging(System.Nullable<long> value);
+    partial void OnSoldByStoreIDChanged();
+    partial void OnIsFiledChanging(bool value);
+    partial void OnIsFiledChanged();
+    partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFiledStartDateChanged();
+    partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFiledEndDateChanged();
+    #endregion
+		
+		public SaleListing()
+		{
+			this._SaleListingFlags = new EntitySet<SaleListingFlag>(new Action<SaleListingFlag>(this.attach_SaleListingFlags), new Action<SaleListingFlag>(this.detach_SaleListingFlags));
+			this._SaleReviews = new EntitySet<SaleReview>(new Action<SaleReview>(this.attach_SaleReviews), new Action<SaleReview>(this.detach_SaleReviews));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._Instrument = default(EntityRef<Instrument>);
+			this._InstrumentStyle = default(EntityRef<InstrumentStyle>);
+			this._InstrumentType = default(EntityRef<InstrumentType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaleListingID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long SaleListingID
+		{
+			get
+			{
+				return this._SaleListingID;
+			}
+			set
+			{
+				if ((this._SaleListingID != value))
+				{
+					this.OnSaleListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._SaleListingID = value;
+					this.SendPropertyChanged("SaleListingID");
+					this.OnSaleListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentID", DbType="BigInt NOT NULL")]
+		public long InstrumentID
+		{
+			get
+			{
+				return this._InstrumentID;
+			}
+			set
+			{
+				if ((this._InstrumentID != value))
+				{
+					if (this._Instrument.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentID = value;
+					this.SendPropertyChanged("InstrumentID");
+					this.OnInstrumentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Float NOT NULL")]
+		public double Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Lat
+		{
+			get
+			{
+				return this._Lat;
+			}
+			set
+			{
+				if ((this._Lat != value))
+				{
+					this.OnLatChanging(value);
+					this.SendPropertyChanging();
+					this._Lat = value;
+					this.SendPropertyChanged("Lat");
+					this.OnLatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Long
+		{
+			get
+			{
+				return this._Long;
+			}
+			set
+			{
+				if ((this._Long != value))
+				{
+					this.OnLongChanging(value);
+					this.SendPropertyChanging();
+					this._Long = value;
+					this.SendPropertyChanged("Long");
+					this.OnLongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string StreetAddress
+		{
+			get
+			{
+				return this._StreetAddress;
+			}
+			set
+			{
+				if ((this._StreetAddress != value))
+				{
+					this.OnStreetAddressChanging(value);
+					this.SendPropertyChanging();
+					this._StreetAddress = value;
+					this.SendPropertyChanged("StreetAddress");
+					this.OnStreetAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSubmitterUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid OriginalSubmitterUserID
+		{
+			get
+			{
+				return this._OriginalSubmitterUserID;
+			}
+			set
+			{
+				if ((this._OriginalSubmitterUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOriginalSubmitterUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalSubmitterUserID = value;
+					this.SendPropertyChanged("OriginalSubmitterUserID");
+					this.OnOriginalSubmitterUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentBrand", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string InstrumentBrand
+		{
+			get
+			{
+				return this._InstrumentBrand;
+			}
+			set
+			{
+				if ((this._InstrumentBrand != value))
+				{
+					this.OnInstrumentBrandChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentBrand = value;
+					this.SendPropertyChanged("InstrumentBrand");
+					this.OnInstrumentBrandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentModel", DbType="NVarChar(50)")]
+		public string InstrumentModel
+		{
+			get
+			{
+				return this._InstrumentModel;
+			}
+			set
+			{
+				if ((this._InstrumentModel != value))
+				{
+					this.OnInstrumentModelChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentModel = value;
+					this.SendPropertyChanged("InstrumentModel");
+					this.OnInstrumentModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentTypeID", DbType="BigInt NOT NULL")]
+		public long InstrumentTypeID
+		{
+			get
+			{
+				return this._InstrumentTypeID;
+			}
+			set
+			{
+				if ((this._InstrumentTypeID != value))
+				{
+					if (this._InstrumentType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentTypeID = value;
+					this.SendPropertyChanged("InstrumentTypeID");
+					this.OnInstrumentTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentStyleID", DbType="BigInt NOT NULL")]
+		public long InstrumentStyleID
+		{
+			get
+			{
+				return this._InstrumentStyleID;
+			}
+			set
+			{
+				if ((this._InstrumentStyleID != value))
+				{
+					if (this._InstrumentStyle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentStyleIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentStyleID = value;
+					this.SendPropertyChanged("InstrumentStyleID");
+					this.OnInstrumentStyleIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoldByStoreID", DbType="BigInt")]
+		public System.Nullable<long> SoldByStoreID
+		{
+			get
+			{
+				return this._SoldByStoreID;
+			}
+			set
+			{
+				if ((this._SoldByStoreID != value))
+				{
+					this.OnSoldByStoreIDChanging(value);
+					this.SendPropertyChanging();
+					this._SoldByStoreID = value;
+					this.SendPropertyChanged("SoldByStoreID");
+					this.OnSoldByStoreIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsFiled", DbType="Bit NOT NULL")]
+		public bool IsFiled
+		{
+			get
+			{
+				return this._IsFiled;
+			}
+			set
+			{
+				if ((this._IsFiled != value))
+				{
+					this.OnIsFiledChanging(value);
+					this.SendPropertyChanging();
+					this._IsFiled = value;
+					this.SendPropertyChanged("IsFiled");
+					this.OnIsFiledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FiledStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FiledStartDate
+		{
+			get
+			{
+				return this._FiledStartDate;
+			}
+			set
+			{
+				if ((this._FiledStartDate != value))
+				{
+					this.OnFiledStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._FiledStartDate = value;
+					this.SendPropertyChanged("FiledStartDate");
+					this.OnFiledStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FiledEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FiledEndDate
+		{
+			get
+			{
+				return this._FiledEndDate;
+			}
+			set
+			{
+				if ((this._FiledEndDate != value))
+				{
+					this.OnFiledEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._FiledEndDate = value;
+					this.SendPropertyChanged("FiledEndDate");
+					this.OnFiledEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleListing_SaleListingFlag", Storage="_SaleListingFlags", ThisKey="SaleListingID", OtherKey="ListingID")]
+		public EntitySet<SaleListingFlag> SaleListingFlags
+		{
+			get
+			{
+				return this._SaleListingFlags;
+			}
+			set
+			{
+				this._SaleListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleListing_SaleReview", Storage="_SaleReviews", ThisKey="SaleListingID", OtherKey="SaleListingID")]
+		public EntitySet<SaleReview> SaleReviews
+		{
+			get
+			{
+				return this._SaleReviews;
+			}
+			set
+			{
+				this._SaleReviews.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleListing", Storage="_aspnet_User", ThisKey="OriginalSubmitterUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.SaleListings.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListings.Add(this);
+						this._OriginalSubmitterUserID = value.UserId;
+					}
+					else
+					{
+						this._OriginalSubmitterUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_SaleListing", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
+		public Instrument Instrument
+		{
+			get
+			{
+				return this._Instrument.Entity;
+			}
+			set
+			{
+				Instrument previousValue = this._Instrument.Entity;
+				if (((previousValue != value) 
+							|| (this._Instrument.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Instrument.Entity = null;
+						previousValue.SaleListings.Remove(this);
+					}
+					this._Instrument.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListings.Add(this);
+						this._InstrumentID = value.InstrumentID;
+					}
+					else
+					{
+						this._InstrumentID = default(long);
+					}
+					this.SendPropertyChanged("Instrument");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentStyle_SaleListing", Storage="_InstrumentStyle", ThisKey="InstrumentStyleID", OtherKey="StyleID", IsForeignKey=true)]
+		public InstrumentStyle InstrumentStyle
+		{
+			get
+			{
+				return this._InstrumentStyle.Entity;
+			}
+			set
+			{
+				InstrumentStyle previousValue = this._InstrumentStyle.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentStyle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentStyle.Entity = null;
+						previousValue.SaleListings.Remove(this);
+					}
+					this._InstrumentStyle.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListings.Add(this);
+						this._InstrumentStyleID = value.StyleID;
+					}
+					else
+					{
+						this._InstrumentStyleID = default(long);
+					}
+					this.SendPropertyChanged("InstrumentStyle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_SaleListing", Storage="_InstrumentType", ThisKey="InstrumentTypeID", OtherKey="TypeID", IsForeignKey=true)]
+		public InstrumentType InstrumentType
+		{
+			get
+			{
+				return this._InstrumentType.Entity;
+			}
+			set
+			{
+				InstrumentType previousValue = this._InstrumentType.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentType.Entity = null;
+						previousValue.SaleListings.Remove(this);
+					}
+					this._InstrumentType.Entity = value;
+					if ((value != null))
+					{
+						value.SaleListings.Add(this);
+						this._InstrumentTypeID = value.TypeID;
+					}
+					else
+					{
+						this._InstrumentTypeID = default(long);
+					}
+					this.SendPropertyChanged("InstrumentType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleListing = this;
+		}
+		
+		private void detach_SaleListingFlags(SaleListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleListing = null;
+		}
+		
+		private void attach_SaleReviews(SaleReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleListing = this;
+		}
+		
+		private void detach_SaleReviews(SaleReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleListing = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleReviewComments")]
+	public partial class SaleReviewComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _CommentID;
+		
+		private long _ReviewID;
+		
+		private System.Guid _AuthorUserID;
+		
+		private string _MessageText;
+		
+		private System.DateTime _DateOfSubmission;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<SaleReview> _SaleReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCommentIDChanging(long value);
+    partial void OnCommentIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnAuthorUserIDChanging(System.Guid value);
+    partial void OnAuthorUserIDChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
+    #endregion
+		
+		public SaleReviewComment()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._SaleReview = default(EntityRef<SaleReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this.OnCommentIDChanging(value);
+					this.SendPropertyChanging();
+					this._CommentID = value;
+					this.SendPropertyChanged("CommentID");
+					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._SaleReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuthorUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid AuthorUserID
+		{
+			get
+			{
+				return this._AuthorUserID;
+			}
+			set
+			{
+				if ((this._AuthorUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuthorUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorUserID = value;
+					this.SendPropertyChanged("AuthorUserID");
+					this.OnAuthorUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageText
+		{
+			get
+			{
+				return this._MessageText;
+			}
+			set
+			{
+				if ((this._MessageText != value))
+				{
+					this.OnMessageTextChanging(value);
+					this.SendPropertyChanging();
+					this._MessageText = value;
+					this.SendPropertyChanged("MessageText");
+					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewComment", Storage="_aspnet_User", ThisKey="AuthorUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.SaleReviewComments.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewComments.Add(this);
+						this._AuthorUserID = value.UserId;
+					}
+					else
+					{
+						this._AuthorUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewComment", Storage="_SaleReview", ThisKey="ReviewID", OtherKey="SaleReviewID", IsForeignKey=true)]
+		public SaleReview SaleReview
+		{
+			get
+			{
+				return this._SaleReview.Entity;
+			}
+			set
+			{
+				SaleReview previousValue = this._SaleReview.Entity;
+				if (((previousValue != value) 
+							|| (this._SaleReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SaleReview.Entity = null;
+						previousValue.SaleReviewComments.Remove(this);
+					}
+					this._SaleReview.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewComments.Add(this);
+						this._ReviewID = value.SaleReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("SaleReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleReviewFlags")]
+	public partial class SaleReviewFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ReviewID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<FlagType> _FlagType;
+		
+		private EntityRef<SaleReview> _SaleReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public SaleReviewFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._FlagType = default(EntityRef<FlagType>);
+			this._SaleReview = default(EntityRef<SaleReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._SaleReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._FlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.SaleReviewFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_SaleReviewFlag", Storage="_FlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public FlagType FlagType
+		{
+			get
+			{
+				return this._FlagType.Entity;
+			}
+			set
+			{
+				FlagType previousValue = this._FlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._FlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FlagType.Entity = null;
+						previousValue.SaleReviewFlags.Remove(this);
+					}
+					this._FlagType.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewFlag", Storage="_SaleReview", ThisKey="ReviewID", OtherKey="SaleReviewID", IsForeignKey=true)]
+		public SaleReview SaleReview
+		{
+			get
+			{
+				return this._SaleReview.Entity;
+			}
+			set
+			{
+				SaleReview previousValue = this._SaleReview.Entity;
+				if (((previousValue != value) 
+							|| (this._SaleReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SaleReview.Entity = null;
+						previousValue.SaleReviewFlags.Remove(this);
+					}
+					this._SaleReview.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewFlags.Add(this);
+						this._ReviewID = value.SaleReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("SaleReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleReviewRevisions")]
+	public partial class SaleReviewRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SaleReviewRevisionID;
+		
+		private long _SaleReviewID;
+		
+		private int _RatingOverall;
+		
+		private System.Nullable<int> _RatingTuning;
+		
+		private System.Nullable<int> _RatingToneQuality;
+		
+		private System.Nullable<int> _RatingPlayingCapability;
+		
+		private string _Message;
+		
+		private System.Guid _SubmitterUserID;
+		
+		private System.DateTime _DateOfRevision;
+		
+		private System.DateTime _DateOfLastUsageOfInstrumentBySubmitter;
+		
+		private int _RevisionNumberOfReview;
+		
+		private bool _IsSubmitterAffiliatedWithSeller;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<SaleReview> _SaleReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSaleReviewRevisionIDChanging(long value);
+    partial void OnSaleReviewRevisionIDChanged();
+    partial void OnSaleReviewIDChanging(long value);
+    partial void OnSaleReviewIDChanged();
+    partial void OnRatingOverallChanging(int value);
+    partial void OnRatingOverallChanged();
+    partial void OnRatingTuningChanging(System.Nullable<int> value);
+    partial void OnRatingTuningChanged();
+    partial void OnRatingToneQualityChanging(System.Nullable<int> value);
+    partial void OnRatingToneQualityChanged();
+    partial void OnRatingPlayingCapabilityChanging(System.Nullable<int> value);
+    partial void OnRatingPlayingCapabilityChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnSubmitterUserIDChanging(System.Guid value);
+    partial void OnSubmitterUserIDChanged();
+    partial void OnDateOfRevisionChanging(System.DateTime value);
+    partial void OnDateOfRevisionChanged();
+    partial void OnDateOfLastUsageOfInstrumentBySubmitterChanging(System.DateTime value);
+    partial void OnDateOfLastUsageOfInstrumentBySubmitterChanged();
+    partial void OnRevisionNumberOfReviewChanging(int value);
+    partial void OnRevisionNumberOfReviewChanged();
+    partial void OnIsSubmitterAffiliatedWithSellerChanging(bool value);
+    partial void OnIsSubmitterAffiliatedWithSellerChanged();
+    #endregion
+		
+		public SaleReviewRevision()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._SaleReview = default(EntityRef<SaleReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaleReviewRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long SaleReviewRevisionID
+		{
+			get
+			{
+				return this._SaleReviewRevisionID;
+			}
+			set
+			{
+				if ((this._SaleReviewRevisionID != value))
+				{
+					this.OnSaleReviewRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SaleReviewRevisionID = value;
+					this.SendPropertyChanged("SaleReviewRevisionID");
+					this.OnSaleReviewRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaleReviewID", DbType="BigInt NOT NULL")]
+		public long SaleReviewID
+		{
+			get
+			{
+				return this._SaleReviewID;
+			}
+			set
+			{
+				if ((this._SaleReviewID != value))
+				{
+					if (this._SaleReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSaleReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._SaleReviewID = value;
+					this.SendPropertyChanged("SaleReviewID");
+					this.OnSaleReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingOverall", DbType="Int NOT NULL")]
+		public int RatingOverall
+		{
+			get
+			{
+				return this._RatingOverall;
+			}
+			set
+			{
+				if ((this._RatingOverall != value))
+				{
+					this.OnRatingOverallChanging(value);
+					this.SendPropertyChanging();
+					this._RatingOverall = value;
+					this.SendPropertyChanged("RatingOverall");
+					this.OnRatingOverallChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingTuning", DbType="Int")]
+		public System.Nullable<int> RatingTuning
+		{
+			get
+			{
+				return this._RatingTuning;
+			}
+			set
+			{
+				if ((this._RatingTuning != value))
+				{
+					this.OnRatingTuningChanging(value);
+					this.SendPropertyChanging();
+					this._RatingTuning = value;
+					this.SendPropertyChanged("RatingTuning");
+					this.OnRatingTuningChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingToneQuality", DbType="Int")]
+		public System.Nullable<int> RatingToneQuality
+		{
+			get
+			{
+				return this._RatingToneQuality;
+			}
+			set
+			{
+				if ((this._RatingToneQuality != value))
+				{
+					this.OnRatingToneQualityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingToneQuality = value;
+					this.SendPropertyChanged("RatingToneQuality");
+					this.OnRatingToneQualityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingPlayingCapability", DbType="Int")]
+		public System.Nullable<int> RatingPlayingCapability
+		{
+			get
+			{
+				return this._RatingPlayingCapability;
+			}
+			set
+			{
+				if ((this._RatingPlayingCapability != value))
+				{
+					this.OnRatingPlayingCapabilityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingPlayingCapability = value;
+					this.SendPropertyChanged("RatingPlayingCapability");
+					this.OnRatingPlayingCapabilityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmitterUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid SubmitterUserID
+		{
+			get
+			{
+				return this._SubmitterUserID;
+			}
+			set
+			{
+				if ((this._SubmitterUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSubmitterUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._SubmitterUserID = value;
+					this.SendPropertyChanged("SubmitterUserID");
+					this.OnSubmitterUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfRevision", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfRevision
+		{
+			get
+			{
+				return this._DateOfRevision;
+			}
+			set
+			{
+				if ((this._DateOfRevision != value))
+				{
+					this.OnDateOfRevisionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfRevision = value;
+					this.SendPropertyChanged("DateOfRevision");
+					this.OnDateOfRevisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastUsageOfInstrumentBySubmitter", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfLastUsageOfInstrumentBySubmitter
+		{
+			get
+			{
+				return this._DateOfLastUsageOfInstrumentBySubmitter;
+			}
+			set
+			{
+				if ((this._DateOfLastUsageOfInstrumentBySubmitter != value))
+				{
+					this.OnDateOfLastUsageOfInstrumentBySubmitterChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfLastUsageOfInstrumentBySubmitter = value;
+					this.SendPropertyChanged("DateOfLastUsageOfInstrumentBySubmitter");
+					this.OnDateOfLastUsageOfInstrumentBySubmitterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionNumberOfReview", DbType="Int NOT NULL")]
+		public int RevisionNumberOfReview
+		{
+			get
+			{
+				return this._RevisionNumberOfReview;
+			}
+			set
+			{
+				if ((this._RevisionNumberOfReview != value))
+				{
+					this.OnRevisionNumberOfReviewChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionNumberOfReview = value;
+					this.SendPropertyChanged("RevisionNumberOfReview");
+					this.OnRevisionNumberOfReviewChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSubmitterAffiliatedWithSeller", DbType="Bit NOT NULL")]
+		public bool IsSubmitterAffiliatedWithSeller
+		{
+			get
+			{
+				return this._IsSubmitterAffiliatedWithSeller;
+			}
+			set
+			{
+				if ((this._IsSubmitterAffiliatedWithSeller != value))
+				{
+					this.OnIsSubmitterAffiliatedWithSellerChanging(value);
+					this.SendPropertyChanging();
+					this._IsSubmitterAffiliatedWithSeller = value;
+					this.SendPropertyChanged("IsSubmitterAffiliatedWithSeller");
+					this.OnIsSubmitterAffiliatedWithSellerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_SaleReviewRevision", Storage="_aspnet_User", ThisKey="SubmitterUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.SaleReviewRevisions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewRevisions.Add(this);
+						this._SubmitterUserID = value.UserId;
+					}
+					else
+					{
+						this._SubmitterUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewRevision", Storage="_SaleReview", ThisKey="SaleReviewID", OtherKey="SaleReviewID", IsForeignKey=true)]
+		public SaleReview SaleReview
+		{
+			get
+			{
+				return this._SaleReview.Entity;
+			}
+			set
+			{
+				SaleReview previousValue = this._SaleReview.Entity;
+				if (((previousValue != value) 
+							|| (this._SaleReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SaleReview.Entity = null;
+						previousValue.SaleReviewRevisions.Remove(this);
+					}
+					this._SaleReview.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviewRevisions.Add(this);
+						this._SaleReviewID = value.SaleReviewID;
+					}
+					else
+					{
+						this._SaleReviewID = default(long);
+					}
+					this.SendPropertyChanged("SaleReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SaleReviews")]
+	public partial class SaleReview : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SaleReviewID;
+		
+		private long _SaleListingID;
+		
+		private EntitySet<SaleReviewComment> _SaleReviewComments;
+		
+		private EntitySet<SaleReviewFlag> _SaleReviewFlags;
+		
+		private EntitySet<SaleReviewRevision> _SaleReviewRevisions;
+		
+		private EntityRef<SaleListing> _SaleListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSaleReviewIDChanging(long value);
+    partial void OnSaleReviewIDChanged();
+    partial void OnSaleListingIDChanging(long value);
+    partial void OnSaleListingIDChanged();
+    #endregion
+		
+		public SaleReview()
+		{
+			this._SaleReviewComments = new EntitySet<SaleReviewComment>(new Action<SaleReviewComment>(this.attach_SaleReviewComments), new Action<SaleReviewComment>(this.detach_SaleReviewComments));
+			this._SaleReviewFlags = new EntitySet<SaleReviewFlag>(new Action<SaleReviewFlag>(this.attach_SaleReviewFlags), new Action<SaleReviewFlag>(this.detach_SaleReviewFlags));
+			this._SaleReviewRevisions = new EntitySet<SaleReviewRevision>(new Action<SaleReviewRevision>(this.attach_SaleReviewRevisions), new Action<SaleReviewRevision>(this.detach_SaleReviewRevisions));
+			this._SaleListing = default(EntityRef<SaleListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaleReviewID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long SaleReviewID
+		{
+			get
+			{
+				return this._SaleReviewID;
+			}
+			set
+			{
+				if ((this._SaleReviewID != value))
+				{
+					this.OnSaleReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._SaleReviewID = value;
+					this.SendPropertyChanged("SaleReviewID");
+					this.OnSaleReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaleListingID", DbType="BigInt NOT NULL")]
+		public long SaleListingID
+		{
+			get
+			{
+				return this._SaleListingID;
+			}
+			set
+			{
+				if ((this._SaleListingID != value))
+				{
+					if (this._SaleListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSaleListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._SaleListingID = value;
+					this.SendPropertyChanged("SaleListingID");
+					this.OnSaleListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewComment", Storage="_SaleReviewComments", ThisKey="SaleReviewID", OtherKey="ReviewID")]
+		public EntitySet<SaleReviewComment> SaleReviewComments
+		{
+			get
+			{
+				return this._SaleReviewComments;
+			}
+			set
+			{
+				this._SaleReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewFlag", Storage="_SaleReviewFlags", ThisKey="SaleReviewID", OtherKey="ReviewID")]
+		public EntitySet<SaleReviewFlag> SaleReviewFlags
+		{
+			get
+			{
+				return this._SaleReviewFlags;
+			}
+			set
+			{
+				this._SaleReviewFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleReview_SaleReviewRevision", Storage="_SaleReviewRevisions", ThisKey="SaleReviewID", OtherKey="SaleReviewID")]
+		public EntitySet<SaleReviewRevision> SaleReviewRevisions
+		{
+			get
+			{
+				return this._SaleReviewRevisions;
+			}
+			set
+			{
+				this._SaleReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SaleListing_SaleReview", Storage="_SaleListing", ThisKey="SaleListingID", OtherKey="SaleListingID", IsForeignKey=true)]
+		public SaleListing SaleListing
+		{
+			get
+			{
+				return this._SaleListing.Entity;
+			}
+			set
+			{
+				SaleListing previousValue = this._SaleListing.Entity;
+				if (((previousValue != value) 
+							|| (this._SaleListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SaleListing.Entity = null;
+						previousValue.SaleReviews.Remove(this);
+					}
+					this._SaleListing.Entity = value;
+					if ((value != null))
+					{
+						value.SaleReviews.Add(this);
+						this._SaleListingID = value.SaleListingID;
+					}
+					else
+					{
+						this._SaleListingID = default(long);
+					}
+					this.SendPropertyChanged("SaleListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SaleReviewComments(SaleReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = this;
+		}
+		
+		private void detach_SaleReviewComments(SaleReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = null;
+		}
+		
+		private void attach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = this;
+		}
+		
+		private void detach_SaleReviewFlags(SaleReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = null;
+		}
+		
+		private void attach_SaleReviewRevisions(SaleReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = this;
+		}
+		
+		private void detach_SaleReviewRevisions(SaleReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.SaleReview = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreListingComments")]
+	public partial class StoreListingComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _CommentID;
+		
+		private long _ListingID;
+		
+		private System.Guid _AuthorUserID;
+		
+		private string _MessageText;
+		
+		private System.DateTime _DateOfSubmission;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<StoreListing> _StoreListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCommentIDChanging(long value);
+    partial void OnCommentIDChanged();
+    partial void OnListingIDChanging(long value);
+    partial void OnListingIDChanged();
+    partial void OnAuthorUserIDChanging(System.Guid value);
+    partial void OnAuthorUserIDChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
+    #endregion
+		
+		public StoreListingComment()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._StoreListing = default(EntityRef<StoreListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this.OnCommentIDChanging(value);
+					this.SendPropertyChanging();
+					this._CommentID = value;
+					this.SendPropertyChanged("CommentID");
+					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingID", DbType="BigInt NOT NULL")]
+		public long ListingID
+		{
+			get
+			{
+				return this._ListingID;
+			}
+			set
+			{
+				if ((this._ListingID != value))
+				{
+					if (this._StoreListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._ListingID = value;
+					this.SendPropertyChanged("ListingID");
+					this.OnListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuthorUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid AuthorUserID
+		{
+			get
+			{
+				return this._AuthorUserID;
+			}
+			set
+			{
+				if ((this._AuthorUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuthorUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorUserID = value;
+					this.SendPropertyChanged("AuthorUserID");
+					this.OnAuthorUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageText
+		{
+			get
+			{
+				return this._MessageText;
+			}
+			set
+			{
+				if ((this._MessageText != value))
+				{
+					this.OnMessageTextChanging(value);
+					this.SendPropertyChanging();
+					this._MessageText = value;
+					this.SendPropertyChanged("MessageText");
+					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListingComment", Storage="_aspnet_User", ThisKey="AuthorUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.StoreListingComments.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListingComments.Add(this);
+						this._AuthorUserID = value.UserId;
+					}
+					else
+					{
+						this._AuthorUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreListingComment", Storage="_StoreListing", ThisKey="ListingID", OtherKey="StoreListingID", IsForeignKey=true)]
+		public StoreListing StoreListing
+		{
+			get
+			{
+				return this._StoreListing.Entity;
+			}
+			set
+			{
+				StoreListing previousValue = this._StoreListing.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreListing.Entity = null;
+						previousValue.StoreListingComments.Remove(this);
+					}
+					this._StoreListing.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListingComments.Add(this);
+						this._ListingID = value.StoreListingID;
+					}
+					else
+					{
+						this._ListingID = default(long);
+					}
+					this.SendPropertyChanged("StoreListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreListingFlags")]
+	public partial class StoreListingFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ListingID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<FlagType> _FlagType;
+		
+		private EntityRef<StoreListing> _StoreListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnListingIDChanging(long value);
+    partial void OnListingIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public StoreListingFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._FlagType = default(EntityRef<FlagType>);
+			this._StoreListing = default(EntityRef<StoreListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingID", DbType="BigInt NOT NULL")]
+		public long ListingID
+		{
+			get
+			{
+				return this._ListingID;
+			}
+			set
+			{
+				if ((this._ListingID != value))
+				{
+					if (this._StoreListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._ListingID = value;
+					this.SendPropertyChanged("ListingID");
+					this.OnListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._FlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListingFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.StoreListingFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListingFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_StoreListingFlag", Storage="_FlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public FlagType FlagType
+		{
+			get
+			{
+				return this._FlagType.Entity;
+			}
+			set
+			{
+				FlagType previousValue = this._FlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._FlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FlagType.Entity = null;
+						previousValue.StoreListingFlags.Remove(this);
+					}
+					this._FlagType.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListingFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreListingFlag", Storage="_StoreListing", ThisKey="ListingID", OtherKey="StoreListingID", IsForeignKey=true)]
+		public StoreListing StoreListing
+		{
+			get
+			{
+				return this._StoreListing.Entity;
+			}
+			set
+			{
+				StoreListing previousValue = this._StoreListing.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreListing.Entity = null;
+						previousValue.StoreListingFlags.Remove(this);
+					}
+					this._StoreListing.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListingFlags.Add(this);
+						this._ListingID = value.StoreListingID;
+					}
+					else
+					{
+						this._ListingID = default(long);
+					}
+					this.SendPropertyChanged("StoreListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreListings")]
+	public partial class StoreListing : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StoreListingID;
+		
+		private string _Address;
+		
+		private decimal _Lat;
+		
+		private decimal _Long;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private System.Guid _SubmitterUserID;
+		
+		private bool _IsSubmitterAffiliatedWithStore;
+		
+		private EntitySet<StoreListingComment> _StoreListingComments;
+		
+		private EntitySet<StoreListingFlag> _StoreListingFlags;
+		
+		private EntitySet<StoreReview> _StoreReviews;
+		
+		private EntitySet<StoreVenueHour> _StoreVenueHours;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStoreListingIDChanging(long value);
+    partial void OnStoreListingIDChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnLatChanging(decimal value);
+    partial void OnLatChanged();
+    partial void OnLongChanging(decimal value);
+    partial void OnLongChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnSubmitterUserIDChanging(System.Guid value);
+    partial void OnSubmitterUserIDChanged();
+    partial void OnIsSubmitterAffiliatedWithStoreChanging(bool value);
+    partial void OnIsSubmitterAffiliatedWithStoreChanged();
+    #endregion
+		
+		public StoreListing()
+		{
+			this._StoreListingComments = new EntitySet<StoreListingComment>(new Action<StoreListingComment>(this.attach_StoreListingComments), new Action<StoreListingComment>(this.detach_StoreListingComments));
+			this._StoreListingFlags = new EntitySet<StoreListingFlag>(new Action<StoreListingFlag>(this.attach_StoreListingFlags), new Action<StoreListingFlag>(this.detach_StoreListingFlags));
+			this._StoreReviews = new EntitySet<StoreReview>(new Action<StoreReview>(this.attach_StoreReviews), new Action<StoreReview>(this.detach_StoreReviews));
+			this._StoreVenueHours = new EntitySet<StoreVenueHour>(new Action<StoreVenueHour>(this.attach_StoreVenueHours), new Action<StoreVenueHour>(this.detach_StoreVenueHours));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreListingID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StoreListingID
+		{
+			get
+			{
+				return this._StoreListingID;
+			}
+			set
+			{
+				if ((this._StoreListingID != value))
+				{
+					this.OnStoreListingIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreListingID = value;
+					this.SendPropertyChanged("StoreListingID");
+					this.OnStoreListingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Lat
+		{
+			get
+			{
+				return this._Lat;
+			}
+			set
+			{
+				if ((this._Lat != value))
+				{
+					this.OnLatChanging(value);
+					this.SendPropertyChanging();
+					this._Lat = value;
+					this.SendPropertyChanged("Lat");
+					this.OnLatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Long
+		{
+			get
+			{
+				return this._Long;
+			}
+			set
+			{
+				if ((this._Long != value))
+				{
+					this.OnLongChanging(value);
+					this.SendPropertyChanging();
+					this._Long = value;
+					this.SendPropertyChanged("Long");
+					this.OnLongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmitterUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid SubmitterUserID
+		{
+			get
+			{
+				return this._SubmitterUserID;
+			}
+			set
+			{
+				if ((this._SubmitterUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSubmitterUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._SubmitterUserID = value;
+					this.SendPropertyChanged("SubmitterUserID");
+					this.OnSubmitterUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSubmitterAffiliatedWithStore", DbType="Bit NOT NULL")]
+		public bool IsSubmitterAffiliatedWithStore
+		{
+			get
+			{
+				return this._IsSubmitterAffiliatedWithStore;
+			}
+			set
+			{
+				if ((this._IsSubmitterAffiliatedWithStore != value))
+				{
+					this.OnIsSubmitterAffiliatedWithStoreChanging(value);
+					this.SendPropertyChanging();
+					this._IsSubmitterAffiliatedWithStore = value;
+					this.SendPropertyChanged("IsSubmitterAffiliatedWithStore");
+					this.OnIsSubmitterAffiliatedWithStoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreListingComment", Storage="_StoreListingComments", ThisKey="StoreListingID", OtherKey="ListingID")]
+		public EntitySet<StoreListingComment> StoreListingComments
+		{
+			get
+			{
+				return this._StoreListingComments;
+			}
+			set
+			{
+				this._StoreListingComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreListingFlag", Storage="_StoreListingFlags", ThisKey="StoreListingID", OtherKey="ListingID")]
+		public EntitySet<StoreListingFlag> StoreListingFlags
+		{
+			get
+			{
+				return this._StoreListingFlags;
+			}
+			set
+			{
+				this._StoreListingFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreReview", Storage="_StoreReviews", ThisKey="StoreListingID", OtherKey="StoreID")]
+		public EntitySet<StoreReview> StoreReviews
+		{
+			get
+			{
+				return this._StoreReviews;
+			}
+			set
+			{
+				this._StoreReviews.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreVenueHour", Storage="_StoreVenueHours", ThisKey="StoreListingID", OtherKey="StoreID")]
+		public EntitySet<StoreVenueHour> StoreVenueHours
+		{
+			get
+			{
+				return this._StoreVenueHours;
+			}
+			set
+			{
+				this._StoreVenueHours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreListing", Storage="_aspnet_User", ThisKey="SubmitterUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.StoreListings.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.StoreListings.Add(this);
+						this._SubmitterUserID = value.UserId;
+					}
+					else
+					{
+						this._SubmitterUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_StoreListingComments(StoreListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = this;
+		}
+		
+		private void detach_StoreListingComments(StoreListingComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = null;
+		}
+		
+		private void attach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = this;
+		}
+		
+		private void detach_StoreListingFlags(StoreListingFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = null;
+		}
+		
+		private void attach_StoreReviews(StoreReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = this;
+		}
+		
+		private void detach_StoreReviews(StoreReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = null;
+		}
+		
+		private void attach_StoreVenueHours(StoreVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = this;
+		}
+		
+		private void detach_StoreVenueHours(StoreVenueHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreListing = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviewComments")]
+	public partial class StoreReviewComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _CommentID;
+		
+		private long _ReviewID;
+		
+		private System.Guid _AuthorUserID;
+		
+		private string _MessageText;
+		
+		private System.DateTime _DateOfSubmission;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<StoreReview> _StoreReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCommentIDChanging(long value);
+    partial void OnCommentIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnAuthorUserIDChanging(System.Guid value);
+    partial void OnAuthorUserIDChanged();
+    partial void OnMessageTextChanging(string value);
+    partial void OnMessageTextChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
+    #endregion
+		
+		public StoreReviewComment()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._StoreReview = default(EntityRef<StoreReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CommentID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long CommentID
+		{
+			get
+			{
+				return this._CommentID;
+			}
+			set
+			{
+				if ((this._CommentID != value))
+				{
+					this.OnCommentIDChanging(value);
+					this.SendPropertyChanging();
+					this._CommentID = value;
+					this.SendPropertyChanged("CommentID");
+					this.OnCommentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._StoreReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuthorUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid AuthorUserID
+		{
+			get
+			{
+				return this._AuthorUserID;
+			}
+			set
+			{
+				if ((this._AuthorUserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuthorUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorUserID = value;
+					this.SendPropertyChanged("AuthorUserID");
+					this.OnAuthorUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageText
+		{
+			get
+			{
+				return this._MessageText;
+			}
+			set
+			{
+				if ((this._MessageText != value))
+				{
+					this.OnMessageTextChanging(value);
+					this.SendPropertyChanging();
+					this._MessageText = value;
+					this.SendPropertyChanged("MessageText");
+					this.OnMessageTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreReviewComment", Storage="_aspnet_User", ThisKey="AuthorUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.StoreReviewComments.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewComments.Add(this);
+						this._AuthorUserID = value.UserId;
+					}
+					else
+					{
+						this._AuthorUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewComment", Storage="_StoreReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
+		public StoreReview StoreReview
+		{
+			get
+			{
+				return this._StoreReview.Entity;
+			}
+			set
+			{
+				StoreReview previousValue = this._StoreReview.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreReview.Entity = null;
+						previousValue.StoreReviewComments.Remove(this);
+					}
+					this._StoreReview.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewComments.Add(this);
+						this._ReviewID = value.ReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("StoreReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviewFlags")]
+	public partial class StoreReviewFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FlagID;
+		
+		private long _ReviewID;
+		
+		private int _TypeID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _FlagDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<FlagType> _FlagType;
+		
+		private EntityRef<StoreReview> _StoreReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(long value);
+    partial void OnFlagIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnFlagDateChanging(System.DateTime value);
+    partial void OnFlagDateChanged();
+    #endregion
+		
+		public StoreReviewFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._FlagType = default(EntityRef<FlagType>);
+			this._StoreReview = default(EntityRef<StoreReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._StoreReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._FlagType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagDate", DbType="DateTime NOT NULL")]
+		public System.DateTime FlagDate
+		{
+			get
+			{
+				return this._FlagDate;
+			}
+			set
+			{
+				if ((this._FlagDate != value))
+				{
+					this.OnFlagDateChanging(value);
+					this.SendPropertyChanging();
+					this._FlagDate = value;
+					this.SendPropertyChanged("FlagDate");
+					this.OnFlagDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_StoreReviewFlag", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.StoreReviewFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewFlags.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FlagType_StoreReviewFlag", Storage="_FlagType", ThisKey="TypeID", OtherKey="FlagTypeID", IsForeignKey=true)]
+		public FlagType FlagType
+		{
+			get
+			{
+				return this._FlagType.Entity;
+			}
+			set
+			{
+				FlagType previousValue = this._FlagType.Entity;
+				if (((previousValue != value) 
+							|| (this._FlagType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FlagType.Entity = null;
+						previousValue.StoreReviewFlags.Remove(this);
+					}
+					this._FlagType.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewFlags.Add(this);
+						this._TypeID = value.FlagTypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewFlag", Storage="_StoreReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
+		public StoreReview StoreReview
+		{
+			get
+			{
+				return this._StoreReview.Entity;
+			}
+			set
+			{
+				StoreReview previousValue = this._StoreReview.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreReview.Entity = null;
+						previousValue.StoreReviewFlags.Remove(this);
+					}
+					this._StoreReview.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewFlags.Add(this);
+						this._ReviewID = value.ReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("StoreReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviewRevisions")]
+	public partial class StoreReviewRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StoreReviewRevisionID;
+		
+		private long _ReviewID;
+		
+		private int _RatingOverall;
+		
+		private System.Nullable<int> _RatingService;
+		
+		private System.Nullable<int> _RatingProductQuality;
+		
+		private string _Message;
+		
+		private System.DateTime _RevisionDate;
+		
+		private int _EditNumber;
+		
+		private System.DateTime _DateOfLastVisit;
+		
+		private System.DateTime _DateOfLastPurchase;
+		
+		private EntityRef<StoreReview> _StoreReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStoreReviewRevisionIDChanging(long value);
+    partial void OnStoreReviewRevisionIDChanged();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnRatingOverallChanging(int value);
+    partial void OnRatingOverallChanged();
+    partial void OnRatingServiceChanging(System.Nullable<int> value);
+    partial void OnRatingServiceChanged();
+    partial void OnRatingProductQualityChanging(System.Nullable<int> value);
+    partial void OnRatingProductQualityChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnRevisionDateChanging(System.DateTime value);
+    partial void OnRevisionDateChanged();
+    partial void OnEditNumberChanging(int value);
+    partial void OnEditNumberChanged();
+    partial void OnDateOfLastVisitChanging(System.DateTime value);
+    partial void OnDateOfLastVisitChanged();
+    partial void OnDateOfLastPurchaseChanging(System.DateTime value);
+    partial void OnDateOfLastPurchaseChanged();
+    #endregion
+		
+		public StoreReviewRevision()
+		{
+			this._StoreReview = default(EntityRef<StoreReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreReviewRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StoreReviewRevisionID
+		{
+			get
+			{
+				return this._StoreReviewRevisionID;
+			}
+			set
+			{
+				if ((this._StoreReviewRevisionID != value))
+				{
+					this.OnStoreReviewRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreReviewRevisionID = value;
+					this.SendPropertyChanged("StoreReviewRevisionID");
+					this.OnStoreReviewRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="BigInt NOT NULL")]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._StoreReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingOverall", DbType="Int NOT NULL")]
+		public int RatingOverall
+		{
+			get
+			{
+				return this._RatingOverall;
+			}
+			set
+			{
+				if ((this._RatingOverall != value))
+				{
+					this.OnRatingOverallChanging(value);
+					this.SendPropertyChanging();
+					this._RatingOverall = value;
+					this.SendPropertyChanged("RatingOverall");
+					this.OnRatingOverallChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingService", DbType="Int")]
+		public System.Nullable<int> RatingService
+		{
+			get
+			{
+				return this._RatingService;
+			}
+			set
+			{
+				if ((this._RatingService != value))
+				{
+					this.OnRatingServiceChanging(value);
+					this.SendPropertyChanging();
+					this._RatingService = value;
+					this.SendPropertyChanged("RatingService");
+					this.OnRatingServiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingProductQuality", DbType="Int")]
+		public System.Nullable<int> RatingProductQuality
+		{
+			get
+			{
+				return this._RatingProductQuality;
+			}
+			set
+			{
+				if ((this._RatingProductQuality != value))
+				{
+					this.OnRatingProductQualityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingProductQuality = value;
+					this.SendPropertyChanged("RatingProductQuality");
+					this.OnRatingProductQualityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RevisionDate
+		{
+			get
+			{
+				return this._RevisionDate;
+			}
+			set
+			{
+				if ((this._RevisionDate != value))
+				{
+					this.OnRevisionDateChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionDate = value;
+					this.SendPropertyChanged("RevisionDate");
+					this.OnRevisionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
+		public int EditNumber
+		{
+			get
+			{
+				return this._EditNumber;
+			}
+			set
+			{
+				if ((this._EditNumber != value))
+				{
+					this.OnEditNumberChanging(value);
+					this.SendPropertyChanging();
+					this._EditNumber = value;
+					this.SendPropertyChanged("EditNumber");
+					this.OnEditNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastVisit", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfLastVisit
+		{
+			get
+			{
+				return this._DateOfLastVisit;
+			}
+			set
+			{
+				if ((this._DateOfLastVisit != value))
+				{
+					this.OnDateOfLastVisitChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfLastVisit = value;
+					this.SendPropertyChanged("DateOfLastVisit");
+					this.OnDateOfLastVisitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfLastPurchase", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfLastPurchase
+		{
+			get
+			{
+				return this._DateOfLastPurchase;
+			}
+			set
+			{
+				if ((this._DateOfLastPurchase != value))
+				{
+					this.OnDateOfLastPurchaseChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfLastPurchase = value;
+					this.SendPropertyChanged("DateOfLastPurchase");
+					this.OnDateOfLastPurchaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewRevision", Storage="_StoreReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
+		public StoreReview StoreReview
+		{
+			get
+			{
+				return this._StoreReview.Entity;
+			}
+			set
+			{
+				StoreReview previousValue = this._StoreReview.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreReview.Entity = null;
+						previousValue.StoreReviewRevisions.Remove(this);
+					}
+					this._StoreReview.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviewRevisions.Add(this);
+						this._ReviewID = value.ReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(long);
+					}
+					this.SendPropertyChanged("StoreReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreReviews")]
+	public partial class StoreReview : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ReviewID;
+		
+		private long _StoreID;
+		
+		private EntitySet<StoreReviewComment> _StoreReviewComments;
+		
+		private EntitySet<StoreReviewFlag> _StoreReviewFlags;
+		
+		private EntitySet<StoreReviewRevision> _StoreReviewRevisions;
+		
+		private EntityRef<StoreListing> _StoreListing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnReviewIDChanging(long value);
+    partial void OnReviewIDChanged();
+    partial void OnStoreIDChanging(long value);
+    partial void OnStoreIDChanged();
+    #endregion
+		
+		public StoreReview()
+		{
+			this._StoreReviewComments = new EntitySet<StoreReviewComment>(new Action<StoreReviewComment>(this.attach_StoreReviewComments), new Action<StoreReviewComment>(this.detach_StoreReviewComments));
+			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
+			this._StoreReviewRevisions = new EntitySet<StoreReviewRevision>(new Action<StoreReviewRevision>(this.attach_StoreReviewRevisions), new Action<StoreReviewRevision>(this.detach_StoreReviewRevisions));
+			this._StoreListing = default(EntityRef<StoreListing>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreID", DbType="BigInt NOT NULL")]
+		public long StoreID
+		{
+			get
+			{
+				return this._StoreID;
+			}
+			set
+			{
+				if ((this._StoreID != value))
+				{
+					if (this._StoreListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStoreIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreID = value;
+					this.SendPropertyChanged("StoreID");
+					this.OnStoreIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewComment", Storage="_StoreReviewComments", ThisKey="ReviewID", OtherKey="ReviewID")]
+		public EntitySet<StoreReviewComment> StoreReviewComments
+		{
+			get
+			{
+				return this._StoreReviewComments;
+			}
+			set
+			{
+				this._StoreReviewComments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewFlag", Storage="_StoreReviewFlags", ThisKey="ReviewID", OtherKey="ReviewID")]
+		public EntitySet<StoreReviewFlag> StoreReviewFlags
+		{
+			get
+			{
+				return this._StoreReviewFlags;
+			}
+			set
+			{
+				this._StoreReviewFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreReview_StoreReviewRevision", Storage="_StoreReviewRevisions", ThisKey="ReviewID", OtherKey="ReviewID")]
+		public EntitySet<StoreReviewRevision> StoreReviewRevisions
+		{
+			get
+			{
+				return this._StoreReviewRevisions;
+			}
+			set
+			{
+				this._StoreReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreReview", Storage="_StoreListing", ThisKey="StoreID", OtherKey="StoreListingID", IsForeignKey=true)]
+		public StoreListing StoreListing
+		{
+			get
+			{
+				return this._StoreListing.Entity;
+			}
+			set
+			{
+				StoreListing previousValue = this._StoreListing.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreListing.Entity = null;
+						previousValue.StoreReviews.Remove(this);
+					}
+					this._StoreListing.Entity = value;
+					if ((value != null))
+					{
+						value.StoreReviews.Add(this);
+						this._StoreID = value.StoreListingID;
+					}
+					else
+					{
+						this._StoreID = default(long);
+					}
+					this.SendPropertyChanged("StoreListing");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_StoreReviewComments(StoreReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = this;
+		}
+		
+		private void detach_StoreReviewComments(StoreReviewComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = null;
+		}
+		
+		private void attach_StoreReviewFlags(StoreReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = this;
+		}
+		
+		private void detach_StoreReviewFlags(StoreReviewFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = null;
+		}
+		
+		private void attach_StoreReviewRevisions(StoreReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = this;
+		}
+		
+		private void detach_StoreReviewRevisions(StoreReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.StoreReview = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StoreVenueHours")]
+	public partial class StoreVenueHour : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StoreVenueHoursID;
+		
+		private long _StoreID;
+		
+		private int _DayOfWeek;
+		
+		private System.Nullable<System.DateTime> _StartTime;
+		
+		private System.Nullable<System.DateTime> _EndTime;
+		
+		private EntityRef<StoreListing> _StoreListing;
+		
+		private EntityRef<WeekDay> _WeekDay;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStoreVenueHoursIDChanging(long value);
+    partial void OnStoreVenueHoursIDChanged();
+    partial void OnStoreIDChanging(long value);
+    partial void OnStoreIDChanged();
+    partial void OnDayOfWeekChanging(int value);
+    partial void OnDayOfWeekChanged();
+    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartTimeChanged();
+    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndTimeChanged();
+    #endregion
+		
+		public StoreVenueHour()
+		{
+			this._StoreListing = default(EntityRef<StoreListing>);
+			this._WeekDay = default(EntityRef<WeekDay>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreVenueHoursID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StoreVenueHoursID
+		{
+			get
+			{
+				return this._StoreVenueHoursID;
+			}
+			set
+			{
+				if ((this._StoreVenueHoursID != value))
+				{
+					this.OnStoreVenueHoursIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreVenueHoursID = value;
+					this.SendPropertyChanged("StoreVenueHoursID");
+					this.OnStoreVenueHoursIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreID", DbType="BigInt NOT NULL")]
+		public long StoreID
+		{
+			get
+			{
+				return this._StoreID;
+			}
+			set
+			{
+				if ((this._StoreID != value))
+				{
+					if (this._StoreListing.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStoreIDChanging(value);
+					this.SendPropertyChanging();
+					this._StoreID = value;
+					this.SendPropertyChanged("StoreID");
+					this.OnStoreIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayOfWeek", DbType="Int NOT NULL")]
+		public int DayOfWeek
+		{
+			get
+			{
+				return this._DayOfWeek;
+			}
+			set
+			{
+				if ((this._DayOfWeek != value))
+				{
+					if (this._WeekDay.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDayOfWeekChanging(value);
+					this.SendPropertyChanging();
+					this._DayOfWeek = value;
+					this.SendPropertyChanged("DayOfWeek");
+					this.OnDayOfWeekChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this.OnEndTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EndTime = value;
+					this.SendPropertyChanged("EndTime");
+					this.OnEndTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StoreListing_StoreVenueHour", Storage="_StoreListing", ThisKey="StoreID", OtherKey="StoreListingID", IsForeignKey=true)]
+		public StoreListing StoreListing
+		{
+			get
+			{
+				return this._StoreListing.Entity;
+			}
+			set
+			{
+				StoreListing previousValue = this._StoreListing.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreListing.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreListing.Entity = null;
+						previousValue.StoreVenueHours.Remove(this);
+					}
+					this._StoreListing.Entity = value;
+					if ((value != null))
+					{
+						value.StoreVenueHours.Add(this);
+						this._StoreID = value.StoreListingID;
+					}
+					else
+					{
+						this._StoreID = default(long);
+					}
+					this.SendPropertyChanged("StoreListing");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WeekDay_StoreVenueHour", Storage="_WeekDay", ThisKey="DayOfWeek", OtherKey="WeekDayID", IsForeignKey=true)]
+		public WeekDay WeekDay
+		{
+			get
+			{
+				return this._WeekDay.Entity;
+			}
+			set
+			{
+				WeekDay previousValue = this._WeekDay.Entity;
+				if (((previousValue != value) 
+							|| (this._WeekDay.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._WeekDay.Entity = null;
+						previousValue.StoreVenueHours.Remove(this);
+					}
+					this._WeekDay.Entity = value;
+					if ((value != null))
+					{
+						value.StoreVenueHours.Add(this);
+						this._DayOfWeek = value.WeekDayID;
+					}
+					else
+					{
+						this._DayOfWeek = default(int);
+					}
+					this.SendPropertyChanged("WeekDay");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserOpenId")]
+	public partial class UserOpenId : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private System.Nullable<int> _UserId;
+		
+		private string _OpenIdClaim;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnUserIdChanging(System.Nullable<int> value);
+    partial void OnUserIdChanged();
+    partial void OnOpenIdClaimChanging(string value);
+    partial void OnOpenIdClaimChanged();
+    #endregion
+		
+		public UserOpenId()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int")]
+		public System.Nullable<int> UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenIdClaim", DbType="NVarChar(450)")]
+		public string OpenIdClaim
+		{
+			get
+			{
+				return this._OpenIdClaim;
+			}
+			set
+			{
+				if ((this._OpenIdClaim != value))
+				{
+					this.OnOpenIdClaimChanging(value);
+					this.SendPropertyChanging();
+					this._OpenIdClaim = value;
+					this.SendPropertyChanged("OpenIdClaim");
+					this.OnOpenIdClaimChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	

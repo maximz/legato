@@ -14,8 +14,9 @@
   </Table>
   <Table Name="dbo.WeekDays" Member="WeekDays">
     <Type Name="WeekDay">
-      <Column Name="WeekDayID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WeekDayID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="WeekDayName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="WeekDay_StoreVenueHour" Member="StoreVenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="StoreVenueHour" />
       <Association Name="WeekDay_VenueHour" Member="VenueHours" ThisKey="WeekDayID" OtherKey="DayOfWeek" Type="VenueHour" />
     </Type>
   </Table>
@@ -119,12 +120,26 @@
       <Association Name="aspnet_User_aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers" ThisKey="UserId" OtherKey="UserId" Type="aspnet_PersonalizationPerUser" />
       <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_Profile" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Profile" Cardinality="One" />
       <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="aspnet_UsersInRole" />
+      <Association Name="aspnet_User_DiscussPostFlag" Member="DiscussPostFlags" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostFlag" />
+      <Association Name="aspnet_User_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostRevision" />
+      <Association Name="aspnet_User_Job" Member="Jobs" ThisKey="UserId" OtherKey="UserID" Type="Job" />
       <Association Name="aspnet_User_ListingComment" Member="ListingComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="ListingComment" />
       <Association Name="aspnet_User_ListingFlag" Member="ListingFlags" ThisKey="UserId" OtherKey="UserID" Type="ListingFlag" />
       <Association Name="aspnet_User_Listing" Member="Listings" ThisKey="UserId" OtherKey="OriginalSubmitterUserID" Type="Listing" />
+      <Association Name="aspnet_User_Resume" Member="Resumes" ThisKey="UserId" OtherKey="UserID" Type="Resume" />
       <Association Name="aspnet_User_ReviewComment" Member="ReviewComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="ReviewComment" />
       <Association Name="aspnet_User_ReviewFlag" Member="ReviewFlags" ThisKey="UserId" OtherKey="UserID" Type="ReviewFlag" />
       <Association Name="aspnet_User_ReviewRevision" Member="ReviewRevisions" ThisKey="UserId" OtherKey="SubmitterUserID" Type="ReviewRevision" />
+      <Association Name="aspnet_User_SaleListingFlag" Member="SaleListingFlags" ThisKey="UserId" OtherKey="UserID" Type="SaleListingFlag" />
+      <Association Name="aspnet_User_SaleListing" Member="SaleListings" ThisKey="UserId" OtherKey="OriginalSubmitterUserID" Type="SaleListing" />
+      <Association Name="aspnet_User_SaleReviewComment" Member="SaleReviewComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="SaleReviewComment" />
+      <Association Name="aspnet_User_SaleReviewFlag" Member="SaleReviewFlags" ThisKey="UserId" OtherKey="UserID" Type="SaleReviewFlag" />
+      <Association Name="aspnet_User_SaleReviewRevision" Member="SaleReviewRevisions" ThisKey="UserId" OtherKey="SubmitterUserID" Type="SaleReviewRevision" />
+      <Association Name="aspnet_User_StoreListingComment" Member="StoreListingComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="StoreListingComment" />
+      <Association Name="aspnet_User_StoreListingFlag" Member="StoreListingFlags" ThisKey="UserId" OtherKey="UserID" Type="StoreListingFlag" />
+      <Association Name="aspnet_User_StoreListing" Member="StoreListings" ThisKey="UserId" OtherKey="SubmitterUserID" Type="StoreListing" />
+      <Association Name="aspnet_User_StoreReviewComment" Member="StoreReviewComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="StoreReviewComment" />
+      <Association Name="aspnet_User_StoreReviewFlag" Member="StoreReviewFlags" ThisKey="UserId" OtherKey="UserID" Type="StoreReviewFlag" />
       <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
     </Type>
@@ -163,21 +178,79 @@
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DiscussBoards" Member="DiscussBoards">
+    <Type Name="DiscussBoard">
+      <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoardName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="DiscussBoard_DiscussThread" Member="DiscussThreads" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussThread" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussPostFlags" Member="DiscussPostFlags">
+    <Type Name="DiscussPostFlag">
+      <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FlagDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_DiscussPostFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="DiscussPost_DiscussPostFlag" Member="DiscussPost" ThisKey="PostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
+      <Association Name="FlagType_DiscussPostFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussPostRevisions" Member="DiscussPostRevisions">
+    <Type Name="DiscussPostRevision">
+      <Column Name="PostRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Markdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="HTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfEdit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_DiscussPostRevision" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="DiscussPost_DiscussPostRevision" Member="DiscussPost" ThisKey="PostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussPosts" Member="DiscussPosts">
+    <Type Name="DiscussPost">
+      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ThreadID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PostNumberInThread" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="DiscussPost_DiscussPostFlag" Member="DiscussPostFlags" ThisKey="PostID" OtherKey="PostID" Type="DiscussPostFlag" />
+      <Association Name="DiscussPost_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="PostID" OtherKey="PostID" Type="DiscussPostRevision" />
+      <Association Name="DiscussThread_DiscussPost" Member="DiscussThread" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussThread" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussThreads" Member="DiscussThreads">
+    <Type Name="DiscussThread">
+      <Column Name="ThreadID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="DiscussThread_DiscussPost" Member="DiscussPosts" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussPost" />
+      <Association Name="DiscussBoard_DiscussThread" Member="DiscussBoard" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussBoard" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.FlagTypes" Member="FlagTypes">
     <Type Name="FlagType">
       <Column Name="FlagTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="FlagType_DiscussPostFlag" Member="DiscussPostFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="DiscussPostFlag" />
       <Association Name="FlagType_ListingFlag" Member="ListingFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="ListingFlag" />
       <Association Name="FlagType_ReviewFlag" Member="ReviewFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="ReviewFlag" />
+      <Association Name="FlagType_SaleListingFlag" Member="SaleListingFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="SaleListingFlag" />
+      <Association Name="FlagType_SaleReviewFlag" Member="SaleReviewFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="SaleReviewFlag" />
+      <Association Name="FlagType_StoreListingFlag" Member="StoreListingFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="StoreListingFlag" />
+      <Association Name="FlagType_StoreReviewFlag" Member="StoreReviewFlags" ThisKey="FlagTypeID" OtherKey="TypeID" Type="StoreReviewFlag" />
     </Type>
   </Table>
   <Table Name="dbo.Instruments" Member="Instruments">
     <Type Name="Instrument">
       <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsIncludedInTemporary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Instrument_InstrumentStyle" Member="InstrumentStyles" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentStyle" />
       <Association Name="Instrument_InstrumentType" Member="InstrumentTypes" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentType" />
       <Association Name="Instrument_Listing" Member="Listings" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Listing" />
+      <Association Name="Instrument_SaleListing" Member="SaleListings" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="SaleListing" />
     </Type>
   </Table>
   <Table Name="dbo.InstrumentStyles" Member="InstrumentStyles">
@@ -186,6 +259,7 @@
       <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="StyleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="InstrumentStyle_Listing" Member="Listings" ThisKey="StyleID" OtherKey="InstrumentStyleID" Type="Listing" />
+      <Association Name="InstrumentStyle_SaleListing" Member="SaleListings" ThisKey="StyleID" OtherKey="InstrumentStyleID" Type="SaleListing" />
       <Association Name="Instrument_InstrumentStyle" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
     </Type>
   </Table>
@@ -195,7 +269,24 @@
       <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="TypeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="InstrumentType_Listing" Member="Listings" ThisKey="TypeID" OtherKey="InstrumentTypeID" Type="Listing" />
+      <Association Name="InstrumentType_SaleListing" Member="SaleListings" ThisKey="TypeID" OtherKey="InstrumentTypeID" Type="SaleListing" />
       <Association Name="Instrument_InstrumentType" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Jobs" Member="Jobs">
+    <Type Name="Job">
+      <Column Name="JobID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DescriptionMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="RequirementsMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherMarkdown" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DescriptionHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="RequirementsHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherHTML" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="aspnet_User_Job" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ListingComments" Member="ListingComments">
@@ -250,6 +341,36 @@
       <Association Name="aspnet_Membership_ResetPasswordRecord" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Resumes" Member="Resumes">
+    <Type Name="Resume">
+      <Column Name="ResumeID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ResumeTypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="IsFiled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FiledStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FiledEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AboutMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AchievementsMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="EducationMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ExperienceMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherMarkdown" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AboutHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AchievementsHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="EducationHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ExperienceHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OtherHTML" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="aspnet_User_Resume" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="ResumeType_Resume" Member="ResumeType" ThisKey="ResumeTypeID" OtherKey="ResumeTypeID" Type="ResumeType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResumeTypes" Member="ResumeTypes">
+    <Type Name="ResumeType">
+      <Column Name="ResumeTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ResumeTypeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="ResumeType_Resume" Member="Resumes" ThisKey="ResumeTypeID" OtherKey="ResumeTypeID" Type="Resume" />
+    </Type>
+  </Table>
   <Table Name="dbo.ReviewComments" Member="ReviewComments">
     <Type Name="ReviewComment">
       <Column Name="CommentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -301,6 +422,201 @@
       <Association Name="Review_ReviewFlag" Member="ReviewFlags" ThisKey="ReviewID" OtherKey="ReviewID" Type="ReviewFlag" />
       <Association Name="Review_ReviewRevision" Member="ReviewRevisions" ThisKey="ReviewID" OtherKey="ReviewID" Type="ReviewRevision" />
       <Association Name="Listing_Review" Member="Listing" ThisKey="ListingID" OtherKey="ListingID" Type="Listing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleListingFlags" Member="SaleListingFlags">
+    <Type Name="SaleListingFlag">
+      <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FlagDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_SaleListingFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="FlagType_SaleListingFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+      <Association Name="SaleListing_SaleListingFlag" Member="SaleListing" ThisKey="ListingID" OtherKey="SaleListingID" Type="SaleListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleListings" Member="SaleListings">
+    <Type Name="SaleListing">
+      <Column Name="SaleListingID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstrumentID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="OriginalSubmitterUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentBrand" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentModel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InstrumentTypeID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="InstrumentStyleID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="SoldByStoreID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="IsFiled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FiledStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FiledEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SaleListing_SaleListingFlag" Member="SaleListingFlags" ThisKey="SaleListingID" OtherKey="ListingID" Type="SaleListingFlag" />
+      <Association Name="SaleListing_SaleReview" Member="SaleReviews" ThisKey="SaleListingID" OtherKey="SaleListingID" Type="SaleReview" />
+      <Association Name="aspnet_User_SaleListing" Member="aspnet_User" ThisKey="OriginalSubmitterUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="Instrument_SaleListing" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
+      <Association Name="InstrumentStyle_SaleListing" Member="InstrumentStyle" ThisKey="InstrumentStyleID" OtherKey="StyleID" Type="InstrumentStyle" IsForeignKey="true" />
+      <Association Name="InstrumentType_SaleListing" Member="InstrumentType" ThisKey="InstrumentTypeID" OtherKey="TypeID" Type="InstrumentType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleReviewComments" Member="SaleReviewComments">
+    <Type Name="SaleReviewComment">
+      <Column Name="CommentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MessageText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_SaleReviewComment" Member="aspnet_User" ThisKey="AuthorUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="SaleReview_SaleReviewComment" Member="SaleReview" ThisKey="ReviewID" OtherKey="SaleReviewID" Type="SaleReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleReviewFlags" Member="SaleReviewFlags">
+    <Type Name="SaleReviewFlag">
+      <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FlagDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_SaleReviewFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="FlagType_SaleReviewFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+      <Association Name="SaleReview_SaleReviewFlag" Member="SaleReview" ThisKey="ReviewID" OtherKey="SaleReviewID" Type="SaleReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleReviewRevisions" Member="SaleReviewRevisions">
+    <Type Name="SaleReviewRevision">
+      <Column Name="SaleReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SaleReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingTuning" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingToneQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingPlayingCapability" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SubmitterUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfRevision" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastUsageOfInstrumentBySubmitter" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RevisionNumberOfReview" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsSubmitterAffiliatedWithSeller" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_SaleReviewRevision" Member="aspnet_User" ThisKey="SubmitterUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="SaleReview_SaleReviewRevision" Member="SaleReview" ThisKey="SaleReviewID" OtherKey="SaleReviewID" Type="SaleReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleReviews" Member="SaleReviews">
+    <Type Name="SaleReview">
+      <Column Name="SaleReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SaleListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="SaleReview_SaleReviewComment" Member="SaleReviewComments" ThisKey="SaleReviewID" OtherKey="ReviewID" Type="SaleReviewComment" />
+      <Association Name="SaleReview_SaleReviewFlag" Member="SaleReviewFlags" ThisKey="SaleReviewID" OtherKey="ReviewID" Type="SaleReviewFlag" />
+      <Association Name="SaleReview_SaleReviewRevision" Member="SaleReviewRevisions" ThisKey="SaleReviewID" OtherKey="SaleReviewID" Type="SaleReviewRevision" />
+      <Association Name="SaleListing_SaleReview" Member="SaleListing" ThisKey="SaleListingID" OtherKey="SaleListingID" Type="SaleListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreListingComments" Member="StoreListingComments">
+    <Type Name="StoreListingComment">
+      <Column Name="CommentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MessageText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_StoreListingComment" Member="aspnet_User" ThisKey="AuthorUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="StoreListing_StoreListingComment" Member="StoreListing" ThisKey="ListingID" OtherKey="StoreListingID" Type="StoreListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreListingFlags" Member="StoreListingFlags">
+    <Type Name="StoreListingFlag">
+      <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ListingID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FlagDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_StoreListingFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="FlagType_StoreListingFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+      <Association Name="StoreListing_StoreListingFlag" Member="StoreListing" ThisKey="ListingID" OtherKey="StoreListingID" Type="StoreListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreListings" Member="StoreListings">
+    <Type Name="StoreListing">
+      <Column Name="StoreListingID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitterUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="IsSubmitterAffiliatedWithStore" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StoreListing_StoreListingComment" Member="StoreListingComments" ThisKey="StoreListingID" OtherKey="ListingID" Type="StoreListingComment" />
+      <Association Name="StoreListing_StoreListingFlag" Member="StoreListingFlags" ThisKey="StoreListingID" OtherKey="ListingID" Type="StoreListingFlag" />
+      <Association Name="StoreListing_StoreReview" Member="StoreReviews" ThisKey="StoreListingID" OtherKey="StoreID" Type="StoreReview" />
+      <Association Name="StoreListing_StoreVenueHour" Member="StoreVenueHours" ThisKey="StoreListingID" OtherKey="StoreID" Type="StoreVenueHour" />
+      <Association Name="aspnet_User_StoreListing" Member="aspnet_User" ThisKey="SubmitterUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreReviewComments" Member="StoreReviewComments">
+    <Type Name="StoreReviewComment">
+      <Column Name="CommentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MessageText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_StoreReviewComment" Member="aspnet_User" ThisKey="AuthorUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="StoreReview_StoreReviewComment" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreReviewFlags" Member="StoreReviewFlags">
+    <Type Name="StoreReviewFlag">
+      <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FlagDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_StoreReviewFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="FlagType_StoreReviewFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+      <Association Name="StoreReview_StoreReviewFlag" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreReviewRevisions" Member="StoreReviewRevisions">
+    <Type Name="StoreReviewRevision">
+      <Column Name="StoreReviewRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RatingOverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingService" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatingProductQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastVisit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfLastPurchase" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="StoreReview_StoreReviewRevision" Member="StoreReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreReviews" Member="StoreReviews">
+    <Type Name="StoreReview">
+      <Column Name="ReviewID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="StoreReview_StoreReviewComment" Member="StoreReviewComments" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReviewComment" />
+      <Association Name="StoreReview_StoreReviewFlag" Member="StoreReviewFlags" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReviewFlag" />
+      <Association Name="StoreReview_StoreReviewRevision" Member="StoreReviewRevisions" ThisKey="ReviewID" OtherKey="ReviewID" Type="StoreReviewRevision" />
+      <Association Name="StoreListing_StoreReview" Member="StoreListing" ThisKey="StoreID" OtherKey="StoreListingID" Type="StoreListing" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StoreVenueHours" Member="StoreVenueHours">
+    <Type Name="StoreVenueHour">
+      <Column Name="StoreVenueHoursID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DayOfWeek" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="StoreListing_StoreVenueHour" Member="StoreListing" ThisKey="StoreID" OtherKey="StoreListingID" Type="StoreListing" IsForeignKey="true" />
+      <Association Name="WeekDay_StoreVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserOpenId" Member="UserOpenIds">
+    <Type Name="UserOpenId">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.UserSuspensions" Member="UserSuspensions">

@@ -175,6 +175,7 @@ namespace FindPianos.Controllers
                     {
                         var confirm = new ConfirmEmailAddress();
                         confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
+                        confirm.ConfirmID = Guid.NewGuid();
                         db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
                         db.SubmitChanges();
                         SendEmailVerificationEmail(email, confirm.ConfirmID);
@@ -469,6 +470,7 @@ namespace FindPianos.Controllers
                         throw new ApplicationException();
                     }
                     r.UserID = (Guid)u.ProviderUserKey;
+                    r.ResetID = Guid.NewGuid();
                     db.ResetPasswordRecords.InsertOnSubmit(r);
                     db.SubmitChanges();
                     SendPasswordResetEmail(u.Email, r.ResetID);

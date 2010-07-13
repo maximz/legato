@@ -8,12 +8,24 @@ using System.ComponentModel;
 
 namespace FindPianos.ViewModels
 {
+    [Geocodable(AddressPropertyName="StreetAddress",LatitudePropertyName="Lat",LongitudePropertyName="Long")]
     public class ListingSubmissionViewModel
     {
         [Required(ErrorMessage="A street address is required.")]
-        [Geocodable]
         [DisplayName("Street address")]
         public string StreetAddress
+        {
+            get;
+            set;
+        }
+
+        public decimal Lat
+        {
+            get;
+            set;
+        }
+
+        public decimal Long
         {
             get;
             set;

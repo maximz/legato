@@ -77,7 +77,7 @@ namespace FindPianos.Models
             {
                 if (ReviewID == null)
                     yield return new RuleViolation("Invalid review.", "ReviewID");
-                else if (db.Reviews.Where(l => l.PianoReviewID == this.ReviewID).Count() != 1)
+                else if (db.Reviews.Where(l => l.ReviewID == this.ReviewID).Count() != 1)
                     yield return new RuleViolation("Invalid review.", "ReviewID");
                 if (TypeID == null)
                     yield return new RuleViolation("Invalid flag type.", "TypeID");
@@ -125,7 +125,7 @@ namespace FindPianos.Models
 
         }
     }
-    public partial class PianoListingComment
+    public partial class ListingComment
     {
         public bool IsValid
         {
@@ -152,124 +152,6 @@ namespace FindPianos.Models
         {
             if (!IsValid)
                 throw new ApplicationException("Rule violations prevent saving.");
-
-        }
-    }
-    public partial class Review
-    {
-        public bool IsValid
-        {
-            get { return (GetRuleViolations().Count() == 0); }
-        }
-
-        public IEnumerable<RuleViolation> GetRuleViolations()
-        {
-            using (var db = new LegatoDataContext())
-            {
-                if (this.ListingID == null)
-                    yield return new RuleViolation("Listing ID is required", "ListingID");
-                else if (db.Listings.Where(l=>l.ListingID==this.ListingID).Count() != -1)
-                    yield return new RuleViolation("Listing doesn't exist", "ListingID");
-
-                yield break;
-            }
-        }
-
-        partial void OnValidate(ChangeAction action)
-        {
-            if (!IsValid)
-                throw new ApplicationException("Rule violations prevent saving");
-
-        }
-    }
-    public partial class Listing
-    {
-        public bool IsValid
-        {
-            get { return (GetRuleViolations().Count() == 0); }
-        }
-
-        public IEnumerable<RuleViolation> GetRuleViolations()
-        {
-            if (Lat == 0 || Long == 0)
-                yield return new RuleViolation("We weren't able to locate that street address.", "StreetAddress");
-            if (string.IsNullOrEmpty(StreetAddress))
-                yield return new RuleViolation("A street address is required", "StreetAddress");
-            yield break;
-        }
-
-        partial void OnValidate(ChangeAction action)
-        {
-            if (!IsValid)
-                throw new ApplicationException("Rule violations prevent saving");
-
-        }
-    }
-    public partial class ReviewRevision
-    {
-        public bool IsValid
-        {
-            get { return (GetRuleViolations().Count() == 0); }
-        }
-
-        public IEnumerable<RuleViolation> GetRuleViolations()
-        {
-            using(var db = new LegatoDataContext())
-            {
-                if (PianoReviewID == null)
-                    yield return new RuleViolation("PianoReview is required", "PianoReviewID");
-                else if (db.PianoReviews.Where(r => r.PianoReviewID == this.PianoReviewID).Count() != 1)
-                    yield return new RuleViolation("PianoReview is invalid", "PianoReviewID");
-                if (PianoStyleID == null)
-                    yield return new RuleViolation("PianoStyle is required", "PianoStyleID");
-                else if (db.PianoStyles.Where(s => s.PianoStyleID== this.PianoStyleID).Count() != 1)
-                    yield return new RuleViolation("PianoStyle is invalid", "PianoStyleID");
-                if (RatingOverall == null)
-                    yield return new RuleViolation("Overall rating is required", "RatingOverall");
-                if (PricePerHourInUSD == null)
-                    yield return new RuleViolation("Price per hour is required", "PricePerHourInUSD");
-                else if (PricePerHourInUSD < 0)
-                    yield return new RuleViolation("Price per hour must not be less than 0", "PricePerHourInUSD");
-
-                yield break;
-            }
-        }
-
-        partial void OnValidate(ChangeAction action)
-        {
-            if (!IsValid)
-                throw new ApplicationException("Rule violations prevent saving");
-
-        }
-    }
-    public partial class PianoVenueHour
-    {
-        public bool IsValid
-        {
-            get { return (GetRuleViolations().Count() == 0); }
-        }
-
-        public IEnumerable<RuleViolation> GetRuleViolations()
-        {
-            using(var db = new LegatoDataContext())
-            {
-                if (ReviewRevisionID == null)
-                    yield return new RuleViolation("Review revision ID is required.", "ReviewRevisionID");
-                else if (db.PianoReviewRevisions.Where(r => r.PianoReviewRevisionID == this.ReviewRevisionID).Count() != 1)
-                    yield return new RuleViolation("Review revision ID is invalid.", "ReviewRevisionID");
-                if (DayOfWeek == null)
-                    yield return new RuleViolation("Day of week is required.", "DayOfWeek");
-                else if (db.WeekDays.Where(d => d.WeekDayID == this.DayOfWeek).Count() != 1)
-                    yield return new RuleViolation("Day of week is invalid.", "DayOfWeek");
-
-                yield break;
-            }
-        }
-
-        partial void OnValidate(ChangeAction action)
-        {
-            if (!IsValid)
-                throw new ApplicationException("Rule violations prevent saving");
 
         }
     }

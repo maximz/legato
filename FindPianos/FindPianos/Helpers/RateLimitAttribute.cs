@@ -66,10 +66,11 @@ namespace FindPianos.Helpers
         }
     }
 
-    //TO USE:
-    //[RateLimit(Name="TestThrottle", Message = "You must wait {n} seconds before accessing this url again.", Seconds = 5)]
-    //public ActionResult TestThrottle()
-    //{
-    //    return Content("TestThrottle executed");
-    //}
+    /*TO USE:
+    [RateLimit(Name="TestThrottle", Message = "You must wait {n} seconds before accessing this url again.", Seconds = 5)]
+    public ActionResult TestThrottle()
+    {
+       return Content("TestThrottle executed");
+    }
+     * */
 }
