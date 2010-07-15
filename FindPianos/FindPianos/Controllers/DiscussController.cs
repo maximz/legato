@@ -22,26 +22,26 @@ namespace FindPianos.Controllers
             return RedirectToAction("List");
         }
 
-        #region Read Listings and Reviews
-        [Url("Listing/View/{listingId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "listingId")]
-        public ActionResult Read(long listingId)
+        #region Read Threads and Posts
+        [Url("Discuss/Thread/{threadID}")]
+        [OutputCache(Duration = 7200, VaryByParam = "threadID")]
+        public ActionResult ReadThread(long threadID)
         {
             using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var listing = data.Listings.Where(l => l.ListingID == listingId).Single();
-                    listing.FillProperties();
-                    var reviews = data.Reviews.Where(r => r.ListingID == listingId).ToList();
-                    foreach (var r in reviews)
+                    var thread = data.DiscussThreads.Where(t => t.ThreadID == threadID).Single();
+                    //thread.FillProperties();
+                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).OrderBy(p=>p.DateOfSubmission).ToList();
+                    //foreach (var p in posts)
+                    //{
+                    //    p.FillProperties();
+                    //}
+                    var model = new DiscussThreadViewModel
                     {
-                        r.FillProperties();
-                    }
-                    var model = new ReadListingViewModel
-                    {
-                        Listing = listing,
-                        Reviews = reviews
+                        Thread = thread,
+                        Posts = posts
                     };
                     return View(model);
                 }
@@ -52,24 +52,28 @@ namespace FindPianos.Controllers
             }
         }
         
-        [Url("Review/View/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
-        public ActionResult IndividualReview(long reviewId)
+        [Url("Discuss/Thread/{threadID}/{postID}")]
+        [OutputCache(Duration = 7200, VaryByParam = "*")]
+        public ActionResult IndividualReview(long threadID, long postID)
         {
+            //TODO - how do we automatically page and scroll to a specific place?
             using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
-                    review.FillProperties();
+                    var post = data.DiscussPosts.Where(p => p.PostID == postID).Single();
+                    //post.FillProperties();
 
-                    var listing = review.Listing;
-                    listing.FillProperties();
+                    var thread = post.Thread;
+                    //thread.FillProperties();
 
-                    var model = new ReadListingViewModel()
+                    //Get the page number that the post is on
+                    //Get posts for that page, return them
+
+                    var model = new DiscussThreadViewModel
                     {
-                        Listing = listing,
-                        Reviews = new List<Review>()
+                        Thread = thread,
+                        Posts = new List<Review>()
                     };
                     model.Reviews.Add(review);
                     return View(model);
@@ -82,18 +86,18 @@ namespace FindPianos.Controllers
         }
         #endregion
 
-        #region Individual Review timeline- and revision-listing method
-        [Url("Review/Timeline/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
-        public ActionResult ReviewTimeline(long reviewId)
+        #region Individual Post timeline- and revision-listing method
+        [Url("Discuss/Post/Timeline/{postID}")]
+        [OutputCache(Duration = 7200, VaryByParam = "postID")]
+        public ActionResult PostTimeline(long postID)
         {
             try
             {
                 using (var data = new LegatoDataContext())
                 {
-                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
-                    review.Revisions = data.ReviewRevisions.Where(rev => rev.ReviewID == review.ReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
-                    return View(review);
+                    var post = data.DiscussPosts.Where(p => p.PostID == postID).Single();
+                    post.Revisions = data.DiscussPostRevisions.Where(rev => rev.PostID == postID).OrderByDescending(rev => rev.EditNumber).ToList();
+                    return View(post);
                 }
             }
             catch
@@ -104,18 +108,18 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Searching Methods
-        [Url("Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("Search/Discuss")][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
-        [Url("Search/EnumerateBox")]
+        [Url("Discuss/EnumerateBox")]
         [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
             {
-                var results = db.ProcessAjaxMapSearch(new BoundingBox()
+                var results = DiscussPost.ProcessAjaxMapSearch(new BoundingBox()
             {
                 extent1 = new LatLong() { latitude = lat1, longitude = long1 },
                 extent2 = new LatLong() { latitude = lat2, longitude = long2 }
@@ -127,138 +131,74 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Submission and Editing methods
-        [Url("Listing/Create")]
+        [Url("Discuss/Board/{boardID}/Create")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name="ListingSubmitGET", Seconds=600)]
-        public ActionResult Submit()
+        [RateLimit(Name="DiscussSubmitGET", Seconds=600)]
+        public ActionResult Submit(long boardID)
         {
-            //TODO: load styles and types into the model; or rather, don't. that will be Ajax.
-            return View(new SubmitViewModel());
+            var model = new DiscussSubmitViewModel()
+            {
+                BoardID=boardID
+            };
+            return View(model);
         }
-        [Url("Listing/Create")]
+        [Url("Discuss/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
-        public ActionResult Submit(SubmitViewModel model)
+        [RateLimit(Name="DiscussSubmitPOST", Seconds=600)]
+        public ActionResult Submit(DiscussSubmitViewModel model)
         {
-            //View info:
-            //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
-            //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     var time = DateTime.Now;
 
-                    //LISTING:
-                    var listing = new Listing();
+                    //THREAD:
+                    var thread = new DiscussThread();
 
-                    listing.StreetAddress = model.Listing.StreetAddress;
-                    listing.Lat = model.Listing.Lat;
-                    listing.Long = model.Listing.Long;
-                    listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
-                    if(model.Listing.Equipment.Model.IsNullOrEmpty())
-                        listing.InstrumentModel = null;
-                    else
-                        listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
+                    //listing.StreetAddress = model.Listing.StreetAddress;
+                    //listing.Lat = model.Listing.Lat;
+                    //listing.Long = model.Listing.Long;
+                    //listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
+                    //if(model.Listing.Equipment.Model.IsNullOrEmpty())
+                        //listing.InstrumentModel = null;
+                    //else
+                        //listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
 
-                    /*Matching instrument and style:
-                     * 1. take instrument name, find match in Instruments table
-                     * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
-                     * 3. Match name to a record in InstrumentTypes with InstrumentID from step 1 and Name from step 2
-                     * 4. Apply ID of record in #3 to Listing
-                     * 5. Same for Styles
-                     * that's how we do it! */
-                    var instrument = db.Instruments.Where(i => i.Name == model.Listing.InstrumentName).SingleOrDefault();
-                    if(instrument==null)
-                    {
-                        ModelState.AddModelError("InstrumentName", "No such instrument exists.");
-                        return View();
-                    }
-                    var style = model.Listing.Equipment.Styles.ElementAtOrDefault(model.Listing.Equipment.SelectedStyle);
-                    if(style==null)
-                    {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
-                    }
-                    var modelStyle = db.InstrumentStyles.Where(s => s.InstrumentID == instrument.InstrumentID && s.StyleName == style.Value).SingleOrDefault(); //TODO: is it style.Value or style.Text?
-                    if(modelStyle==null)
-                    {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
-                    }
-                    listing.InstrumentStyleID = modelStyle.StyleID;
-                    style = null;
-                    modelStyle = null;
-                    var type = model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType);
-                    if (type == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    var modelType = db.InstrumentTypes.Where(t => t.InstrumentID == instrument.InstrumentID && t.TypeName == type.Value).SingleOrDefault(); //TODO: is it type.Value or type.Text?
-                    if (modelType == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    listing.InstrumentTypeID = modelType.TypeID;
-                    type = null;
-                    modelType = null;
 
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    listing.OriginalSubmitterUserID = userGuid;
-                    listing.DateOfSubmission = time;
+                    thread.OriginalSubmitterUserID = userGuid;
+                    thread.DateOfSubmission = time;
+                    thread.Title = model.Title;
 
-                    db.Listings.InsertOnSubmit(listing);
+                    db.DiscussThreads.InsertOnSubmit(thread);
                     db.SubmitChanges();
 
-                    //REVIEW:
-                    var review = new Review();
-                    review.Listing = listing;
-                    db.Reviews.InsertOnSubmit(review);
+                    //POST:
+                    var post = new DiscussPost();
+                    post.Thread = thread;
+                    db.DiscussPosts.InsertOnSubmit(post);
                     db.SubmitChanges();
 
-                    //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
+                    //POST REVISION:
+                    var r = new DiscussPostRevision();
+                    r.Markdown = model.Markdown;
+                    r.HTML = HtmlUtilities.Safe(Markdown.Convert(model.Markdown));
+                    r.Address = model.Address;
+                    r.Lat = model.Lat;
+                    r.Long = model.Long;
                     r.DateOfRevision = time;
-                    r.Review = review;
+                    r.Post = post;
                     //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
                     //                            where rev.PianoReviewID == review.PianoReviewID
                     //                            select rev.RevisionNumberOfReview).Max() + 1;
-                    r.RevisionNumberOfReview = 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.EditNumber = 1;
+                    db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
-
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
-                    {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if(!hour.Closed)
-                        {
-                            submit.StartTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
-                        }
-                        else
-                        {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
-                        }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
-                    }
-                    db.SubmitChanges();
-                    return RedirectToAction("Read", new { id = r.Review.ListingID }); //shows details for that submission thread, with only one revision!
+                    
+                    return RedirectToAction("Read", new { id = thread.ThreadID }); //shows details for that submission thread, with only one revision!
                 }
             }
             catch
@@ -266,11 +206,28 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Review/Edit/{reviewId}")]
+
+        [HttpPost]
+        [Url("Discuss/Reply")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        [RateLimit(Name = "DiscussReplyToThreadPOST", Seconds = 600)]
+        public ActionResult Reply(DiscussReplyViewModel model)
+        {
+
+        }
+        [HttpPost]
+        [Url("Discuss/Reply/ToPost")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        [RateLimit(Name = "DiscussReplyToPostPOST", Seconds = 600)]
+        public ActionResult ReplyToPost(DiscussReplyViewModel model)
+        {
+
+        }
+        [Url("Discuss/Edit/{postID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name = "ListingEditGET", Seconds = 600)]
-        public ActionResult Edit(long reviewId)
+        [RateLimit(Name = "DiscussEditGET", Seconds = 600)]
+        public ActionResult Edit(long postID)
         {
             //edit an individual review
             try
@@ -279,14 +236,14 @@ namespace FindPianos.Controllers
                 {
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    var query = db.ReviewRevisions.Where(r => r.ReviewID == reviewId).OrderByDescending(r => r.RevisionNumberOfReview);
+                    var query = db.DiscussPostRevisions.Where(r => r.PostID == postID).OrderByDescending(r => r.EditNuumber);
                     var revision = query.First();
                     var submitterGuid = query.Last().SubmitterUserID;
                     if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    var listing = db.Listings.Where(l => l.ListingID == revision.Review.ListingID).Single();
+                    var firstPost = db.DiscussPosts.Where(p => p.ThreadID == revision.Post.ThreadID).Where(p=>p.PostNumberInThread==1).Single();
                     var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
                     var revisionmodel = new RevisionSubmissionViewModel()
                     {
@@ -343,7 +300,7 @@ namespace FindPianos.Controllers
         [Url("Review/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
+        [RateLimit(Name = "DiscussEditPOST", Seconds = 600)]
         public ActionResult Edit(EditViewModel model)
         {
             try
@@ -498,91 +455,5 @@ namespace FindPianos.Controllers
         }
         #endregion
 
-        #region AJAX: Comment on Listings and Reviews
-        [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
-        [Url("Listing/Comment")]
-        public ActionResult AjaxCommentListing(long idOfPost, string commentText)
-        {
-            try
-            {
-                using (var db = new LegatoDataContext())
-                {
-                    //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
-                    {
-                        return RedirectToAction("NotFound", "Error");
-                    }
-
-                    //If we've gotten this far, everything's probably A-OK.
-                    var comment = new ListingComment();
-                    comment.DateOfSubmission = DateTime.Now;
-                    comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    comment.MessageText = commentText;
-                    comment.ListingID = idOfPost;
-                    db.ListingComments.InsertOnSubmit(comment);
-                    db.SubmitChanges();
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new EmptyResult();
-                }
-            }
-            catch
-            {
-                /* on jQuery side:
-                  
-                    if error = code 500, we have reached here.
-                 * 
-                    if error = code 409 (conflict), user has failed rate limit check.*/
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return new EmptyResult();
-            }
-
-        }
-
-        [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
-        [Url("Review/Comment")]
-        public ActionResult AjaxCommentReview(long idOfPost, string commentText)
-        {
-            try
-            {
-                using (var db = new LegatoDataContext())
-                {
-                    //Check whether the given review exists before creating a possibly-useless record
-                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
-                    {
-                        return RedirectToAction("NotFound", "Error");
-                    }
-
-                    //If we've gotten this far, everything's probably A-OK.
-                    var comment = new ReviewComment();
-                    comment.DateOfSubmission = DateTime.Now;
-                    comment.AuthorUserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    comment.MessageText = commentText;
-                    comment.ReviewID = idOfPost;
-                    db.ReviewComments.InsertOnSubmit(comment);
-                    db.SubmitChanges();
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new EmptyResult();
-                }
-            }
-            catch
-            {
-                /* on jQuery side:
-                  
-                    if error = code 500, we have reached here.
-                 * 
-                    if error = code 409 (conflict), user has failed rate limit check.*/
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return new EmptyResult();
-            }
-
-        }
-
-        #endregion
     }
 }

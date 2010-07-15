@@ -13,6 +13,15 @@ namespace FindPianos.Helpers
 	public class GeocodableAttribute : ValidationAttribute
 	{
 		/// <summary>
+		/// Gets or sets a value indicating whether a null address is allowed.
+		/// </summary>
+		/// <value><c>true</c> if null is allowed; otherwise, <c>false</c>.</value>
+		public bool AllowNull
+		{
+			get;
+			set;
+		}
+		/// <summary>
 		/// Gets or sets the name of the address property.
 		/// </summary>
 		/// <value>The name of the address property.</value>
@@ -75,7 +84,7 @@ namespace FindPianos.Helpers
 
 			if (address.IsNullOrEmpty())
 			{
-				throw new ArgumentNullException();
+				return AllowNull;
 			}
 
 			var response = Geocoder.CallGeoWS(address.Trim());

@@ -113,9 +113,17 @@ namespace FindPianos.Controllers
         /// Handles logoff.
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Authorize]
         public ActionResult LogOff()
         {
-
+            //separated into Get and Post to prevent attacks - see http://meta.stackoverflow.com/questions/57159/stack-overflow-wmd-editor-anti-csrf/57160#57160
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult LogOff()
+        {
             FormsAuth.SignOut();
 
             return RedirectToAction("Index", "Home");
