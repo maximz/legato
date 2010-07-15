@@ -1,0 +1,3 @@
+continue with discusscontroller
+
+change htmlutilies to have our own amazon-link-affiliates url - http://www.codecreations.com/site/software/38-applications/68-building-amazon-product-links-with-affiliate-tags

@@ -138,6 +138,7 @@
     <Compile Include="ViewModels\Admin\UserInformationViewModel.cs" />
     <Compile Include="ViewModels\Discuss\DiscussEditViewModel.cs" />
     <Compile Include="ViewModels\Discuss\DiscussPostSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\Discuss\DiscussReadThreadViewModel.cs" />
     <Compile Include="ViewModels\Discuss\DiscussReplyViewModel.cs" />
     <Compile Include="ViewModels\Discuss\DiscussCreateViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreEditViewModel.cs" />

@@ -215,6 +215,7 @@
       <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ThreadID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="PostNumberInThread" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfSubmission" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="DiscussPost_DiscussPostFlag" Member="DiscussPostFlags" ThisKey="PostID" OtherKey="PostID" Type="DiscussPostFlag" />
       <Association Name="DiscussPost_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="PostID" OtherKey="PostID" Type="DiscussPostRevision" />
       <Association Name="DiscussThread_DiscussPost" Member="DiscussThread" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussThread" IsForeignKey="true" />
@@ -229,6 +230,7 @@
       <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LatestActivity" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="DiscussThread_DiscussPost" Member="DiscussPosts" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussPost" />
       <Association Name="DiscussBoard_DiscussThread" Member="DiscussBoard" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussBoard" IsForeignKey="true" />
     </Type>

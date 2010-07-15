@@ -17,16 +17,6 @@ namespace FindPianos.Models
         }
 
         /// <summary>
-        /// The latest activity on this Thread.
-        /// </summary>
-        /// <value>The latest activity.</value>
-        public DateTime LatestActivity
-        {
-            get;
-            internal set;
-        }
-
-        /// <summary>
         /// Gets the first post.
         /// </summary>
         /// <value>The first post.</value>
@@ -44,7 +34,6 @@ namespace FindPianos.Models
             using (var db = new LegatoDataContext())
             {
                 NumberOfPosts = db.DiscussPosts.Where(p => p.ThreadID == this.ThreadID).Count();
-                LatestActivity = db.DiscussPostRevisions.Where(r => r.DiscussPost.ThreadID == this.ThreadID).Max(r => r.DateOfEdit);
                 FirstPost = db.DiscussPosts.Where(p => p.ThreadID == this.ThreadID).Where(p => p.PostNumberInThread == 1).Single();
                 FirstPost.FillProperties();
             }

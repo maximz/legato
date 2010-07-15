@@ -5186,6 +5186,8 @@ namespace FindPianos.Models
 		
 		private int _PostNumberInThread;
 		
+		private System.DateTime _DateOfSubmission;
+		
 		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
 		
 		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
@@ -5202,6 +5204,8 @@ namespace FindPianos.Models
     partial void OnThreadIDChanged();
     partial void OnPostNumberInThreadChanging(int value);
     partial void OnPostNumberInThreadChanged();
+    partial void OnDateOfSubmissionChanging(System.DateTime value);
+    partial void OnDateOfSubmissionChanged();
     #endregion
 		
 		public DiscussPost()
@@ -5272,6 +5276,26 @@ namespace FindPianos.Models
 					this._PostNumberInThread = value;
 					this.SendPropertyChanged("PostNumberInThread");
 					this.OnPostNumberInThreadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfSubmission", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfSubmission
+		{
+			get
+			{
+				return this._DateOfSubmission;
+			}
+			set
+			{
+				if ((this._DateOfSubmission != value))
+				{
+					this.OnDateOfSubmissionChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfSubmission = value;
+					this.SendPropertyChanged("DateOfSubmission");
+					this.OnDateOfSubmissionChanged();
 				}
 			}
 		}
@@ -5401,6 +5425,8 @@ namespace FindPianos.Models
 		
 		private string _Address;
 		
+		private System.DateTime _LatestActivity;
+		
 		private EntitySet<DiscussPost> _DiscussPosts;
 		
 		private EntityRef<DiscussBoard> _DiscussBoard;
@@ -5423,6 +5449,8 @@ namespace FindPianos.Models
     partial void OnLongitudeChanged();
     partial void OnAddressChanging(string value);
     partial void OnAddressChanged();
+    partial void OnLatestActivityChanging(System.DateTime value);
+    partial void OnLatestActivityChanged();
     #endregion
 		
 		public DiscussThread()
@@ -5572,6 +5600,26 @@ namespace FindPianos.Models
 					this._Address = value;
 					this.SendPropertyChanged("Address");
 					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LatestActivity", DbType="DateTime NOT NULL")]
+		public System.DateTime LatestActivity
+		{
+			get
+			{
+				return this._LatestActivity;
+			}
+			set
+			{
+				if ((this._LatestActivity != value))
+				{
+					this.OnLatestActivityChanging(value);
+					this.SendPropertyChanging();
+					this._LatestActivity = value;
+					this.SendPropertyChanged("LatestActivity");
+					this.OnLatestActivityChanged();
 				}
 			}
 		}

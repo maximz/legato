@@ -16,66 +16,135 @@ namespace FindPianos.Controllers
     [HandleError]
     public class DiscussController : Controller
     {
+        int ThreadsPerPage = 30;
+        int PostsPerPage = 20;
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {
             return RedirectToAction("List");
         }
 
-        #region Read Threads and Posts
-        [Url("Discuss/Thread/{threadID}")]
-        [OutputCache(Duration = 7200, VaryByParam = "threadID")]
-        public ActionResult ReadThread(long threadID)
+        #region Read Boards, Threads, and Posts
+
+        /// <summary>
+        /// Reads the board.
+        /// </summary>
+        /// <param name="boardID">The board ID.</param>
+        /// <param name="page">The page.</param>
+        /// <returns></returns>
+        [Url("Discuss/{boardID}/{slug?}")]
+        [OutputCache(Duration=7200, VaryByParam="boardID;page")]
+        public ActionResult ReadBoard(long boardID, int? page)
         {
+            var href = "Discuss/" + boardID;
+            using(var db = new LegatoDataContext())
+            {
+                try
+                {
+                    var board = db.DiscussBoards.Where(b => b.BoardID == boardID).SingleOrDefault();
+                    if(board==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    var data = db.DiscussThreads.Where(t => t.BoardID == boardID).OrderByDescending(t => t.LatestActivity).Skip((page.GetValueOrDefault(1) - 1) * ThreadsPerPage).Take(ThreadsPerPage).ToPagedList(page??1,ThreadsPerPage);
+                    var totalPosts = db.DiscussThreads.Where(t => t.BoardID == boardID).Count();
+                    ViewData["PageNumbers"] = new PageNumber(href + "&page=-1", (totalPosts/ThreadsPerPage) + 1,page.GetValueOrDefault(1) - 1, "pager");
+                    ViewData["TotalPosts"] = string.Format("{0:n0}", totalPosts);
+                    return View(data);
+                }
+                catch
+                {
+                    return RedirectToAction("InternalServerError", "Error");
+                }
+            }
+        }
+        [Url("Discuss/Thread/{threadID}/{slug?}", Order=2)]
+        [OutputCache(Duration = 7200, VaryByParam = "threadID;page")]
+        public ActionResult ReadThread(long threadID, int? page)
+        {
+            var href = "Discuss/Thread/" + threadID;
             using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var thread = data.DiscussThreads.Where(t => t.ThreadID == threadID).Single();
-                    //thread.FillProperties();
-                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).OrderBy(p=>p.DateOfSubmission).ToList();
-                    //foreach (var p in posts)
-                    //{
-                    //    p.FillProperties();
-                    //}
-                    var model = new DiscussThreadViewModel
+                    var thread = data.DiscussThreads.Where(t => t.ThreadID == threadID).SingleOrDefault();
+                    if(thread==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    thread.FillProperties();
+                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).OrderBy(p => p.DateOfSubmission).Skip((page.GetValueOrDefault(1) - 1) * PostsPerPage).Take(PostsPerPage).ToPagedList(page ?? 1, PostsPerPage);
+                    foreach (var p in posts)
+                    {
+                        p.FillProperties();
+                    }
+
+                    var totalPosts = data.DiscussPosts.Where(p=>p.ThreadID==threadID).Count();
+                    var pageNumbers = new PageNumber(href + "&page=-1", (totalPosts / PostsPerPage) + 1, page.GetValueOrDefault(1) - 1, "pager");
+                    var totalPostsString = string.Format("{0:n0}", totalPosts);
+
+                    var model = new DiscussReadThreadViewModel
                     {
                         Thread = thread,
-                        Posts = posts
+                        Posts = posts,
+                        TotalPosts = totalPostsString,
+                        PageNumbers = pageNumbers
                     };
                     return View(model);
                 }
                 catch
                 {
-                    return RedirectToAction("NotFound", "Error");
+                    return RedirectToAction("InternalServerError", "Error");
                 }
             }
         }
         
-        [Url("Discuss/Thread/{threadID}/{postID}")]
+        [Url("Discuss/Thread/{threadID}/Post/{postID}", Order=1)]
         [OutputCache(Duration = 7200, VaryByParam = "*")]
-        public ActionResult IndividualReview(long threadID, long postID)
+        public ActionResult IndividualPost(long threadID, long postID)
         {
-            //TODO - how do we automatically page and scroll to a specific place?
+            var href = "Discuss/Thread/" + threadID;
             using (var data = new LegatoDataContext())
             {
                 try
                 {
-                    var post = data.DiscussPosts.Where(p => p.PostID == postID).Single();
-                    //post.FillProperties();
+                    var post = data.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                    if (post == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    var thread = data.DiscussThreads.Where(t => t.ThreadID == threadID).SingleOrDefault();
+                    if (thread == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    thread.FillProperties();
 
-                    var thread = post.Thread;
-                    //thread.FillProperties();
+                    //Get page number
+                    var page = Math.Ceiling((double)post.PostNumberInThread / PostsPerPage);
 
-                    //Get the page number that the post is on
-                    //Get posts for that page, return them
+                    //Get boundaries of post numbers for the page
+                    var minimum = PostsPerPage * (page - 1) + 1;
+                    var maximum = PostsPerPage * page;
 
-                    var model = new DiscussThreadViewModel
+
+                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).Where(p=>p.PostNumberInThread>=minimum&&p.PostNumberInThread<=maximum).OrderBy(p => p.DateOfSubmission).Skip((page - 1) * PostsPerPage).Take(PostsPerPage).ToPagedList(page, PostsPerPage);
+                    foreach (var p in posts)
+                    {
+                        p.FillProperties();
+                    }
+
+                    var totalPosts = data.DiscussPosts.Where(p => p.ThreadID == threadID).Count();
+                    var pageNumbers = new PageNumber(href + "&page=-1", (totalPosts / PostsPerPage) + 1, page - 1, "pager");
+                    var totalPostsString = string.Format("{0:n0}", totalPosts);
+
+                    var model = new DiscussReadThreadViewModel
                     {
                         Thread = thread,
-                        Posts = new List<Review>()
+                        Posts = posts,
+                        TotalPosts = totalPostsString,
+                        PageNumbers = pageNumbers
                     };
-                    model.Reviews.Add(review);
                     return View(model);
                 }
                 catch
@@ -84,10 +153,32 @@ namespace FindPianos.Controllers
                 }
             }
         }
+        [Url("Discuss/Post/{postID}")]
+        [OutputCache(Duration = 7200, VaryByParam = "*")]
+        public ActionResult IndividualPostRedirect(long postID)
+        {
+            using(var db = new LegatoDataContext())
+            {
+                try
+                {
+                    var post = db.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                    if (post == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    return Redirect(string.Format("Discuss/Thread/{0}/Post/{1}#{1}",post.ThreadID,postID));
+                }
+                catch
+                {
+                    return RedirectToAction("InternalServerError", "Error");
+                }
+            }
+            
+        }
         #endregion
 
         #region Individual Post timeline- and revision-listing method
-        [Url("Discuss/Post/Timeline/{postID}")]
+        [Url("Discuss/Timeline/Post/{postID}")]
         [OutputCache(Duration = 7200, VaryByParam = "postID")]
         public ActionResult PostTimeline(long postID)
         {
