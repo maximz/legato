@@ -5393,6 +5393,14 @@ namespace FindPianos.Models
 		
 		private string _Title;
 		
+		private System.DateTime _CreationDate;
+		
+		private System.Nullable<decimal> _Latitude;
+		
+		private System.Nullable<decimal> _Longitude;
+		
+		private string _Address;
+		
 		private EntitySet<DiscussPost> _DiscussPosts;
 		
 		private EntityRef<DiscussBoard> _DiscussBoard;
@@ -5407,6 +5415,14 @@ namespace FindPianos.Models
     partial void OnBoardIDChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
+    partial void OnCreationDateChanging(System.DateTime value);
+    partial void OnCreationDateChanged();
+    partial void OnLatitudeChanging(System.Nullable<decimal> value);
+    partial void OnLatitudeChanged();
+    partial void OnLongitudeChanging(System.Nullable<decimal> value);
+    partial void OnLongitudeChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
     #endregion
 		
 		public DiscussThread()
@@ -5476,6 +5492,86 @@ namespace FindPianos.Models
 					this._Title = value;
 					this.SendPropertyChanged("Title");
 					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationDate", DbType="DateTime NOT NULL")]
+		public System.DateTime CreationDate
+		{
+			get
+			{
+				return this._CreationDate;
+			}
+			set
+			{
+				if ((this._CreationDate != value))
+				{
+					this.OnCreationDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreationDate = value;
+					this.SendPropertyChanged("CreationDate");
+					this.OnCreationDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Latitude", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> Latitude
+		{
+			get
+			{
+				return this._Latitude;
+			}
+			set
+			{
+				if ((this._Latitude != value))
+				{
+					this.OnLatitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Latitude = value;
+					this.SendPropertyChanged("Latitude");
+					this.OnLatitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Longitude", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> Longitude
+		{
+			get
+			{
+				return this._Longitude;
+			}
+			set
+			{
+				if ((this._Longitude != value))
+				{
+					this.OnLongitudeChanging(value);
+					this.SendPropertyChanging();
+					this._Longitude = value;
+					this.SendPropertyChanged("Longitude");
+					this.OnLongitudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(MAX)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
 				}
 			}
 		}

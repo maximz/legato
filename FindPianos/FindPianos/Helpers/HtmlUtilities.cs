@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using MarkdownSharp;
 
-namespace StackExchange.DataExplorer.Helpers
+namespace FindPianos.Helpers
 {
     public static class HtmlUtilities
     {
@@ -811,16 +811,16 @@ namespace StackExchange.DataExplorer.Helpers
         /// </summary>
         public static string RawToCooked(string rawText)
         {
-            return (new Markdown()).Transform(rawText);
+            return PostProcessHtml((new Markdown()).Transform(rawText));
         }
 
         /// <summary>
-        /// to be called after converting markdown to HTML;
+        /// is called after converting markdown to HTML;
         /// does any post-processing HTML fixups we deem necessary
         /// </summary>
         private static string PostProcessHtml(string html)
         {
-            html = PostProcessAmazon(html);
+            //html = PostProcessAmazon(html); TODO: replace with our own amazon link code
             return html;
         }
 

@@ -225,6 +225,10 @@
       <Column Name="ThreadID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="DiscussThread_DiscussPost" Member="DiscussPosts" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussPost" />
       <Association Name="DiscussBoard_DiscussThread" Member="DiscussBoard" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussBoard" IsForeignKey="true" />
     </Type>

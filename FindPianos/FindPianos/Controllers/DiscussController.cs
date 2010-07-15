@@ -119,7 +119,7 @@ namespace FindPianos.Controllers
         {
             using (var db = new LegatoDataContext())
             {
-                var results = DiscussPost.ProcessAjaxMapSearch(new BoundingBox()
+                var results = DiscussThread.ProcessAjaxMapSearch(new BoundingBox()
             {
                 extent1 = new LatLong() { latitude = lat1, longitude = long1 },
                 extent2 = new LatLong() { latitude = lat2, longitude = long2 }
@@ -137,7 +137,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name="DiscussSubmitGET", Seconds=600)]
         public ActionResult Submit(long boardID)
         {
-            var model = new DiscussSubmitViewModel()
+            var model = new DiscussCreateViewModel()
             {
                 BoardID=boardID
             };
@@ -147,54 +147,53 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="DiscussSubmitPOST", Seconds=600)]
-        public ActionResult Submit(DiscussSubmitViewModel model)
+        public ActionResult Submit(DiscussCreateViewModel model)
         {
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     var time = DateTime.Now;
-
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                    
                     //THREAD:
                     var thread = new DiscussThread();
 
-                    //listing.StreetAddress = model.Listing.StreetAddress;
-                    //listing.Lat = model.Listing.Lat;
-                    //listing.Long = model.Listing.Long;
-                    //listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
-                    //if(model.Listing.Equipment.Model.IsNullOrEmpty())
-                        //listing.InstrumentModel = null;
-                    //else
-                        //listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
-
-
-                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    thread.OriginalSubmitterUserID = userGuid;
-                    thread.DateOfSubmission = time;
+                    thread.CreationDate = time;
                     thread.Title = model.Title;
+                    if(model.Address.IsNullOrEmpty()&&model.Lat==null||model.Lat==decimal.MinValue)
+                    {
+                        thread.Address = null;
+                        thread.Latitude = null;
+                        thread.Longitude = null;
+                    }
+                    else
+                    {
+                        thread.Address = model.Address;
+                        thread.Latitude = model.Lat;
+                        thread.Longitude = model.Long;
+                    }
 
                     db.DiscussThreads.InsertOnSubmit(thread);
                     db.SubmitChanges();
 
                     //POST:
                     var post = new DiscussPost();
-                    post.Thread = thread;
+                    post.DiscussThread = thread;
                     db.DiscussPosts.InsertOnSubmit(post);
                     db.SubmitChanges();
 
                     //POST REVISION:
                     var r = new DiscussPostRevision();
-                    r.Markdown = model.Markdown;
-                    r.HTML = HtmlUtilities.Safe(Markdown.Convert(model.Markdown));
-                    r.Address = model.Address;
-                    r.Lat = model.Lat;
-                    r.Long = model.Long;
-                    r.DateOfRevision = time;
-                    r.Post = post;
+                    r.Markdown = model.Post.Markdown;
+                    r.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Post.Markdown));
+                    r.DateOfEdit = time;
+                    r.DiscussPost = post;
                     //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
                     //                            where rev.PianoReviewID == review.PianoReviewID
                     //                            select rev.RevisionNumberOfReview).Max() + 1;
                     r.EditNumber = 1;
+                    r.UserID=userGuid;
                     db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
                     
