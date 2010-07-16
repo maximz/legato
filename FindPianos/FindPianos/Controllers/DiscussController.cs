@@ -222,7 +222,7 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Submission and Editing methods
-        [Url("Discuss/Board/{boardID}/Create")]
+        [Url("Discuss/Create/{boardID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name="DiscussSubmitGET", Seconds=600)]
@@ -251,6 +251,7 @@ namespace FindPianos.Controllers
                     var thread = new DiscussThread();
 
                     thread.CreationDate = time;
+                    thread.LatestActivity = time;
                     thread.Title = model.Title;
                     if(model.Address.IsNullOrEmpty()&&model.Lat==null||model.Lat==decimal.MinValue)
                     {
@@ -271,6 +272,7 @@ namespace FindPianos.Controllers
                     //POST:
                     var post = new DiscussPost();
                     post.DiscussThread = thread;
+                    post.DateOfSubmission = time;
                     db.DiscussPosts.InsertOnSubmit(post);
                     db.SubmitChanges();
 
