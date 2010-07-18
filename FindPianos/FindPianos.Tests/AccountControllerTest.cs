@@ -503,44 +503,6 @@ namespace FindPianos.Tests
         }
 
         /// <summary>
-        ///A test for SendEmailVerificationEmail
-        ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
-        [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
-        [UrlToTest("http://localhost:2574/")]
-        public void SendEmailVerificationEmailTest()
-        {
-            AccountController target = new AccountController(); // TODO: Initialize to an appropriate value
-            string emailAddress = string.Empty; // TODO: Initialize to an appropriate value
-            Guid id = new Guid(); // TODO: Initialize to an appropriate value
-            target.SendEmailVerificationEmail(emailAddress, id);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
-        ///A test for SendPasswordResetEmail
-        ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
-        [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
-        [UrlToTest("http://localhost:2574/")]
-        public void SendPasswordResetEmailTest()
-        {
-            AccountController target = new AccountController(); // TODO: Initialize to an appropriate value
-            string emailAddress = string.Empty; // TODO: Initialize to an appropriate value
-            Guid id = new Guid(); // TODO: Initialize to an appropriate value
-            target.SendPasswordResetEmail(emailAddress, id);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
         ///A test for ShowEmailAddressVerificationStatus
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,

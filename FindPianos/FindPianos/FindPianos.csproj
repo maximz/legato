@@ -92,6 +92,7 @@
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SiteMetadataController.cs" />
     <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\DataKeys.cs" />
     <Compile Include="Helpers\HtmlUtilities.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\PageNumber.cs" />

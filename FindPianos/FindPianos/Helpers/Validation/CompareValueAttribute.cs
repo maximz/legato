@@ -76,7 +76,18 @@ namespace FindPianos.Helpers
                 throw new ArgumentNullException("ComparisonValue");
             }
 
-            var result = (value as IComparable).CompareTo((ComparisonValue as IComparable));
+            int result = 0;
+
+            if(ComparisonValue as string == "DateTime.Now")
+            {
+                result = (value as IComparable).CompareTo((DateTime.Now as IComparable));
+            }
+            else
+            {
+                result = (value as IComparable).CompareTo((ComparisonValue as IComparable));
+            }
+
+            
 
             switch (result)
             {

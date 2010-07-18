@@ -18,7 +18,7 @@ namespace FindPianos.ViewModels
             set;
         }
         [DisplayName("Reinstatement Date")]
-        [CompareValue(ComparisonValue=DateTime.Now,EqualToAllowed=false,GreaterThanAllowed=true,LessThanAllowed=false,AllowNullValues=true,ErrorMessage="The reinstatement date must be in the future.")]
+        [CompareValue(ComparisonValue="DateTime.Now",EqualToAllowed=false,GreaterThanAllowed=true,LessThanAllowed=false,AllowNullValues=true,ErrorMessage="The reinstatement date must be in the future.")]
         public DateTime ReinstateDate
         { 
             get;

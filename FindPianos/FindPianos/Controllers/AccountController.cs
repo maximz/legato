@@ -115,6 +115,7 @@ namespace FindPianos.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
+        [Url("Account/LogOff")]
         public ActionResult LogOff()
         {
             //separated into Get and Post to prevent attacks - see http://meta.stackoverflow.com/questions/57159/stack-overflow-wmd-editor-anti-csrf/57160#57160
@@ -122,7 +123,8 @@ namespace FindPianos.Controllers
         }
         [HttpPost]
         [Authorize]
-        public ActionResult LogOff()
+        [Url("Account/LogOutPOST")]
+        public ActionResult LogOut()
         {
             FormsAuth.SignOut();
 
@@ -174,7 +176,6 @@ namespace FindPianos.Controllers
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
                 Roles.AddUserToRoles(userName, new string[] { "ActiveUser", "EmailNotConfirmed" });
                 AccountProfile.NewUser.Initialize(userName, true);
-                AccountProfile.NewUser.ProfilePictureURL = null;
                 AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
                 AccountProfile.NewUser.Save();
                 using (var db = new LegatoDataContext())
@@ -227,7 +228,7 @@ namespace FindPianos.Controllers
             {
                 if (!(AccountProfile.GetProfileOfUser(u.UserName).ReinstateDate < DateTime.Now))
                 {
-                    ViewData["suspension"] = db.PianoUserSuspensions.Where(s => s.UserID == (Guid)u.ProviderUserKey).OrderByDescending(k => k.ReinstateDate).Take(1).ToList()[0];
+                    ViewData["suspension"] = db.UserSuspensions.Where(s => s.UserID == (Guid)u.ProviderUserKey).OrderByDescending(k => k.ReinstateDate).Take(1).ToList()[0];
                     return View();
                 }
                 return RedirectToAction("Index", "Home");

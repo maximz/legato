@@ -10,11 +10,11 @@ namespace FindPianos.Tests
     
     
     /// <summary>
-    ///This is a test class for PianoListingTest and is intended
-    ///to contain all PianoListingTest Unit Tests
+    ///This is a test class for ListingTest and is intended
+    ///to contain all ListingTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class PianoListingTest
+    public class ListingTest
     {
 
 
@@ -68,18 +68,18 @@ namespace FindPianos.Tests
 
 
         /// <summary>
-        ///A test for PianoListing Constructor
+        ///A test for Listing Constructor
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void PianoListingConstructorTest()
+        public void ListingConstructorTest()
         {
-            PianoListing target = new PianoListing();
+            Listing target = new Listing();
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
@@ -91,11 +91,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void FillPropertiesTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             target.FillProperties();
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
@@ -108,11 +108,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void GetRuleViolationsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             IEnumerable<RuleViolation> expected = null; // TODO: Initialize to an appropriate value
             IEnumerable<RuleViolation> actual;
             actual = target.GetRuleViolations();
@@ -128,12 +128,12 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
+        [DeploymentItem("Finds.dll")]
         public void OnValidateTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
             ChangeAction action = new ChangeAction(); // TODO: Initialize to an appropriate value
             target.OnValidate(action);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
@@ -147,12 +147,12 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
+        [DeploymentItem("Finds.dll")]
         public void SendPropertyChangedTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
             string propertyName = string.Empty; // TODO: Initialize to an appropriate value
             target.SendPropertyChanged(propertyName);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
@@ -166,127 +166,127 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
+        [DeploymentItem("Finds.dll")]
         public void SendPropertyChangingTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
             target.SendPropertyChanging();
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for attach_PianoListingComments
+        ///A test for attach_ListingComments
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void attach_PianoListingCommentsTest()
+        [DeploymentItem("Finds.dll")]
+        public void attach_ListingCommentsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoListingComment entity = null; // TODO: Initialize to an appropriate value
-            target.attach_PianoListingComments(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            ListingComment entity = null; // TODO: Initialize to an appropriate value
+            target.attach_ListingComments(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for attach_PianoListingFlags
+        ///A test for attach_ListingFlags
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void attach_PianoListingFlagsTest()
+        [DeploymentItem("Finds.dll")]
+        public void attach_ListingFlagsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoListingFlag entity = null; // TODO: Initialize to an appropriate value
-            target.attach_PianoListingFlags(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            ListingFlag entity = null; // TODO: Initialize to an appropriate value
+            target.attach_ListingFlags(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for attach_PianoReviews
+        ///A test for attach_Reviews
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void attach_PianoReviewsTest()
+        [DeploymentItem("Finds.dll")]
+        public void attach_ReviewsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoReview entity = null; // TODO: Initialize to an appropriate value
-            target.attach_PianoReviews(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            Review entity = null; // TODO: Initialize to an appropriate value
+            target.attach_Reviews(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for detach_PianoListingComments
+        ///A test for detach_ListingComments
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void detach_PianoListingCommentsTest()
+        [DeploymentItem("Finds.dll")]
+        public void detach_ListingCommentsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoListingComment entity = null; // TODO: Initialize to an appropriate value
-            target.detach_PianoListingComments(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            ListingComment entity = null; // TODO: Initialize to an appropriate value
+            target.detach_ListingComments(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for detach_PianoListingFlags
+        ///A test for detach_ListingFlags
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void detach_PianoListingFlagsTest()
+        [DeploymentItem("Finds.dll")]
+        public void detach_ListingFlagsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoListingFlag entity = null; // TODO: Initialize to an appropriate value
-            target.detach_PianoListingFlags(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            ListingFlag entity = null; // TODO: Initialize to an appropriate value
+            target.detach_ListingFlags(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
-        ///A test for detach_PianoReviews
+        ///A test for detach_Reviews
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        [DeploymentItem("FindPianos.dll")]
-        public void detach_PianoReviewsTest()
+        [DeploymentItem("Finds.dll")]
+        public void detach_ReviewsTest()
         {
-            PianoListing_Accessor target = new PianoListing_Accessor(); // TODO: Initialize to an appropriate value
-            PianoReview entity = null; // TODO: Initialize to an appropriate value
-            target.detach_PianoReviews(entity);
+            Listing_Accessor target = new Listing_Accessor(); // TODO: Initialize to an appropriate value
+            Review entity = null; // TODO: Initialize to an appropriate value
+            target.detach_Reviews(entity);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -298,11 +298,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void AverageOverallRatingTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             int expected = 0; // TODO: Initialize to an appropriate value
             int actual;
             target.AverageOverallRating = expected;
@@ -319,11 +319,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void AveragePricePerHourInUSDTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             double expected = 0F; // TODO: Initialize to an appropriate value
             double actual;
             target.AveragePricePerHourInUSD = expected;
@@ -340,13 +340,13 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void CommentsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
-            List<PianoListingComment> expected = null; // TODO: Initialize to an appropriate value
-            List<PianoListingComment> actual;
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
+            List<ListingComment> expected = null; // TODO: Initialize to an appropriate value
+            List<ListingComment> actual;
             target.Comments = expected;
             actual = target.Comments;
             Assert.AreEqual(expected, actual);
@@ -361,11 +361,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void DateOfSubmissionTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
             DateTime actual;
             target.DateOfSubmission = expected;
@@ -382,11 +382,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void IsValidTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.IsValid;
             Assert.Inconclusive("Verify the correctness of this test method.");
@@ -400,11 +400,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void LatTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             Decimal expected = new Decimal(); // TODO: Initialize to an appropriate value
             Decimal actual;
             target.Lat = expected;
@@ -421,11 +421,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void LatestReviewRevisionDateTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
             DateTime actual;
             target.LatestReviewRevisionDate = expected;
@@ -435,22 +435,22 @@ namespace FindPianos.Tests
         }
 
         /// <summary>
-        ///A test for LatestUseOfPianoDate
+        ///A test for LatestUseOfDate
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void LatestUseOfPianoDateTest()
+        public void LatestUseOfDateTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
             DateTime actual;
-            target.LatestUseOfPianoDate = expected;
-            actual = target.LatestUseOfPianoDate;
+            target.LatestUseOfDate = expected;
+            actual = target.LatestUseOfDate;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -463,11 +463,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void LongTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             Decimal expected = new Decimal(); // TODO: Initialize to an appropriate value
             Decimal actual;
             target.Long = expected;
@@ -484,11 +484,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void NumberOfReviewsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             int expected = 0; // TODO: Initialize to an appropriate value
             int actual;
             target.NumberOfReviews = expected;
@@ -505,11 +505,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void OriginalSubmitterUserIDTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             Guid expected = new Guid(); // TODO: Initialize to an appropriate value
             Guid actual;
             target.OriginalSubmitterUserID = expected;
@@ -519,85 +519,85 @@ namespace FindPianos.Tests
         }
 
         /// <summary>
-        ///A test for PianoID
+        ///A test for ID
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void PianoIDTest()
+        public void IDTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             long expected = 0; // TODO: Initialize to an appropriate value
             long actual;
-            target.PianoID = expected;
-            actual = target.PianoID;
+            target.ID = expected;
+            actual = target.ID;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for PianoListingComments
+        ///A test for ListingComments
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void PianoListingCommentsTest()
+        public void ListingCommentsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
-            EntitySet<PianoListingComment> expected = null; // TODO: Initialize to an appropriate value
-            EntitySet<PianoListingComment> actual;
-            target.PianoListingComments = expected;
-            actual = target.PianoListingComments;
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
+            EntitySet<ListingComment> expected = null; // TODO: Initialize to an appropriate value
+            EntitySet<ListingComment> actual;
+            target.ListingComments = expected;
+            actual = target.ListingComments;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for PianoListingFlags
+        ///A test for ListingFlags
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void PianoListingFlagsTest()
+        public void ListingFlagsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
-            EntitySet<PianoListingFlag> expected = null; // TODO: Initialize to an appropriate value
-            EntitySet<PianoListingFlag> actual;
-            target.PianoListingFlags = expected;
-            actual = target.PianoListingFlags;
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
+            EntitySet<ListingFlag> expected = null; // TODO: Initialize to an appropriate value
+            EntitySet<ListingFlag> actual;
+            target.ListingFlags = expected;
+            actual = target.ListingFlags;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for PianoReviews
+        ///A test for Reviews
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
-        public void PianoReviewsTest()
+        public void ReviewsTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
-            EntitySet<PianoReview> expected = null; // TODO: Initialize to an appropriate value
-            EntitySet<PianoReview> actual;
-            target.PianoReviews = expected;
-            actual = target.PianoReviews;
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
+            EntitySet<Review> expected = null; // TODO: Initialize to an appropriate value
+            EntitySet<Review> actual;
+            target.Reviews = expected;
+            actual = target.Reviews;
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -610,11 +610,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void StreetAddressTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             string expected = string.Empty; // TODO: Initialize to an appropriate value
             string actual;
             target.StreetAddress = expected;
@@ -631,11 +631,11 @@ namespace FindPianos.Tests
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
+        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\finds\\Finds\\Finds", "/")]
         [UrlToTest("http://localhost:2574/")]
         public void aspnet_UserTest()
         {
-            PianoListing target = new PianoListing(); // TODO: Initialize to an appropriate value
+            Listing target = new Listing(); // TODO: Initialize to an appropriate value
             aspnet_User expected = null; // TODO: Initialize to an appropriate value
             aspnet_User actual;
             target.aspnet_User = expected;

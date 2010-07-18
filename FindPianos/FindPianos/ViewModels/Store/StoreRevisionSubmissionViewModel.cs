@@ -53,7 +53,7 @@ namespace FindPianos.ViewModels
         }
         [Required(ErrorMessage="The date you last visited this store is required.")]
         [DisplayName("Date of Last Visit")]
-        [CompareValue(ComparisonValue=DateTime.Now,LessThanAllowed=true,EqualToAllowed=true,GreaterThanAllowed=false,AllowNullValues=true,ErrorMessage="Date of last visit must be in the past.")]
+        [CompareValue(ComparisonValue="DateTime.Now",LessThanAllowed=true,EqualToAllowed=true,GreaterThanAllowed=false,AllowNullValues=true,ErrorMessage="Date of last visit must be in the past.")]
         public DateTime DateOfLastVisit
         {
             get;
@@ -61,7 +61,7 @@ namespace FindPianos.ViewModels
         }
         [Required(ErrorMessage = "The date you last purchased from this store is required.")]
         [DisplayName("Date of Last Purchase")]
-        [CompareValue(ComparisonValue = DateTime.Now, LessThanAllowed = true, EqualToAllowed = true, GreaterThanAllowed = false, AllowNullValues = true, ErrorMessage = "Date of last purchase must be in the past.")]
+        [CompareValue(ComparisonValue = "DateTime.Now", LessThanAllowed = true, EqualToAllowed = true, GreaterThanAllowed = false, AllowNullValues = true, ErrorMessage = "Date of last purchase must be in the past.")]
         public DateTime DateOfLastPurchase
         {
             get;

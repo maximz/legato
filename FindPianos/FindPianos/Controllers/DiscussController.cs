@@ -121,14 +121,14 @@ namespace FindPianos.Controllers
                     thread.FillProperties();
 
                     //Get page number
-                    var page = Math.Ceiling((double)post.PostNumberInThread / PostsPerPage);
+                    var page = (int)Math.Ceiling((double)post.PostNumberInThread / PostsPerPage);
 
                     //Get boundaries of post numbers for the page
                     var minimum = PostsPerPage * (page - 1) + 1;
                     var maximum = PostsPerPage * page;
 
 
-                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).Where(p=>p.PostNumberInThread>=minimum&&p.PostNumberInThread<=maximum).OrderBy(p => p.DateOfSubmission).Skip((page - 1) * PostsPerPage).Take(PostsPerPage).ToPagedList(page, PostsPerPage);
+                    var posts = data.DiscussPosts.Where(p => p.ThreadID == threadID).Where(p=>p.PostNumberInThread>=minimum&&p.PostNumberInThread<=maximum).OrderBy(p => p.DateOfSubmission).Skip((int)Math.Ceiling((double)(page - 1) * PostsPerPage)).Take(PostsPerPage).ToPagedList(page, PostsPerPage);
                     foreach (var p in posts)
                     {
                         p.FillProperties();
@@ -253,7 +253,7 @@ namespace FindPianos.Controllers
                     thread.CreationDate = time;
                     thread.LatestActivity = time;
                     thread.Title = model.Title;
-                    if(model.Address.IsNullOrEmpty()&&model.Lat==null||model.Lat==decimal.MinValue)
+                    if(model.Address.IsNullOrEmpty())
                     {
                         thread.Address = null;
                         thread.Latitude = null;
@@ -321,75 +321,55 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "DiscussEditGET", Seconds = 600)]
         public ActionResult Edit(long postID)
         {
-            //edit an individual review
+            //edit an individual post
             try
             {
                 using (var db = new LegatoDataContext())
                 {
+                    var post = db.DiscussPosts.Where(p=>p.PostID==postID).SingleOrDefault();
+                    if(post==null)
+                    {
+                        return RedirectToAction("NotFound","Error");
+                    }
+                    
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    var query = db.DiscussPostRevisions.Where(r => r.PostID == postID).OrderByDescending(r => r.EditNuumber);
+                    var query = db.DiscussPostRevisions.Where(r => r.PostID == postID).OrderByDescending(r => r.EditNumber);
                     var revision = query.First();
-                    var submitterGuid = query.Last().SubmitterUserID;
+                    var submitterGuid = query.Last().UserID;
                     if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
                     var firstPost = db.DiscussPosts.Where(p => p.ThreadID == revision.Post.ThreadID).Where(p=>p.PostNumberInThread==1).Single();
+                    //TODO: REPLY TO POST ID
                     var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
-                    var revisionmodel = new RevisionSubmissionViewModel()
+                    var revisionmodel = new DiscussEditViewModel()
                     {
-                        DateOfLastUsage = revision.DateOfLastUsageOfPianoBySubmitter,
-                        Message = revision.Message,
-                        PricePerHour = revision.PricePerHourInUSD,
-                        RatingOverall = revision.RatingOverall,
-                        RatingPlayingCapability = (int)revision.RatingPlayingCapability,
-                        RatingToneQuality = (int)revision.RatingToneQuality,
-                        RatingTuning = (int)revision.RatingTuning,
-                        ReviewId = (int)revision.ReviewID,
-                        VenueName = revision.VenueName
+                        CanChangeLocation=post.PostNumberInThread==1,
+                        PostID=postID,
+                        Post=new DiscussPostSubmissionViewModel()
+                        {
+                            Markdown = revision.Markdown
+                        }
                     };
-                    var hourmodel = new List<VenueHourViewModel>();
-                    foreach (var h in hours)
+                    if(revisionmodel.CanChangeLocation)
                     {
-                        var item = new VenueHourViewModel();
-                        item.DayOfWeekId = h.WeekDay.WeekDayID;
-                        item.DayOfWeekName = h.WeekDay.WeekDayName;
-                        if (h.StartTime == null || !h.StartTime.HasValue || h.StartTime == DateTime.MinValue) //we only need to check one of them, because if one's null the other one is, too
-                        {
-                            item.StartTime = DateTime.MinValue;
-                            item.EndTime = DateTime.MinValue;
-                            item.Closed = true;
-                        }
-                        else
-                        {
-                            item.Closed = false;
-                            item.StartTime = (DateTime)h.StartTime;
-                            item.EndTime = (DateTime)h.EndTime;
-                        }
-                        hourmodel.Add(item);
+                        var thread = post.DiscussThread;
+                        revisionmodel.Address = thread.Address;
+                        revisionmodel.Lat = thread.Latitude;
+                        revisionmodel.Long = thread.Longitude;
                     }
-                    var listingmodel = new ReadListingViewModel()
-                    {
-                        Listing = listing,
-                        Reviews = null
-                    };
-
-                    var model = new EditViewModel()
-                    {
-                        ReviewRevision = revisionmodel,
-                        Hours = hourmodel,
-                        Listing = listingmodel
-                    };
-                    return View(model);
+                    
+                    return View(revisionmodel);
                 }
             }
             catch
             {
-                return RedirectToAction("NotFound", "Error");
+                return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Review/Edit")]
+        [Url("Discuss/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name = "DiscussEditPOST", Seconds = 600)]

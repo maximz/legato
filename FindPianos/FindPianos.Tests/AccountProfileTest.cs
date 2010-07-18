@@ -119,44 +119,6 @@ namespace FindPianos.Tests
         }
 
         /// <summary>
-        ///A test for NewUser
-        ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
-        [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
-        [UrlToTest("http://localhost:2574/")]
-        public void NewUserTest()
-        {
-            AccountProfile actual;
-            actual = AccountProfile.NewUser;
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
-        ///A test for ProfilePictureURL
-        ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
-        [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("C:\\Users\\Ilya\\Documents\\My Dropbox\\Summer Projects\\Repos\\findpianos\\FindPianos\\FindPianos", "/")]
-        [UrlToTest("http://localhost:2574/")]
-        public void ProfilePictureURLTest()
-        {
-            AccountProfile target = new AccountProfile(); // TODO: Initialize to an appropriate value
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
-            string actual;
-            target.ProfilePictureURL = expected;
-            actual = target.ProfilePictureURL;
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
         ///A test for ReinstateDate
         ///</summary>
         // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
