@@ -28,159 +28,159 @@ namespace FindPianos.Models
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
-    #region Extensibility Method Definitions
-    partial void OnCreated();
-    partial void Insertaspnet_Application(aspnet_Application instance);
-    partial void Updateaspnet_Application(aspnet_Application instance);
-    partial void Deleteaspnet_Application(aspnet_Application instance);
-    partial void InsertWeekDay(WeekDay instance);
-    partial void UpdateWeekDay(WeekDay instance);
-    partial void DeleteWeekDay(WeekDay instance);
-    partial void Insertaspnet_Membership(aspnet_Membership instance);
-    partial void Updateaspnet_Membership(aspnet_Membership instance);
-    partial void Deleteaspnet_Membership(aspnet_Membership instance);
-    partial void Insertaspnet_Path(aspnet_Path instance);
-    partial void Updateaspnet_Path(aspnet_Path instance);
-    partial void Deleteaspnet_Path(aspnet_Path instance);
-    partial void Insertaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
-    partial void Updateaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
-    partial void Deleteaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
-    partial void Insertaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
-    partial void Updateaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
-    partial void Deleteaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
-    partial void Insertaspnet_Profile(aspnet_Profile instance);
-    partial void Updateaspnet_Profile(aspnet_Profile instance);
-    partial void Deleteaspnet_Profile(aspnet_Profile instance);
-    partial void Insertaspnet_Role(aspnet_Role instance);
-    partial void Updateaspnet_Role(aspnet_Role instance);
-    partial void Deleteaspnet_Role(aspnet_Role instance);
-    partial void Insertaspnet_SchemaVersion(aspnet_SchemaVersion instance);
-    partial void Updateaspnet_SchemaVersion(aspnet_SchemaVersion instance);
-    partial void Deleteaspnet_SchemaVersion(aspnet_SchemaVersion instance);
-    partial void Insertaspnet_User(aspnet_User instance);
-    partial void Updateaspnet_User(aspnet_User instance);
-    partial void Deleteaspnet_User(aspnet_User instance);
-    partial void Insertaspnet_UsersInRole(aspnet_UsersInRole instance);
-    partial void Updateaspnet_UsersInRole(aspnet_UsersInRole instance);
-    partial void Deleteaspnet_UsersInRole(aspnet_UsersInRole instance);
-    partial void Insertaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
-    partial void Updateaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
-    partial void Deleteaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
-    partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
-    partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
-    partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
-    partial void InsertDiscussBoard(DiscussBoard instance);
-    partial void UpdateDiscussBoard(DiscussBoard instance);
-    partial void DeleteDiscussBoard(DiscussBoard instance);
-    partial void InsertDiscussPostFlag(DiscussPostFlag instance);
-    partial void UpdateDiscussPostFlag(DiscussPostFlag instance);
-    partial void DeleteDiscussPostFlag(DiscussPostFlag instance);
-    partial void InsertDiscussPostRevision(DiscussPostRevision instance);
-    partial void UpdateDiscussPostRevision(DiscussPostRevision instance);
-    partial void DeleteDiscussPostRevision(DiscussPostRevision instance);
-    partial void InsertDiscussPost(DiscussPost instance);
-    partial void UpdateDiscussPost(DiscussPost instance);
-    partial void DeleteDiscussPost(DiscussPost instance);
-    partial void InsertDiscussThread(DiscussThread instance);
-    partial void UpdateDiscussThread(DiscussThread instance);
-    partial void DeleteDiscussThread(DiscussThread instance);
-    partial void InsertFlagType(FlagType instance);
-    partial void UpdateFlagType(FlagType instance);
-    partial void DeleteFlagType(FlagType instance);
-    partial void InsertInstrument(Instrument instance);
-    partial void UpdateInstrument(Instrument instance);
-    partial void DeleteInstrument(Instrument instance);
-    partial void InsertInstrumentStyle(InstrumentStyle instance);
-    partial void UpdateInstrumentStyle(InstrumentStyle instance);
-    partial void DeleteInstrumentStyle(InstrumentStyle instance);
-    partial void InsertInstrumentType(InstrumentType instance);
-    partial void UpdateInstrumentType(InstrumentType instance);
-    partial void DeleteInstrumentType(InstrumentType instance);
-    partial void InsertJob(Job instance);
-    partial void UpdateJob(Job instance);
-    partial void DeleteJob(Job instance);
-    partial void InsertListingComment(ListingComment instance);
-    partial void UpdateListingComment(ListingComment instance);
-    partial void DeleteListingComment(ListingComment instance);
-    partial void InsertListingFlag(ListingFlag instance);
-    partial void UpdateListingFlag(ListingFlag instance);
-    partial void DeleteListingFlag(ListingFlag instance);
-    partial void InsertListing(Listing instance);
-    partial void UpdateListing(Listing instance);
-    partial void DeleteListing(Listing instance);
-    partial void InsertResetPasswordRecord(ResetPasswordRecord instance);
-    partial void UpdateResetPasswordRecord(ResetPasswordRecord instance);
-    partial void DeleteResetPasswordRecord(ResetPasswordRecord instance);
-    partial void InsertResume(Resume instance);
-    partial void UpdateResume(Resume instance);
-    partial void DeleteResume(Resume instance);
-    partial void InsertResumeType(ResumeType instance);
-    partial void UpdateResumeType(ResumeType instance);
-    partial void DeleteResumeType(ResumeType instance);
-    partial void InsertReviewComment(ReviewComment instance);
-    partial void UpdateReviewComment(ReviewComment instance);
-    partial void DeleteReviewComment(ReviewComment instance);
-    partial void InsertReviewFlag(ReviewFlag instance);
-    partial void UpdateReviewFlag(ReviewFlag instance);
-    partial void DeleteReviewFlag(ReviewFlag instance);
-    partial void InsertReviewRevision(ReviewRevision instance);
-    partial void UpdateReviewRevision(ReviewRevision instance);
-    partial void DeleteReviewRevision(ReviewRevision instance);
-    partial void InsertReview(Review instance);
-    partial void UpdateReview(Review instance);
-    partial void DeleteReview(Review instance);
-    partial void InsertSaleListingFlag(SaleListingFlag instance);
-    partial void UpdateSaleListingFlag(SaleListingFlag instance);
-    partial void DeleteSaleListingFlag(SaleListingFlag instance);
-    partial void InsertSaleListing(SaleListing instance);
-    partial void UpdateSaleListing(SaleListing instance);
-    partial void DeleteSaleListing(SaleListing instance);
-    partial void InsertSaleReviewComment(SaleReviewComment instance);
-    partial void UpdateSaleReviewComment(SaleReviewComment instance);
-    partial void DeleteSaleReviewComment(SaleReviewComment instance);
-    partial void InsertSaleReviewFlag(SaleReviewFlag instance);
-    partial void UpdateSaleReviewFlag(SaleReviewFlag instance);
-    partial void DeleteSaleReviewFlag(SaleReviewFlag instance);
-    partial void InsertSaleReviewRevision(SaleReviewRevision instance);
-    partial void UpdateSaleReviewRevision(SaleReviewRevision instance);
-    partial void DeleteSaleReviewRevision(SaleReviewRevision instance);
-    partial void InsertSaleReview(SaleReview instance);
-    partial void UpdateSaleReview(SaleReview instance);
-    partial void DeleteSaleReview(SaleReview instance);
-    partial void InsertStoreListingComment(StoreListingComment instance);
-    partial void UpdateStoreListingComment(StoreListingComment instance);
-    partial void DeleteStoreListingComment(StoreListingComment instance);
-    partial void InsertStoreListingFlag(StoreListingFlag instance);
-    partial void UpdateStoreListingFlag(StoreListingFlag instance);
-    partial void DeleteStoreListingFlag(StoreListingFlag instance);
-    partial void InsertStoreListing(StoreListing instance);
-    partial void UpdateStoreListing(StoreListing instance);
-    partial void DeleteStoreListing(StoreListing instance);
-    partial void InsertStoreReviewComment(StoreReviewComment instance);
-    partial void UpdateStoreReviewComment(StoreReviewComment instance);
-    partial void DeleteStoreReviewComment(StoreReviewComment instance);
-    partial void InsertStoreReviewFlag(StoreReviewFlag instance);
-    partial void UpdateStoreReviewFlag(StoreReviewFlag instance);
-    partial void DeleteStoreReviewFlag(StoreReviewFlag instance);
-    partial void InsertStoreReviewRevision(StoreReviewRevision instance);
-    partial void UpdateStoreReviewRevision(StoreReviewRevision instance);
-    partial void DeleteStoreReviewRevision(StoreReviewRevision instance);
-    partial void InsertStoreReview(StoreReview instance);
-    partial void UpdateStoreReview(StoreReview instance);
-    partial void DeleteStoreReview(StoreReview instance);
-    partial void InsertStoreVenueHour(StoreVenueHour instance);
-    partial void UpdateStoreVenueHour(StoreVenueHour instance);
-    partial void DeleteStoreVenueHour(StoreVenueHour instance);
-    partial void InsertUserOpenId(UserOpenId instance);
-    partial void UpdateUserOpenId(UserOpenId instance);
-    partial void DeleteUserOpenId(UserOpenId instance);
-    partial void InsertUserSuspension(UserSuspension instance);
-    partial void UpdateUserSuspension(UserSuspension instance);
-    partial void DeleteUserSuspension(UserSuspension instance);
-    partial void InsertVenueHour(VenueHour instance);
-    partial void UpdateVenueHour(VenueHour instance);
-    partial void DeleteVenueHour(VenueHour instance);
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnCreated();
+	partial void Insertaspnet_Application(aspnet_Application instance);
+	partial void Updateaspnet_Application(aspnet_Application instance);
+	partial void Deleteaspnet_Application(aspnet_Application instance);
+	partial void InsertWeekDay(WeekDay instance);
+	partial void UpdateWeekDay(WeekDay instance);
+	partial void DeleteWeekDay(WeekDay instance);
+	partial void Insertaspnet_Membership(aspnet_Membership instance);
+	partial void Updateaspnet_Membership(aspnet_Membership instance);
+	partial void Deleteaspnet_Membership(aspnet_Membership instance);
+	partial void Insertaspnet_Path(aspnet_Path instance);
+	partial void Updateaspnet_Path(aspnet_Path instance);
+	partial void Deleteaspnet_Path(aspnet_Path instance);
+	partial void Insertaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
+	partial void Updateaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
+	partial void Deleteaspnet_PersonalizationAllUser(aspnet_PersonalizationAllUser instance);
+	partial void Insertaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
+	partial void Updateaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
+	partial void Deleteaspnet_PersonalizationPerUser(aspnet_PersonalizationPerUser instance);
+	partial void Insertaspnet_Profile(aspnet_Profile instance);
+	partial void Updateaspnet_Profile(aspnet_Profile instance);
+	partial void Deleteaspnet_Profile(aspnet_Profile instance);
+	partial void Insertaspnet_Role(aspnet_Role instance);
+	partial void Updateaspnet_Role(aspnet_Role instance);
+	partial void Deleteaspnet_Role(aspnet_Role instance);
+	partial void Insertaspnet_SchemaVersion(aspnet_SchemaVersion instance);
+	partial void Updateaspnet_SchemaVersion(aspnet_SchemaVersion instance);
+	partial void Deleteaspnet_SchemaVersion(aspnet_SchemaVersion instance);
+	partial void Insertaspnet_User(aspnet_User instance);
+	partial void Updateaspnet_User(aspnet_User instance);
+	partial void Deleteaspnet_User(aspnet_User instance);
+	partial void Insertaspnet_UsersInRole(aspnet_UsersInRole instance);
+	partial void Updateaspnet_UsersInRole(aspnet_UsersInRole instance);
+	partial void Deleteaspnet_UsersInRole(aspnet_UsersInRole instance);
+	partial void Insertaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
+	partial void Updateaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
+	partial void Deleteaspnet_WebEvent_Event(aspnet_WebEvent_Event instance);
+	partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
+	partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
+	partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
+	partial void InsertDiscussBoard(DiscussBoard instance);
+	partial void UpdateDiscussBoard(DiscussBoard instance);
+	partial void DeleteDiscussBoard(DiscussBoard instance);
+	partial void InsertDiscussPostFlag(DiscussPostFlag instance);
+	partial void UpdateDiscussPostFlag(DiscussPostFlag instance);
+	partial void DeleteDiscussPostFlag(DiscussPostFlag instance);
+	partial void InsertDiscussPost(DiscussPost instance);
+	partial void UpdateDiscussPost(DiscussPost instance);
+	partial void DeleteDiscussPost(DiscussPost instance);
+	partial void InsertDiscussThread(DiscussThread instance);
+	partial void UpdateDiscussThread(DiscussThread instance);
+	partial void DeleteDiscussThread(DiscussThread instance);
+	partial void InsertFlagType(FlagType instance);
+	partial void UpdateFlagType(FlagType instance);
+	partial void DeleteFlagType(FlagType instance);
+	partial void InsertInstrument(Instrument instance);
+	partial void UpdateInstrument(Instrument instance);
+	partial void DeleteInstrument(Instrument instance);
+	partial void InsertInstrumentStyle(InstrumentStyle instance);
+	partial void UpdateInstrumentStyle(InstrumentStyle instance);
+	partial void DeleteInstrumentStyle(InstrumentStyle instance);
+	partial void InsertInstrumentType(InstrumentType instance);
+	partial void UpdateInstrumentType(InstrumentType instance);
+	partial void DeleteInstrumentType(InstrumentType instance);
+	partial void InsertJob(Job instance);
+	partial void UpdateJob(Job instance);
+	partial void DeleteJob(Job instance);
+	partial void InsertListingComment(ListingComment instance);
+	partial void UpdateListingComment(ListingComment instance);
+	partial void DeleteListingComment(ListingComment instance);
+	partial void InsertListingFlag(ListingFlag instance);
+	partial void UpdateListingFlag(ListingFlag instance);
+	partial void DeleteListingFlag(ListingFlag instance);
+	partial void InsertListing(Listing instance);
+	partial void UpdateListing(Listing instance);
+	partial void DeleteListing(Listing instance);
+	partial void InsertResetPasswordRecord(ResetPasswordRecord instance);
+	partial void UpdateResetPasswordRecord(ResetPasswordRecord instance);
+	partial void DeleteResetPasswordRecord(ResetPasswordRecord instance);
+	partial void InsertResume(Resume instance);
+	partial void UpdateResume(Resume instance);
+	partial void DeleteResume(Resume instance);
+	partial void InsertResumeType(ResumeType instance);
+	partial void UpdateResumeType(ResumeType instance);
+	partial void DeleteResumeType(ResumeType instance);
+	partial void InsertReviewComment(ReviewComment instance);
+	partial void UpdateReviewComment(ReviewComment instance);
+	partial void DeleteReviewComment(ReviewComment instance);
+	partial void InsertReviewFlag(ReviewFlag instance);
+	partial void UpdateReviewFlag(ReviewFlag instance);
+	partial void DeleteReviewFlag(ReviewFlag instance);
+	partial void InsertReviewRevision(ReviewRevision instance);
+	partial void UpdateReviewRevision(ReviewRevision instance);
+	partial void DeleteReviewRevision(ReviewRevision instance);
+	partial void InsertReview(Review instance);
+	partial void UpdateReview(Review instance);
+	partial void DeleteReview(Review instance);
+	partial void InsertSaleListingFlag(SaleListingFlag instance);
+	partial void UpdateSaleListingFlag(SaleListingFlag instance);
+	partial void DeleteSaleListingFlag(SaleListingFlag instance);
+	partial void InsertSaleListing(SaleListing instance);
+	partial void UpdateSaleListing(SaleListing instance);
+	partial void DeleteSaleListing(SaleListing instance);
+	partial void InsertSaleReviewComment(SaleReviewComment instance);
+	partial void UpdateSaleReviewComment(SaleReviewComment instance);
+	partial void DeleteSaleReviewComment(SaleReviewComment instance);
+	partial void InsertSaleReviewFlag(SaleReviewFlag instance);
+	partial void UpdateSaleReviewFlag(SaleReviewFlag instance);
+	partial void DeleteSaleReviewFlag(SaleReviewFlag instance);
+	partial void InsertSaleReviewRevision(SaleReviewRevision instance);
+	partial void UpdateSaleReviewRevision(SaleReviewRevision instance);
+	partial void DeleteSaleReviewRevision(SaleReviewRevision instance);
+	partial void InsertSaleReview(SaleReview instance);
+	partial void UpdateSaleReview(SaleReview instance);
+	partial void DeleteSaleReview(SaleReview instance);
+	partial void InsertStoreListingComment(StoreListingComment instance);
+	partial void UpdateStoreListingComment(StoreListingComment instance);
+	partial void DeleteStoreListingComment(StoreListingComment instance);
+	partial void InsertStoreListingFlag(StoreListingFlag instance);
+	partial void UpdateStoreListingFlag(StoreListingFlag instance);
+	partial void DeleteStoreListingFlag(StoreListingFlag instance);
+	partial void InsertStoreListing(StoreListing instance);
+	partial void UpdateStoreListing(StoreListing instance);
+	partial void DeleteStoreListing(StoreListing instance);
+	partial void InsertStoreReviewComment(StoreReviewComment instance);
+	partial void UpdateStoreReviewComment(StoreReviewComment instance);
+	partial void DeleteStoreReviewComment(StoreReviewComment instance);
+	partial void InsertStoreReviewFlag(StoreReviewFlag instance);
+	partial void UpdateStoreReviewFlag(StoreReviewFlag instance);
+	partial void DeleteStoreReviewFlag(StoreReviewFlag instance);
+	partial void InsertStoreReviewRevision(StoreReviewRevision instance);
+	partial void UpdateStoreReviewRevision(StoreReviewRevision instance);
+	partial void DeleteStoreReviewRevision(StoreReviewRevision instance);
+	partial void InsertStoreReview(StoreReview instance);
+	partial void UpdateStoreReview(StoreReview instance);
+	partial void DeleteStoreReview(StoreReview instance);
+	partial void InsertStoreVenueHour(StoreVenueHour instance);
+	partial void UpdateStoreVenueHour(StoreVenueHour instance);
+	partial void DeleteStoreVenueHour(StoreVenueHour instance);
+	partial void InsertUserOpenId(UserOpenId instance);
+	partial void UpdateUserOpenId(UserOpenId instance);
+	partial void DeleteUserOpenId(UserOpenId instance);
+	partial void InsertUserSuspension(UserSuspension instance);
+	partial void UpdateUserSuspension(UserSuspension instance);
+	partial void DeleteUserSuspension(UserSuspension instance);
+	partial void InsertVenueHour(VenueHour instance);
+	partial void UpdateVenueHour(VenueHour instance);
+	partial void DeleteVenueHour(VenueHour instance);
+	partial void InsertDiscussPostRevision(DiscussPostRevision instance);
+	partial void UpdateDiscussPostRevision(DiscussPostRevision instance);
+	partial void DeleteDiscussPostRevision(DiscussPostRevision instance);
+	#endregion
 		
 		public LegatoDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LegatoConnectionString"].ConnectionString, mappingSource)
@@ -329,14 +329,6 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<DiscussPostFlag>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DiscussPostRevision> DiscussPostRevisions
-		{
-			get
-			{
-				return this.GetTable<DiscussPostRevision>();
 			}
 		}
 		
@@ -611,6 +603,14 @@ namespace FindPianos.Models
 				return this.GetTable<VenueHour>();
 			}
 		}
+		
+		public System.Data.Linq.Table<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this.GetTable<DiscussPostRevision>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.aspnet_Applications")]
@@ -635,19 +635,19 @@ namespace FindPianos.Models
 		
 		private EntitySet<aspnet_User> _aspnet_Users;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationNameChanging(string value);
-    partial void OnApplicationNameChanged();
-    partial void OnLoweredApplicationNameChanging(string value);
-    partial void OnLoweredApplicationNameChanged();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnApplicationNameChanging(string value);
+	partial void OnApplicationNameChanged();
+	partial void OnLoweredApplicationNameChanging(string value);
+	partial void OnLoweredApplicationNameChanged();
+	partial void OnApplicationIdChanging(System.Guid value);
+	partial void OnApplicationIdChanged();
+	partial void OnDescriptionChanging(string value);
+	partial void OnDescriptionChanged();
+	#endregion
 		
 		public aspnet_Application()
 		{
@@ -873,15 +873,15 @@ namespace FindPianos.Models
 		
 		private EntitySet<VenueHour> _VenueHours;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnWeekDayIDChanging(int value);
-    partial void OnWeekDayIDChanged();
-    partial void OnWeekDayNameChanging(string value);
-    partial void OnWeekDayNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnWeekDayIDChanging(int value);
+	partial void OnWeekDayIDChanged();
+	partial void OnWeekDayNameChanging(string value);
+	partial void OnWeekDayNameChanged();
+	#endregion
 		
 		public WeekDay()
 		{
@@ -1057,53 +1057,53 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
-    partial void OnPasswordFormatChanging(int value);
-    partial void OnPasswordFormatChanged();
-    partial void OnPasswordSaltChanging(string value);
-    partial void OnPasswordSaltChanged();
-    partial void OnMobilePINChanging(string value);
-    partial void OnMobilePINChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnLoweredEmailChanging(string value);
-    partial void OnLoweredEmailChanged();
-    partial void OnPasswordQuestionChanging(string value);
-    partial void OnPasswordQuestionChanged();
-    partial void OnPasswordAnswerChanging(string value);
-    partial void OnPasswordAnswerChanged();
-    partial void OnIsApprovedChanging(bool value);
-    partial void OnIsApprovedChanged();
-    partial void OnIsLockedOutChanging(bool value);
-    partial void OnIsLockedOutChanged();
-    partial void OnCreateDateChanging(System.DateTime value);
-    partial void OnCreateDateChanged();
-    partial void OnLastLoginDateChanging(System.DateTime value);
-    partial void OnLastLoginDateChanged();
-    partial void OnLastPasswordChangedDateChanging(System.DateTime value);
-    partial void OnLastPasswordChangedDateChanged();
-    partial void OnLastLockoutDateChanging(System.DateTime value);
-    partial void OnLastLockoutDateChanged();
-    partial void OnFailedPasswordAttemptCountChanging(int value);
-    partial void OnFailedPasswordAttemptCountChanged();
-    partial void OnFailedPasswordAttemptWindowStartChanging(System.DateTime value);
-    partial void OnFailedPasswordAttemptWindowStartChanged();
-    partial void OnFailedPasswordAnswerAttemptCountChanging(int value);
-    partial void OnFailedPasswordAnswerAttemptCountChanged();
-    partial void OnFailedPasswordAnswerAttemptWindowStartChanging(System.DateTime value);
-    partial void OnFailedPasswordAnswerAttemptWindowStartChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnApplicationIdChanging(System.Guid value);
+	partial void OnApplicationIdChanged();
+	partial void OnUserIdChanging(System.Guid value);
+	partial void OnUserIdChanged();
+	partial void OnPasswordChanging(string value);
+	partial void OnPasswordChanged();
+	partial void OnPasswordFormatChanging(int value);
+	partial void OnPasswordFormatChanged();
+	partial void OnPasswordSaltChanging(string value);
+	partial void OnPasswordSaltChanged();
+	partial void OnMobilePINChanging(string value);
+	partial void OnMobilePINChanged();
+	partial void OnEmailChanging(string value);
+	partial void OnEmailChanged();
+	partial void OnLoweredEmailChanging(string value);
+	partial void OnLoweredEmailChanged();
+	partial void OnPasswordQuestionChanging(string value);
+	partial void OnPasswordQuestionChanged();
+	partial void OnPasswordAnswerChanging(string value);
+	partial void OnPasswordAnswerChanged();
+	partial void OnIsApprovedChanging(bool value);
+	partial void OnIsApprovedChanged();
+	partial void OnIsLockedOutChanging(bool value);
+	partial void OnIsLockedOutChanged();
+	partial void OnCreateDateChanging(System.DateTime value);
+	partial void OnCreateDateChanged();
+	partial void OnLastLoginDateChanging(System.DateTime value);
+	partial void OnLastLoginDateChanged();
+	partial void OnLastPasswordChangedDateChanging(System.DateTime value);
+	partial void OnLastPasswordChangedDateChanged();
+	partial void OnLastLockoutDateChanging(System.DateTime value);
+	partial void OnLastLockoutDateChanged();
+	partial void OnFailedPasswordAttemptCountChanging(int value);
+	partial void OnFailedPasswordAttemptCountChanged();
+	partial void OnFailedPasswordAttemptWindowStartChanging(System.DateTime value);
+	partial void OnFailedPasswordAttemptWindowStartChanged();
+	partial void OnFailedPasswordAnswerAttemptCountChanging(int value);
+	partial void OnFailedPasswordAnswerAttemptCountChanged();
+	partial void OnFailedPasswordAnswerAttemptWindowStartChanging(System.DateTime value);
+	partial void OnFailedPasswordAnswerAttemptWindowStartChanged();
+	partial void OnCommentChanging(string value);
+	partial void OnCommentChanged();
+	#endregion
 		
 		public aspnet_Membership()
 		{
@@ -1701,19 +1701,19 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnPathIdChanging(System.Guid value);
-    partial void OnPathIdChanged();
-    partial void OnPathChanging(string value);
-    partial void OnPathChanged();
-    partial void OnLoweredPathChanging(string value);
-    partial void OnLoweredPathChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnApplicationIdChanging(System.Guid value);
+	partial void OnApplicationIdChanged();
+	partial void OnPathIdChanging(System.Guid value);
+	partial void OnPathIdChanged();
+	partial void OnPathChanging(string value);
+	partial void OnPathChanged();
+	partial void OnLoweredPathChanging(string value);
+	partial void OnLoweredPathChanged();
+	#endregion
 		
 		public aspnet_Path()
 		{
@@ -1930,17 +1930,17 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_Path> _aspnet_Path;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPathIdChanging(System.Guid value);
-    partial void OnPathIdChanged();
-    partial void OnPageSettingsChanging(System.Data.Linq.Binary value);
-    partial void OnPageSettingsChanged();
-    partial void OnLastUpdatedDateChanging(System.DateTime value);
-    partial void OnLastUpdatedDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnPathIdChanging(System.Guid value);
+	partial void OnPathIdChanged();
+	partial void OnPageSettingsChanging(System.Data.Linq.Binary value);
+	partial void OnPageSettingsChanged();
+	partial void OnLastUpdatedDateChanging(System.DateTime value);
+	partial void OnLastUpdatedDateChanged();
+	#endregion
 		
 		public aspnet_PersonalizationAllUser()
 		{
@@ -2087,21 +2087,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(System.Guid value);
-    partial void OnIdChanged();
-    partial void OnPathIdChanging(System.Nullable<System.Guid> value);
-    partial void OnPathIdChanged();
-    partial void OnUserIdChanging(System.Nullable<System.Guid> value);
-    partial void OnUserIdChanged();
-    partial void OnPageSettingsChanging(System.Data.Linq.Binary value);
-    partial void OnPageSettingsChanged();
-    partial void OnLastUpdatedDateChanging(System.DateTime value);
-    partial void OnLastUpdatedDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnIdChanging(System.Guid value);
+	partial void OnIdChanged();
+	partial void OnPathIdChanging(System.Nullable<System.Guid> value);
+	partial void OnPathIdChanged();
+	partial void OnUserIdChanging(System.Nullable<System.Guid> value);
+	partial void OnUserIdChanged();
+	partial void OnPageSettingsChanging(System.Data.Linq.Binary value);
+	partial void OnPageSettingsChanged();
+	partial void OnLastUpdatedDateChanging(System.DateTime value);
+	partial void OnLastUpdatedDateChanged();
+	#endregion
 		
 		public aspnet_PersonalizationPerUser()
 		{
@@ -2325,21 +2325,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    partial void OnPropertyNamesChanging(string value);
-    partial void OnPropertyNamesChanged();
-    partial void OnPropertyValuesStringChanging(string value);
-    partial void OnPropertyValuesStringChanged();
-    partial void OnPropertyValuesBinaryChanging(System.Data.Linq.Binary value);
-    partial void OnPropertyValuesBinaryChanged();
-    partial void OnLastUpdatedDateChanging(System.DateTime value);
-    partial void OnLastUpdatedDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnUserIdChanging(System.Guid value);
+	partial void OnUserIdChanged();
+	partial void OnPropertyNamesChanging(string value);
+	partial void OnPropertyNamesChanged();
+	partial void OnPropertyValuesStringChanging(string value);
+	partial void OnPropertyValuesStringChanged();
+	partial void OnPropertyValuesBinaryChanging(System.Data.Linq.Binary value);
+	partial void OnPropertyValuesBinaryChanged();
+	partial void OnLastUpdatedDateChanging(System.DateTime value);
+	partial void OnLastUpdatedDateChanged();
+	#endregion
 		
 		public aspnet_Profile()
 		{
@@ -2526,21 +2526,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnRoleIdChanging(System.Guid value);
-    partial void OnRoleIdChanged();
-    partial void OnRoleNameChanging(string value);
-    partial void OnRoleNameChanged();
-    partial void OnLoweredRoleNameChanging(string value);
-    partial void OnLoweredRoleNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnApplicationIdChanging(System.Guid value);
+	partial void OnApplicationIdChanged();
+	partial void OnRoleIdChanging(System.Guid value);
+	partial void OnRoleIdChanged();
+	partial void OnRoleNameChanging(string value);
+	partial void OnRoleNameChanged();
+	partial void OnLoweredRoleNameChanging(string value);
+	partial void OnLoweredRoleNameChanged();
+	partial void OnDescriptionChanging(string value);
+	partial void OnDescriptionChanged();
+	#endregion
 		
 		public aspnet_Role()
 		{
@@ -2745,17 +2745,17 @@ namespace FindPianos.Models
 		
 		private bool _IsCurrentVersion;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFeatureChanging(string value);
-    partial void OnFeatureChanged();
-    partial void OnCompatibleSchemaVersionChanging(string value);
-    partial void OnCompatibleSchemaVersionChanged();
-    partial void OnIsCurrentVersionChanging(bool value);
-    partial void OnIsCurrentVersionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFeatureChanging(string value);
+	partial void OnFeatureChanged();
+	partial void OnCompatibleSchemaVersionChanging(string value);
+	partial void OnCompatibleSchemaVersionChanged();
+	partial void OnIsCurrentVersionChanging(bool value);
+	partial void OnIsCurrentVersionChanged();
+	#endregion
 		
 		public aspnet_SchemaVersion()
 		{
@@ -2873,8 +2873,6 @@ namespace FindPianos.Models
 		
 		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
 		
-		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
-		
 		private EntitySet<Job> _Jobs;
 		
 		private EntitySet<ListingComment> _ListingComments;
@@ -2913,27 +2911,29 @@ namespace FindPianos.Models
 		
 		private EntitySet<UserSuspension> _UserSuspensions;
 		
+		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    partial void OnUserNameChanging(string value);
-    partial void OnUserNameChanged();
-    partial void OnLoweredUserNameChanging(string value);
-    partial void OnLoweredUserNameChanged();
-    partial void OnMobileAliasChanging(string value);
-    partial void OnMobileAliasChanged();
-    partial void OnIsAnonymousChanging(bool value);
-    partial void OnIsAnonymousChanged();
-    partial void OnLastActivityDateChanging(System.DateTime value);
-    partial void OnLastActivityDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnApplicationIdChanging(System.Guid value);
+	partial void OnApplicationIdChanged();
+	partial void OnUserIdChanging(System.Guid value);
+	partial void OnUserIdChanged();
+	partial void OnUserNameChanging(string value);
+	partial void OnUserNameChanged();
+	partial void OnLoweredUserNameChanging(string value);
+	partial void OnLoweredUserNameChanged();
+	partial void OnMobileAliasChanging(string value);
+	partial void OnMobileAliasChanged();
+	partial void OnIsAnonymousChanging(bool value);
+	partial void OnIsAnonymousChanged();
+	partial void OnLastActivityDateChanging(System.DateTime value);
+	partial void OnLastActivityDateChanged();
+	#endregion
 		
 		public aspnet_User()
 		{
@@ -2942,7 +2942,6 @@ namespace FindPianos.Models
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
 			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
-			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
 			this._Jobs = new EntitySet<Job>(new Action<Job>(this.attach_Jobs), new Action<Job>(this.detach_Jobs));
 			this._ListingComments = new EntitySet<ListingComment>(new Action<ListingComment>(this.attach_ListingComments), new Action<ListingComment>(this.detach_ListingComments));
 			this._ListingFlags = new EntitySet<ListingFlag>(new Action<ListingFlag>(this.attach_ListingFlags), new Action<ListingFlag>(this.detach_ListingFlags));
@@ -2962,6 +2961,7 @@ namespace FindPianos.Models
 			this._StoreReviewComments = new EntitySet<StoreReviewComment>(new Action<StoreReviewComment>(this.attach_StoreReviewComments), new Action<StoreReviewComment>(this.detach_StoreReviewComments));
 			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
 			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
+			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
 		}
@@ -3204,19 +3204,6 @@ namespace FindPianos.Models
 			set
 			{
 				this._DiscussPostFlags.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="UserId", OtherKey="UserID")]
-		public EntitySet<DiscussPostRevision> DiscussPostRevisions
-		{
-			get
-			{
-				return this._DiscussPostRevisions;
-			}
-			set
-			{
-				this._DiscussPostRevisions.Assign(value);
 			}
 		}
 		
@@ -3467,6 +3454,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this._DiscussPostRevisions;
+			}
+			set
+			{
+				this._DiscussPostRevisions.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_User", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -3552,18 +3552,6 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_DiscussPostFlags(DiscussPostFlag entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = null;
-		}
-		
-		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = this;
-		}
-		
-		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -3796,6 +3784,18 @@ namespace FindPianos.Models
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
 		}
+		
+		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.aspnet_UsersInRoles")]
@@ -3812,15 +3812,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    partial void OnRoleIdChanging(System.Guid value);
-    partial void OnRoleIdChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnUserIdChanging(System.Guid value);
+	partial void OnUserIdChanged();
+	partial void OnRoleIdChanging(System.Guid value);
+	partial void OnRoleIdChanged();
+	#endregion
 		
 		public aspnet_UsersInRole()
 		{
@@ -4002,41 +4002,41 @@ namespace FindPianos.Models
 		
 		private string _Details;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnEventIdChanging(string value);
-    partial void OnEventIdChanged();
-    partial void OnEventTimeUtcChanging(System.DateTime value);
-    partial void OnEventTimeUtcChanged();
-    partial void OnEventTimeChanging(System.DateTime value);
-    partial void OnEventTimeChanged();
-    partial void OnEventTypeChanging(string value);
-    partial void OnEventTypeChanged();
-    partial void OnEventSequenceChanging(decimal value);
-    partial void OnEventSequenceChanged();
-    partial void OnEventOccurrenceChanging(decimal value);
-    partial void OnEventOccurrenceChanged();
-    partial void OnEventCodeChanging(int value);
-    partial void OnEventCodeChanged();
-    partial void OnEventDetailCodeChanging(int value);
-    partial void OnEventDetailCodeChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnApplicationPathChanging(string value);
-    partial void OnApplicationPathChanged();
-    partial void OnApplicationVirtualPathChanging(string value);
-    partial void OnApplicationVirtualPathChanged();
-    partial void OnMachineNameChanging(string value);
-    partial void OnMachineNameChanged();
-    partial void OnRequestUrlChanging(string value);
-    partial void OnRequestUrlChanged();
-    partial void OnExceptionTypeChanging(string value);
-    partial void OnExceptionTypeChanged();
-    partial void OnDetailsChanging(string value);
-    partial void OnDetailsChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnEventIdChanging(string value);
+	partial void OnEventIdChanged();
+	partial void OnEventTimeUtcChanging(System.DateTime value);
+	partial void OnEventTimeUtcChanged();
+	partial void OnEventTimeChanging(System.DateTime value);
+	partial void OnEventTimeChanged();
+	partial void OnEventTypeChanging(string value);
+	partial void OnEventTypeChanged();
+	partial void OnEventSequenceChanging(decimal value);
+	partial void OnEventSequenceChanged();
+	partial void OnEventOccurrenceChanging(decimal value);
+	partial void OnEventOccurrenceChanged();
+	partial void OnEventCodeChanging(int value);
+	partial void OnEventCodeChanged();
+	partial void OnEventDetailCodeChanging(int value);
+	partial void OnEventDetailCodeChanged();
+	partial void OnMessageChanging(string value);
+	partial void OnMessageChanged();
+	partial void OnApplicationPathChanging(string value);
+	partial void OnApplicationPathChanged();
+	partial void OnApplicationVirtualPathChanging(string value);
+	partial void OnApplicationVirtualPathChanged();
+	partial void OnMachineNameChanging(string value);
+	partial void OnMachineNameChanged();
+	partial void OnRequestUrlChanging(string value);
+	partial void OnRequestUrlChanged();
+	partial void OnExceptionTypeChanging(string value);
+	partial void OnExceptionTypeChanged();
+	partial void OnDetailsChanging(string value);
+	partial void OnDetailsChanged();
+	#endregion
 		
 		public aspnet_WebEvent_Event()
 		{
@@ -4376,15 +4376,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_Membership> _aspnet_Membership;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnConfirmIDChanging(System.Guid value);
-    partial void OnConfirmIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnConfirmIDChanging(System.Guid value);
+	partial void OnConfirmIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	#endregion
 		
 		public ConfirmEmailAddress()
 		{
@@ -4503,15 +4503,15 @@ namespace FindPianos.Models
 		
 		private EntitySet<DiscussThread> _DiscussThreads;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnBoardIDChanging(long value);
-    partial void OnBoardIDChanged();
-    partial void OnBoardNameChanging(string value);
-    partial void OnBoardNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnBoardIDChanging(long value);
+	partial void OnBoardIDChanged();
+	partial void OnBoardNameChanging(string value);
+	partial void OnBoardNameChanged();
+	#endregion
 		
 		public DiscussBoard()
 		{
@@ -4627,21 +4627,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<FlagType> _FlagType;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnPostIDChanging(long value);
-    partial void OnPostIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnPostIDChanging(long value);
+	partial void OnPostIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public DiscussPostFlag()
 		{
@@ -4886,294 +4886,6 @@ namespace FindPianos.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostRevisions")]
-	public partial class DiscussPostRevision : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _PostRevisionID;
-		
-		private System.Guid _UserID;
-		
-		private long _PostID;
-		
-		private string _Markdown;
-		
-		private string _HTML;
-		
-		private System.DateTime _DateOfEdit;
-		
-		private int _EditNumber;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
-		
-		private EntityRef<DiscussPost> _DiscussPost;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPostRevisionIDChanging(long value);
-    partial void OnPostRevisionIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnPostIDChanging(long value);
-    partial void OnPostIDChanged();
-    partial void OnMarkdownChanging(string value);
-    partial void OnMarkdownChanged();
-    partial void OnHTMLChanging(string value);
-    partial void OnHTMLChanged();
-    partial void OnDateOfEditChanging(System.DateTime value);
-    partial void OnDateOfEditChanged();
-    partial void OnEditNumberChanging(int value);
-    partial void OnEditNumberChanged();
-    #endregion
-		
-		public DiscussPostRevision()
-		{
-			this._aspnet_User = default(EntityRef<aspnet_User>);
-			this._DiscussPost = default(EntityRef<DiscussPost>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long PostRevisionID
-		{
-			get
-			{
-				return this._PostRevisionID;
-			}
-			set
-			{
-				if ((this._PostRevisionID != value))
-				{
-					this.OnPostRevisionIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostRevisionID = value;
-					this.SendPropertyChanged("PostRevisionID");
-					this.OnPostRevisionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
-		public long PostID
-		{
-			get
-			{
-				return this._PostID;
-			}
-			set
-			{
-				if ((this._PostID != value))
-				{
-					if (this._DiscussPost.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPostIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostID = value;
-					this.SendPropertyChanged("PostID");
-					this.OnPostIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Markdown
-		{
-			get
-			{
-				return this._Markdown;
-			}
-			set
-			{
-				if ((this._Markdown != value))
-				{
-					this.OnMarkdownChanging(value);
-					this.SendPropertyChanging();
-					this._Markdown = value;
-					this.SendPropertyChanged("Markdown");
-					this.OnMarkdownChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string HTML
-		{
-			get
-			{
-				return this._HTML;
-			}
-			set
-			{
-				if ((this._HTML != value))
-				{
-					this.OnHTMLChanging(value);
-					this.SendPropertyChanging();
-					this._HTML = value;
-					this.SendPropertyChanged("HTML");
-					this.OnHTMLChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfEdit", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfEdit
-		{
-			get
-			{
-				return this._DateOfEdit;
-			}
-			set
-			{
-				if ((this._DateOfEdit != value))
-				{
-					this.OnDateOfEditChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfEdit = value;
-					this.SendPropertyChanged("DateOfEdit");
-					this.OnDateOfEditChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
-		public int EditNumber
-		{
-			get
-			{
-				return this._EditNumber;
-			}
-			set
-			{
-				if ((this._EditNumber != value))
-				{
-					this.OnEditNumberChanging(value);
-					this.SendPropertyChanging();
-					this._EditNumber = value;
-					this.SendPropertyChanged("EditNumber");
-					this.OnEditNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.DiscussPostRevisions.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussPostRevisions.Add(this);
-						this._UserID = value.UserId;
-					}
-					else
-					{
-						this._UserID = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
-		public DiscussPost DiscussPost
-		{
-			get
-			{
-				return this._DiscussPost.Entity;
-			}
-			set
-			{
-				DiscussPost previousValue = this._DiscussPost.Entity;
-				if (((previousValue != value) 
-							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DiscussPost.Entity = null;
-						previousValue.DiscussPostRevisions.Remove(this);
-					}
-					this._DiscussPost.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussPostRevisions.Add(this);
-						this._PostID = value.PostID;
-					}
-					else
-					{
-						this._PostID = default(long);
-					}
-					this.SendPropertyChanged("DiscussPost");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPosts")]
 	public partial class DiscussPost : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5192,26 +4904,29 @@ namespace FindPianos.Models
 		
 		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
 		
+		private EntitySet<DiscussPostRevision> _DiscussPostRevisions1;
+		
 		private EntityRef<DiscussThread> _DiscussThread;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPostIDChanging(long value);
-    partial void OnPostIDChanged();
-    partial void OnThreadIDChanging(long value);
-    partial void OnThreadIDChanged();
-    partial void OnPostNumberInThreadChanging(int value);
-    partial void OnPostNumberInThreadChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnPostIDChanging(long value);
+	partial void OnPostIDChanged();
+	partial void OnThreadIDChanging(long value);
+	partial void OnThreadIDChanged();
+	partial void OnPostNumberInThreadChanging(int value);
+	partial void OnPostNumberInThreadChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public DiscussPost()
 		{
 			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
 			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
+			this._DiscussPostRevisions1 = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions1), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions1));
 			this._DiscussThread = default(EntityRef<DiscussThread>);
 			OnCreated();
 		}
@@ -5326,6 +5041,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision1", Storage="_DiscussPostRevisions1", ThisKey="PostID", OtherKey="InReplyToPostID")]
+		public EntitySet<DiscussPostRevision> DiscussPostRevisions1
+		{
+			get
+			{
+				return this._DiscussPostRevisions1;
+			}
+			set
+			{
+				this._DiscussPostRevisions1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussThread_DiscussPost", Storage="_DiscussThread", ThisKey="ThreadID", OtherKey="ThreadID", IsForeignKey=true)]
 		public DiscussThread DiscussThread
 		{
@@ -5403,6 +5131,18 @@ namespace FindPianos.Models
 			this.SendPropertyChanging();
 			entity.DiscussPost = null;
 		}
+		
+		private void attach_DiscussPostRevisions1(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost1 = this;
+		}
+		
+		private void detach_DiscussPostRevisions1(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussPost1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussThreads")]
@@ -5431,27 +5171,27 @@ namespace FindPianos.Models
 		
 		private EntityRef<DiscussBoard> _DiscussBoard;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnThreadIDChanging(long value);
-    partial void OnThreadIDChanged();
-    partial void OnBoardIDChanging(long value);
-    partial void OnBoardIDChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnCreationDateChanging(System.DateTime value);
-    partial void OnCreationDateChanged();
-    partial void OnLatitudeChanging(System.Nullable<decimal> value);
-    partial void OnLatitudeChanged();
-    partial void OnLongitudeChanging(System.Nullable<decimal> value);
-    partial void OnLongitudeChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnLatestActivityChanging(System.DateTime value);
-    partial void OnLatestActivityChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnThreadIDChanging(long value);
+	partial void OnThreadIDChanged();
+	partial void OnBoardIDChanging(long value);
+	partial void OnBoardIDChanged();
+	partial void OnTitleChanging(string value);
+	partial void OnTitleChanged();
+	partial void OnCreationDateChanging(System.DateTime value);
+	partial void OnCreationDateChanged();
+	partial void OnLatitudeChanging(System.Nullable<decimal> value);
+	partial void OnLatitudeChanged();
+	partial void OnLongitudeChanging(System.Nullable<decimal> value);
+	partial void OnLongitudeChanged();
+	partial void OnAddressChanging(string value);
+	partial void OnAddressChanged();
+	partial void OnLatestActivityChanging(System.DateTime value);
+	partial void OnLatestActivityChanged();
+	#endregion
 		
 		public DiscussThread()
 		{
@@ -5728,15 +5468,15 @@ namespace FindPianos.Models
 		
 		private EntitySet<StoreReviewFlag> _StoreReviewFlags;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagTypeIDChanging(int value);
-    partial void OnFlagTypeIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagTypeIDChanging(int value);
+	partial void OnFlagTypeIDChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	#endregion
 		
 		public FlagType()
 		{
@@ -6006,17 +5746,17 @@ namespace FindPianos.Models
 		
 		private EntitySet<SaleListing> _SaleListings;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnInstrumentIDChanging(long value);
-    partial void OnInstrumentIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnIsIncludedInTemporaryChanging(bool value);
-    partial void OnIsIncludedInTemporaryChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnInstrumentIDChanging(long value);
+	partial void OnInstrumentIDChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	partial void OnIsIncludedInTemporaryChanging(bool value);
+	partial void OnIsIncludedInTemporaryChanged();
+	#endregion
 		
 		public Instrument()
 		{
@@ -6226,17 +5966,17 @@ namespace FindPianos.Models
 		
 		private EntityRef<Instrument> _Instrument;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnStyleIDChanging(long value);
-    partial void OnStyleIDChanged();
-    partial void OnInstrumentIDChanging(long value);
-    partial void OnInstrumentIDChanged();
-    partial void OnStyleNameChanging(string value);
-    partial void OnStyleNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnStyleIDChanging(long value);
+	partial void OnStyleIDChanged();
+	partial void OnInstrumentIDChanging(long value);
+	partial void OnInstrumentIDChanged();
+	partial void OnStyleNameChanging(string value);
+	partial void OnStyleNameChanged();
+	#endregion
 		
 		public InstrumentStyle()
 		{
@@ -6433,17 +6173,17 @@ namespace FindPianos.Models
 		
 		private EntityRef<Instrument> _Instrument;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTypeIDChanging(long value);
-    partial void OnTypeIDChanged();
-    partial void OnInstrumentIDChanging(long value);
-    partial void OnInstrumentIDChanged();
-    partial void OnTypeNameChanging(string value);
-    partial void OnTypeNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnTypeIDChanging(long value);
+	partial void OnTypeIDChanged();
+	partial void OnInstrumentIDChanging(long value);
+	partial void OnInstrumentIDChanged();
+	partial void OnTypeNameChanging(string value);
+	partial void OnTypeNameChanged();
+	#endregion
 		
 		public InstrumentType()
 		{
@@ -6652,33 +6392,33 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnJobIDChanging(long value);
-    partial void OnJobIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnStreetAddressChanging(string value);
-    partial void OnStreetAddressChanged();
-    partial void OnLatChanging(System.Nullable<decimal> value);
-    partial void OnLatChanged();
-    partial void OnLongChanging(System.Nullable<decimal> value);
-    partial void OnLongChanged();
-    partial void OnDescriptionMarkdownChanging(string value);
-    partial void OnDescriptionMarkdownChanged();
-    partial void OnRequirementsMarkdownChanging(string value);
-    partial void OnRequirementsMarkdownChanged();
-    partial void OnOtherMarkdownChanging(string value);
-    partial void OnOtherMarkdownChanged();
-    partial void OnDescriptionHTMLChanging(string value);
-    partial void OnDescriptionHTMLChanged();
-    partial void OnRequirementsHTMLChanging(string value);
-    partial void OnRequirementsHTMLChanged();
-    partial void OnOtherHTMLChanging(string value);
-    partial void OnOtherHTMLChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnJobIDChanging(long value);
+	partial void OnJobIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnStreetAddressChanging(string value);
+	partial void OnStreetAddressChanged();
+	partial void OnLatChanging(System.Nullable<decimal> value);
+	partial void OnLatChanged();
+	partial void OnLongChanging(System.Nullable<decimal> value);
+	partial void OnLongChanged();
+	partial void OnDescriptionMarkdownChanging(string value);
+	partial void OnDescriptionMarkdownChanged();
+	partial void OnRequirementsMarkdownChanging(string value);
+	partial void OnRequirementsMarkdownChanged();
+	partial void OnOtherMarkdownChanging(string value);
+	partial void OnOtherMarkdownChanged();
+	partial void OnDescriptionHTMLChanging(string value);
+	partial void OnDescriptionHTMLChanged();
+	partial void OnRequirementsHTMLChanging(string value);
+	partial void OnRequirementsHTMLChanged();
+	partial void OnOtherHTMLChanging(string value);
+	partial void OnOtherHTMLChanged();
+	#endregion
 		
 		public Job()
 		{
@@ -6985,21 +6725,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<Listing> _Listing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCommentIDChanging(long value);
-    partial void OnCommentIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnAuthorUserIDChanging(System.Guid value);
-    partial void OnAuthorUserIDChanged();
-    partial void OnMessageTextChanging(string value);
-    partial void OnMessageTextChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnCommentIDChanging(long value);
+	partial void OnCommentIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnAuthorUserIDChanging(System.Guid value);
+	partial void OnAuthorUserIDChanged();
+	partial void OnMessageTextChanging(string value);
+	partial void OnMessageTextChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public ListingComment()
 		{
@@ -7227,21 +6967,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<Listing> _Listing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public ListingFlag()
 		{
@@ -7528,33 +7268,33 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnInstrumentIDChanging(long value);
-    partial void OnInstrumentIDChanged();
-    partial void OnLatChanging(decimal value);
-    partial void OnLatChanged();
-    partial void OnLongChanging(decimal value);
-    partial void OnLongChanged();
-    partial void OnStreetAddressChanging(string value);
-    partial void OnStreetAddressChanged();
-    partial void OnOriginalSubmitterUserIDChanging(System.Guid value);
-    partial void OnOriginalSubmitterUserIDChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    partial void OnInstrumentBrandChanging(string value);
-    partial void OnInstrumentBrandChanged();
-    partial void OnInstrumentModelChanging(string value);
-    partial void OnInstrumentModelChanged();
-    partial void OnInstrumentTypeIDChanging(long value);
-    partial void OnInstrumentTypeIDChanged();
-    partial void OnInstrumentStyleIDChanging(long value);
-    partial void OnInstrumentStyleIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnInstrumentIDChanging(long value);
+	partial void OnInstrumentIDChanged();
+	partial void OnLatChanging(decimal value);
+	partial void OnLatChanged();
+	partial void OnLongChanging(decimal value);
+	partial void OnLongChanged();
+	partial void OnStreetAddressChanging(string value);
+	partial void OnStreetAddressChanged();
+	partial void OnOriginalSubmitterUserIDChanging(System.Guid value);
+	partial void OnOriginalSubmitterUserIDChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	partial void OnInstrumentBrandChanging(string value);
+	partial void OnInstrumentBrandChanged();
+	partial void OnInstrumentModelChanging(string value);
+	partial void OnInstrumentModelChanged();
+	partial void OnInstrumentTypeIDChanging(long value);
+	partial void OnInstrumentTypeIDChanged();
+	partial void OnInstrumentStyleIDChanging(long value);
+	partial void OnInstrumentStyleIDChanged();
+	#endregion
 		
 		public Listing()
 		{
@@ -8048,15 +7788,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_Membership> _aspnet_Membership;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResetIDChanging(System.Guid value);
-    partial void OnResetIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnResetIDChanging(System.Guid value);
+	partial void OnResetIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	#endregion
 		
 		public ResetPasswordRecord()
 		{
@@ -8207,45 +7947,45 @@ namespace FindPianos.Models
 		
 		private EntityRef<ResumeType> _ResumeType;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResumeIDChanging(long value);
-    partial void OnResumeIDChanged();
-    partial void OnResumeTypeIDChanging(int value);
-    partial void OnResumeTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnIsFiledChanging(bool value);
-    partial void OnIsFiledChanged();
-    partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnFiledStartDateChanged();
-    partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnFiledEndDateChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnAboutMarkdownChanging(string value);
-    partial void OnAboutMarkdownChanged();
-    partial void OnAchievementsMarkdownChanging(string value);
-    partial void OnAchievementsMarkdownChanged();
-    partial void OnEducationMarkdownChanging(string value);
-    partial void OnEducationMarkdownChanged();
-    partial void OnExperienceMarkdownChanging(string value);
-    partial void OnExperienceMarkdownChanged();
-    partial void OnOtherMarkdownChanging(string value);
-    partial void OnOtherMarkdownChanged();
-    partial void OnAboutHTMLChanging(string value);
-    partial void OnAboutHTMLChanged();
-    partial void OnAchievementsHTMLChanging(string value);
-    partial void OnAchievementsHTMLChanged();
-    partial void OnEducationHTMLChanging(string value);
-    partial void OnEducationHTMLChanged();
-    partial void OnExperienceHTMLChanging(string value);
-    partial void OnExperienceHTMLChanged();
-    partial void OnOtherHTMLChanging(string value);
-    partial void OnOtherHTMLChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnResumeIDChanging(long value);
+	partial void OnResumeIDChanged();
+	partial void OnResumeTypeIDChanging(int value);
+	partial void OnResumeTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnIsFiledChanging(bool value);
+	partial void OnIsFiledChanged();
+	partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
+	partial void OnFiledStartDateChanged();
+	partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
+	partial void OnFiledEndDateChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	partial void OnAboutMarkdownChanging(string value);
+	partial void OnAboutMarkdownChanged();
+	partial void OnAchievementsMarkdownChanging(string value);
+	partial void OnAchievementsMarkdownChanged();
+	partial void OnEducationMarkdownChanging(string value);
+	partial void OnEducationMarkdownChanged();
+	partial void OnExperienceMarkdownChanging(string value);
+	partial void OnExperienceMarkdownChanged();
+	partial void OnOtherMarkdownChanging(string value);
+	partial void OnOtherMarkdownChanged();
+	partial void OnAboutHTMLChanging(string value);
+	partial void OnAboutHTMLChanged();
+	partial void OnAchievementsHTMLChanging(string value);
+	partial void OnAchievementsHTMLChanged();
+	partial void OnEducationHTMLChanging(string value);
+	partial void OnEducationHTMLChanged();
+	partial void OnExperienceHTMLChanging(string value);
+	partial void OnExperienceHTMLChanged();
+	partial void OnOtherHTMLChanging(string value);
+	partial void OnOtherHTMLChanged();
+	#endregion
 		
 		public Resume()
 		{
@@ -8703,15 +8443,15 @@ namespace FindPianos.Models
 		
 		private EntitySet<Resume> _Resumes;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResumeTypeIDChanging(int value);
-    partial void OnResumeTypeIDChanged();
-    partial void OnResumeTypeNameChanging(string value);
-    partial void OnResumeTypeNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnResumeTypeIDChanging(int value);
+	partial void OnResumeTypeIDChanged();
+	partial void OnResumeTypeNameChanging(string value);
+	partial void OnResumeTypeNameChanged();
+	#endregion
 		
 		public ResumeType()
 		{
@@ -8825,21 +8565,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<Review> _Review;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCommentIDChanging(long value);
-    partial void OnCommentIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnAuthorUserIDChanging(System.Guid value);
-    partial void OnAuthorUserIDChanged();
-    partial void OnMessageTextChanging(string value);
-    partial void OnMessageTextChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnCommentIDChanging(long value);
+	partial void OnCommentIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnAuthorUserIDChanging(System.Guid value);
+	partial void OnAuthorUserIDChanged();
+	partial void OnMessageTextChanging(string value);
+	partial void OnMessageTextChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public ReviewComment()
 		{
@@ -9067,21 +8807,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<Review> _Review;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public ReviewFlag()
 		{
@@ -9364,37 +9104,37 @@ namespace FindPianos.Models
 		
 		private EntityRef<Review> _Review;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnReviewRevisionIDChanging(long value);
-    partial void OnReviewRevisionIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnRatingOverallChanging(int value);
-    partial void OnRatingOverallChanged();
-    partial void OnRatingTuningChanging(System.Nullable<int> value);
-    partial void OnRatingTuningChanged();
-    partial void OnRatingToneQualityChanging(System.Nullable<int> value);
-    partial void OnRatingToneQualityChanged();
-    partial void OnRatingPlayingCapabilityChanging(System.Nullable<int> value);
-    partial void OnRatingPlayingCapabilityChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnPricePerHourInUSDChanging(double value);
-    partial void OnPricePerHourInUSDChanged();
-    partial void OnVenueNameChanging(string value);
-    partial void OnVenueNameChanged();
-    partial void OnSubmitterUserIDChanging(System.Guid value);
-    partial void OnSubmitterUserIDChanged();
-    partial void OnDateOfRevisionChanging(System.DateTime value);
-    partial void OnDateOfRevisionChanged();
-    partial void OnDateOfLastUsageOfPianoBySubmitterChanging(System.DateTime value);
-    partial void OnDateOfLastUsageOfPianoBySubmitterChanged();
-    partial void OnRevisionNumberOfReviewChanging(int value);
-    partial void OnRevisionNumberOfReviewChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnReviewRevisionIDChanging(long value);
+	partial void OnReviewRevisionIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnRatingOverallChanging(int value);
+	partial void OnRatingOverallChanged();
+	partial void OnRatingTuningChanging(System.Nullable<int> value);
+	partial void OnRatingTuningChanged();
+	partial void OnRatingToneQualityChanging(System.Nullable<int> value);
+	partial void OnRatingToneQualityChanged();
+	partial void OnRatingPlayingCapabilityChanging(System.Nullable<int> value);
+	partial void OnRatingPlayingCapabilityChanged();
+	partial void OnMessageChanging(string value);
+	partial void OnMessageChanged();
+	partial void OnPricePerHourInUSDChanging(double value);
+	partial void OnPricePerHourInUSDChanged();
+	partial void OnVenueNameChanging(string value);
+	partial void OnVenueNameChanged();
+	partial void OnSubmitterUserIDChanging(System.Guid value);
+	partial void OnSubmitterUserIDChanged();
+	partial void OnDateOfRevisionChanging(System.DateTime value);
+	partial void OnDateOfRevisionChanged();
+	partial void OnDateOfLastUsageOfPianoBySubmitterChanging(System.DateTime value);
+	partial void OnDateOfLastUsageOfPianoBySubmitterChanged();
+	partial void OnRevisionNumberOfReviewChanging(int value);
+	partial void OnRevisionNumberOfReviewChanged();
+	#endregion
 		
 		public ReviewRevision()
 		{
@@ -9804,15 +9544,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<Listing> _Listing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	#endregion
 		
 		public Review()
 		{
@@ -10019,21 +9759,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<SaleListing> _SaleListing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public SaleListingFlag()
 		{
@@ -10328,43 +10068,43 @@ namespace FindPianos.Models
 		
 		private EntityRef<InstrumentType> _InstrumentType;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSaleListingIDChanging(long value);
-    partial void OnSaleListingIDChanged();
-    partial void OnInstrumentIDChanging(long value);
-    partial void OnInstrumentIDChanged();
-    partial void OnPriceChanging(double value);
-    partial void OnPriceChanged();
-    partial void OnLatChanging(decimal value);
-    partial void OnLatChanged();
-    partial void OnLongChanging(decimal value);
-    partial void OnLongChanged();
-    partial void OnStreetAddressChanging(string value);
-    partial void OnStreetAddressChanged();
-    partial void OnOriginalSubmitterUserIDChanging(System.Guid value);
-    partial void OnOriginalSubmitterUserIDChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    partial void OnInstrumentBrandChanging(string value);
-    partial void OnInstrumentBrandChanged();
-    partial void OnInstrumentModelChanging(string value);
-    partial void OnInstrumentModelChanged();
-    partial void OnInstrumentTypeIDChanging(long value);
-    partial void OnInstrumentTypeIDChanged();
-    partial void OnInstrumentStyleIDChanging(long value);
-    partial void OnInstrumentStyleIDChanged();
-    partial void OnSoldByStoreIDChanging(System.Nullable<long> value);
-    partial void OnSoldByStoreIDChanged();
-    partial void OnIsFiledChanging(bool value);
-    partial void OnIsFiledChanged();
-    partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnFiledStartDateChanged();
-    partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnFiledEndDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnSaleListingIDChanging(long value);
+	partial void OnSaleListingIDChanged();
+	partial void OnInstrumentIDChanging(long value);
+	partial void OnInstrumentIDChanged();
+	partial void OnPriceChanging(double value);
+	partial void OnPriceChanged();
+	partial void OnLatChanging(decimal value);
+	partial void OnLatChanged();
+	partial void OnLongChanging(decimal value);
+	partial void OnLongChanged();
+	partial void OnStreetAddressChanging(string value);
+	partial void OnStreetAddressChanged();
+	partial void OnOriginalSubmitterUserIDChanging(System.Guid value);
+	partial void OnOriginalSubmitterUserIDChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	partial void OnInstrumentBrandChanging(string value);
+	partial void OnInstrumentBrandChanged();
+	partial void OnInstrumentModelChanging(string value);
+	partial void OnInstrumentModelChanged();
+	partial void OnInstrumentTypeIDChanging(long value);
+	partial void OnInstrumentTypeIDChanged();
+	partial void OnInstrumentStyleIDChanging(long value);
+	partial void OnInstrumentStyleIDChanged();
+	partial void OnSoldByStoreIDChanging(System.Nullable<long> value);
+	partial void OnSoldByStoreIDChanged();
+	partial void OnIsFiledChanging(bool value);
+	partial void OnIsFiledChanged();
+	partial void OnFiledStartDateChanging(System.Nullable<System.DateTime> value);
+	partial void OnFiledStartDateChanged();
+	partial void OnFiledEndDateChanging(System.Nullable<System.DateTime> value);
+	partial void OnFiledEndDateChanged();
+	#endregion
 		
 		public SaleListing()
 		{
@@ -10940,21 +10680,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<SaleReview> _SaleReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCommentIDChanging(long value);
-    partial void OnCommentIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnAuthorUserIDChanging(System.Guid value);
-    partial void OnAuthorUserIDChanged();
-    partial void OnMessageTextChanging(string value);
-    partial void OnMessageTextChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnCommentIDChanging(long value);
+	partial void OnCommentIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnAuthorUserIDChanging(System.Guid value);
+	partial void OnAuthorUserIDChanged();
+	partial void OnMessageTextChanging(string value);
+	partial void OnMessageTextChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public SaleReviewComment()
 		{
@@ -11182,21 +10922,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<SaleReview> _SaleReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public SaleReviewFlag()
 		{
@@ -11475,35 +11215,35 @@ namespace FindPianos.Models
 		
 		private EntityRef<SaleReview> _SaleReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSaleReviewRevisionIDChanging(long value);
-    partial void OnSaleReviewRevisionIDChanged();
-    partial void OnSaleReviewIDChanging(long value);
-    partial void OnSaleReviewIDChanged();
-    partial void OnRatingOverallChanging(int value);
-    partial void OnRatingOverallChanged();
-    partial void OnRatingTuningChanging(System.Nullable<int> value);
-    partial void OnRatingTuningChanged();
-    partial void OnRatingToneQualityChanging(System.Nullable<int> value);
-    partial void OnRatingToneQualityChanged();
-    partial void OnRatingPlayingCapabilityChanging(System.Nullable<int> value);
-    partial void OnRatingPlayingCapabilityChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnSubmitterUserIDChanging(System.Guid value);
-    partial void OnSubmitterUserIDChanged();
-    partial void OnDateOfRevisionChanging(System.DateTime value);
-    partial void OnDateOfRevisionChanged();
-    partial void OnDateOfLastUsageOfInstrumentBySubmitterChanging(System.DateTime value);
-    partial void OnDateOfLastUsageOfInstrumentBySubmitterChanged();
-    partial void OnRevisionNumberOfReviewChanging(int value);
-    partial void OnRevisionNumberOfReviewChanged();
-    partial void OnIsSubmitterAffiliatedWithSellerChanging(bool value);
-    partial void OnIsSubmitterAffiliatedWithSellerChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnSaleReviewRevisionIDChanging(long value);
+	partial void OnSaleReviewRevisionIDChanged();
+	partial void OnSaleReviewIDChanging(long value);
+	partial void OnSaleReviewIDChanged();
+	partial void OnRatingOverallChanging(int value);
+	partial void OnRatingOverallChanged();
+	partial void OnRatingTuningChanging(System.Nullable<int> value);
+	partial void OnRatingTuningChanged();
+	partial void OnRatingToneQualityChanging(System.Nullable<int> value);
+	partial void OnRatingToneQualityChanged();
+	partial void OnRatingPlayingCapabilityChanging(System.Nullable<int> value);
+	partial void OnRatingPlayingCapabilityChanged();
+	partial void OnMessageChanging(string value);
+	partial void OnMessageChanged();
+	partial void OnSubmitterUserIDChanging(System.Guid value);
+	partial void OnSubmitterUserIDChanged();
+	partial void OnDateOfRevisionChanging(System.DateTime value);
+	partial void OnDateOfRevisionChanged();
+	partial void OnDateOfLastUsageOfInstrumentBySubmitterChanging(System.DateTime value);
+	partial void OnDateOfLastUsageOfInstrumentBySubmitterChanged();
+	partial void OnRevisionNumberOfReviewChanging(int value);
+	partial void OnRevisionNumberOfReviewChanged();
+	partial void OnIsSubmitterAffiliatedWithSellerChanging(bool value);
+	partial void OnIsSubmitterAffiliatedWithSellerChanged();
+	#endregion
 		
 		public SaleReviewRevision()
 		{
@@ -11867,15 +11607,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<SaleListing> _SaleListing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSaleReviewIDChanging(long value);
-    partial void OnSaleReviewIDChanged();
-    partial void OnSaleListingIDChanging(long value);
-    partial void OnSaleListingIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnSaleReviewIDChanging(long value);
+	partial void OnSaleReviewIDChanged();
+	partial void OnSaleListingIDChanging(long value);
+	partial void OnSaleListingIDChanged();
+	#endregion
 		
 		public SaleReview()
 		{
@@ -12080,21 +11820,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreListing> _StoreListing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCommentIDChanging(long value);
-    partial void OnCommentIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnAuthorUserIDChanging(System.Guid value);
-    partial void OnAuthorUserIDChanged();
-    partial void OnMessageTextChanging(string value);
-    partial void OnMessageTextChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnCommentIDChanging(long value);
+	partial void OnCommentIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnAuthorUserIDChanging(System.Guid value);
+	partial void OnAuthorUserIDChanged();
+	partial void OnMessageTextChanging(string value);
+	partial void OnMessageTextChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public StoreListingComment()
 		{
@@ -12322,21 +12062,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreListing> _StoreListing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnListingIDChanging(long value);
-    partial void OnListingIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnListingIDChanging(long value);
+	partial void OnListingIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public StoreListingFlag()
 		{
@@ -12613,29 +12353,29 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnStoreListingIDChanging(long value);
-    partial void OnStoreListingIDChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnLatChanging(decimal value);
-    partial void OnLatChanged();
-    partial void OnLongChanging(decimal value);
-    partial void OnLongChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnSubmitterUserIDChanging(System.Guid value);
-    partial void OnSubmitterUserIDChanged();
-    partial void OnIsSubmitterAffiliatedWithStoreChanging(bool value);
-    partial void OnIsSubmitterAffiliatedWithStoreChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnStoreListingIDChanging(long value);
+	partial void OnStoreListingIDChanged();
+	partial void OnAddressChanging(string value);
+	partial void OnAddressChanged();
+	partial void OnLatChanging(decimal value);
+	partial void OnLatChanged();
+	partial void OnLongChanging(decimal value);
+	partial void OnLongChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	partial void OnDescriptionChanging(string value);
+	partial void OnDescriptionChanged();
+	partial void OnSubmitterUserIDChanging(System.Guid value);
+	partial void OnSubmitterUserIDChanged();
+	partial void OnIsSubmitterAffiliatedWithStoreChanging(bool value);
+	partial void OnIsSubmitterAffiliatedWithStoreChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public StoreListing()
 		{
@@ -12980,21 +12720,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreReview> _StoreReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCommentIDChanging(long value);
-    partial void OnCommentIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnAuthorUserIDChanging(System.Guid value);
-    partial void OnAuthorUserIDChanged();
-    partial void OnMessageTextChanging(string value);
-    partial void OnMessageTextChanged();
-    partial void OnDateOfSubmissionChanging(System.DateTime value);
-    partial void OnDateOfSubmissionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnCommentIDChanging(long value);
+	partial void OnCommentIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnAuthorUserIDChanging(System.Guid value);
+	partial void OnAuthorUserIDChanged();
+	partial void OnMessageTextChanging(string value);
+	partial void OnMessageTextChanged();
+	partial void OnDateOfSubmissionChanging(System.DateTime value);
+	partial void OnDateOfSubmissionChanged();
+	#endregion
 		
 		public StoreReviewComment()
 		{
@@ -13222,21 +12962,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreReview> _StoreReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFlagIDChanging(long value);
-    partial void OnFlagIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnTypeIDChanging(int value);
-    partial void OnTypeIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnFlagDateChanging(System.DateTime value);
-    partial void OnFlagDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnFlagIDChanging(long value);
+	partial void OnFlagIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnTypeIDChanging(int value);
+	partial void OnTypeIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnFlagDateChanging(System.DateTime value);
+	partial void OnFlagDateChanged();
+	#endregion
 		
 		public StoreReviewFlag()
 		{
@@ -13515,35 +13255,35 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreReview> _StoreReview;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnStoreReviewRevisionIDChanging(long value);
-    partial void OnStoreReviewRevisionIDChanged();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnRatingOverallChanging(int value);
-    partial void OnRatingOverallChanged();
-    partial void OnRatingServiceChanging(System.Nullable<int> value);
-    partial void OnRatingServiceChanged();
-    partial void OnRatingProductQualityChanging(System.Nullable<int> value);
-    partial void OnRatingProductQualityChanged();
-    partial void OnRatingEnvironmentChanging(System.Nullable<int> value);
-    partial void OnRatingEnvironmentChanged();
-    partial void OnDateOfLastVisitChanging(System.DateTime value);
-    partial void OnDateOfLastVisitChanged();
-    partial void OnDateOfLastPurchaseChanging(System.DateTime value);
-    partial void OnDateOfLastPurchaseChanged();
-    partial void OnMessageChanging(string value);
-    partial void OnMessageChanged();
-    partial void OnRevisionDateChanging(System.DateTime value);
-    partial void OnRevisionDateChanged();
-    partial void OnEditNumberChanging(int value);
-    partial void OnEditNumberChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnStoreReviewRevisionIDChanging(long value);
+	partial void OnStoreReviewRevisionIDChanged();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnRatingOverallChanging(int value);
+	partial void OnRatingOverallChanged();
+	partial void OnRatingServiceChanging(System.Nullable<int> value);
+	partial void OnRatingServiceChanged();
+	partial void OnRatingProductQualityChanging(System.Nullable<int> value);
+	partial void OnRatingProductQualityChanged();
+	partial void OnRatingEnvironmentChanging(System.Nullable<int> value);
+	partial void OnRatingEnvironmentChanged();
+	partial void OnDateOfLastVisitChanging(System.DateTime value);
+	partial void OnDateOfLastVisitChanged();
+	partial void OnDateOfLastPurchaseChanging(System.DateTime value);
+	partial void OnDateOfLastPurchaseChanged();
+	partial void OnMessageChanging(string value);
+	partial void OnMessageChanged();
+	partial void OnRevisionDateChanging(System.DateTime value);
+	partial void OnRevisionDateChanged();
+	partial void OnEditNumberChanging(int value);
+	partial void OnEditNumberChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	#endregion
 		
 		public StoreReviewRevision()
 		{
@@ -13894,15 +13634,15 @@ namespace FindPianos.Models
 		
 		private EntityRef<StoreListing> _StoreListing;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnReviewIDChanging(long value);
-    partial void OnReviewIDChanged();
-    partial void OnStoreIDChanging(long value);
-    partial void OnStoreIDChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnReviewIDChanging(long value);
+	partial void OnReviewIDChanged();
+	partial void OnStoreIDChanging(long value);
+	partial void OnStoreIDChanged();
+	#endregion
 		
 		public StoreReview()
 		{
@@ -14107,21 +13847,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<WeekDay> _WeekDay;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnStoreVenueHoursIDChanging(long value);
-    partial void OnStoreVenueHoursIDChanged();
-    partial void OnStoreReviewRevisionIDChanging(long value);
-    partial void OnStoreReviewRevisionIDChanged();
-    partial void OnDayOfWeekChanging(int value);
-    partial void OnDayOfWeekChanged();
-    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndTimeChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnStoreVenueHoursIDChanging(long value);
+	partial void OnStoreVenueHoursIDChanged();
+	partial void OnStoreReviewRevisionIDChanging(long value);
+	partial void OnStoreReviewRevisionIDChanged();
+	partial void OnDayOfWeekChanging(int value);
+	partial void OnDayOfWeekChanged();
+	partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
+	partial void OnStartTimeChanged();
+	partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
+	partial void OnEndTimeChanged();
+	#endregion
 		
 		public StoreVenueHour()
 		{
@@ -14339,17 +14079,17 @@ namespace FindPianos.Models
 		
 		private string _OpenIdClaim;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnUserIdChanging(System.Nullable<int> value);
-    partial void OnUserIdChanged();
-    partial void OnOpenIdClaimChanging(string value);
-    partial void OnOpenIdClaimChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnIdChanging(long value);
+	partial void OnIdChanged();
+	partial void OnUserIdChanging(System.Nullable<int> value);
+	partial void OnUserIdChanged();
+	partial void OnOpenIdClaimChanging(string value);
+	partial void OnOpenIdClaimChanged();
+	#endregion
 		
 		public UserOpenId()
 		{
@@ -14455,21 +14195,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSuspensionIDChanging(long value);
-    partial void OnSuspensionIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnReasonChanging(string value);
-    partial void OnReasonChanged();
-    partial void OnSuspensionDateChanging(System.DateTime value);
-    partial void OnSuspensionDateChanged();
-    partial void OnReinstateDateChanging(System.DateTime value);
-    partial void OnReinstateDateChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnSuspensionIDChanging(long value);
+	partial void OnSuspensionIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnReasonChanging(string value);
+	partial void OnReasonChanged();
+	partial void OnSuspensionDateChanging(System.DateTime value);
+	partial void OnSuspensionDateChanged();
+	partial void OnReinstateDateChanging(System.DateTime value);
+	partial void OnReinstateDateChanged();
+	#endregion
 		
 		public UserSuspension()
 		{
@@ -14656,21 +14396,21 @@ namespace FindPianos.Models
 		
 		private EntityRef<WeekDay> _WeekDay;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnVenueHoursIDChanging(long value);
-    partial void OnVenueHoursIDChanged();
-    partial void OnReviewRevisionIDChanging(long value);
-    partial void OnReviewRevisionIDChanged();
-    partial void OnDayOfWeekChanging(int value);
-    partial void OnDayOfWeekChanged();
-    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndTimeChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnVenueHoursIDChanging(long value);
+	partial void OnVenueHoursIDChanged();
+	partial void OnReviewRevisionIDChanging(long value);
+	partial void OnReviewRevisionIDChanged();
+	partial void OnDayOfWeekChanging(int value);
+	partial void OnDayOfWeekChanged();
+	partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
+	partial void OnStartTimeChanged();
+	partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
+	partial void OnEndTimeChanged();
+	#endregion
 		
 		public VenueHour()
 		{
@@ -14851,6 +14591,359 @@ namespace FindPianos.Models
 						this._DayOfWeek = default(int);
 					}
 					this.SendPropertyChanged("WeekDay");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostRevisions")]
+	public partial class DiscussPostRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _PostRevisionID;
+		
+		private System.Guid _UserID;
+		
+		private long _PostID;
+		
+		private string _Markdown;
+		
+		private string _HTML;
+		
+		private System.DateTime _DateOfEdit;
+		
+		private int _EditNumber;
+		
+		private System.Nullable<long> _InReplyToPostID;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<DiscussPost> _DiscussPost;
+		
+		private EntityRef<DiscussPost> _DiscussPost1;
+		
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnPostRevisionIDChanging(long value);
+	partial void OnPostRevisionIDChanged();
+	partial void OnUserIDChanging(System.Guid value);
+	partial void OnUserIDChanged();
+	partial void OnPostIDChanging(long value);
+	partial void OnPostIDChanged();
+	partial void OnMarkdownChanging(string value);
+	partial void OnMarkdownChanged();
+	partial void OnHTMLChanging(string value);
+	partial void OnHTMLChanged();
+	partial void OnDateOfEditChanging(System.DateTime value);
+	partial void OnDateOfEditChanged();
+	partial void OnEditNumberChanging(int value);
+	partial void OnEditNumberChanged();
+	partial void OnInReplyToPostIDChanging(System.Nullable<long> value);
+	partial void OnInReplyToPostIDChanged();
+	#endregion
+		
+		public DiscussPostRevision()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._DiscussPost = default(EntityRef<DiscussPost>);
+			this._DiscussPost1 = default(EntityRef<DiscussPost>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long PostRevisionID
+		{
+			get
+			{
+				return this._PostRevisionID;
+			}
+			set
+			{
+				if ((this._PostRevisionID != value))
+				{
+					this.OnPostRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostRevisionID = value;
+					this.SendPropertyChanged("PostRevisionID");
+					this.OnPostRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
+		public long PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._DiscussPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Markdown
+		{
+			get
+			{
+				return this._Markdown;
+			}
+			set
+			{
+				if ((this._Markdown != value))
+				{
+					this.OnMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._Markdown = value;
+					this.SendPropertyChanged("Markdown");
+					this.OnMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string HTML
+		{
+			get
+			{
+				return this._HTML;
+			}
+			set
+			{
+				if ((this._HTML != value))
+				{
+					this.OnHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._HTML = value;
+					this.SendPropertyChanged("HTML");
+					this.OnHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfEdit", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfEdit
+		{
+			get
+			{
+				return this._DateOfEdit;
+			}
+			set
+			{
+				if ((this._DateOfEdit != value))
+				{
+					this.OnDateOfEditChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfEdit = value;
+					this.SendPropertyChanged("DateOfEdit");
+					this.OnDateOfEditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
+		public int EditNumber
+		{
+			get
+			{
+				return this._EditNumber;
+			}
+			set
+			{
+				if ((this._EditNumber != value))
+				{
+					this.OnEditNumberChanging(value);
+					this.SendPropertyChanging();
+					this._EditNumber = value;
+					this.SendPropertyChanged("EditNumber");
+					this.OnEditNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InReplyToPostID", DbType="BigInt")]
+		public System.Nullable<long> InReplyToPostID
+		{
+			get
+			{
+				return this._InReplyToPostID;
+			}
+			set
+			{
+				if ((this._InReplyToPostID != value))
+				{
+					if (this._DiscussPost1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInReplyToPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._InReplyToPostID = value;
+					this.SendPropertyChanged("InReplyToPostID");
+					this.OnInReplyToPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost
+		{
+			get
+			{
+				return this._DiscussPost.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._DiscussPost.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(long);
+					}
+					this.SendPropertyChanged("DiscussPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision1", Storage="_DiscussPost1", ThisKey="InReplyToPostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost1
+		{
+			get
+			{
+				return this._DiscussPost1.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost1.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost1.Entity = null;
+						previousValue.DiscussPostRevisions1.Remove(this);
+					}
+					this._DiscussPost1.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions1.Add(this);
+						this._InReplyToPostID = value.PostID;
+					}
+					else
+					{
+						this._InReplyToPostID = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("DiscussPost1");
 				}
 			}
 		}
