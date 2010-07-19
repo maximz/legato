@@ -354,7 +354,7 @@ namespace FindPianos.Controllers
                     {
                         //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                         var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                        var submitterGuid = db.ReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewId).First().SubmitterUserID;
+                        var submitterGuid = db.ReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewId).OrderBy(revisionforcheck=>revisionforcheck.RevisionNumberOfReview).First().SubmitterUserID;
                         if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                         {
                             return RedirectToAction("Forbidden", "Error");
