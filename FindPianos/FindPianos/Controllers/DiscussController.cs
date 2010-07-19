@@ -515,70 +515,29 @@ namespace FindPianos.Controllers
         }
         #endregion
         #region AJAX: Flag Listings and Reviews
-        [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
+        [RateLimit(Name="DiscussFlagPostPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Flag")]
-        public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
+        [Url("Discuss/Flag")]
+        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId)
         {
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
+                    if (db.DiscussPosts.Where(l => l.PostID == idOfPost).SingleOrDefault() == null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ListingFlag();
+                    var flag = new DiscussPostFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
-                    flag.ListingID = idOfPost;
-                    db.ListingFlags.InsertOnSubmit(flag);
-                    db.SubmitChanges();
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new EmptyResult();
-                }
-            }
-            catch
-            {
-                /* on jQuery side:
-                  
-                    if error = code 500, we have reached here.
-                 * 
-                    if error = code 409 (conflict), user has failed rate limit check.*/
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return new EmptyResult();
-            }
-
-        }
-        [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
-        [Url("Review/Flag")]
-        public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
-        {
-            try
-            {
-                using (var db = new LegatoDataContext())
-                {
-                    //Check whether the given review exists before creating a possibly-useless record
-                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
-                    {
-                        return RedirectToAction("NotFound", "Error");
-                    }
-
-                    //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ReviewFlag();
-                    flag.FlagDate = DateTime.Now;
-                    flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    flag.TypeID = flagTypeId;
-                    flag.ReviewID = idOfPost;
-                    db.ReviewFlags.InsertOnSubmit(flag);
+                    flag.PostID = idOfPost;
+                    db.DiscussPostFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
