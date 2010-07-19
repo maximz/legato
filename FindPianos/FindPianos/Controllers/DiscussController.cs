@@ -24,6 +24,42 @@ namespace FindPianos.Controllers
             return RedirectToAction("List");
         }
 
+        #region Get List of Boards
+        [HttpPost]
+        [Url("Discuss/Boards/List/{type?}")]
+        public ActionResult ListBoards(string type)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    IEnumerable<DiscussBoard> query = null;
+                    //string realtype = type.HasValue ? type.Value : "all"; //if type is present, have realtype = type; otherwise, realtype = "all". Basically, default value.
+                    string realType = type.GetValueOrDefault("all");
+                    switch (realType)
+                    {
+                        case "city":
+                            query = db.DiscussBoards.Where(b => b.IsCityBoard).ToList();
+                            break;
+                        case "other":
+                            query = db.DiscussBoards.Where(b => !b.IsCityBoard).ToList();
+                            break;
+                        case "all":
+                            query = db.DiscussBoards.ToList();
+                            break;
+                        default:
+                            return RedirectToAction("NotFound", "Error");
+                    }
+                    return Json(query);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        #endregion
+
         #region Read Boards, Threads, and Posts
 
         /// <summary>
@@ -373,7 +409,7 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name = "DiscussEditPOST", Seconds = 600)]
-        public ActionResult Edit(EditViewModel model)
+        public ActionResult Edit(DiscussEditViewModel model)
         {
             try
             {
@@ -383,7 +419,7 @@ namespace FindPianos.Controllers
                     {
                         //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                         var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                        var submitterGuid = db.ReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewId).First().SubmitterUserID;
+                        var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
                         if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                         {
                             return RedirectToAction("Forbidden", "Error");
@@ -397,7 +433,7 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
 
                     //REVISION:
-                    var r = new ReviewRevision();
+                    var r = new DiscussPostRevision();
                     r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
                     r.Message = model.ReviewRevision.Message;
                     r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
