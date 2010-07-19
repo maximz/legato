@@ -152,6 +152,7 @@
     <Compile Include="ViewModels\TemporaryInstrument\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\ListingSubmissionViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\ReadListingViewModel.cs" />
+    <Compile Include="ViewModels\TemporaryInstrument\ReplyViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\RevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\SubmitViewModel.cs" />
     <Compile Include="ViewModels\TemporaryInstrument\VenueHourViewModel.cs" />

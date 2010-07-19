@@ -22,12 +22,5 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
-
-        public long PostID
-        {
-            get;
-            set;
-        }
-
     }
 }

@@ -16,7 +16,7 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
-        [Required(ErrorMessage = "You must specify what board you are submitting to.")]
+        [Required(ErrorMessage = "You must specify what post you are editing.")]
         public long PostID
         {
             get;
@@ -28,7 +28,7 @@ namespace FindPianos.ViewModels
             set;
         }
         [DisplayName("Street address")]
-        public string? Address
+        public string Address
         {
             get;
             set;

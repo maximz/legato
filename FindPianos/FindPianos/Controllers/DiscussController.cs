@@ -18,6 +18,7 @@ namespace FindPianos.Controllers
     {
         int ThreadsPerPage = 30;
         int PostsPerPage = 20;
+
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {
@@ -27,6 +28,7 @@ namespace FindPianos.Controllers
         #region Get List of Boards
         [HttpPost]
         [Url("Discuss/Boards/List/{type?}")]
+        [OutputCache(Duration=7200, VaryByParam="*")]
         public ActionResult ListBoards(string type)
         {
             try
@@ -34,7 +36,6 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     IEnumerable<DiscussBoard> query = null;
-                    //string realtype = type.HasValue ? type.Value : "all"; //if type is present, have realtype = type; otherwise, realtype = "all". Basically, default value.
                     string realType = type.GetValueOrDefault("all");
                     switch (realType)
                     {
@@ -69,7 +70,7 @@ namespace FindPianos.Controllers
         /// <param name="page">The page.</param>
         /// <returns></returns>
         [Url("Discuss/{boardID}/{slug?}")]
-        [OutputCache(Duration=7200, VaryByParam="boardID;page")]
+        [OutputCache(Duration=180, VaryByParam="boardID;page")]
         public ActionResult ReadBoard(long boardID, int? page)
         {
             var href = "Discuss/" + boardID;
@@ -95,7 +96,7 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Discuss/Thread/{threadID}/{slug?}", Order=2)]
-        [OutputCache(Duration = 7200, VaryByParam = "threadID;page")]
+        [OutputCache(Duration = 180, VaryByParam = "threadID;page")]
         public ActionResult ReadThread(long threadID, int? page)
         {
             var href = "Discuss/Thread/" + threadID;
@@ -136,7 +137,7 @@ namespace FindPianos.Controllers
         }
         
         [Url("Discuss/Thread/{threadID}/Post/{postID}", Order=1)]
-        [OutputCache(Duration = 7200, VaryByParam = "*")]
+        [OutputCache(Duration = 180, VaryByParam = "*")]
         public ActionResult IndividualPost(long threadID, long postID)
         {
             var href = "Discuss/Thread/" + threadID;
@@ -185,7 +186,7 @@ namespace FindPianos.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("NotFound", "Error");
+                    return RedirectToAction("InternalServerError", "Error");
                 }
             }
         }
@@ -215,7 +216,7 @@ namespace FindPianos.Controllers
 
         #region Individual Post timeline- and revision-listing method
         [Url("Discuss/Timeline/Post/{postID}")]
-        [OutputCache(Duration = 7200, VaryByParam = "postID")]
+        [OutputCache(Duration = 180, VaryByParam = "postID")]
         public ActionResult PostTimeline(long postID)
         {
             try
@@ -241,7 +242,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Discuss/EnumerateBox")]
-        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
+        [HttpPost][OutputCache(Duration = 180, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
@@ -264,11 +265,21 @@ namespace FindPianos.Controllers
         [RateLimit(Name="DiscussSubmitGET", Seconds=600)]
         public ActionResult Submit(long boardID)
         {
-            var model = new DiscussCreateViewModel()
+            using(var db = new LegatoDataContext())
             {
-                BoardID=boardID
-            };
-            return View(model);
+                var board = db.DiscussBoards.Where(b => b.BoardID == boardID).SingleOrDefault();
+                if(board==null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+                var model = new DiscussCreateViewModel()
+                {
+                    BoardID = boardID,
+                    CanSetLocation = board.IsCityBoard
+                };
+                return View(model);
+            }
+
         }
         [Url("Discuss/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
@@ -283,13 +294,21 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     
+                    //Board:
+                    var board = db.DiscussBoards.Where(b => b.BoardID == model.BoardID).SingleOrDefault();
+                    if(board==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+
                     //THREAD:
                     var thread = new DiscussThread();
 
                     thread.CreationDate = time;
                     thread.LatestActivity = time;
                     thread.Title = model.Title;
-                    if(model.Address.IsNullOrEmpty())
+                    thread.BoardID = model.BoardID;
+                    if(!(board.IsCityBoard) || model.Address.IsNullOrEmpty())
                     {
                         thread.Address = null;
                         thread.Latitude = null;
@@ -338,18 +357,54 @@ namespace FindPianos.Controllers
         [HttpPost]
         [Url("Discuss/Reply")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "DiscussReplyToThreadPOST", Seconds = 600)]
+        [RateLimit(Name = "DiscussReplyPOST", Seconds = 600)]
         public ActionResult Reply(DiscussReplyViewModel model)
         {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var time = DateTime.Now;
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 
-        }
-        [HttpPost]
-        [Url("Discuss/Reply/ToPost")]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "DiscussReplyToPostPOST", Seconds = 600)]
-        public ActionResult ReplyToPost(DiscussReplyViewModel model)
-        {
+                    //Thread:
+                    var thread = db.DiscussThreads.Where(b => b.ThreadID == model.ThreadID).SingleOrDefault();
+                    if (thread == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
 
+                    //POST:
+                    var post = new DiscussPost();
+                    post.DiscussThread = thread;
+                    post.DateOfSubmission = time;
+                    post.PostNumberInThread = (from rev in db.DiscussPosts
+                                                where rev.ThreadID == thread.ThreadID
+                                                select rev.PostNumberInThread).Max() + 1;
+                    db.DiscussPosts.InsertOnSubmit(post);
+                    db.SubmitChanges();
+
+                    //POST REVISION:
+                    var r = new DiscussPostRevision();
+                    r.Markdown = model.Post.Markdown;
+                    r.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Post.Markdown));
+                    r.DateOfEdit = time;
+                    r.DiscussPost = post;
+                    r.EditNumber = 1;
+                    r.UserID = userGuid;
+                    db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    db.SubmitChanges();
+
+                    return RedirectToAction("IndividualPostRedirect", new
+                    {
+                        postID = post.PostID
+                    });
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
         }
         [Url("Discuss/Edit/{postID}")]
         [HttpGet]
@@ -377,16 +432,17 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    var firstPost = db.DiscussPosts.Where(p => p.ThreadID == revision.Post.ThreadID).Where(p=>p.PostNumberInThread==1).Single();
-                    //TODO: REPLY TO POST ID
-                    var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
+
+                    var board = post.DiscussThread.DiscussBoard;
+
                     var revisionmodel = new DiscussEditViewModel()
                     {
-                        CanChangeLocation=post.PostNumberInThread==1,
+                        CanChangeLocation=(post.PostNumberInThread==1 && board.IsCityBoard),
                         PostID=postID,
                         Post=new DiscussPostSubmissionViewModel()
                         {
-                            Markdown = revision.Markdown
+                            Markdown = revision.Markdown,
+                            InReplyToPostID = revision.InReplyToPostID
                         }
                     };
                     if(revisionmodel.CanChangeLocation)
@@ -395,6 +451,12 @@ namespace FindPianos.Controllers
                         revisionmodel.Address = thread.Address;
                         revisionmodel.Lat = thread.Latitude;
                         revisionmodel.Long = thread.Longitude;
+                    }
+                    else
+                    {
+                        revisionmodel.Address = null;
+                        revisionmodel.Lat = null;
+                        revisionmodel.Long = null;
                     }
                     
                     return View(revisionmodel);
@@ -415,61 +477,72 @@ namespace FindPianos.Controllers
             {
                 using (var db = new LegatoDataContext())
                 {
-                    try
-                    {
-                        //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                        var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                        var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
-                        if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
-                        {
-                            return RedirectToAction("Forbidden", "Error");
-                        }
-                    }
-                    catch
+                    var post = db.DiscussPosts.Where(p => p.PostID == model.PostID).SingleOrDefault();
+                    if(post==null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-                   
+
+                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                    var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
+                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                    {
+                        return RedirectToAction("Forbidden", "Error");
+                    }
+
+                    var board = post.DiscussThread.DiscussBoard;
+                    var CanChangeLocation = (post.PostNumberInThread == 1 && board.IsCityBoard);
                     var time = DateTime.Now;
+
+                    if(model.Post.InReplyToPostID.HasValue)
+                    {
+                        var inreplytopost = db.DiscussPosts.Where(p => p.PostID == model.Post.InReplyToPostID.Value).SingleOrDefault();
+                        if(inreplytopost == null)
+                        {
+                            ModelState.AddModelError("Post.InReplyToPostID", "That post doesn't exist.");
+                            return View();
+                        }
+                        else if(inreplytopost.ThreadID!=post.ThreadID)
+                        {
+                            ModelState.AddModelError("Post.InReplyToPostID", "That post is in another thread.");
+                            return View();
+                        }
+                    }
 
                     //REVISION:
                     var r = new DiscussPostRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.ReviewID = model.ReviewRevision.ReviewId;
-                    r.RevisionNumberOfReview = (from rev in db.ReviewRevisions
-                                                where rev.ReviewID == model.ReviewRevision.ReviewId
-                                                select rev.RevisionNumberOfReview).Max() + 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.DateOfEdit = time;
+                    r.Markdown = model.Post.Markdown;
+                    r.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Post.Markdown));
+                    r.InReplyToPostID = model.Post.InReplyToPostID;
+                    r.PostID = model.PostID;
+                    r.UserID = userGuid;
+                    r.EditNumber = (from rev in db.DiscussPostRevisions
+                                                where rev.PostID == model.PostID
+                                                select rev.EditNumber).Max() + 1;
+                    db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
+                    if (CanChangeLocation)
                     {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if (!hour.Closed)
+                        var thread = post.DiscussThread;
+                        if (model.Address.HasValue())
                         {
-                            submit.StartTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
+                            thread.Latitude = model.Lat;
+                            thread.Longitude = model.Long;
+                            thread.Address = model.Address;
                         }
                         else
                         {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
+                            thread.Latitude = null;
+                            thread.Longitude = null;
+                            thread.Address = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        db.SubmitChanges();
                     }
-                    db.SubmitChanges();
-                    return RedirectToAction("ReviewTimeline", new { reviewId = model.ReviewRevision.ReviewId});
+
+                    return RedirectToAction("PostTimeline", new { postID = model.PostID});
                 }
             }
             catch
@@ -479,70 +552,29 @@ namespace FindPianos.Controllers
         }
         #endregion
         #region AJAX: Flag Listings and Reviews
-        [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
+        [RateLimit(Name="DiscussFlagPostPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Flag")]
-        public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
+        [Url("Discuss/Flag")]
+        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId)
         {
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.Listings.Where(l => l.ListingID == idOfPost).Count() != 1)
+                    if (db.DiscussPosts.Where(l => l.PostID == idOfPost).SingleOrDefault() == null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ListingFlag();
+                    var flag = new DiscussPostFlag();
                     flag.FlagDate = DateTime.Now;
                     flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
                     flag.TypeID = flagTypeId;
-                    flag.ListingID = idOfPost;
-                    db.ListingFlags.InsertOnSubmit(flag);
-                    db.SubmitChanges();
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new EmptyResult();
-                }
-            }
-            catch
-            {
-                /* on jQuery side:
-                  
-                    if error = code 500, we have reached here.
-                 * 
-                    if error = code 409 (conflict), user has failed rate limit check.*/
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return new EmptyResult();
-            }
-
-        }
-        [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
-        [Url("Review/Flag")]
-        public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
-        {
-            try
-            {
-                using (var db = new LegatoDataContext())
-                {
-                    //Check whether the given review exists before creating a possibly-useless record
-                    if (db.Reviews.Where(l => l.ReviewID == idOfPost).Count() != 1)
-                    {
-                        return RedirectToAction("NotFound", "Error");
-                    }
-
-                    //If we've gotten this far, everything's probably A-OK.
-                    var flag = new ReviewFlag();
-                    flag.FlagDate = DateTime.Now;
-                    flag.UserID = (Guid)Membership.GetUser().ProviderUserKey;
-                    flag.TypeID = flagTypeId;
-                    flag.ReviewID = idOfPost;
-                    db.ReviewFlags.InsertOnSubmit(flag);
+                    flag.PostID = idOfPost;
+                    db.DiscussPostFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;

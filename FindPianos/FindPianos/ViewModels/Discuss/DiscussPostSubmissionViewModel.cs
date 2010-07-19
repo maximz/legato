@@ -18,5 +18,12 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
+
+        [DisplayName("In reply to")]
+        public long? InReplyToPostID
+        {
+            get;
+            set;
+        }
     }
 }

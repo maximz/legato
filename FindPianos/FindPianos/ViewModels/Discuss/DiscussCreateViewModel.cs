@@ -45,5 +45,17 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can set location.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance can set location; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanSetLocation
+        {
+            get;
+            set;
+        }
     }
 }
