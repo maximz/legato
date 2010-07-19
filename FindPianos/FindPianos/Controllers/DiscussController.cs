@@ -18,6 +18,7 @@ namespace FindPianos.Controllers
     {
         int ThreadsPerPage = 30;
         int PostsPerPage = 20;
+
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {
@@ -27,6 +28,7 @@ namespace FindPianos.Controllers
         #region Get List of Boards
         [HttpPost]
         [Url("Discuss/Boards/List/{type?}")]
+        [OutputCache(Duration=7200, VaryByParam="*")]
         public ActionResult ListBoards(string type)
         {
             try
@@ -34,7 +36,6 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     IEnumerable<DiscussBoard> query = null;
-                    //string realtype = type.HasValue ? type.Value : "all"; //if type is present, have realtype = type; otherwise, realtype = "all". Basically, default value.
                     string realType = type.GetValueOrDefault("all");
                     switch (realType)
                     {
@@ -69,7 +70,7 @@ namespace FindPianos.Controllers
         /// <param name="page">The page.</param>
         /// <returns></returns>
         [Url("Discuss/{boardID}/{slug?}")]
-        [OutputCache(Duration=7200, VaryByParam="boardID;page")]
+        [OutputCache(Duration=180, VaryByParam="boardID;page")]
         public ActionResult ReadBoard(long boardID, int? page)
         {
             var href = "Discuss/" + boardID;
@@ -95,7 +96,7 @@ namespace FindPianos.Controllers
             }
         }
         [Url("Discuss/Thread/{threadID}/{slug?}", Order=2)]
-        [OutputCache(Duration = 7200, VaryByParam = "threadID;page")]
+        [OutputCache(Duration = 180, VaryByParam = "threadID;page")]
         public ActionResult ReadThread(long threadID, int? page)
         {
             var href = "Discuss/Thread/" + threadID;
@@ -136,7 +137,7 @@ namespace FindPianos.Controllers
         }
         
         [Url("Discuss/Thread/{threadID}/Post/{postID}", Order=1)]
-        [OutputCache(Duration = 7200, VaryByParam = "*")]
+        [OutputCache(Duration = 180, VaryByParam = "*")]
         public ActionResult IndividualPost(long threadID, long postID)
         {
             var href = "Discuss/Thread/" + threadID;
@@ -185,7 +186,7 @@ namespace FindPianos.Controllers
                 }
                 catch
                 {
-                    return RedirectToAction("NotFound", "Error");
+                    return RedirectToAction("InternalServerError", "Error");
                 }
             }
         }
@@ -215,7 +216,7 @@ namespace FindPianos.Controllers
 
         #region Individual Post timeline- and revision-listing method
         [Url("Discuss/Timeline/Post/{postID}")]
-        [OutputCache(Duration = 7200, VaryByParam = "postID")]
+        [OutputCache(Duration = 180, VaryByParam = "postID")]
         public ActionResult PostTimeline(long postID)
         {
             try
@@ -241,7 +242,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Discuss/EnumerateBox")]
-        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
+        [HttpPost][OutputCache(Duration = 180, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
