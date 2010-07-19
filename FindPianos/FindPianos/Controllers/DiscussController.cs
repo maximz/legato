@@ -264,11 +264,21 @@ namespace FindPianos.Controllers
         [RateLimit(Name="DiscussSubmitGET", Seconds=600)]
         public ActionResult Submit(long boardID)
         {
-            var model = new DiscussCreateViewModel()
+            using(var db = new LegatoDataContext())
             {
-                BoardID=boardID
-            };
-            return View(model);
+                var board = db.DiscussBoards.Where(b => b.BoardID == boardID).SingleOrDefault();
+                if(board==null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+                var model = new DiscussCreateViewModel()
+                {
+                    BoardID = boardID,
+                    CanSetLocation = board.IsCityBoard
+                };
+                return View(model);
+            }
+
         }
         [Url("Discuss/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
@@ -283,13 +293,21 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     
+                    //Board:
+                    var board = db.DiscussBoards.Where(b => b.BoardID == model.BoardID).SingleOrDefault();
+                    if(board==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+
                     //THREAD:
                     var thread = new DiscussThread();
 
                     thread.CreationDate = time;
                     thread.LatestActivity = time;
                     thread.Title = model.Title;
-                    if(model.Address.IsNullOrEmpty())
+                    thread.BoardID = model.BoardID;
+                    if(!(board.IsCityBoard) || model.Address.IsNullOrEmpty())
                     {
                         thread.Address = null;
                         thread.Latitude = null;
@@ -377,16 +395,17 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    var firstPost = db.DiscussPosts.Where(p => p.ThreadID == revision.Post.ThreadID).Where(p=>p.PostNumberInThread==1).Single();
-                    //TODO: REPLY TO POST ID
-                    var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
+
+                    var board = post.DiscussThread.DiscussBoard;
+
                     var revisionmodel = new DiscussEditViewModel()
                     {
-                        CanChangeLocation=post.PostNumberInThread==1,
+                        CanChangeLocation=(post.PostNumberInThread==1 && board.IsCityBoard),
                         PostID=postID,
                         Post=new DiscussPostSubmissionViewModel()
                         {
-                            Markdown = revision.Markdown
+                            Markdown = revision.Markdown,
+                            InReplyToPostID = revision.InReplyToPostID
                         }
                     };
                     if(revisionmodel.CanChangeLocation)
@@ -421,61 +440,72 @@ namespace FindPianos.Controllers
             {
                 using (var db = new LegatoDataContext())
                 {
-                    try
-                    {
-                        //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                        var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                        var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
-                        if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
-                        {
-                            return RedirectToAction("Forbidden", "Error");
-                        }
-                    }
-                    catch
+                    var post = db.DiscussPosts.Where(p => p.PostID == model.PostID).SingleOrDefault();
+                    if(post==null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-                   
+
+                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                    var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
+                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                    {
+                        return RedirectToAction("Forbidden", "Error");
+                    }
+
+                    var board = post.DiscussThread.DiscussBoard;
+                    var CanChangeLocation = (post.PostNumberInThread == 1 && board.IsCityBoard);
                     var time = DateTime.Now;
+
+                    if(model.Post.InReplyToPostID.HasValue)
+                    {
+                        var inreplytopost = db.DiscussPosts.Where(p => p.PostID == model.Post.InReplyToPostID.Value).SingleOrDefault();
+                        if(inreplytopost == null)
+                        {
+                            ModelState.AddModelError("Post.InReplyToPostID", "That post doesn't exist.");
+                            return View();
+                        }
+                        else if(inreplytopost.ThreadID!=post.ThreadID)
+                        {
+                            ModelState.AddModelError("Post.InReplyToPostID", "That post is in another thread.");
+                            return View();
+                        }
+                    }
 
                     //REVISION:
                     var r = new DiscussPostRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.ReviewID = model.ReviewRevision.ReviewId;
-                    r.RevisionNumberOfReview = (from rev in db.ReviewRevisions
-                                                where rev.ReviewID == model.ReviewRevision.ReviewId
-                                                select rev.RevisionNumberOfReview).Max() + 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.DateOfEdit = time;
+                    r.Markdown = model.Post.Markdown;
+                    r.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Post.Markdown));
+                    r.InReplyToPostID = model.Post.InReplyToPostID;
+                    r.PostID = model.PostID;
+                    r.UserID = userGuid;
+                    r.EditNumber = (from rev in db.DiscussPostRevisions
+                                                where rev.PostID == model.PostID
+                                                select rev.EditNumber).Max() + 1;
+                    db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
+                    if (CanChangeLocation)
                     {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if (!hour.Closed)
+                        var thread = post.DiscussThread;
+                        if (model.Address.HasValue())
                         {
-                            submit.StartTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
+                            thread.Latitude = model.Lat;
+                            thread.Longitude = model.Long;
+                            thread.Address = model.Address;
                         }
                         else
                         {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
+                            thread.Latitude = null;
+                            thread.Longitude = null;
+                            thread.Address = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        db.SubmitChanges();
                     }
-                    db.SubmitChanges();
-                    return RedirectToAction("ReviewTimeline", new { reviewId = model.ReviewRevision.ReviewId});
+
+                    return RedirectToAction("PostTimeline", new { postID = model.PostID});
                 }
             }
             catch

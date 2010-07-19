@@ -16,7 +16,7 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
-        [Required(ErrorMessage = "You must specify what board you are submitting to.")]
+        [Required(ErrorMessage = "You must specify what post you are editing.")]
         public long PostID
         {
             get;
