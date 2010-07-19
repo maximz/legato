@@ -28,6 +28,16 @@ namespace FindPianos.Helpers
         }
 
         /// <summary>
+        /// Gets the value of the string or returns the specified default value if the string is null or empty.
+        /// </summary>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static string GetValueOrDefault(this string s, string defaultValue)
+        {
+            return s.HasValue() ? s : defaultValue;
+        } 
+
+        /// <summary>
         /// Returns the first non-null/non-empty parameter when this String is null/empty.
         /// </summary>
         public static string IsNullOrEmptyReturn(this string s, params string[] otherPossibleResults)

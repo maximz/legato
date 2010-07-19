@@ -24,6 +24,42 @@ namespace FindPianos.Controllers
             return RedirectToAction("List");
         }
 
+        #region Get List of Boards
+        [HttpPost]
+        [Url("Discuss/Boards/List/{type?}")]
+        public ActionResult ListBoards(string type)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    IEnumerable<DiscussBoard> query = null;
+                    //string realtype = type.HasValue ? type.Value : "all"; //if type is present, have realtype = type; otherwise, realtype = "all". Basically, default value.
+                    string realType = type.GetValueOrDefault("all");
+                    switch (realType)
+                    {
+                        case "city":
+                            query = db.DiscussBoards.Where(b => b.IsCityBoard).ToList();
+                            break;
+                        case "other":
+                            query = db.DiscussBoards.Where(b => !b.IsCityBoard).ToList();
+                            break;
+                        case "all":
+                            query = db.DiscussBoards.ToList();
+                            break;
+                        default:
+                            return RedirectToAction("NotFound", "Error");
+                    }
+                    return Json(query);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        #endregion
+
         #region Read Boards, Threads, and Posts
 
         /// <summary>
@@ -397,7 +433,7 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
 
                     //REVISION:
-                    var r = new ReviewRevision();
+                    var r = new DiscussPostRevision();
                     r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
                     r.Message = model.ReviewRevision.Message;
                     r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
