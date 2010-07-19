@@ -396,6 +396,12 @@ namespace FindPianos.Controllers
                         revisionmodel.Lat = thread.Latitude;
                         revisionmodel.Long = thread.Longitude;
                     }
+                    else
+                    {
+                        revisionmodel.Address = null;
+                        revisionmodel.Lat = null;
+                        revisionmodel.Long = null;
+                    }
                     
                     return View(revisionmodel);
                 }

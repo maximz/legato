@@ -28,7 +28,7 @@ namespace FindPianos.ViewModels
             set;
         }
         [DisplayName("Street address")]
-        public string? Address
+        public string Address
         {
             get;
             set;
