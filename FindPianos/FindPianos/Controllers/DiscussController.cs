@@ -356,18 +356,54 @@ namespace FindPianos.Controllers
         [HttpPost]
         [Url("Discuss/Reply")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "DiscussReplyToThreadPOST", Seconds = 600)]
+        [RateLimit(Name = "DiscussReplyPOST", Seconds = 600)]
         public ActionResult Reply(DiscussReplyViewModel model)
         {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var time = DateTime.Now;
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 
-        }
-        [HttpPost]
-        [Url("Discuss/Reply/ToPost")]
-        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "DiscussReplyToPostPOST", Seconds = 600)]
-        public ActionResult ReplyToPost(DiscussReplyViewModel model)
-        {
+                    //Thread:
+                    var thread = db.DiscussThreads.Where(b => b.ThreadID == model.ThreadID).SingleOrDefault();
+                    if (thread == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
 
+                    //POST:
+                    var post = new DiscussPost();
+                    post.DiscussThread = thread;
+                    post.DateOfSubmission = time;
+                    post.PostNumberInThread = (from rev in db.DiscussPosts
+                                                where rev.ThreadID == thread.ThreadID
+                                                select rev.PostNumberInThread).Max() + 1;
+                    db.DiscussPosts.InsertOnSubmit(post);
+                    db.SubmitChanges();
+
+                    //POST REVISION:
+                    var r = new DiscussPostRevision();
+                    r.Markdown = model.Post.Markdown;
+                    r.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Post.Markdown));
+                    r.DateOfEdit = time;
+                    r.DiscussPost = post;
+                    r.EditNumber = 1;
+                    r.UserID = userGuid;
+                    db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    db.SubmitChanges();
+
+                    return RedirectToAction("IndividualPostRedirect", new
+                    {
+                        postID = post.PostID
+                    });
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
         }
         [Url("Discuss/Edit/{postID}")]
         [HttpGet]
