@@ -52,7 +52,7 @@ namespace FindPianos.Controllers
             }
         }
         
-        [Url("Review/View/{reviewId}")]
+        [Url("Stores/Review/View/{reviewId}")]
         [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult IndividualReview(long reviewId)
         {

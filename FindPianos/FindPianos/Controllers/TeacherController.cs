@@ -23,7 +23,7 @@ namespace FindPianos.Controllers
         }
 
         #region Read Listings and Reviews
-        [Url("Listing/View/{listingId}")]
+        [Url("Teachers/View/{listingId}")]
         [OutputCache(Duration = 7200, VaryByParam = "listingId")]
         public ActionResult Read(long listingId)
         {
@@ -52,7 +52,7 @@ namespace FindPianos.Controllers
             }
         }
         
-        [Url("Review/View/{reviewId}")]
+        [Url("Teachers/Review/View/{reviewId}")]
         [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult IndividualReview(long reviewId)
         {
@@ -83,7 +83,7 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Individual Review timeline- and revision-listing method
-        [Url("Review/Timeline/{reviewId}")]
+        [Url("Teachers/Review/Timeline/{reviewId}")]
         [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult ReviewTimeline(long reviewId)
         {
@@ -104,12 +104,12 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Searching Methods
-        [Url("Search")][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("Search/Teachers")][OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
-        [Url("Search/EnumerateBox")]
+        [Url("Teachers/EnumerateBox")]
         [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
@@ -127,7 +127,7 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Submission and Editing methods
-        [Url("Listing/Create")]
+        [Url("Teachers/Create")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name="ListingSubmitGET", Seconds=600)]
@@ -136,7 +136,7 @@ namespace FindPianos.Controllers
             //TODO: load styles and types into the model; or rather, don't. that will be Ajax.
             return View(new SubmitViewModel());
         }
-        [Url("Listing/Create")]
+        [Url("Teachers/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
@@ -267,7 +267,7 @@ namespace FindPianos.Controllers
             }
         }
         [HttpPost]
-        [Url("Review/Create")]
+        [Url("Teachers/Review/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [RateLimit(Name = "ListingReplyPOST", Seconds = 600)]
         public ActionResult Reply(ReplyViewModel model)
@@ -338,7 +338,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Review/Edit/{reviewId}")]
+        [Url("Teachers/Review/Edit/{reviewId}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
@@ -412,7 +412,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
         }
-        [Url("Review/Edit")]
+        [Url("Teachers/Review/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
@@ -489,7 +489,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Flag")]
+        [Url("Teachers/Listing/Flag")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
             try
@@ -530,7 +530,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Review/Flag")]
+        [Url("Teachers/Review/Flag")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
             try
@@ -574,7 +574,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Listing/Comment")]
+        [Url("Teachers/Comment/Listing")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
             try
@@ -616,7 +616,7 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
-        [Url("Review/Comment")]
+        [Url("Teachers/Comment/Review")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {
             try

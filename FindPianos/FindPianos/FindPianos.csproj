@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\Store\StoreEditViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreListingSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Store\ReadStoreListingViewModel.cs" />
+    <Compile Include="ViewModels\Store\StoreReplyViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreRevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Store\SubmitViewModel.cs" />
     <Compile Include="ViewModels\Store\StoreHourViewModel.cs" />
