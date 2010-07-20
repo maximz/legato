@@ -13,7 +13,7 @@ namespace FindPianos.ViewModels
     {
         [Required(ErrorMessage="You must specify an email address.")]
         [DisplayName("Email address")]
-        [IsEmailAddress(ErrorMessage="This is not a valid email address.")]
+        [IsValidEmailAddress(ErrorMessage="This is not a valid email address.")]
         public string EmailAddress
         {
             get;
@@ -21,7 +21,7 @@ namespace FindPianos.ViewModels
         }
         [Required(ErrorMessage = "You must enter you email address a second time.")]
         [DisplayName("Confirm email address")]
-        [IsEmailAddress(ErrorMessage = "This is not a valid email address.")]
+        [IsValidEmailAddress(ErrorMessage = "This is not a valid email address.")]
         public string ConfirmEmailAddress
         {
             get;

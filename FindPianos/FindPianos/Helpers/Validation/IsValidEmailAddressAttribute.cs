@@ -11,12 +11,12 @@ namespace FindPianos.Helpers
     /// Checks that the field/property is a valid email address.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property,AllowMultiple=false)]
-    public class IsEmailAddressAttribute : ValidationAttribute
+    public class IsValidEmailAddressAttribute : ValidationAttribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsEmailAddressAttribute"/> class.
+        /// Initializes a new instance of the <see cref="IsValidEmailAddressAttribute"/> class.
         /// </summary>
-        public IsEmailAddressAttribute() : base()
+        public IsValidEmailAddressAttribute() : base()
         {
             if(ErrorMessage.IsNullOrEmpty())
                 ErrorMessage = "Please enter a valid email address.";

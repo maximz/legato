@@ -106,6 +106,7 @@
     <Compile Include="Helpers\Inflector.cs" />
     <Compile Include="Helpers\Validation\InstrumentNameVerificationAttribute.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="Helpers\Validation\IsValidEmailAddressAttribute.cs" />
     <Compile Include="Helpers\Validation\MaximumValueAttribute.cs" />
     <Compile Include="Helpers\Validation\MinimumValueAttribute.cs" />
     <Compile Include="Helpers\Validation\PropertiesMustMatchAttribute.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Models\StoreExtensions.cs" />
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Admin\SuspendUserViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserInformationViewModel.cs" />
     <Compile Include="ViewModels\Discuss\DiscussEditViewModel.cs" />
@@ -194,6 +196,9 @@
     <Content Include="Scripts\jquery-1.4.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.2.min.js" />
+    <Content Include="Scripts\jquery.chromahash.min.js" />
+    <Content Include="Scripts\jquery.keystrokes.min.js" />
+    <Content Include="Scripts\jquery.NobleCount.min.js" />
     <Content Include="Scripts\jquery.timeago.js" />
     <Content Include="Scripts\jquery.timers-1.2.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
