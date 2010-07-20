@@ -41,6 +41,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth, Version=3.4.3.10103, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL" />
     <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -183,6 +184,7 @@
     <Content Include="Content\jqueryui\pepper-grinder\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\jqueryui\pepper-grinder\jquery-ui-1.8.2.css" />
     <Content Include="Content\reset.css" />
+    <Content Include="Helpers\DotNetOpenAuth.dll" />
     <Content Include="Helpers\MarkdownSharp.dll" />
     <Content Include="Helpers\MvcReCaptcha.dll" />
     <Content Include="Helpers\Recaptcha.dll" />

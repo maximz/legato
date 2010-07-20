@@ -14,6 +14,10 @@ using FindPianos.Helpers;
 using System.Text;
 using System.Web.Mail;
 using FindPianos.ViewModels;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OpenId;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
+using DotNetOpenAuth.OpenId.RelyingParty;
 
 namespace FindPianos.Controllers
 {
@@ -24,6 +28,7 @@ namespace FindPianos.Controllers
     [HandleError]
     public class AccountController : Controller
     {
+        private static readonly OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
         // This constructor is used by the MVC framework to instantiate the controller using
         // the default forms authentication and membership providers.
@@ -153,17 +158,10 @@ namespace FindPianos.Controllers
                                     currentProfile.Save();
                                 }
                             }
-                            return FormsAuthentication.RedirectFromLoginPage(userName, true);
+                            FormsAuthentication.RedirectFromLoginPage(userName, true);
+                            return new EmptyResult();
                         }
 
-                        if (!string.IsNullOrEmpty(returnUrl))
-                        {
-                            return Redirect(returnUrl);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
                     case AuthenticationStatus.Canceled:
                         ViewData["Message"] = "Canceled at provider";
                         return View("OpenidLogin");
