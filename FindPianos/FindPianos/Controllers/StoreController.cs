@@ -216,10 +216,10 @@ namespace FindPianos.Controllers
             }
         }
         [HttpPost]
-        [Url("Review/Create")]
+        [Url("Stores/Review")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "ListingReplyPOST", Seconds = 600)]
-        public ActionResult Reply(ReplyViewModel model)
+        [RateLimit(Name = "StoresCreateReviewPOST", Seconds = 600)]
+        public ActionResult Reply(StoreReplyViewModel model)
         {
             try
             {
@@ -228,38 +228,40 @@ namespace FindPianos.Controllers
                     var time = DateTime.Now;
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 
-                    var listing = db.Listings.Where(l => l.ListingID == model.ListingID).SingleOrDefault();
+                    var listing = db.StoreListings.Where(l => l.StoreListingID == model.ListingID).SingleOrDefault();
                     if (listing == null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
                     //REVIEW:
-                    var review = new Review();
-                    review.Listing = listing;
-                    db.Reviews.InsertOnSubmit(review);
+                    var review = new StoreReview();
+                    review.StoreListing = listing;
+                    db.StoreReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
                     //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
+                    var r = new StoreReviewRevision();
+                    r.DateOfLastVisit = model.ReviewRevision.DateOfLastVisit;
+                    r.DateOfLastPurchase = model.ReviewRevision.DateOfLastPurchase;
                     r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
                     r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.Review = review;
-                    r.RevisionNumberOfReview = 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.RatingProductQuality = model.ReviewRevision.RatingProductQuality;
+                    r.RatingService = model.ReviewRevision.RatingService;
+                    r.RatingEnvironment = model.ReviewRevision.RatingEnvironment;
+                    r.RevisionDate = time;
+                    r.StoreReview = review;
+                    //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
+                    //                            where rev.PianoReviewID == review.PianoReviewID
+                    //                            select rev.RevisionNumberOfReview).Max() + 1;
+                    r.EditNumber = 1;
+                    db.StoreReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
                     foreach (var hour in model.Hours)
                     {
-                        var submit = new VenueHour();
+                        var submit = new StoreVenueHour();
                         submit.DayOfWeek = hour.DayOfWeekId;
                         if (!hour.Closed)
                         {
@@ -271,8 +273,8 @@ namespace FindPianos.Controllers
                             submit.StartTime = null;
                             submit.EndTime = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        submit.StoreReviewRevision = r;
+                        db.StoreVenueHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
 
