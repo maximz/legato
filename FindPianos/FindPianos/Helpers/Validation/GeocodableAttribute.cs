@@ -69,7 +69,8 @@ namespace FindPianos.Helpers
 		public GeocodableAttribute()
 			: base()
 		{
-			ErrorMessage = "We weren't able to find that location.";
+			if(ErrorMessage.IsNullOrEmpty())
+				ErrorMessage = "We weren't able to find that location.";
 		}
 		/// <summary>
 		/// Determines whether the specified value is valid.

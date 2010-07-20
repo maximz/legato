@@ -13,6 +13,7 @@ using RiaLibrary.Web;
 using FindPianos.Helpers;
 using System.Text;
 using System.Web.Mail;
+using FindPianos.ViewModels;
 
 namespace FindPianos.Controllers
 {
@@ -52,6 +53,185 @@ namespace FindPianos.Controllers
             get;
             private set;
         }
+
+        #region OpenID Login and Registration
+
+        [Url("Account/Login")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult Login()
+        {
+            return View("OpenidLogin");
+        }
+
+        [Url("Account/Authenticate")]
+        [ValidateInput(false)]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult Authenticate(string returnUrl)
+        {
+            IAuthenticationResponse response = openid.GetResponse();
+            if (response == null)
+            {
+                // Stage 2: user submitting Identifier
+                Identifier id;
+                if (Identifier.TryParse(Request.Form["openid_identifier"], out id))
+                {
+                    try
+                    {
+                        IAuthenticationRequest request = openid.CreateRequest(Request.Form["openid_identifier"]);
+
+                        request.AddExtension(new ClaimsRequest
+                                                 {
+                                                     Email = DemandLevel.Require,
+                                                     Nickname = DemandLevel.Request,
+                                                     FullName = DemandLevel.Request,
+                                                     BirthDate = DemandLevel.Request
+                                                 });
+
+                        return request.RedirectingResponse.AsActionResult();
+                    }
+                    catch (ProtocolException ex)
+                    {
+                        ViewData["Message"] = ex.Message;
+                        return View("OpenidLogin");
+                    }
+                }
+                else
+                {
+                    ViewData["Message"] = "Invalid OpenID";
+                    return View("OpenidLogin");
+                }
+            }
+            else
+            {
+                // Stage 3: OpenID Provider sending assertion response
+                switch (response.Status)
+                {
+                    case AuthenticationStatus.Authenticated:
+                        var sreg = response.GetExtension<ClaimsResponse>();
+                        UserOpenId openId = null;
+                        using (var db = new LegatoDataContext())
+                        {
+                            openId = db.UserOpenIds.Where(o => o.OpenIdClaim == response.ClaimedIdentifier.OriginalString).FirstOrDefault();
+                        }
+                        
+                        if (openId == null)
+                        {
+                            // create new user
+                            string email = "";
+                            string login = "";
+                            if (sreg != null)
+                            {
+                                email = sreg.Email;
+                                using (var db = new LegatoDataContext())
+                                {
+                                    var userNameAvailable = (db.aspnet_Users.Where(u => u.UserName == sreg.Nickname).FirstOrDefault()) == null;
+                                    if (userNameAvailable)
+                                    {
+                                        login = sreg.Nickname;
+                                    }
+                                }
+                            }
+                            var model = new OpenIdRegistrationViewModel()
+                            {
+                                EmailAddress=email,
+                                Username=login,
+                                OpenIdClaim=response.ClaimedIdentifier
+                            };
+                            return View("OpenidRegisterForm", model);
+                        }
+                        else
+                        {
+                            //check whether user is suspended and whether suspension has already ended
+                            var userName = openId.aspnet_User.UserName;
+                            if (!Roles.IsUserInRole(userName, "ActiveUser"))
+                            {
+                                var currentProfile = AccountProfile.GetProfileOfUser(userName);
+                                if (DateTime.Now >= currentProfile.ReinstateDate)
+                                {
+                                    Roles.AddUserToRole(userName, "ActiveUser");
+                                    currentProfile.ReinstateDate = DateTime.MinValue;
+                                    currentProfile.Save();
+                                }
+                            }
+                            return FormsAuthentication.RedirectFromLoginPage(userName, true);
+                        }
+
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    case AuthenticationStatus.Canceled:
+                        ViewData["Message"] = "Canceled at provider";
+                        return View("OpenidLogin");
+                    case AuthenticationStatus.Failed:
+                        ViewData["Message"] = response.Exception.Message;
+                        return View("OpenidLogin");
+                }
+            }
+            return new EmptyResult();
+        }
+        [Url("Account/Register/OpenID")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
+        [HttpPost]
+        public ActionResult OpenidRegisterFormSubmit(OpenIdRegistrationViewModel model)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var userNameAvailable = (db.aspnet_Users.Where(u => u.UserName == model.Username).FirstOrDefault()) == null;
+                    if (!userNameAvailable)
+                    {
+                        ModelState.AddModelError("Username", "This username is already taken.");
+                        return View("OpenidRegisterForm", model);
+                    }
+                }
+                // Attempt to register the user
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.Username, Membership.GeneratePassword(7, 0), model.EmailAddress);
+
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    Roles.AddUserToRoles(model.Username, new string[] { "ActiveUser", "EmailNotConfirmed" });
+                    AccountProfile.NewUser.Initialize(model.Username, true);
+                    AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
+                    AccountProfile.NewUser.Save();
+                    using (var db = new LegatoDataContext())
+                    {
+                        try
+                        {
+                            var confirm = new ConfirmEmailAddress();
+                            confirm.UserID = db.aspnet_Users.Where(u => u.UserName == model.Username).Single().UserId;
+                            confirm.ConfirmID = Guid.NewGuid();
+                            db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
+                            db.SubmitChanges();
+                            SendEmailVerificationEmail(model.EmailAddress, confirm.ConfirmID);
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                            return View();
+                        }
+                    }
+                    FormsAuth.SignIn(model.Username, true /* createPersistentCookie */);
+                    ViewData["email"] = model.EmailAddress;
+                    return View("TimeToValidateYourEmailAddress");
+                }
+                else
+                {
+                    ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                    return View("OpenidRegisterForm", model);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        #endregion
 
         #region Login and Logout
         /// <summary>
@@ -174,29 +354,32 @@ namespace FindPianos.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-                Roles.AddUserToRoles(userName, new string[] { "ActiveUser", "EmailNotConfirmed" });
-                AccountProfile.NewUser.Initialize(userName, true);
-                AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
-                AccountProfile.NewUser.Save();
-                using (var db = new LegatoDataContext())
-                {
-                    try
-                    {
-                        var confirm = new ConfirmEmailAddress();
-                        confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
-                        confirm.ConfirmID = Guid.NewGuid();
-                        db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
-                        db.SubmitChanges();
-                        SendEmailVerificationEmail(email, confirm.ConfirmID);
-                    }
-                    catch
-                    {
-                        ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
-                        return View();
-                    }
-                }
+                
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    //Success! Now, we add metadata...
+                    Roles.AddUserToRoles(userName, new string[] { "ActiveUser", "EmailNotConfirmed" });
+                    AccountProfile.NewUser.Initialize(userName, true);
+                    AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
+                    AccountProfile.NewUser.Save();
+                    using (var db = new LegatoDataContext())
+                    {
+                        try
+                        {
+                            var confirm = new ConfirmEmailAddress();
+                            confirm.UserID = db.aspnet_Users.Where(u => u.UserName == userName).Single().UserId;
+                            confirm.ConfirmID = Guid.NewGuid();
+                            db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
+                            db.SubmitChanges();
+                            SendEmailVerificationEmail(email, confirm.ConfirmID);
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                            return View();
+                        }
+                    }
+
                     FormsAuth.SignIn(userName, false /* createPersistentCookie */);
                     //return RedirectToAction("Index", "Home");
                     ViewData["email"] = email;
@@ -631,7 +814,7 @@ namespace FindPianos.Controllers
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("Click this link to reset your password: ");
-            sb.Append("http://legatonetwork.com/Account/Options/ResetPassword");
+            sb.Append("http://legatonetwork.com/Account/Options/ResetPassword/");
             sb.Append(id.ToString());
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);

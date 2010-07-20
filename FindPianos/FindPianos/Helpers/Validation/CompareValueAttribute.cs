@@ -10,9 +10,14 @@ namespace FindPianos.Helpers
     /// <summary>
     /// Compares a property to a given comparison value. Applied to a property.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public class CompareValueAttribute : ValidationAttribute
     {
+        public CompareValueAttribute() : base()
+        {
+            if(ErrorMessage.IsNullOrEmpty())
+                ErrorMessage = "The value failed validation.";
+        }
         /// <summary>
         /// Gets or sets the comparison value.
         /// </summary>

@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using FindPianos.Models;
+using System.Net.Mail;
 
 namespace FindPianos.Helpers
 {
     /// <summary>
-    /// Verifies that the given instrument name exists as an instrument within our database.
+    /// Checks that the field/property is a valid email address.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property,AllowMultiple=false)]
-    public class InstrumentNameVerificationAttribute : ValidationAttribute
+    public class IsEmailAddressAttribute : ValidationAttribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstrumentNameVerificationAttribute"/> class.
+        /// Initializes a new instance of the <see cref="IsEmailAddressAttribute"/> class.
         /// </summary>
-        public InstrumentNameVerificationAttribute() : base()
+        public IsEmailAddressAttribute() : base()
         {
             if(ErrorMessage.IsNullOrEmpty())
-                ErrorMessage = "That instrument doesn't exist in our system.";
+                ErrorMessage = "Please enter a valid email address.";
         }
         /// <summary>
         /// Determines whether the specified value is valid.
@@ -37,10 +37,8 @@ namespace FindPianos.Helpers
             var address = (string)value;
             try
             {
-                using (var db = new LegatoDataContext())
-                {
-                    db.Instruments.Where(i => i.Name == value.ToString()).Single();
-                }
+                var addressMail = new MailAddress(address);
+                addressMail = null;
                 return true;
             }
             catch

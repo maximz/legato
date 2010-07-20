@@ -141,6 +141,7 @@
       <Association Name="aspnet_User_StoreReviewFlag" Member="StoreReviewFlags" ThisKey="UserId" OtherKey="UserID" Type="StoreReviewFlag" />
       <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
       <Association Name="aspnet_User_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostRevision" />
+      <Association Name="aspnet_User_UserOpenId" Member="UserOpenIds" ThisKey="UserId" OtherKey="UserId" Type="UserOpenId" />
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
     </Type>
   </Table>
@@ -602,13 +603,6 @@
       <Association Name="WeekDay_StoreVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.UserOpenIds" Member="UserOpenIds">
-    <Type Name="UserOpenId">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.UserSuspensions" Member="UserSuspensions">
     <Type Name="UserSuspension">
       <Column Name="SuspensionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -651,6 +645,14 @@
       <Column Name="BoardName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="IsCityBoard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="DiscussBoard_DiscussThread" Member="DiscussThreads" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussThread" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserOpenIds" Member="UserOpenIds">
+    <Type Name="UserOpenId">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_UserOpenId" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

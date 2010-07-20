@@ -13,6 +13,11 @@ namespace FindPianos.Helpers
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ComparePropertiesAttribute : ValidationAttribute
     {
+        public ComparePropertiesAttribute() : base()
+        {
+            if(ErrorMessage.IsNullOrEmpty())
+                ErrorMessage = "The fields failed validation.";
+        }
         /// <summary>
         /// Gets or sets the first property to compare.
         /// </summary>

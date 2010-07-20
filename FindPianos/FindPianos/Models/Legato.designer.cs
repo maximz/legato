@@ -165,9 +165,6 @@ namespace FindPianos.Models
     partial void InsertStoreVenueHour(StoreVenueHour instance);
     partial void UpdateStoreVenueHour(StoreVenueHour instance);
     partial void DeleteStoreVenueHour(StoreVenueHour instance);
-    partial void InsertUserOpenId(UserOpenId instance);
-    partial void UpdateUserOpenId(UserOpenId instance);
-    partial void DeleteUserOpenId(UserOpenId instance);
     partial void InsertUserSuspension(UserSuspension instance);
     partial void UpdateUserSuspension(UserSuspension instance);
     partial void DeleteUserSuspension(UserSuspension instance);
@@ -180,6 +177,9 @@ namespace FindPianos.Models
     partial void InsertDiscussBoard(DiscussBoard instance);
     partial void UpdateDiscussBoard(DiscussBoard instance);
     partial void DeleteDiscussBoard(DiscussBoard instance);
+    partial void InsertUserOpenId(UserOpenId instance);
+    partial void UpdateUserOpenId(UserOpenId instance);
+    partial void DeleteUserOpenId(UserOpenId instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -572,14 +572,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<UserOpenId> UserOpenIds
-		{
-			get
-			{
-				return this.GetTable<UserOpenId>();
-			}
-		}
-		
 		public System.Data.Linq.Table<UserSuspension> UserSuspensions
 		{
 			get
@@ -609,6 +601,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<DiscussBoard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UserOpenId> UserOpenIds
+		{
+			get
+			{
+				return this.GetTable<UserOpenId>();
 			}
 		}
 	}
@@ -2913,6 +2913,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
 		
+		private EntitySet<UserOpenId> _UserOpenIds;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
     #region Extensibility Method Definitions
@@ -2962,6 +2964,7 @@ namespace FindPianos.Models
 			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
 			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
 			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
+			this._UserOpenIds = new EntitySet<UserOpenId>(new Action<UserOpenId>(this.attach_UserOpenIds), new Action<UserOpenId>(this.detach_UserOpenIds));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
 		}
@@ -3467,6 +3470,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_UserOpenIds", ThisKey="UserId", OtherKey="UserId")]
+		public EntitySet<UserOpenId> UserOpenIds
+		{
+			get
+			{
+				return this._UserOpenIds;
+			}
+			set
+			{
+				this._UserOpenIds.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_User", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -3792,6 +3808,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_UserOpenIds(UserOpenId entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_UserOpenIds(UserOpenId entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -13953,116 +13981,6 @@ namespace FindPianos.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserOpenIds")]
-	public partial class UserOpenId : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _Id;
-		
-		private System.Nullable<int> _UserId;
-		
-		private string _OpenIdClaim;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnUserIdChanging(System.Nullable<int> value);
-    partial void OnUserIdChanged();
-    partial void OnOpenIdClaimChanging(string value);
-    partial void OnOpenIdClaimChanged();
-    #endregion
-		
-		public UserOpenId()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int")]
-		public System.Nullable<int> UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenIdClaim", DbType="NVarChar(450)")]
-		public string OpenIdClaim
-		{
-			get
-			{
-				return this._OpenIdClaim;
-			}
-			set
-			{
-				if ((this._OpenIdClaim != value))
-				{
-					this.OnOpenIdClaimChanging(value);
-					this.SendPropertyChanging();
-					this._OpenIdClaim = value;
-					this.SendPropertyChanged("OpenIdClaim");
-					this.OnOpenIdClaimChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserSuspensions")]
 	public partial class UserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -14990,6 +14908,157 @@ namespace FindPianos.Models
 		{
 			this.SendPropertyChanging();
 			entity.DiscussBoard = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserOpenIds")]
+	public partial class UserOpenId : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private string _OpenIdClaim;
+		
+		private System.Guid _UserId;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnOpenIdClaimChanging(string value);
+    partial void OnOpenIdClaimChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public UserOpenId()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenIdClaim", DbType="NVarChar(450) NOT NULL", CanBeNull=false)]
+		public string OpenIdClaim
+		{
+			get
+			{
+				return this._OpenIdClaim;
+			}
+			set
+			{
+				if ((this._OpenIdClaim != value))
+				{
+					this.OnOpenIdClaimChanging(value);
+					this.SendPropertyChanging();
+					this._OpenIdClaim = value;
+					this.SendPropertyChanged("OpenIdClaim");
+					this.OnOpenIdClaimChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.UserOpenIds.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.UserOpenIds.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

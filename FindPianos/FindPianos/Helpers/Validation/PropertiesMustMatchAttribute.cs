@@ -35,6 +35,8 @@ namespace FindPianos.Helpers
         {
             FirstPropertyName = firstPropertyName;
             SecondPropertyName = secondPropertyName;
+            if (ErrorMessage.IsNullOrEmpty())
+                ErrorMessage = "The fields failed validation.";
         }
 
         /// <summary>
