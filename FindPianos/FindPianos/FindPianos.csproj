@@ -225,6 +225,7 @@
     <Content Include="Views\Admin\SuspendUser.aspx" />
     <Content Include="Views\Admin\UserSearchByNameGET.aspx" />
     <Content Include="Views\Admin\UserSearchByNamePOST.aspx" />
+    <Content Include="Views\Error\Conflict.aspx" />
     <Content Include="Views\Error\Forbidden.aspx" />
     <Content Include="Views\Error\InternalServerError.aspx" />
     <Content Include="Views\Error\NotFound.aspx" />

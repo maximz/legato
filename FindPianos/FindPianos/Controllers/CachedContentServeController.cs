@@ -79,7 +79,8 @@ namespace FindPianos.Controllers
         /// <returns>A string with the combined path.</returns>
         private string MakeContentPath(string dirName, string fileName, string fileExtension)
         {
-            var dir = Server.MapPath("../../" + dirName);//Server.MapPath("Content");
+            //var dir = Server.MapPath("../../" + dirName);//Server.MapPath("Content");
+            var dir = Server.MapPath("~/" + dirName);
             var path = Path.Combine(dir, fileName + "."+fileExtension.Replace(".",""));
             return path;
         }

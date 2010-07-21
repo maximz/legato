@@ -42,8 +42,15 @@ namespace FindPianos.Controllers
         [Url("401")]
         public ActionResult Unauthorized()
         {
-            Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            Response.StatusCode = (int)HttpStatusCode.NotFound;
             return View("Forbidden");
+        }
+
+        [Url("409")]
+        public ActionResult Conflict()
+        {
+            Response.StatusCode = (int)HttpStatusCode.Conflict;
+            return View("Conflict");
         }
 
         /// <summary>
