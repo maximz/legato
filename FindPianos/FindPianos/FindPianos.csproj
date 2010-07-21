@@ -216,6 +216,7 @@
     <Content Include="Views\Account\ForgotUsernameResult.aspx" />
     <Content Include="Views\Account\LogOff.aspx" />
     <Content Include="Views\Account\MyProfile.aspx" />
+    <Content Include="Views\Account\OpenidLogin.aspx" />
     <Content Include="Views\Account\ResetPassword.aspx" />
     <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
@@ -272,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blockedips.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Models\Legato.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Legato.designer.cs</LastGenOutput>

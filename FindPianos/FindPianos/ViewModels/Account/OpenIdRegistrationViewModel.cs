@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using FindPianos.Helpers;
+using DotNetOpenAuth.OpenId;
 
 namespace FindPianos.ViewModels
 {
@@ -35,7 +36,7 @@ namespace FindPianos.ViewModels
             set;
         }
         [Required(ErrorMessage="An OpenID claim must be included.")]
-        public string OpenIdClaim
+        public Identifier OpenIdClaim
         {
             get;
             set;

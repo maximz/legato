@@ -201,11 +201,20 @@ namespace FindPianos.Controllers
                     {
                         try
                         {
+                            var userid = db.aspnet_Users.Where(u => u.UserName == model.Username).Single().UserId;
+
+                            var openid = new UserOpenId();
+                            openid.OpenIdClaim = model.OpenIdClaim.OriginalString;
+                            openid.UserId = userid;
+                            db.UserOpenIds.InsertOnSubmit(openid);
+                            db.SubmitChanges();
+
                             var confirm = new ConfirmEmailAddress();
-                            confirm.UserID = db.aspnet_Users.Where(u => u.UserName == model.Username).Single().UserId;
+                            confirm.UserID = userid;
                             confirm.ConfirmID = Guid.NewGuid();
                             db.ConfirmEmailAddresses.InsertOnSubmit(confirm);
                             db.SubmitChanges();
+
                             SendEmailVerificationEmail(model.EmailAddress, confirm.ConfirmID);
                         }
                         catch
