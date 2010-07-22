@@ -210,6 +210,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Views\Account\ChangeEmail.aspx" />
     <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
+    <Content Include="Views\Account\OpenidRegister.aspx" />
     <Content Include="Views\Account\ForgotPassword.aspx" />
     <Content Include="Views\Account\ForgotPasswordEmailSent.aspx" />
     <Content Include="Views\Account\ForgotUsername.aspx" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Listing\Read.aspx" />
     <Content Include="Views\Listing\ReviewTimeline.aspx" />
     <Content Include="Views\Listing\Submit.aspx" />
+    <Content Include="Views\Shared\MenuUserControl.ascx" />
     <Content Include="Views\Shared\PageNumbers.ascx" />
     <Content Include="Views\Shared\SubHeader.ascx" />
     <Content Include="Views\Shared\User.ascx" />

@@ -140,9 +140,9 @@ namespace FindPianos.Controllers
                             {
                                 EmailAddress=email,
                                 Username=login,
-                                OpenIdClaim=response.ClaimedIdentifier
+                                OpenIdClaim=response.ClaimedIdentifier.OriginalString
                             };
-                            return View("OpenidRegisterForm", model);
+                            return View("OpenidRegister", model);
                         }
                         else
                         {
@@ -175,8 +175,14 @@ namespace FindPianos.Controllers
         [Url("Account/Register/OpenID")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
         [HttpPost]
+        [CaptchaValidator]
         public ActionResult OpenidRegisterFormSubmit(OpenIdRegistrationViewModel model)
         {
+            if (!model.captchaValid)
+            {
+                ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
+                return View();
+            }
             try
             {
                 using (var db = new LegatoDataContext())
@@ -185,7 +191,7 @@ namespace FindPianos.Controllers
                     if (!userNameAvailable)
                     {
                         ModelState.AddModelError("Username", "This username is already taken.");
-                        return View("OpenidRegisterForm", model);
+                        return View("OpenidRegister", model);
                     }
                 }
                 // Attempt to register the user
@@ -204,7 +210,7 @@ namespace FindPianos.Controllers
                             var userid = db.aspnet_Users.Where(u => u.UserName == model.Username).Single().UserId;
 
                             var openid = new UserOpenId();
-                            openid.OpenIdClaim = model.OpenIdClaim.OriginalString;
+                            openid.OpenIdClaim = model.OpenIdClaim;
                             openid.UserId = userid;
                             db.UserOpenIds.InsertOnSubmit(openid);
                             db.SubmitChanges();
@@ -230,7 +236,7 @@ namespace FindPianos.Controllers
                 else
                 {
                     ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
-                    return View("OpenidRegisterForm", model);
+                    return View("OpenidRegister", model);
                 }
             }
             catch

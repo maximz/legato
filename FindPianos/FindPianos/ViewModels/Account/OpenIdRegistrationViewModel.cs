@@ -36,7 +36,13 @@ namespace FindPianos.ViewModels
             set;
         }
         [Required(ErrorMessage="An OpenID claim must be included.")]
-        public Identifier OpenIdClaim
+        public string OpenIdClaim
+        {
+            get;
+            set;
+        }
+        [Required(ErrorMessage="The CAPTCHA must be submitted.")]
+        public bool captchaValid
         {
             get;
             set;

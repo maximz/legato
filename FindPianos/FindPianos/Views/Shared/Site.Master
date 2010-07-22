@@ -37,17 +37,7 @@
             </div> 
             
             <div id="menucontainer">
-            
-                <ul id="menu">    
-                    <li><%= Html.ActionLink("About",  "About", "Home")%></li>          
-                    <li><%= Html.ActionLink("Search", "List", "Listing")%></li>
-                    <li><%= Html.ActionLink("Submit", "Submit", "Listing")%></li>
-                    <% if (HttpContext.Current.User.IsInRole("Admin"))
-                    {%>
-                    <li><%= Html.ActionLink("Admin", "UserSearchByName", "Admin") %></li>
-                    <% } %>
-                </ul>
-            
+                <% Html.RenderPartial("MenuUserControl"); %>
             </div>
         </div>
 
