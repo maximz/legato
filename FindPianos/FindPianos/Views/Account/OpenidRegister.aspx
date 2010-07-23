@@ -10,8 +10,7 @@
         We haven't seen that OpenID before. To create a new account, please fill out the form below.</p>
         <p>If you have registered on this site before, please <%=Html.ActionLink("return to the login page","OpenidLogin","Account") %> and enter the OpenID you used before. If you don't remember the OpenID you used, <%=Html.ActionLink("click here","RecoverOpenID","Account") %>.</p>
     <%= Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.") %>
-
-    <% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm("OpenidRegisterFormSubmit","Account",FormMethod.Post)) { %>
         <div>
             <fieldset>
                 <legend>Account Information</legend>
@@ -24,6 +23,11 @@
                     <%= Html.LabelFor(m=>m.EmailAddress) %>
                     <%= Html.TextBoxFor(m=>m.EmailAddress) %>
                     <%= Html.ValidationMessageFor(m=>m.EmailAddress) %>
+                </p>
+                <p>
+                    <%= Html.LabelFor(m=>m.ConfirmEmailAddress) %>
+                    <%= Html.TextBoxFor(m=>m.ConfirmEmailAddress) %>
+                    <%= Html.ValidationMessageFor(m=>m.ConfirmEmailAddress) %>
                 </p>
                 <p>
                     <label for="CAPTCHA">Verification word(s):</label>

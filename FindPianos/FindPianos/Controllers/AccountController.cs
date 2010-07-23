@@ -140,7 +140,7 @@ namespace FindPianos.Controllers
                             {
                                 EmailAddress=email,
                                 Username=login,
-                                OpenIdClaim=response.ClaimedIdentifier.OriginalString
+                                OpenIdClaim=Crypto.EncryptStringAES(response.ClaimedIdentifier.OriginalString,"OpenIDRegistrationFrenzy")
                             };
                             return View("OpenidRegister", model);
                         }
@@ -181,8 +181,20 @@ namespace FindPianos.Controllers
             if (!model.captchaValid)
             {
                 ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
-                return View();
+                return View("OpenidRegister",model);
             }
+
+            var OpenidClaim = Crypto.DecryptStringAES(model.OpenIdClaim, "OpenIDRegistrationFrenzy");
+            var validator = new IsSemiValidURLAttribute();
+            var isValid = validator.IsValid(OpenidClaim);
+            validator = null;
+            if(!isValid)
+            {
+                //User tried to spoof encryption
+                ModelState.AddModelError("OpenID","There's a problem with the OpenID that you specified.");
+                return View("OpenidRegister",model);
+            }
+
             try
             {
                 using (var db = new LegatoDataContext())
@@ -247,6 +259,7 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Login and Logout
+        /*
         /// <summary>
         /// Handles login.
         /// </summary>
@@ -301,7 +314,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
+*/
         /// <summary>
         /// Handles logoff.
         /// </summary>
@@ -325,6 +338,7 @@ namespace FindPianos.Controllers
         }
         #endregion
 
+        /*
         #region Register
         /// <summary>
         /// Handles user registration.
@@ -393,7 +407,7 @@ namespace FindPianos.Controllers
                         }
                     }
 
-                    FormsAuth.SignIn(userName, false /* createPersistentCookie */);
+                    FormsAuth.SignIn(userName, false);
                     //return RedirectToAction("Index", "Home");
                     ViewData["email"] = email;
                     return View("TimeToValidateYourEmailAddress");
@@ -408,7 +422,7 @@ namespace FindPianos.Controllers
             // If we got this far, something failed, redisplay form
             return View();
         }
-        #endregion
+        #endregion*/
 
         #region Suspended Users
         /// <summary>
@@ -524,7 +538,7 @@ namespace FindPianos.Controllers
         }
         #endregion
 
-        #region Forgot Username or Password
+        /*#region Forgot Username or Password
         /// <summary>
         /// Resets the password.
         /// </summary>
@@ -689,7 +703,58 @@ namespace FindPianos.Controllers
                 return View();
             }
         }
-        #endregion
+        #endregion*/
+
+#region Forgot OpenID
+        /// <summary>
+        /// Retrieves the OpenID.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Url("Account/Recover/OpenID")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotOpenID()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Retrieves the username.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Url("Account/Recover/OpenID")]
+        [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
+        public ActionResult ForgotOpenID(string email)
+        {
+            //validate that email is a valid email address
+            try
+            {
+                var e = new System.Net.Mail.MailAddress(email);
+                e = null;
+            }
+            catch
+            {
+                ModelState.AddModelError("email", "Please enter a valid email address.");
+                return View();
+            }
+            var result = Membership.GetUserNameByEmail(email);
+            if (string.IsNullOrEmpty(result))
+            {
+                ModelState.AddModelError("email", "We weren't able to find a user with this email address. Please make sure that the address is correct.");
+                return View();
+            }
+            using(var db = new LegatoDataContext())
+            {
+                var oId = db.UserOpenIds.Where(o => o.UserId == (Guid)Membership.GetUser(result, false).ProviderUserKey).FirstOrDefault();
+                SendForgotOpenIDEmail(email, oId.OpenIdClaim);
+                oId = null;
+            }
+            ViewData["email"] = email;
+            return View("SentForgotOpenidEmail");
+        }
+#endregion
 
         #region Profile Edit
         /// <summary>
@@ -885,6 +950,48 @@ namespace FindPianos.Controllers
                                        Subject = subject,
                                        Body = body,
                                        From = "\""+fromName+"\" <no-reply@legatonetwork.com>",
+                                       To = emailAddress,
+                                       BodyFormat = MailFormat.Text,
+                                       Priority = MailPriority.Normal
+                                   };
+
+            SmtpMail.SmtpServer = "relay-hosting.secureserver.net";
+            SmtpMail.Send(emailmessage);
+
+        }
+        /// <summary>
+        /// Sends email verification email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <param name="id">The id.</param>
+        internal void SendForgotOpenIDEmail(string emailAddress, string openID)
+        {
+            const string subject = "OpenID retrieval - Legato Network";
+            const string fromName = "Legato Network";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hello!");
+            sb.Append(Environment.NewLine);
+            sb.Append("Someone requested the OpenID belonging to this email address at the Legato Network.");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("The OpenID belonging to the user with this email address is: ");
+            sb.Append(openID);
+            sb.Append(Environment.NewLine);
+            sb.Append("To log in, go to: http://legatonetwork.com/Account/Login");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
+            sb.Append(Environment.NewLine);
+            sb.Append("- Legato Network :)");
+
+            string body = sb.ToString();
+
+            var emailmessage = new System.Web.Mail.MailMessage()
+                                   {
+                                       Subject = subject,
+                                       Body = body,
+                                       From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
                                        To = emailAddress,
                                        BodyFormat = MailFormat.Text,
                                        Priority = MailPriority.Normal
