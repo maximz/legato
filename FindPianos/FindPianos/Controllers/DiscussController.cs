@@ -20,9 +20,10 @@ namespace FindPianos.Controllers
         int PostsPerPage = 20;
 
         [OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("Discuss")]
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            return View();
         }
 
         #region Get List of Boards
@@ -182,7 +183,7 @@ namespace FindPianos.Controllers
                         TotalPosts = totalPostsString,
                         PageNumbers = pageNumbers
                     };
-                    return View(model);
+                    return View("ReadThread",model);
                 }
                 catch
                 {
@@ -345,7 +346,7 @@ namespace FindPianos.Controllers
                     db.DiscussPostRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
                     
-                    return RedirectToAction("Read", new { id = thread.ThreadID }); //shows details for that submission thread, with only one revision!
+                    return RedirectToAction("ReadThread", new { threadID = thread.ThreadID }); //shows details for that submission thread, with only one revision!
                 }
             }
             catch
