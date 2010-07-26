@@ -46,8 +46,8 @@
 		</form> 
   </div>
 
-  <link rel="stylesheet" href="http://sstatic.net/so/openid.css"> 
-  <script src="http://sstatic.net/so/Js/third-party/openid-jquery.js?v=2" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../Content/openid/openid.css"> 
+  <script src="../../Scripts/js/openid-jquery" type="text/javascript"></script>
 
   <script type="text/javascript">
 	$().ready(function () {

@@ -288,6 +288,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name="DiscussSubmitPOST", Seconds=600)]
         public ActionResult Submit(DiscussCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
                 using (var db = new LegatoDataContext())
@@ -361,6 +365,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "DiscussReplyPOST", Seconds = 600)]
         public ActionResult Reply(DiscussReplyViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
             try
             {
                 using (var db = new LegatoDataContext())
@@ -474,6 +482,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "DiscussEditPOST", Seconds = 600)]
         public ActionResult Edit(DiscussEditViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
                 using (var db = new LegatoDataContext())

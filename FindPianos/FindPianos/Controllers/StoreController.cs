@@ -136,6 +136,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name="StoreSubmitPOST", Seconds=600)]
         public ActionResult Submit(StoreSubmitViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             //View info:
             //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
             //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
@@ -221,6 +225,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "StoresCreateReviewPOST", Seconds = 600)]
         public ActionResult Reply(StoreReplyViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
             try
             {
                 using (var db = new LegatoDataContext())
@@ -368,6 +376,10 @@ namespace FindPianos.Controllers
         [RateLimit(Name = "StoreReviewEditPOST", Seconds = 600)]
         public ActionResult EditReview(StoreEditViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             try
             {
                 using (var db = new LegatoDataContext())

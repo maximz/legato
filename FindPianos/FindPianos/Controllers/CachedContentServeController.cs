@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using RiaLibrary.Web;
+using FindPianos.Helpers;
 
 namespace FindPianos.Controllers
 {
@@ -35,6 +36,45 @@ namespace FindPianos.Controllers
         public ActionResult StyleSheet(string id)
         {
             return File(MakeContentPath("Content",id, "css"), "text/css");
+        }
+        /// <summary>
+        /// Opens the content of the ID.
+        /// </summary>
+        /// <param name="Name">The name.</param>
+        /// <returns></returns>
+        [Url("Content/openid/{Name}",Order=1)]
+        [OutputCache(Duration=7200,VaryByParam="Name")] //two hours
+        public ActionResult OpenIDContent(string Name)
+        {
+            if(Name.IsNullOrEmpty())
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            var id = Name.Trim();
+            var extension = "";
+            var name = "";
+
+            if(!id.Contains("."))
+            {
+                name = id;
+                extension = "";
+            }
+            else
+            {
+                var lastDot = id.LastIndexOf(".");
+                name = id.Substring(0, lastDot);
+                extension = id.Substring(lastDot);
+            }
+            var mimeType = "text/plain";
+            if (extension == ".css" || extension == "css")
+            {
+                mimeType = "text/css";
+            }
+            else if(extension.HasValue())
+            {
+                mimeType = "image/" + extension.Replace(".", "");
+            }
+            return File(MakeContentPath("Content/openid", name, extension), mimeType);
         }
         /// <summary>
         /// Returns a version of jQuery.min.js.

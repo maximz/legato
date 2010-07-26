@@ -183,6 +183,10 @@ namespace FindPianos.Controllers
                 ModelState.AddModelError("CAPTCHA", "It seems that you did not type the verification word(s) (CAPTCHA) correctly. Please try again.");
                 return View("OpenidRegister",model);
             }
+            if(!ModelState.IsValid)
+            {
+                return View("OpenidRegister", model);
+            }
 
             var OpenidClaim = Crypto.DecryptStringAES(model.OpenIdClaim, "OpenIDRegistrationFrenzy");
             var validator = new IsSemiValidURLAttribute();
