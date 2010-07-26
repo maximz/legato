@@ -242,6 +242,7 @@
     <Content Include="Scripts\openid-jquery.js" />
     <Content Include="Views\Account\ChangeEmail.aspx" />
     <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
+    <Content Include="Views\Account\ForgotOpenID.aspx" />
     <Content Include="Views\Account\OpenidRegister.aspx" />
     <Content Include="Views\Account\ForgotPassword.aspx" />
     <Content Include="Views\Account\ForgotPasswordEmailSent.aspx" />
@@ -251,6 +252,7 @@
     <Content Include="Views\Account\MyProfile.aspx" />
     <Content Include="Views\Account\OpenidLogin.aspx" />
     <Content Include="Views\Account\ResetPassword.aspx" />
+    <Content Include="Views\Account\SentForgotOpenidEmail.aspx" />
     <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
