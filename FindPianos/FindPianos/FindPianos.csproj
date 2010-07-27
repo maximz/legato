@@ -260,6 +260,7 @@
     <Content Include="Views\Admin\SuspendUser.aspx" />
     <Content Include="Views\Admin\UserSearchByNameGET.aspx" />
     <Content Include="Views\Admin\UserSearchByNamePOST.aspx" />
+    <Content Include="Views\Discuss\Delete.aspx" />
     <Content Include="Views\Discuss\Edit.aspx" />
     <Content Include="Views\Discuss\Index.aspx" />
     <Content Include="Views\Discuss\PostTimeline.aspx" />

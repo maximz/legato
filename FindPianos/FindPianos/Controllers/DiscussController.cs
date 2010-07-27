@@ -370,13 +370,16 @@ namespace FindPianos.Controllers
         [CaptchaValidator]
         [CustomAuthorization(AuthorizeEmailNotConfirmed=false,AuthorizeSuspended=false,AuthorizedRoles="Admin,Moderator")]
         [Url("Discuss/Delete")]
-        public ActionResult Delete(long postID, string hiddenVerification, bool expungeThread, bool captchaValid)
+        public ActionResult Delete(long postID, string hiddenVerification, string hiddenPostNumber, bool expungeThread, bool captchaValid)
         {
             try
             {
                 if(!captchaValid)
                 {
                     ModelState.AddModelError("CAPTCHA", "Please re-enter the verification word.");
+                    ViewData["HiddenPostVerificationValue"] = hiddenVerification;
+                    ViewData["PostID"] = postID.ToString();
+                    ViewData["PostNumberInThread"] = hiddenPostNumber;
                     return View();
                 }
                 var decrypted = Crypto.DecryptStringAES(hiddenVerification, "IHopeNoOneEverGuessesThisString...12347890");
