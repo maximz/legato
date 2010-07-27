@@ -1,86 +1,50 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<FindPianos.Models.DiscussThread>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	ReadBoard
+	<%=ViewData["BoardName"].ToString().Trim() %> board
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<div id="board-title">
+		<p>
+			<b>
+				<%=ViewData["BoardName"].ToString().Trim() %></b> board</p></div>
 
-	<h2>ReadBoard</h2>
+	<div id="board-threads">
+		<% foreach (var item in Model)
+		   { %>
+		<div class="board-thread">
+			<div class="board-thread-title">
+				<%=Html.ActionLink(Html.Encode(item.Title), "ReadThread", "Discuss", new
+{
+	threadID=item.ThreadID,
+	page = 1
+}) %>
+			</div>
+			<div class="board-thread-timestamps">
+			Thread created on 
+					
+				<div class="timeago" title="<%= item.CreationDate.ToString("o") %>">
+			</div>
+				| latest activity:
+				<div class="timeago" title="<%=item.LatestActivity.ToString("o") %>"></div>
+			</div>
+			<div class="board-thread-posts"><%=Html.Encode(item.NumberOfPosts) %> posts</div>
+		</div>
+		<% } %>
+	</div>
 
-	<table>
-		<tr>
-			<th></th>
-			<th>
-				ThreadID
-			</th>
-			<th>
-				BoardID
-			</th>
-			<th>
-				Title
-			</th>
-			<th>
-				CreationDate
-			</th>
-			<th>
-				Latitude
-			</th>
-			<th>
-				Longitude
-			</th>
-			<th>
-				Address
-			</th>
-			<th>
-				LatestActivity
-			</th>
-			<th>
-				NumberOfPosts
-			</th>
-		</tr>
+	<div id="board-metadata">
+	<div class="board-metadata-header">Board Information</div>
+	<div id="threadcount">
+	<div class="large-number"><%=ViewData["TotalPosts"].ToString()%></div>
+	<div class="large-number-label"> threads</div>
+	</div>
+	</div>
+	<div id="pagination"><% Html.RenderPartial("PageNumbers", ViewData["PageNumbers"]);%></div>
 
-	<% foreach (var item in Model) { %>
+	<div id="createnew"><div class="boxbutton"><%=Html.ActionLink("Create new","Submit","Discuss",new { boardID = long.Parse(ViewData["BoardID"].ToString())})%></div></div>
 	
-		<tr>
-			<td>
-				<%= Html.ActionLink("Edit", "Edit", new { id=item.ThreadID }) %> |
-				<%= Html.ActionLink("Details", "Details", new { id=item.ThreadID })%> |
-				<%= Html.ActionLink("Delete", "Delete", new { id=item.ThreadID })%>
-			</td>
-			<td>
-				<%= Html.Encode(item.ThreadID) %>
-			</td>
-			<td>
-				<%= Html.Encode(item.BoardID) %>
-			</td>
-			<td>
-				<%= Html.Encode(item.Title) %>
-			</td>
-			<td>
-				<%= Html.Encode(String.Format("{0:g}", item.CreationDate)) %>
-			</td>
-			<td>
-				<%= Html.Encode(String.Format("{0:F}", item.Latitude)) %>
-			</td>
-			<td>
-				<%= Html.Encode(String.Format("{0:F}", item.Longitude)) %>
-			</td>
-			<td>
-				<%= Html.Encode(item.Address) %>
-			</td>
-			<td>
-				<%= Html.Encode(String.Format("{0:g}", item.LatestActivity)) %>
-			</td>
-			<td>
-				<%= Html.Encode(item.NumberOfPosts) %>
-			</td>
-		</tr>
-	
-	<% } %>
-
-	</table>
-
 	<p>
 		<%= Html.ActionLink("Create New", "Create") %>
 	</p>

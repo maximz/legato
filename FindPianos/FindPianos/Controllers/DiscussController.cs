@@ -178,6 +178,8 @@ namespace FindPianos.Controllers
                     var totalPosts = db.DiscussThreads.Where(t => t.BoardID == boardID).Count();
                     ViewData["PageNumbers"] = new PageNumber(href + "&page=-1", (totalPosts/ThreadsPerPage) + 1,page.GetValueOrDefault(1) - 1, "pager");
                     ViewData["TotalPosts"] = string.Format("{0:n0}", totalPosts);
+                    ViewData["BoardName"] = board.BoardName;
+                    ViewData["BoardID"] = board.BoardID;
                     return View(data);
                 }
                 catch
@@ -322,6 +324,102 @@ namespace FindPianos.Controllers
             catch
             {
                 return RedirectToAction("NotFound","Error");
+            }
+        }
+        #endregion
+
+        #region Deletion methods
+        /// <summary>
+        /// Deletes the specified post ID.
+        /// </summary>
+        /// <param name="postID">The post ID.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed=false,AuthorizeSuspended=false,AuthorizedRoles="Admin,Moderator")]
+        [Url("Discuss/Delete/{postID}")]
+        public ActionResult Delete(long postID)
+        {
+            //Verify that the post exists
+            using(var db = new LegatoDataContext())
+            {
+                var post = db.DiscussPosts.Where(p=>p.PostID==postID).SingleOrDefault();
+                if(post==null)
+                {
+                    return RedirectToAction("NotFound","Error");
+                }
+
+                ViewData["PostNumberInThread"] = post.PostNumberInThread;
+
+                post = null;
+            }
+            
+            ViewData["HiddenPostVerificationValue"] = Crypto.EncryptStringAES(postID.ToString(), "IHopeNoOneEverGuessesThisString...12347890");
+            ViewData["PostID"] = postID.ToString();
+            return View();
+
+        }
+        /// <summary>
+        /// Deletes the specified post ID.
+        /// </summary>
+        /// <param name="postID">The post ID.</param>
+        /// <param name="hiddenVerification">The hidden verification.</param>
+        /// <param name="expungeThread">if set to <c>true</c> [expunge thread].</param>
+        /// <param name="captchaValid">if set to <c>true</c> [captcha valid].</param>
+        /// <returns></returns>
+        [HttpPost]
+        [CaptchaValidator]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed=false,AuthorizeSuspended=false,AuthorizedRoles="Admin,Moderator")]
+        [Url("Discuss/Delete")]
+        public ActionResult Delete(long postID, string hiddenVerification, bool expungeThread, bool captchaValid)
+        {
+            try
+            {
+                if(!captchaValid)
+                {
+                    ModelState.AddModelError("CAPTCHA", "Please re-enter the verification word.");
+                    return View();
+                }
+                var decrypted = Crypto.DecryptStringAES(hiddenVerification, "IHopeNoOneEverGuessesThisString...12347890");
+                if (decrypted != postID.ToString())
+                {
+                    return RedirectToAction("Forbidden", "Error");
+                }
+
+                if (expungeThread)
+                {
+                    long BoardID;
+                    using(var db = new LegatoDataContext())
+                    {
+                        var thread = db.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault().DiscussThread;
+                        BoardID=thread.BoardID;
+                        db.DiscussThreads.DeleteOnSubmit(thread);
+                        db.SubmitChanges();
+                    }
+
+                    return RedirectToAction("ReadBoard", "Discuss", new
+                    {
+                        boardID=BoardID
+                    });
+                }
+                else
+                {
+                    long ThreadID;
+                    using (var db = new LegatoDataContext())
+                    {
+                        var post = db.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                        ThreadID = post.ThreadID;
+                        db.DiscussPosts.DeleteOnSubmit(post);
+                        db.SubmitChanges();
+                    }
+                    return RedirectToAction("ReadThread", "Discuss", new
+{
+    threadID = ThreadID
+});
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
             }
         }
         #endregion
