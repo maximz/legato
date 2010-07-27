@@ -10,6 +10,7 @@ using System.Web.Security;
 using FindPianos.Helpers;
 using System.Net;
 using FindPianos.ViewModels;
+using MvcReCaptcha;
 
 namespace FindPianos.Controllers
 {
@@ -54,6 +55,89 @@ namespace FindPianos.Controllers
                     }
                     return Json(query);
                 }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+        [HttpPost]
+        [Url("Discuss/Boards/Find")]
+        [OutputCache(Duration=7200,VaryByParam="*")]
+        public ActionResult FindBoardByName(string boardName)
+        {
+            try
+            {
+                using(var db = new LegatoDataContext())
+                {
+                    var board = db.DiscussBoards.Where(b => b.BoardName == boardName.Trim()).SingleOrDefault();
+                    if(board==null)
+                    {
+                        return RedirectToAction("RequestBoard", new
+                        {
+                            name=boardName
+                        });
+                    }
+                    return RedirectToAction("ReadBoard", new { boardID=board.BoardID});
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [HttpGet]
+        [Url("Discuss/Boards/Request/{name?}")]
+        public ActionResult RequestBoard(string name)
+        {
+            ViewData["name"] = name;
+            return View();
+        }
+        [HttpPost]
+        [Url("Discuss/Boards/RequestBoard")]
+        [CustomAuthorization(AuthorizeSuspended=false,AuthorizeEmailNotConfirmed=false)]
+        [CaptchaValidator]
+        public ActionResult RequestBoard(string name, bool captchaValid)
+        {
+            try
+            {
+                if (!captchaValid)
+                {
+                    ModelState.AddModelError("CAPTCHA", "Please enter the verification word (CAPTCHA) accurately.");
+                    return View();
+                }
+                if (name.IsNullOrEmpty())
+                {
+                    ModelState.AddModelError("name", "You must specify a board name.");
+                    return View();
+                }
+                var safeName = HtmlUtilities.Safe(HtmlUtilities.Encode(name.Trim()));
+                using (var db = new LegatoDataContext())
+                {
+                    if (db.DiscussBoards.Where(b => b.BoardName == safeName).Count() != 0)
+                    {
+                        ModelState.AddModelError("name", "A board already exists with this name.");
+                        ViewData["name"] = name;
+                        return View();
+                    }
+                    if (db.DiscussRequestedBoards.Where(b => b.BoardName == safeName).Count() != 0)
+                    {
+                        ModelState.AddModelError("name", "A board with this name has already been proposed.");
+                        ViewData["name"] = name;
+                        return View();
+                    }
+
+                    var record = new DiscussRequestedBoard();
+                    record.BoardName = safeName;
+                    record.RequestDate = DateTime.Now;
+                    record.RequestUserID = (Guid)Membership.GetUser().ProviderUserKey;
+                    db.DiscussRequestedBoards.InsertOnSubmit(record);
+                    db.SubmitChanges();
+                    record = null;
+                }
+                ViewData["name"] = name;
+                return View("RequestBoardSuccess");
             }
             catch
             {

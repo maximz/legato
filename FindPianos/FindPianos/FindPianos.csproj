@@ -265,6 +265,8 @@
     <Content Include="Views\Discuss\PostTimeline.aspx" />
     <Content Include="Views\Discuss\ReadBoard.aspx" />
     <Content Include="Views\Discuss\ReadThread.aspx" />
+    <Content Include="Views\Discuss\RequestBoard.aspx" />
+    <Content Include="Views\Discuss\RequestBoardSuccess.aspx" />
     <Content Include="Views\Discuss\Submit.aspx" />
     <Content Include="Views\Error\Conflict.aspx" />
     <Content Include="Views\Error\Forbidden.aspx" />

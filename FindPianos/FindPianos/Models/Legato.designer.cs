@@ -180,6 +180,9 @@ namespace FindPianos.Models
     partial void InsertUserOpenId(UserOpenId instance);
     partial void UpdateUserOpenId(UserOpenId instance);
     partial void DeleteUserOpenId(UserOpenId instance);
+    partial void InsertDiscussRequestedBoard(DiscussRequestedBoard instance);
+    partial void UpdateDiscussRequestedBoard(DiscussRequestedBoard instance);
+    partial void DeleteDiscussRequestedBoard(DiscussRequestedBoard instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -609,6 +612,14 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<UserOpenId>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussRequestedBoard> DiscussRequestedBoards
+		{
+			get
+			{
+				return this.GetTable<DiscussRequestedBoard>();
 			}
 		}
 	}
@@ -1053,6 +1064,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<ResetPasswordRecord> _ResetPasswordRecords;
 		
+		private EntitySet<DiscussRequestedBoard> _DiscussRequestedBoards;
+		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
 		private EntityRef<aspnet_User> _aspnet_User;
@@ -1109,6 +1122,7 @@ namespace FindPianos.Models
 		{
 			this._ConfirmEmailAddresses = new EntitySet<ConfirmEmailAddress>(new Action<ConfirmEmailAddress>(this.attach_ConfirmEmailAddresses), new Action<ConfirmEmailAddress>(this.detach_ConfirmEmailAddresses));
 			this._ResetPasswordRecords = new EntitySet<ResetPasswordRecord>(new Action<ResetPasswordRecord>(this.attach_ResetPasswordRecords), new Action<ResetPasswordRecord>(this.detach_ResetPasswordRecords));
+			this._DiscussRequestedBoards = new EntitySet<DiscussRequestedBoard>(new Action<DiscussRequestedBoard>(this.attach_DiscussRequestedBoards), new Action<DiscussRequestedBoard>(this.detach_DiscussRequestedBoards));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -1568,6 +1582,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_DiscussRequestedBoard", Storage="_DiscussRequestedBoards", ThisKey="UserId", OtherKey="RequestUserID")]
+		public EntitySet<DiscussRequestedBoard> DiscussRequestedBoards
+		{
+			get
+			{
+				return this._DiscussRequestedBoards;
+			}
+			set
+			{
+				this._DiscussRequestedBoards.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Application_aspnet_Membership", Storage="_aspnet_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public aspnet_Application aspnet_Application
 		{
@@ -1675,6 +1702,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_ResetPasswordRecords(ResetPasswordRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = null;
+		}
+		
+		private void attach_DiscussRequestedBoards(DiscussRequestedBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = this;
+		}
+		
+		private void detach_DiscussRequestedBoards(DiscussRequestedBoard entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_Membership = null;
@@ -15037,6 +15076,181 @@ namespace FindPianos.Models
 						this._UserId = default(System.Guid);
 					}
 					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussRequestedBoards")]
+	public partial class DiscussRequestedBoard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RequestedBoardID;
+		
+		private string _BoardName;
+		
+		private System.DateTime _RequestDate;
+		
+		private System.Guid _RequestUserID;
+		
+		private EntityRef<aspnet_Membership> _aspnet_Membership;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRequestedBoardIDChanging(int value);
+    partial void OnRequestedBoardIDChanged();
+    partial void OnBoardNameChanging(string value);
+    partial void OnBoardNameChanged();
+    partial void OnRequestDateChanging(System.DateTime value);
+    partial void OnRequestDateChanged();
+    partial void OnRequestUserIDChanging(System.Guid value);
+    partial void OnRequestUserIDChanged();
+    #endregion
+		
+		public DiscussRequestedBoard()
+		{
+			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedBoardID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RequestedBoardID
+		{
+			get
+			{
+				return this._RequestedBoardID;
+			}
+			set
+			{
+				if ((this._RequestedBoardID != value))
+				{
+					this.OnRequestedBoardIDChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedBoardID = value;
+					this.SendPropertyChanged("RequestedBoardID");
+					this.OnRequestedBoardIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string BoardName
+		{
+			get
+			{
+				return this._BoardName;
+			}
+			set
+			{
+				if ((this._BoardName != value))
+				{
+					this.OnBoardNameChanging(value);
+					this.SendPropertyChanging();
+					this._BoardName = value;
+					this.SendPropertyChanged("BoardName");
+					this.OnBoardNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RequestDate
+		{
+			get
+			{
+				return this._RequestDate;
+			}
+			set
+			{
+				if ((this._RequestDate != value))
+				{
+					this.OnRequestDateChanging(value);
+					this.SendPropertyChanging();
+					this._RequestDate = value;
+					this.SendPropertyChanged("RequestDate");
+					this.OnRequestDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid RequestUserID
+		{
+			get
+			{
+				return this._RequestUserID;
+			}
+			set
+			{
+				if ((this._RequestUserID != value))
+				{
+					if (this._aspnet_Membership.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRequestUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._RequestUserID = value;
+					this.SendPropertyChanged("RequestUserID");
+					this.OnRequestUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_DiscussRequestedBoard", Storage="_aspnet_Membership", ThisKey="RequestUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_Membership aspnet_Membership
+		{
+			get
+			{
+				return this._aspnet_Membership.Entity;
+			}
+			set
+			{
+				aspnet_Membership previousValue = this._aspnet_Membership.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_Membership.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_Membership.Entity = null;
+						previousValue.DiscussRequestedBoards.Remove(this);
+					}
+					this._aspnet_Membership.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussRequestedBoards.Add(this);
+						this._RequestUserID = value.UserId;
+					}
+					else
+					{
+						this._RequestUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_Membership");
 				}
 			}
 		}

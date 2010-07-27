@@ -8,7 +8,7 @@
 
 	<h2>Recover OpenID</h2>
 	<p>If you don't recall what OpenID your account uses, you can find out by entering your email address below. We will then send you the OpenID information for the account belonging to that email address.</p>
-	<% using (Html.BeginForm()) {%>
+	<% using (Html.BeginForm("ForgotOpenID","Account",FormMethod.Post)) {%>
 		<%= Html.ValidationSummary(true) %>
 
 		<fieldset>
@@ -23,7 +23,7 @@
 			</div>
 			
 			<p>
-				<input type="submit" value="Create" />
+				<input type="submit" value="Recover" />
 			</p>
 		</fieldset>
 

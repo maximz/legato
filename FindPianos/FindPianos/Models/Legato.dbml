@@ -45,6 +45,7 @@
       <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="ConfirmEmailAddresses" ThisKey="UserId" OtherKey="UserID" Type="ConfirmEmailAddress" />
       <Association Name="aspnet_Membership_ResetPasswordRecord" Member="ResetPasswordRecords" ThisKey="UserId" OtherKey="UserID" Type="ResetPasswordRecord" />
+      <Association Name="aspnet_Membership_DiscussRequestedBoard" Member="DiscussRequestedBoards" ThisKey="UserId" OtherKey="RequestUserID" Type="DiscussRequestedBoard" />
       <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
@@ -653,6 +654,15 @@
       <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
       <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="aspnet_User_UserOpenId" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussRequestedBoards" Member="DiscussRequestedBoards">
+    <Type Name="DiscussRequestedBoard">
+      <Column Name="RequestedBoardID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoardName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="RequestDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RequestUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Membership_DiscussRequestedBoard" Member="aspnet_Membership" ThisKey="RequestUserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -8,10 +8,22 @@
 
 	<h2>Select board:</h2>
 	<p>To participate in a board, start typing its name in the box below:</p>
-	<label for="boards">
-		Boards:
-	</label>
-	<input id="boards" />
+	<% using (Html.BeginForm("FindBoardByName","Discuss",FormMethod.Post))
+	   {%>
+	<%= Html.ValidationSummary(true) %>
+		<div class="editor-label">
+			<label for="boards">
+				Boards:
+			</label>
+		</div>
+		<div class="editor-field">
+			<%= Html.TextBox("boards")%>
+			<%= Html.ValidationMessage("boards") %>
+		</div>
+		<p>
+			<input type="submit" value="Browse!" />
+		</p>
+	<% } %>
 
 </asp:Content>
 
