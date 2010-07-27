@@ -44,8 +44,8 @@
       <Column Name="FailedPasswordAnswerAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="ConfirmEmailAddresses" ThisKey="UserId" OtherKey="UserID" Type="ConfirmEmailAddress" />
-      <Association Name="aspnet_Membership_ResetPasswordRecord" Member="ResetPasswordRecords" ThisKey="UserId" OtherKey="UserID" Type="ResetPasswordRecord" />
       <Association Name="aspnet_Membership_DiscussRequestedBoard" Member="DiscussRequestedBoards" ThisKey="UserId" OtherKey="RequestUserID" Type="DiscussRequestedBoard" />
+      <Association Name="aspnet_Membership_ResetPasswordRecord" Member="ResetPasswordRecords" ThisKey="UserId" OtherKey="UserID" Type="ResetPasswordRecord" />
       <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
@@ -122,6 +122,7 @@
       <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_Profile" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Profile" Cardinality="One" />
       <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="aspnet_UsersInRole" />
       <Association Name="aspnet_User_DiscussPostFlag" Member="DiscussPostFlags" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostFlag" />
+      <Association Name="aspnet_User_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostRevision" />
       <Association Name="aspnet_User_Job" Member="Jobs" ThisKey="UserId" OtherKey="UserID" Type="Job" />
       <Association Name="aspnet_User_ListingComment" Member="ListingComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="ListingComment" />
       <Association Name="aspnet_User_ListingFlag" Member="ListingFlags" ThisKey="UserId" OtherKey="UserID" Type="ListingFlag" />
@@ -140,9 +141,8 @@
       <Association Name="aspnet_User_StoreListing" Member="StoreListings" ThisKey="UserId" OtherKey="SubmitterUserID" Type="StoreListing" />
       <Association Name="aspnet_User_StoreReviewComment" Member="StoreReviewComments" ThisKey="UserId" OtherKey="AuthorUserID" Type="StoreReviewComment" />
       <Association Name="aspnet_User_StoreReviewFlag" Member="StoreReviewFlags" ThisKey="UserId" OtherKey="UserID" Type="StoreReviewFlag" />
-      <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
-      <Association Name="aspnet_User_DiscussPostRevision" Member="DiscussPostRevisions" ThisKey="UserId" OtherKey="UserID" Type="DiscussPostRevision" />
       <Association Name="aspnet_User_UserOpenId" Member="UserOpenIds" ThisKey="UserId" OtherKey="UserId" Type="UserOpenId" />
+      <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
     </Type>
   </Table>
@@ -180,6 +180,14 @@
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DiscussBoards" Member="DiscussBoards">
+    <Type Name="DiscussBoard">
+      <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoardName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IsCityBoard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="DiscussBoard_DiscussThread" Member="DiscussThreads" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussThread" />
+    </Type>
+  </Table>
   <Table Name="dbo.DiscussPostFlags" Member="DiscussPostFlags">
     <Type Name="DiscussPostFlag">
       <Column Name="FlagID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -190,6 +198,21 @@
       <Association Name="aspnet_User_DiscussPostFlag" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
       <Association Name="DiscussPost_DiscussPostFlag" Member="DiscussPost" ThisKey="PostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
       <Association Name="FlagType_DiscussPostFlag" Member="FlagType" ThisKey="TypeID" OtherKey="FlagTypeID" Type="FlagType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DiscussPostRevisions" Member="DiscussPostRevisions">
+    <Type Name="DiscussPostRevision">
+      <Column Name="PostRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Markdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="HTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfEdit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InReplyToPostID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="aspnet_User_DiscussPostRevision" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="DiscussPost_DiscussPostRevision" Member="DiscussPost" ThisKey="PostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
+      <Association Name="DiscussPost_DiscussPostRevision1" Member="DiscussPost1" ThisKey="InReplyToPostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DiscussPosts" Member="DiscussPosts">
@@ -204,11 +227,20 @@
       <Association Name="DiscussThread_DiscussPost" Member="DiscussThread" ThisKey="ThreadID" OtherKey="ThreadID" Type="DiscussThread" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DiscussRequestedBoards" Member="DiscussRequestedBoards">
+    <Type Name="DiscussRequestedBoard">
+      <Column Name="RequestedBoardID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoardName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="RequestDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RequestUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Membership_DiscussRequestedBoard" Member="aspnet_Membership" ThisKey="RequestUserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.DiscussThreads" Member="DiscussThreads">
     <Type Name="DiscussThread">
       <Column Name="ThreadID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
@@ -604,6 +636,14 @@
       <Association Name="WeekDay_StoreVenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.UserOpenIds" Member="UserOpenIds">
+    <Type Name="UserOpenId">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_UserOpenId" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.UserSuspensions" Member="UserSuspensions">
     <Type Name="UserSuspension">
       <Column Name="SuspensionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -623,46 +663,6 @@
       <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="ReviewRevision_VenueHour" Member="ReviewRevision" ThisKey="ReviewRevisionID" OtherKey="ReviewRevisionID" Type="ReviewRevision" IsForeignKey="true" />
       <Association Name="WeekDay_VenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DiscussPostRevisions" Member="DiscussPostRevisions">
-    <Type Name="DiscussPostRevision">
-      <Column Name="PostRevisionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Markdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="HTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="DateOfEdit" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EditNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="InReplyToPostID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Association Name="aspnet_User_DiscussPostRevision" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
-      <Association Name="DiscussPost_DiscussPostRevision" Member="DiscussPost" ThisKey="PostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
-      <Association Name="DiscussPost_DiscussPostRevision1" Member="DiscussPost1" ThisKey="InReplyToPostID" OtherKey="PostID" Type="DiscussPost" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DiscussBoards" Member="DiscussBoards">
-    <Type Name="DiscussBoard">
-      <Column Name="BoardID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BoardName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="IsCityBoard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="DiscussBoard_DiscussThread" Member="DiscussThreads" ThisKey="BoardID" OtherKey="BoardID" Type="DiscussThread" />
-    </Type>
-  </Table>
-  <Table Name="dbo.UserOpenIds" Member="UserOpenIds">
-    <Type Name="UserOpenId">
-      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="aspnet_User_UserOpenId" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DiscussRequestedBoards" Member="DiscussRequestedBoards">
-    <Type Name="DiscussRequestedBoard">
-      <Column Name="RequestedBoardID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BoardName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="RequestDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="RequestUserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="aspnet_Membership_DiscussRequestedBoard" Member="aspnet_Membership" ThisKey="RequestUserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

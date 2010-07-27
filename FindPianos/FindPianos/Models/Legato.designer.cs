@@ -69,12 +69,21 @@ namespace FindPianos.Models
     partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void InsertDiscussBoard(DiscussBoard instance);
+    partial void UpdateDiscussBoard(DiscussBoard instance);
+    partial void DeleteDiscussBoard(DiscussBoard instance);
     partial void InsertDiscussPostFlag(DiscussPostFlag instance);
     partial void UpdateDiscussPostFlag(DiscussPostFlag instance);
     partial void DeleteDiscussPostFlag(DiscussPostFlag instance);
+    partial void InsertDiscussPostRevision(DiscussPostRevision instance);
+    partial void UpdateDiscussPostRevision(DiscussPostRevision instance);
+    partial void DeleteDiscussPostRevision(DiscussPostRevision instance);
     partial void InsertDiscussPost(DiscussPost instance);
     partial void UpdateDiscussPost(DiscussPost instance);
     partial void DeleteDiscussPost(DiscussPost instance);
+    partial void InsertDiscussRequestedBoard(DiscussRequestedBoard instance);
+    partial void UpdateDiscussRequestedBoard(DiscussRequestedBoard instance);
+    partial void DeleteDiscussRequestedBoard(DiscussRequestedBoard instance);
     partial void InsertDiscussThread(DiscussThread instance);
     partial void UpdateDiscussThread(DiscussThread instance);
     partial void DeleteDiscussThread(DiscussThread instance);
@@ -165,24 +174,15 @@ namespace FindPianos.Models
     partial void InsertStoreVenueHour(StoreVenueHour instance);
     partial void UpdateStoreVenueHour(StoreVenueHour instance);
     partial void DeleteStoreVenueHour(StoreVenueHour instance);
+    partial void InsertUserOpenId(UserOpenId instance);
+    partial void UpdateUserOpenId(UserOpenId instance);
+    partial void DeleteUserOpenId(UserOpenId instance);
     partial void InsertUserSuspension(UserSuspension instance);
     partial void UpdateUserSuspension(UserSuspension instance);
     partial void DeleteUserSuspension(UserSuspension instance);
     partial void InsertVenueHour(VenueHour instance);
     partial void UpdateVenueHour(VenueHour instance);
     partial void DeleteVenueHour(VenueHour instance);
-    partial void InsertDiscussPostRevision(DiscussPostRevision instance);
-    partial void UpdateDiscussPostRevision(DiscussPostRevision instance);
-    partial void DeleteDiscussPostRevision(DiscussPostRevision instance);
-    partial void InsertDiscussBoard(DiscussBoard instance);
-    partial void UpdateDiscussBoard(DiscussBoard instance);
-    partial void DeleteDiscussBoard(DiscussBoard instance);
-    partial void InsertUserOpenId(UserOpenId instance);
-    partial void UpdateUserOpenId(UserOpenId instance);
-    partial void DeleteUserOpenId(UserOpenId instance);
-    partial void InsertDiscussRequestedBoard(DiscussRequestedBoard instance);
-    partial void UpdateDiscussRequestedBoard(DiscussRequestedBoard instance);
-    partial void DeleteDiscussRequestedBoard(DiscussRequestedBoard instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -319,6 +319,14 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<DiscussBoard> DiscussBoards
+		{
+			get
+			{
+				return this.GetTable<DiscussBoard>();
+			}
+		}
+		
 		public System.Data.Linq.Table<DiscussPostFlag> DiscussPostFlags
 		{
 			get
@@ -327,11 +335,27 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this.GetTable<DiscussPostRevision>();
+			}
+		}
+		
 		public System.Data.Linq.Table<DiscussPost> DiscussPosts
 		{
 			get
 			{
 				return this.GetTable<DiscussPost>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DiscussRequestedBoard> DiscussRequestedBoards
+		{
+			get
+			{
+				return this.GetTable<DiscussRequestedBoard>();
 			}
 		}
 		
@@ -575,6 +599,14 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<UserOpenId> UserOpenIds
+		{
+			get
+			{
+				return this.GetTable<UserOpenId>();
+			}
+		}
+		
 		public System.Data.Linq.Table<UserSuspension> UserSuspensions
 		{
 			get
@@ -588,38 +620,6 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<VenueHour>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DiscussPostRevision> DiscussPostRevisions
-		{
-			get
-			{
-				return this.GetTable<DiscussPostRevision>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DiscussBoard> DiscussBoards
-		{
-			get
-			{
-				return this.GetTable<DiscussBoard>();
-			}
-		}
-		
-		public System.Data.Linq.Table<UserOpenId> UserOpenIds
-		{
-			get
-			{
-				return this.GetTable<UserOpenId>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DiscussRequestedBoard> DiscussRequestedBoards
-		{
-			get
-			{
-				return this.GetTable<DiscussRequestedBoard>();
 			}
 		}
 	}
@@ -1062,9 +1062,9 @@ namespace FindPianos.Models
 		
 		private EntitySet<ConfirmEmailAddress> _ConfirmEmailAddresses;
 		
-		private EntitySet<ResetPasswordRecord> _ResetPasswordRecords;
-		
 		private EntitySet<DiscussRequestedBoard> _DiscussRequestedBoards;
+		
+		private EntitySet<ResetPasswordRecord> _ResetPasswordRecords;
 		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
@@ -1121,8 +1121,8 @@ namespace FindPianos.Models
 		public aspnet_Membership()
 		{
 			this._ConfirmEmailAddresses = new EntitySet<ConfirmEmailAddress>(new Action<ConfirmEmailAddress>(this.attach_ConfirmEmailAddresses), new Action<ConfirmEmailAddress>(this.detach_ConfirmEmailAddresses));
-			this._ResetPasswordRecords = new EntitySet<ResetPasswordRecord>(new Action<ResetPasswordRecord>(this.attach_ResetPasswordRecords), new Action<ResetPasswordRecord>(this.detach_ResetPasswordRecords));
 			this._DiscussRequestedBoards = new EntitySet<DiscussRequestedBoard>(new Action<DiscussRequestedBoard>(this.attach_DiscussRequestedBoards), new Action<DiscussRequestedBoard>(this.detach_DiscussRequestedBoards));
+			this._ResetPasswordRecords = new EntitySet<ResetPasswordRecord>(new Action<ResetPasswordRecord>(this.attach_ResetPasswordRecords), new Action<ResetPasswordRecord>(this.detach_ResetPasswordRecords));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -1569,19 +1569,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ResetPasswordRecord", Storage="_ResetPasswordRecords", ThisKey="UserId", OtherKey="UserID")]
-		public EntitySet<ResetPasswordRecord> ResetPasswordRecords
-		{
-			get
-			{
-				return this._ResetPasswordRecords;
-			}
-			set
-			{
-				this._ResetPasswordRecords.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_DiscussRequestedBoard", Storage="_DiscussRequestedBoards", ThisKey="UserId", OtherKey="RequestUserID")]
 		public EntitySet<DiscussRequestedBoard> DiscussRequestedBoards
 		{
@@ -1592,6 +1579,19 @@ namespace FindPianos.Models
 			set
 			{
 				this._DiscussRequestedBoards.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_ResetPasswordRecord", Storage="_ResetPasswordRecords", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<ResetPasswordRecord> ResetPasswordRecords
+		{
+			get
+			{
+				return this._ResetPasswordRecords;
+			}
+			set
+			{
+				this._ResetPasswordRecords.Assign(value);
 			}
 		}
 		
@@ -1695,18 +1695,6 @@ namespace FindPianos.Models
 			entity.aspnet_Membership = null;
 		}
 		
-		private void attach_ResetPasswordRecords(ResetPasswordRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_Membership = this;
-		}
-		
-		private void detach_ResetPasswordRecords(ResetPasswordRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_Membership = null;
-		}
-		
 		private void attach_DiscussRequestedBoards(DiscussRequestedBoard entity)
 		{
 			this.SendPropertyChanging();
@@ -1714,6 +1702,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_DiscussRequestedBoards(DiscussRequestedBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = null;
+		}
+		
+		private void attach_ResetPasswordRecords(ResetPasswordRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_Membership = this;
+		}
+		
+		private void detach_ResetPasswordRecords(ResetPasswordRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_Membership = null;
@@ -2912,6 +2912,8 @@ namespace FindPianos.Models
 		
 		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
 		
+		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
+		
 		private EntitySet<Job> _Jobs;
 		
 		private EntitySet<ListingComment> _ListingComments;
@@ -2948,11 +2950,9 @@ namespace FindPianos.Models
 		
 		private EntitySet<StoreReviewFlag> _StoreReviewFlags;
 		
-		private EntitySet<UserSuspension> _UserSuspensions;
-		
-		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
-		
 		private EntitySet<UserOpenId> _UserOpenIds;
+		
+		private EntitySet<UserSuspension> _UserSuspensions;
 		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
@@ -2983,6 +2983,7 @@ namespace FindPianos.Models
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
 			this._DiscussPostFlags = new EntitySet<DiscussPostFlag>(new Action<DiscussPostFlag>(this.attach_DiscussPostFlags), new Action<DiscussPostFlag>(this.detach_DiscussPostFlags));
+			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
 			this._Jobs = new EntitySet<Job>(new Action<Job>(this.attach_Jobs), new Action<Job>(this.detach_Jobs));
 			this._ListingComments = new EntitySet<ListingComment>(new Action<ListingComment>(this.attach_ListingComments), new Action<ListingComment>(this.detach_ListingComments));
 			this._ListingFlags = new EntitySet<ListingFlag>(new Action<ListingFlag>(this.attach_ListingFlags), new Action<ListingFlag>(this.detach_ListingFlags));
@@ -3001,9 +3002,8 @@ namespace FindPianos.Models
 			this._StoreListings = new EntitySet<StoreListing>(new Action<StoreListing>(this.attach_StoreListings), new Action<StoreListing>(this.detach_StoreListings));
 			this._StoreReviewComments = new EntitySet<StoreReviewComment>(new Action<StoreReviewComment>(this.attach_StoreReviewComments), new Action<StoreReviewComment>(this.detach_StoreReviewComments));
 			this._StoreReviewFlags = new EntitySet<StoreReviewFlag>(new Action<StoreReviewFlag>(this.attach_StoreReviewFlags), new Action<StoreReviewFlag>(this.detach_StoreReviewFlags));
-			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
-			this._DiscussPostRevisions = new EntitySet<DiscussPostRevision>(new Action<DiscussPostRevision>(this.attach_DiscussPostRevisions), new Action<DiscussPostRevision>(this.detach_DiscussPostRevisions));
 			this._UserOpenIds = new EntitySet<UserOpenId>(new Action<UserOpenId>(this.attach_UserOpenIds), new Action<UserOpenId>(this.detach_UserOpenIds));
+			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
 		}
@@ -3249,6 +3249,19 @@ namespace FindPianos.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<DiscussPostRevision> DiscussPostRevisions
+		{
+			get
+			{
+				return this._DiscussPostRevisions;
+			}
+			set
+			{
+				this._DiscussPostRevisions.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Job", Storage="_Jobs", ThisKey="UserId", OtherKey="UserID")]
 		public EntitySet<Job> Jobs
 		{
@@ -3483,32 +3496,6 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_UserSuspensions", ThisKey="UserId", OtherKey="UserID")]
-		public EntitySet<UserSuspension> UserSuspensions
-		{
-			get
-			{
-				return this._UserSuspensions;
-			}
-			set
-			{
-				this._UserSuspensions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_DiscussPostRevisions", ThisKey="UserId", OtherKey="UserID")]
-		public EntitySet<DiscussPostRevision> DiscussPostRevisions
-		{
-			get
-			{
-				return this._DiscussPostRevisions;
-			}
-			set
-			{
-				this._DiscussPostRevisions.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_UserOpenIds", ThisKey="UserId", OtherKey="UserId")]
 		public EntitySet<UserOpenId> UserOpenIds
 		{
@@ -3519,6 +3506,19 @@ namespace FindPianos.Models
 			set
 			{
 				this._UserOpenIds.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_UserSuspensions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<UserSuspension> UserSuspensions
+		{
+			get
+			{
+				return this._UserSuspensions;
+			}
+			set
+			{
+				this._UserSuspensions.Assign(value);
 			}
 		}
 		
@@ -3607,6 +3607,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_DiscussPostFlags(DiscussPostFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -3828,30 +3840,6 @@ namespace FindPianos.Models
 			entity.aspnet_User = null;
 		}
 		
-		private void attach_UserSuspensions(UserSuspension entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = this;
-		}
-		
-		private void detach_UserSuspensions(UserSuspension entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = null;
-		}
-		
-		private void attach_DiscussPostRevisions(DiscussPostRevision entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = this;
-		}
-		
-		private void detach_DiscussPostRevisions(DiscussPostRevision entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = null;
-		}
-		
 		private void attach_UserOpenIds(UserOpenId entity)
 		{
 			this.SendPropertyChanging();
@@ -3859,6 +3847,18 @@ namespace FindPianos.Models
 		}
 		
 		private void detach_UserOpenIds(UserOpenId entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_UserSuspensions(UserSuspension entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_UserSuspensions(UserSuspension entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -4558,6 +4558,144 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussBoards")]
+	public partial class DiscussBoard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _BoardID;
+		
+		private string _BoardName;
+		
+		private bool _IsCityBoard;
+		
+		private EntitySet<DiscussThread> _DiscussThreads;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBoardIDChanging(long value);
+    partial void OnBoardIDChanged();
+    partial void OnBoardNameChanging(string value);
+    partial void OnBoardNameChanged();
+    partial void OnIsCityBoardChanging(bool value);
+    partial void OnIsCityBoardChanged();
+    #endregion
+		
+		public DiscussBoard()
+		{
+			this._DiscussThreads = new EntitySet<DiscussThread>(new Action<DiscussThread>(this.attach_DiscussThreads), new Action<DiscussThread>(this.detach_DiscussThreads));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long BoardID
+		{
+			get
+			{
+				return this._BoardID;
+			}
+			set
+			{
+				if ((this._BoardID != value))
+				{
+					this.OnBoardIDChanging(value);
+					this.SendPropertyChanging();
+					this._BoardID = value;
+					this.SendPropertyChanged("BoardID");
+					this.OnBoardIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string BoardName
+		{
+			get
+			{
+				return this._BoardName;
+			}
+			set
+			{
+				if ((this._BoardName != value))
+				{
+					this.OnBoardNameChanging(value);
+					this.SendPropertyChanging();
+					this._BoardName = value;
+					this.SendPropertyChanged("BoardName");
+					this.OnBoardNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCityBoard", DbType="Bit NOT NULL")]
+		public bool IsCityBoard
+		{
+			get
+			{
+				return this._IsCityBoard;
+			}
+			set
+			{
+				if ((this._IsCityBoard != value))
+				{
+					this.OnIsCityBoardChanging(value);
+					this.SendPropertyChanging();
+					this._IsCityBoard = value;
+					this.SendPropertyChanged("IsCityBoard");
+					this.OnIsCityBoardChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussBoard_DiscussThread", Storage="_DiscussThreads", ThisKey="BoardID", OtherKey="BoardID")]
+		public EntitySet<DiscussThread> DiscussThreads
+		{
+			get
+			{
+				return this._DiscussThreads;
+			}
+			set
+			{
+				this._DiscussThreads.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DiscussThreads(DiscussThread entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussBoard = this;
+		}
+		
+		private void detach_DiscussThreads(DiscussThread entity)
+		{
+			this.SendPropertyChanging();
+			entity.DiscussBoard = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostFlags")]
 	public partial class DiscussPostFlag : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4814,6 +4952,359 @@ namespace FindPianos.Models
 						this._TypeID = default(int);
 					}
 					this.SendPropertyChanged("FlagType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostRevisions")]
+	public partial class DiscussPostRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _PostRevisionID;
+		
+		private System.Guid _UserID;
+		
+		private long _PostID;
+		
+		private string _Markdown;
+		
+		private string _HTML;
+		
+		private System.DateTime _DateOfEdit;
+		
+		private int _EditNumber;
+		
+		private System.Nullable<long> _InReplyToPostID;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<DiscussPost> _DiscussPost;
+		
+		private EntityRef<DiscussPost> _DiscussPost1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPostRevisionIDChanging(long value);
+    partial void OnPostRevisionIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnPostIDChanging(long value);
+    partial void OnPostIDChanged();
+    partial void OnMarkdownChanging(string value);
+    partial void OnMarkdownChanged();
+    partial void OnHTMLChanging(string value);
+    partial void OnHTMLChanged();
+    partial void OnDateOfEditChanging(System.DateTime value);
+    partial void OnDateOfEditChanged();
+    partial void OnEditNumberChanging(int value);
+    partial void OnEditNumberChanged();
+    partial void OnInReplyToPostIDChanging(System.Nullable<long> value);
+    partial void OnInReplyToPostIDChanged();
+    #endregion
+		
+		public DiscussPostRevision()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._DiscussPost = default(EntityRef<DiscussPost>);
+			this._DiscussPost1 = default(EntityRef<DiscussPost>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long PostRevisionID
+		{
+			get
+			{
+				return this._PostRevisionID;
+			}
+			set
+			{
+				if ((this._PostRevisionID != value))
+				{
+					this.OnPostRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostRevisionID = value;
+					this.SendPropertyChanged("PostRevisionID");
+					this.OnPostRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
+		public long PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._DiscussPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Markdown
+		{
+			get
+			{
+				return this._Markdown;
+			}
+			set
+			{
+				if ((this._Markdown != value))
+				{
+					this.OnMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._Markdown = value;
+					this.SendPropertyChanged("Markdown");
+					this.OnMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string HTML
+		{
+			get
+			{
+				return this._HTML;
+			}
+			set
+			{
+				if ((this._HTML != value))
+				{
+					this.OnHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._HTML = value;
+					this.SendPropertyChanged("HTML");
+					this.OnHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfEdit", DbType="DateTime NOT NULL")]
+		public System.DateTime DateOfEdit
+		{
+			get
+			{
+				return this._DateOfEdit;
+			}
+			set
+			{
+				if ((this._DateOfEdit != value))
+				{
+					this.OnDateOfEditChanging(value);
+					this.SendPropertyChanging();
+					this._DateOfEdit = value;
+					this.SendPropertyChanged("DateOfEdit");
+					this.OnDateOfEditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
+		public int EditNumber
+		{
+			get
+			{
+				return this._EditNumber;
+			}
+			set
+			{
+				if ((this._EditNumber != value))
+				{
+					this.OnEditNumberChanging(value);
+					this.SendPropertyChanging();
+					this._EditNumber = value;
+					this.SendPropertyChanged("EditNumber");
+					this.OnEditNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InReplyToPostID", DbType="BigInt")]
+		public System.Nullable<long> InReplyToPostID
+		{
+			get
+			{
+				return this._InReplyToPostID;
+			}
+			set
+			{
+				if ((this._InReplyToPostID != value))
+				{
+					if (this._DiscussPost1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInReplyToPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._InReplyToPostID = value;
+					this.SendPropertyChanged("InReplyToPostID");
+					this.OnInReplyToPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost
+		{
+			get
+			{
+				return this._DiscussPost.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost.Entity = null;
+						previousValue.DiscussPostRevisions.Remove(this);
+					}
+					this._DiscussPost.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(long);
+					}
+					this.SendPropertyChanged("DiscussPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision1", Storage="_DiscussPost1", ThisKey="InReplyToPostID", OtherKey="PostID", IsForeignKey=true)]
+		public DiscussPost DiscussPost1
+		{
+			get
+			{
+				return this._DiscussPost1.Entity;
+			}
+			set
+			{
+				DiscussPost previousValue = this._DiscussPost1.Entity;
+				if (((previousValue != value) 
+							|| (this._DiscussPost1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DiscussPost1.Entity = null;
+						previousValue.DiscussPostRevisions1.Remove(this);
+					}
+					this._DiscussPost1.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussPostRevisions1.Add(this);
+						this._InReplyToPostID = value.PostID;
+					}
+					else
+					{
+						this._InReplyToPostID = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("DiscussPost1");
 				}
 			}
 		}
@@ -5098,6 +5589,181 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussRequestedBoards")]
+	public partial class DiscussRequestedBoard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RequestedBoardID;
+		
+		private string _BoardName;
+		
+		private System.DateTime _RequestDate;
+		
+		private System.Guid _RequestUserID;
+		
+		private EntityRef<aspnet_Membership> _aspnet_Membership;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRequestedBoardIDChanging(int value);
+    partial void OnRequestedBoardIDChanged();
+    partial void OnBoardNameChanging(string value);
+    partial void OnBoardNameChanged();
+    partial void OnRequestDateChanging(System.DateTime value);
+    partial void OnRequestDateChanged();
+    partial void OnRequestUserIDChanging(System.Guid value);
+    partial void OnRequestUserIDChanged();
+    #endregion
+		
+		public DiscussRequestedBoard()
+		{
+			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedBoardID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RequestedBoardID
+		{
+			get
+			{
+				return this._RequestedBoardID;
+			}
+			set
+			{
+				if ((this._RequestedBoardID != value))
+				{
+					this.OnRequestedBoardIDChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedBoardID = value;
+					this.SendPropertyChanged("RequestedBoardID");
+					this.OnRequestedBoardIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string BoardName
+		{
+			get
+			{
+				return this._BoardName;
+			}
+			set
+			{
+				if ((this._BoardName != value))
+				{
+					this.OnBoardNameChanging(value);
+					this.SendPropertyChanging();
+					this._BoardName = value;
+					this.SendPropertyChanged("BoardName");
+					this.OnBoardNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RequestDate
+		{
+			get
+			{
+				return this._RequestDate;
+			}
+			set
+			{
+				if ((this._RequestDate != value))
+				{
+					this.OnRequestDateChanging(value);
+					this.SendPropertyChanging();
+					this._RequestDate = value;
+					this.SendPropertyChanged("RequestDate");
+					this.OnRequestDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestUserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid RequestUserID
+		{
+			get
+			{
+				return this._RequestUserID;
+			}
+			set
+			{
+				if ((this._RequestUserID != value))
+				{
+					if (this._aspnet_Membership.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRequestUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._RequestUserID = value;
+					this.SendPropertyChanged("RequestUserID");
+					this.OnRequestUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_DiscussRequestedBoard", Storage="_aspnet_Membership", ThisKey="RequestUserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_Membership aspnet_Membership
+		{
+			get
+			{
+				return this._aspnet_Membership.Entity;
+			}
+			set
+			{
+				aspnet_Membership previousValue = this._aspnet_Membership.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_Membership.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_Membership.Entity = null;
+						previousValue.DiscussRequestedBoards.Remove(this);
+					}
+					this._aspnet_Membership.Entity = value;
+					if ((value != null))
+					{
+						value.DiscussRequestedBoards.Add(this);
+						this._RequestUserID = value.UserId;
+					}
+					else
+					{
+						this._RequestUserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_Membership");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussThreads")]
 	public partial class DiscussThread : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5197,7 +5863,7 @@ namespace FindPianos.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
 		public string Title
 		{
 			get
@@ -14020,6 +14686,157 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserOpenIds")]
+	public partial class UserOpenId : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Id;
+		
+		private string _OpenIdClaim;
+		
+		private System.Guid _UserId;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(long value);
+    partial void OnIdChanged();
+    partial void OnOpenIdClaimChanging(string value);
+    partial void OnOpenIdClaimChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public UserOpenId()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenIdClaim", DbType="NVarChar(450) NOT NULL", CanBeNull=false)]
+		public string OpenIdClaim
+		{
+			get
+			{
+				return this._OpenIdClaim;
+			}
+			set
+			{
+				if ((this._OpenIdClaim != value))
+				{
+					this.OnOpenIdClaimChanging(value);
+					this.SendPropertyChanging();
+					this._OpenIdClaim = value;
+					this.SendPropertyChanged("OpenIdClaim");
+					this.OnOpenIdClaimChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.UserOpenIds.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.UserOpenIds.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserSuspensions")]
 	public partial class UserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -14434,823 +15251,6 @@ namespace FindPianos.Models
 						this._DayOfWeek = default(int);
 					}
 					this.SendPropertyChanged("WeekDay");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussPostRevisions")]
-	public partial class DiscussPostRevision : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _PostRevisionID;
-		
-		private System.Guid _UserID;
-		
-		private long _PostID;
-		
-		private string _Markdown;
-		
-		private string _HTML;
-		
-		private System.DateTime _DateOfEdit;
-		
-		private int _EditNumber;
-		
-		private System.Nullable<long> _InReplyToPostID;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
-		
-		private EntityRef<DiscussPost> _DiscussPost;
-		
-		private EntityRef<DiscussPost> _DiscussPost1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPostRevisionIDChanging(long value);
-    partial void OnPostRevisionIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnPostIDChanging(long value);
-    partial void OnPostIDChanged();
-    partial void OnMarkdownChanging(string value);
-    partial void OnMarkdownChanged();
-    partial void OnHTMLChanging(string value);
-    partial void OnHTMLChanged();
-    partial void OnDateOfEditChanging(System.DateTime value);
-    partial void OnDateOfEditChanged();
-    partial void OnEditNumberChanging(int value);
-    partial void OnEditNumberChanged();
-    partial void OnInReplyToPostIDChanging(System.Nullable<long> value);
-    partial void OnInReplyToPostIDChanged();
-    #endregion
-		
-		public DiscussPostRevision()
-		{
-			this._aspnet_User = default(EntityRef<aspnet_User>);
-			this._DiscussPost = default(EntityRef<DiscussPost>);
-			this._DiscussPost1 = default(EntityRef<DiscussPost>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostRevisionID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long PostRevisionID
-		{
-			get
-			{
-				return this._PostRevisionID;
-			}
-			set
-			{
-				if ((this._PostRevisionID != value))
-				{
-					this.OnPostRevisionIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostRevisionID = value;
-					this.SendPropertyChanged("PostRevisionID");
-					this.OnPostRevisionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="BigInt NOT NULL")]
-		public long PostID
-		{
-			get
-			{
-				return this._PostID;
-			}
-			set
-			{
-				if ((this._PostID != value))
-				{
-					if (this._DiscussPost.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPostIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostID = value;
-					this.SendPropertyChanged("PostID");
-					this.OnPostIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Markdown
-		{
-			get
-			{
-				return this._Markdown;
-			}
-			set
-			{
-				if ((this._Markdown != value))
-				{
-					this.OnMarkdownChanging(value);
-					this.SendPropertyChanging();
-					this._Markdown = value;
-					this.SendPropertyChanged("Markdown");
-					this.OnMarkdownChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string HTML
-		{
-			get
-			{
-				return this._HTML;
-			}
-			set
-			{
-				if ((this._HTML != value))
-				{
-					this.OnHTMLChanging(value);
-					this.SendPropertyChanging();
-					this._HTML = value;
-					this.SendPropertyChanged("HTML");
-					this.OnHTMLChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateOfEdit", DbType="DateTime NOT NULL")]
-		public System.DateTime DateOfEdit
-		{
-			get
-			{
-				return this._DateOfEdit;
-			}
-			set
-			{
-				if ((this._DateOfEdit != value))
-				{
-					this.OnDateOfEditChanging(value);
-					this.SendPropertyChanging();
-					this._DateOfEdit = value;
-					this.SendPropertyChanged("DateOfEdit");
-					this.OnDateOfEditChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditNumber", DbType="Int NOT NULL")]
-		public int EditNumber
-		{
-			get
-			{
-				return this._EditNumber;
-			}
-			set
-			{
-				if ((this._EditNumber != value))
-				{
-					this.OnEditNumberChanging(value);
-					this.SendPropertyChanging();
-					this._EditNumber = value;
-					this.SendPropertyChanged("EditNumber");
-					this.OnEditNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InReplyToPostID", DbType="BigInt")]
-		public System.Nullable<long> InReplyToPostID
-		{
-			get
-			{
-				return this._InReplyToPostID;
-			}
-			set
-			{
-				if ((this._InReplyToPostID != value))
-				{
-					if (this._DiscussPost1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnInReplyToPostIDChanging(value);
-					this.SendPropertyChanging();
-					this._InReplyToPostID = value;
-					this.SendPropertyChanged("InReplyToPostID");
-					this.OnInReplyToPostIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_DiscussPostRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.DiscussPostRevisions.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussPostRevisions.Add(this);
-						this._UserID = value.UserId;
-					}
-					else
-					{
-						this._UserID = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision", Storage="_DiscussPost", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
-		public DiscussPost DiscussPost
-		{
-			get
-			{
-				return this._DiscussPost.Entity;
-			}
-			set
-			{
-				DiscussPost previousValue = this._DiscussPost.Entity;
-				if (((previousValue != value) 
-							|| (this._DiscussPost.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DiscussPost.Entity = null;
-						previousValue.DiscussPostRevisions.Remove(this);
-					}
-					this._DiscussPost.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussPostRevisions.Add(this);
-						this._PostID = value.PostID;
-					}
-					else
-					{
-						this._PostID = default(long);
-					}
-					this.SendPropertyChanged("DiscussPost");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussPost_DiscussPostRevision1", Storage="_DiscussPost1", ThisKey="InReplyToPostID", OtherKey="PostID", IsForeignKey=true)]
-		public DiscussPost DiscussPost1
-		{
-			get
-			{
-				return this._DiscussPost1.Entity;
-			}
-			set
-			{
-				DiscussPost previousValue = this._DiscussPost1.Entity;
-				if (((previousValue != value) 
-							|| (this._DiscussPost1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DiscussPost1.Entity = null;
-						previousValue.DiscussPostRevisions1.Remove(this);
-					}
-					this._DiscussPost1.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussPostRevisions1.Add(this);
-						this._InReplyToPostID = value.PostID;
-					}
-					else
-					{
-						this._InReplyToPostID = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("DiscussPost1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussBoards")]
-	public partial class DiscussBoard : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _BoardID;
-		
-		private string _BoardName;
-		
-		private bool _IsCityBoard;
-		
-		private EntitySet<DiscussThread> _DiscussThreads;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnBoardIDChanging(long value);
-    partial void OnBoardIDChanged();
-    partial void OnBoardNameChanging(string value);
-    partial void OnBoardNameChanged();
-    partial void OnIsCityBoardChanging(bool value);
-    partial void OnIsCityBoardChanged();
-    #endregion
-		
-		public DiscussBoard()
-		{
-			this._DiscussThreads = new EntitySet<DiscussThread>(new Action<DiscussThread>(this.attach_DiscussThreads), new Action<DiscussThread>(this.detach_DiscussThreads));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long BoardID
-		{
-			get
-			{
-				return this._BoardID;
-			}
-			set
-			{
-				if ((this._BoardID != value))
-				{
-					this.OnBoardIDChanging(value);
-					this.SendPropertyChanging();
-					this._BoardID = value;
-					this.SendPropertyChanged("BoardID");
-					this.OnBoardIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string BoardName
-		{
-			get
-			{
-				return this._BoardName;
-			}
-			set
-			{
-				if ((this._BoardName != value))
-				{
-					this.OnBoardNameChanging(value);
-					this.SendPropertyChanging();
-					this._BoardName = value;
-					this.SendPropertyChanged("BoardName");
-					this.OnBoardNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCityBoard", DbType="Bit NOT NULL")]
-		public bool IsCityBoard
-		{
-			get
-			{
-				return this._IsCityBoard;
-			}
-			set
-			{
-				if ((this._IsCityBoard != value))
-				{
-					this.OnIsCityBoardChanging(value);
-					this.SendPropertyChanging();
-					this._IsCityBoard = value;
-					this.SendPropertyChanged("IsCityBoard");
-					this.OnIsCityBoardChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DiscussBoard_DiscussThread", Storage="_DiscussThreads", ThisKey="BoardID", OtherKey="BoardID")]
-		public EntitySet<DiscussThread> DiscussThreads
-		{
-			get
-			{
-				return this._DiscussThreads;
-			}
-			set
-			{
-				this._DiscussThreads.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DiscussThreads(DiscussThread entity)
-		{
-			this.SendPropertyChanging();
-			entity.DiscussBoard = this;
-		}
-		
-		private void detach_DiscussThreads(DiscussThread entity)
-		{
-			this.SendPropertyChanging();
-			entity.DiscussBoard = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserOpenIds")]
-	public partial class UserOpenId : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _Id;
-		
-		private string _OpenIdClaim;
-		
-		private System.Guid _UserId;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(long value);
-    partial void OnIdChanged();
-    partial void OnOpenIdClaimChanging(string value);
-    partial void OnOpenIdClaimChanged();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public UserOpenId()
-		{
-			this._aspnet_User = default(EntityRef<aspnet_User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenIdClaim", DbType="NVarChar(450) NOT NULL", CanBeNull=false)]
-		public string OpenIdClaim
-		{
-			get
-			{
-				return this._OpenIdClaim;
-			}
-			set
-			{
-				if ((this._OpenIdClaim != value))
-				{
-					this.OnOpenIdClaimChanging(value);
-					this.SendPropertyChanging();
-					this._OpenIdClaim = value;
-					this.SendPropertyChanged("OpenIdClaim");
-					this.OnOpenIdClaimChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.UserOpenIds.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.UserOpenIds.Add(this);
-						this._UserId = value.UserId;
-					}
-					else
-					{
-						this._UserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DiscussRequestedBoards")]
-	public partial class DiscussRequestedBoard : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RequestedBoardID;
-		
-		private string _BoardName;
-		
-		private System.DateTime _RequestDate;
-		
-		private System.Guid _RequestUserID;
-		
-		private EntityRef<aspnet_Membership> _aspnet_Membership;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRequestedBoardIDChanging(int value);
-    partial void OnRequestedBoardIDChanged();
-    partial void OnBoardNameChanging(string value);
-    partial void OnBoardNameChanged();
-    partial void OnRequestDateChanging(System.DateTime value);
-    partial void OnRequestDateChanged();
-    partial void OnRequestUserIDChanging(System.Guid value);
-    partial void OnRequestUserIDChanged();
-    #endregion
-		
-		public DiscussRequestedBoard()
-		{
-			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedBoardID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RequestedBoardID
-		{
-			get
-			{
-				return this._RequestedBoardID;
-			}
-			set
-			{
-				if ((this._RequestedBoardID != value))
-				{
-					this.OnRequestedBoardIDChanging(value);
-					this.SendPropertyChanging();
-					this._RequestedBoardID = value;
-					this.SendPropertyChanged("RequestedBoardID");
-					this.OnRequestedBoardIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string BoardName
-		{
-			get
-			{
-				return this._BoardName;
-			}
-			set
-			{
-				if ((this._BoardName != value))
-				{
-					this.OnBoardNameChanging(value);
-					this.SendPropertyChanging();
-					this._BoardName = value;
-					this.SendPropertyChanged("BoardName");
-					this.OnBoardNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestDate", DbType="DateTime NOT NULL")]
-		public System.DateTime RequestDate
-		{
-			get
-			{
-				return this._RequestDate;
-			}
-			set
-			{
-				if ((this._RequestDate != value))
-				{
-					this.OnRequestDateChanging(value);
-					this.SendPropertyChanging();
-					this._RequestDate = value;
-					this.SendPropertyChanged("RequestDate");
-					this.OnRequestDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestUserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid RequestUserID
-		{
-			get
-			{
-				return this._RequestUserID;
-			}
-			set
-			{
-				if ((this._RequestUserID != value))
-				{
-					if (this._aspnet_Membership.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRequestUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._RequestUserID = value;
-					this.SendPropertyChanged("RequestUserID");
-					this.OnRequestUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_Membership_DiscussRequestedBoard", Storage="_aspnet_Membership", ThisKey="RequestUserID", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_Membership aspnet_Membership
-		{
-			get
-			{
-				return this._aspnet_Membership.Entity;
-			}
-			set
-			{
-				aspnet_Membership previousValue = this._aspnet_Membership.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_Membership.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_Membership.Entity = null;
-						previousValue.DiscussRequestedBoards.Remove(this);
-					}
-					this._aspnet_Membership.Entity = value;
-					if ((value != null))
-					{
-						value.DiscussRequestedBoards.Add(this);
-						this._RequestUserID = value.UserId;
-					}
-					else
-					{
-						this._RequestUserID = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_Membership");
 				}
 			}
 		}
