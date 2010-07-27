@@ -113,6 +113,12 @@ namespace FindPianos.Controllers
                     return View();
                 }
                 var safeName = HtmlUtilities.Safe(HtmlUtilities.Encode(name.Trim()));
+                if(safeName.Length>100)
+                {
+                    ModelState.AddModelError("name", "Please use a shorter name.");
+                    ViewData["name"] = name;
+                    return View();
+                }
                 using (var db = new LegatoDataContext())
                 {
                     if (db.DiscussBoards.Where(b => b.BoardName == safeName).Count() != 0)

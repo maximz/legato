@@ -24,6 +24,11 @@
 			<%= Html.ValidationMessage("name") %>
 		</div>
 		<p>
+			<label for="CAPTCHA">Verification word(s):</label>
+			<%= Html.GenerateCaptcha() %>
+			<%= Html.ValidationMessage("CAPTCHA") %>
+		</p>
+		<p>
 			<input type="submit" value="Submit Request" />
 		</p>
 	<% } %>
