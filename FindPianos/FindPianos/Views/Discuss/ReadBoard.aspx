@@ -18,7 +18,8 @@
 				<%=Html.ActionLink(Html.Encode(item.Title), "ReadThread", "Discuss", new
 {
 	threadID=item.ThreadID,
-	page = 1
+	page = 1,
+	slug = FindPianos.Helpers.HtmlUtilities.URLFriendly(item.Title)
 }) %>
 			</div>
 			<div class="board-thread-timestamps">

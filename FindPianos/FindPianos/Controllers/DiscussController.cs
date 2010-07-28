@@ -79,7 +79,7 @@ namespace FindPianos.Controllers
                             name=boardName
                         });
                     }
-                    return RedirectToAction("ReadBoard", new { boardID=board.BoardID});
+                    return RedirectToAction("ReadBoard", new { boardID=board.BoardID, page = 1, slug = HtmlUtilities.URLFriendly(board.BoardName)});
                 }
             }
             catch
@@ -162,7 +162,7 @@ namespace FindPianos.Controllers
         /// <returns></returns>
         [Url("Discuss/{boardID}/{slug?}")]
         [OutputCache(Duration=180, VaryByParam="boardID;page")]
-        public ActionResult ReadBoard(long boardID, int? page)
+        public ActionResult ReadBoard(long boardID, int? page, string? slug)
         {
             var href = "Discuss/" + boardID;
             using(var db = new LegatoDataContext())
@@ -190,7 +190,7 @@ namespace FindPianos.Controllers
         }
         [Url("Discuss/Thread/{threadID}/{slug?}", Order=2)]
         [OutputCache(Duration = 180, VaryByParam = "threadID;page")]
-        public ActionResult ReadThread(long threadID, int? page)
+        public ActionResult ReadThread(long threadID, int? page, string? slug)
         {
             var href = "Discuss/Thread/" + threadID;
             using (var data = new LegatoDataContext())
