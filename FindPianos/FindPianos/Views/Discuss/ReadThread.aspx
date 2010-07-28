@@ -28,10 +28,23 @@
 		   { %>
 		<div class="thread-post">
 			<div class="thread-post-text">
-			
+			<%=item.Revisions[0].HTML%>
 			</div>
+			<div class="thread-post-timestamps">
+				Post created:
+				<div class="timeago" title="<%= item.DateOfSubmission.ToString("o") %>">
+				</div>
+				<% if (item.Revisions.Count > 1)
+				   { %>
+				| latest revision:
+				<div class="timeago" title="<%=item.Revisions[0].RevisionDate.ToString("o") %>">
+				</div>
+				<% } %>
+			</div>
+			<!-- TODO: user partial view, links -->
 			<div class="thread-post-functions">
 			<div class="thread-post-functions-link"><%=Html.ActionLink("link","IndividualPostRedirect","Discuss",new { postID = item.PostID })%></div>
+			| <div class="thread-post-functions-link">flag</div>
 			| <div class="thread-post-functions-link">flag</div>
 			| <div class="thread-post-functions-link">delete</div>
 			</div>
@@ -44,12 +57,7 @@
 }) %>
 			</div>
 			<div class="board-thread-timestamps">
-				Thread created:
-				<div class="timeago" title="<%= item.CreationDate.ToString("o") %>">
-				</div>
-				| latest activity:
-				<div class="timeago" title="<%=item.LatestActivity.ToString("o") %>">
-				</div>
+
 			</div>
 			<div class="board-thread-posts">
 				<%=Html.Encode(item.NumberOfPosts) %>
