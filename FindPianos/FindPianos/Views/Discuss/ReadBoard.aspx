@@ -23,8 +23,7 @@
 }) %>
 			</div>
 			<div class="board-thread-timestamps">
-			Thread created on 
-					
+			Thread created: 
 				<div class="timeago" title="<%= item.CreationDate.ToString("o") %>">
 			</div>
 				| latest activity:

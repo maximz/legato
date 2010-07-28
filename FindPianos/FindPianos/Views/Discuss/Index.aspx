@@ -39,10 +39,9 @@
 				}
 
 				$.ajax({
-					url: "Discuss/Boards/List/all",
+					url: "Discuss/Boards/List/"+request+"all",
 					dataType: "json",
-					type: "POST",
-					data: request,
+					type: "GET",
 					success: function (data) {
 						cache[request.term] = data;
 						response(data);

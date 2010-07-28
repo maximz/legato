@@ -28,32 +28,33 @@ namespace FindPianos.Controllers
         }
 
         #region Get List of Boards
-        [HttpPost]
-        [Url("Discuss/Boards/List/{type?}")]
+        [HttpGet]
+        [Url("Discuss/Boards/List/{term}/{type?}")]
         [OutputCache(Duration=7200, VaryByParam="*")]
-        public ActionResult ListBoards(string type)
+        public ActionResult ListBoards(string term, string type)
         {
             try
             {
                 using (var db = new LegatoDataContext())
                 {
-                    IEnumerable<DiscussBoard> query = null;
+                    var query = db.DiscussBoards.Where(b=>b.BoardName.Contains(term)).OrderBy(b=>b.BoardName);
+                    IEnumerable<DiscussBoard> result = null;
                     string realType = type.GetValueOrDefault("all");
                     switch (realType)
                     {
                         case "city":
-                            query = db.DiscussBoards.Where(b => b.IsCityBoard).ToList();
+                            result = query.Where(b => b.IsCityBoard).ToList();
                             break;
                         case "other":
-                            query = db.DiscussBoards.Where(b => !b.IsCityBoard).ToList();
+                            result = query.Where(b => !b.IsCityBoard).ToList();
                             break;
                         case "all":
-                            query = db.DiscussBoards.ToList();
+                            result = query.ToList();
                             break;
                         default:
                             return RedirectToAction("NotFound", "Error");
                     }
-                    return Json(query);
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
@@ -212,13 +213,16 @@ namespace FindPianos.Controllers
                     var totalPosts = data.DiscussPosts.Where(p=>p.ThreadID==threadID).Count();
                     var pageNumbers = new PageNumber(href + "&page=-1", (totalPosts / PostsPerPage) + 1, page.GetValueOrDefault(1) - 1, "pager");
                     var totalPostsString = string.Format("{0:n0}", totalPosts);
+                    var board = thread.DiscussBoard;
 
                     var model = new DiscussReadThreadViewModel
                     {
                         Thread = thread,
                         Posts = posts,
                         TotalPosts = totalPostsString,
-                        PageNumbers = pageNumbers
+                        PageNumbers = pageNumbers,
+                        BoardID=board.BoardID,
+                        BoardName=board.BoardName
                     };
                     return View(model);
                 }
@@ -267,13 +271,16 @@ namespace FindPianos.Controllers
                     var totalPosts = data.DiscussPosts.Where(p => p.ThreadID == threadID).Count();
                     var pageNumbers = new PageNumber(href + "&page=-1", (totalPosts / PostsPerPage) + 1, page - 1, "pager");
                     var totalPostsString = string.Format("{0:n0}", totalPosts);
+                    var board = thread.DiscussBoard;
 
                     var model = new DiscussReadThreadViewModel
                     {
                         Thread = thread,
                         Posts = posts,
                         TotalPosts = totalPostsString,
-                        PageNumbers = pageNumbers
+                        PageNumbers = pageNumbers,
+                        BoardID = board.BoardID,
+                        BoardName = board.BoardName
                     };
                     return View("ReadThread",model);
                 }

@@ -31,5 +31,17 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
+
+        public string BoardName
+        {
+            get;
+            set;
+        }
+
+        public long BoardID
+        {
+            get;
+            set;
+        }
     }
 }
