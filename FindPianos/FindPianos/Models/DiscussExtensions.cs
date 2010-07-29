@@ -82,11 +82,31 @@ namespace FindPianos.Models
             get;
             set;
         }
+        public int ReplyCount
+        {
+            get;
+            set;
+        }
+        public List<DiscussPost> Replies
+        {
+            get;
+            internal set;
+        }
         public void FillProperties()
         {
             using (var data = new LegatoDataContext())
             {
                 this.Revisions = data.DiscussPostRevisions.Where(rev => rev.PostID == this.PostID).OrderByDescending(rev => rev.EditNumber).ToList();
+                this.ReplyCount = data.DiscussPosts.Where(p => p.DiscussPostRevisions.OrderByDescending(r => r.EditNumber).First().InReplyToPostID == this.PostID).Count();
+            }
+        }
+        public List<DiscussPost> GetReplies()
+        {
+            using(var db = new LegatoDataContext())
+            {
+                var forret = db.DiscussPosts.Where(p => p.DiscussPostRevisions.OrderByDescending(r => r.EditNumber).First().InReplyToPostID == this.PostID).ToList();
+                this.Replies = forret;
+                return forret;
             }
         }
 

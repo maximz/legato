@@ -339,6 +339,28 @@ namespace FindPianos.Controllers
         }
         #endregion
 
+        #region Individual Post Replies
+        [Url("Discuss/Replies/{postID}")]
+        [OutputCache(Duration = 180, VaryByParam = "postID")]
+        public ActionResult PostReplies(long postID)
+        {
+            using(var db = new LegatoDataContext())
+            {
+                var post = db.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                if(post==null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+                var forret = post.GetReplies();
+                foreach(var p in forret)
+                {
+                    p.FillProperties();
+                }
+                return View(forret);
+            }
+        }
+        #endregion
+
         #region Deletion methods
         /// <summary>
         /// Deletes the specified post ID.

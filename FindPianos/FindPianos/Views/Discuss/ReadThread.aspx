@@ -52,6 +52,32 @@
 			| <div class="thread-post-functions-link"><%=Html.ActionLink("replies (" + item.ReplyCount+")", "PostReplies", "Discuss", new { postID = item.PostID })%></div>
 			<% } %>
 			</div>
+			<div class="thread-post-flag">
+			<% if (User.Identity.IsAuthenticated && !User.IsInRole("EmailNotConfirmed") && User.IsInRole("ActiveUser"))
+	  {
+		  using (Html.BeginForm("AjaxFlagPost", "Discuss", FormMethod.Post, new { @id = "flag-form-"+item.PostID }))
+		  { %>
+			<%=Html.Hidden("idOfPost", item.PostID)%>
+			<h2>Flag</h2>
+			<input type="radio" id="flag-<%=item.PostID %>-1" name="flagTypeId" value="1"/>
+			<label for="flag-<%=item.PostID %>-1">Spam</label>
+			<br />
+			<input type="radio" id="flag-<%=item.PostID %>-2" name="flagTypeId" value="2"/>
+			<label for="flag-<%=item.PostID %>-2">
+				Offensive</label>
+			<br />
+			<input type="radio" id="flag-<%=item.PostID %>-3" name="flagTypeId" value="3"/>
+			<label for="flag-<%=item.PostID %>-3">
+				Needs serious improvement</label>
+			<br />
+				<input type="submit" value="Flag" />
+			<% }
+	  }
+	  else
+	  { %>
+			<p>You must be logged in as a user who is not suspended and who has confirmed their email address to flag a post.</p>
+			<% } %>
+			</div>
 		</div>
 		<% } %>
 	</div>

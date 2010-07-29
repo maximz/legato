@@ -263,6 +263,7 @@
     <Content Include="Views\Discuss\Delete.aspx" />
     <Content Include="Views\Discuss\Edit.aspx" />
     <Content Include="Views\Discuss\Index.aspx" />
+    <Content Include="Views\Discuss\PostReplies.aspx" />
     <Content Include="Views\Discuss\PostTimeline.aspx" />
     <Content Include="Views\Discuss\ReadBoard.aspx" />
     <Content Include="Views\Discuss\ReadThread.aspx" />
@@ -346,7 +347,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2574</DevelopmentServerPort>
+          <DevelopmentServerPort>10968</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
