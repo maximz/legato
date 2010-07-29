@@ -315,7 +315,7 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Individual Post timeline- and revision-listing method
-        [Url("Discuss/Timeline/Post/{postID}")]
+        [Url("Discuss/Timeline/{postID}/")]
         [OutputCache(Duration = 180, VaryByParam = "postID")]
         public ActionResult PostTimeline(long postID)
         {
@@ -323,14 +323,18 @@ namespace FindPianos.Controllers
             {
                 using (var data = new LegatoDataContext())
                 {
-                    var post = data.DiscussPosts.Where(p => p.PostID == postID).Single();
+                    var post = data.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                    if(post==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
                     post.Revisions = data.DiscussPostRevisions.Where(rev => rev.PostID == postID).OrderByDescending(rev => rev.EditNumber).ToList();
                     return View(post);
                 }
             }
             catch
             {
-                return RedirectToAction("NotFound","Error");
+                return RedirectToAction("InternalServerError","Error");
             }
         }
         #endregion

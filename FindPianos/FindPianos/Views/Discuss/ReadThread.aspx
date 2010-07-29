@@ -41,43 +41,33 @@
 				</div>
 				<% } %>
 			</div>
-			<!-- TODO: user partial view, links -->
+			<!-- TODO: user partial view, figure out Flag! -->
 			<div class="thread-post-functions">
 			<div class="thread-post-functions-link"><%=Html.ActionLink("link","IndividualPostRedirect","Discuss",new { postID = item.PostID })%></div>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("timeline","PostTimeline","Discuss",new { postID = item.PostID }) %></div>
 			| <div class="thread-post-functions-link">flag</div>
-			| <div class="thread-post-functions-link">flag</div>
-			| <div class="thread-post-functions-link">delete</div>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("delete","Delete","Discuss",new { postID = item.PostID})%></div>
+			<% if (item.ReplyCount>0)
+	  { %>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("replies (" + item.ReplyCount+")", "PostReplies", "Discuss", new { postID = item.PostID })%></div>
+			<% } %>
 			</div>
-			<div class="board-thread-title">
-				<%=Html.ActionLink(Html.Encode(item.Title), "ReadThread", "Discuss", new
-{
-	threadID=item.ThreadID,
-	page = 1,
-	slug = FindPianos.Helpers.HtmlUtilities.URLFriendly(item.Title)
-}) %>
-			</div>
-			<div class="board-thread-timestamps">
-
-			</div>
-			<div class="board-thread-posts">
-				<%=Html.Encode(item.NumberOfPosts) %>
-				posts</div>
 		</div>
 		<% } %>
 	</div>
-	<div id="board-metadata">
-		<div class="board-metadata-header">
-			Board Information</div>
-		<div id="threadcount">
+	<div id="thread-metadata">
+		<div class="thread-metadata-header">
+			Thread Information</div>
+		<div id="postcount">
 			<div class="large-number">
-				<%=ViewData["TotalPosts"].ToString()%></div>
+				<%=Model.TotalPosts%></div>
 			<div class="large-number-label">
-				threads</div>
+				posts</div>
 		</div>
 	</div>
 	<div id="pagination">
-		<% Html.RenderPartial("PageNumbers", ViewData["PageNumbers"]);%></div>
-	<div id="createnew">
+		<% Html.RenderPartial("PageNumbers", Model.PageNumbers);%></div>
+	<div id="createnew"><!-- TODO: Reply -->
 		<div class="boxbutton">
 			<%=Html.ActionLink("Create new","Submit","Discuss",new { boardID = long.Parse(ViewData["BoardID"].ToString())})%></div>
 	</div>
