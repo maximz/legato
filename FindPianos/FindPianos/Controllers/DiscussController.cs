@@ -557,6 +557,7 @@ namespace FindPianos.Controllers
                     var post = new DiscussPost();
                     post.DiscussThread = thread;
                     post.DateOfSubmission = time;
+                    post.LatestActivity = time;
                     db.DiscussPosts.InsertOnSubmit(post);
                     db.SubmitChanges();
 
@@ -611,6 +612,7 @@ namespace FindPianos.Controllers
                     var post = new DiscussPost();
                     post.DiscussThread = thread;
                     post.DateOfSubmission = time;
+                    post.LatestActivity = time;
                     post.PostNumberInThread = (from rev in db.DiscussPosts
                                                 where rev.ThreadID == thread.ThreadID
                                                 select rev.PostNumberInThread).Max() + 1;
@@ -746,6 +748,8 @@ namespace FindPianos.Controllers
                             return View();
                         }
                     }
+
+                    post.LatestActivity = time;
 
                     //REVISION:
                     var r = new DiscussPostRevision();

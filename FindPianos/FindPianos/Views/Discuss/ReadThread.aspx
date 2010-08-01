@@ -41,7 +41,7 @@
 				</div>
 				<% } %>
 			</div>
-			<!-- TODO: user partial view, figure out how to do jquery call for Flag to show the flag form and bind jquery.form to it! -->
+			<!-- TODO: user partial view, figure out how to do jQuery call for Flag to show the flag form and bind jquery.form to it! -->
 			<div class="thread-post-functions">
 			<div class="thread-post-functions-link"><%=Html.ActionLink("link","IndividualPostRedirect","Discuss",new { postID = item.PostID })%></div>
 			| <div class="thread-post-functions-link"><%=Html.ActionLink("timeline","PostTimeline","Discuss",new { postID = item.PostID }) %></div>
@@ -93,7 +93,7 @@
 	</div>
 	<div id="pagination">
 		<% Html.RenderPartial("PageNumbers", Model.PageNumbers);%></div>
-	<div id="createnew"><!-- TODO: Reply -->
+	<div id="reply"><!-- TODO: Reply -->
 		<div class="boxbutton">
 			<%=Html.ActionLink("Create new","Submit","Discuss",new { boardID = long.Parse(ViewData["BoardID"].ToString())})%></div>
 	</div>

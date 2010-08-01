@@ -186,7 +186,7 @@ namespace FindPianos.Models
     #endregion
 		
 		public LegatoDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LegatoConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LegatoConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -5344,6 +5344,8 @@ namespace FindPianos.Models
 		
 		private System.DateTime _DateOfSubmission;
 		
+		private System.DateTime _LatestActivity;
+		
 		private EntitySet<DiscussPostFlag> _DiscussPostFlags;
 		
 		private EntitySet<DiscussPostRevision> _DiscussPostRevisions;
@@ -5364,6 +5366,8 @@ namespace FindPianos.Models
     partial void OnPostNumberInThreadChanged();
     partial void OnDateOfSubmissionChanging(System.DateTime value);
     partial void OnDateOfSubmissionChanged();
+    partial void OnLatestActivityChanging(System.DateTime value);
+    partial void OnLatestActivityChanged();
     #endregion
 		
 		public DiscussPost()
@@ -5455,6 +5459,26 @@ namespace FindPianos.Models
 					this._DateOfSubmission = value;
 					this.SendPropertyChanged("DateOfSubmission");
 					this.OnDateOfSubmissionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LatestActivity", DbType="DateTime NOT NULL")]
+		public System.DateTime LatestActivity
+		{
+			get
+			{
+				return this._LatestActivity;
+			}
+			set
+			{
+				if ((this._LatestActivity != value))
+				{
+					this.OnLatestActivityChanging(value);
+					this.SendPropertyChanging();
+					this._LatestActivity = value;
+					this.SendPropertyChanged("LatestActivity");
+					this.OnLatestActivityChanged();
 				}
 			}
 		}
