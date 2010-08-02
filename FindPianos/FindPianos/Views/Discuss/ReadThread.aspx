@@ -1,27 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<FindPianos.ViewModels.DiscussReadThreadViewModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	ReadThread
+	<%=Html.Encode(Model.Thread.Title) %> - <%= Html.Encode(Model.BoardName) %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2>ReadThread</h2>
-
-	<fieldset>
-		<legend>Fields</legend>
-		
-		<div class="display-label">TotalPosts</div>
-		<div class="display-field"><%= Html.Encode(Model.TotalPosts) %></div>
-		
-	</fieldset>
-	<p>
-		<%= Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) %> |
-		<%= Html.ActionLink("Back to List", "Index") %>
-	</p>
 	<div id="thread-title">
 		<p>
-			<b><%=Html.Encode(Model.Thread.Title)%></b> - <%=Html.ActionLink(Model.BoardName,"ReadBoard","Discuss",new{boardID=Model.BoardID,slug=FindPianos.Helpers.HtmlUtilities.URLFriendly(Model.BoardName),page=1}) %> board</p>
+			<b><%=Html.Encode(Model.Thread.Title)%></b> - <%=Html.ActionLink(Html.Encode(Model.BoardName),"ReadBoard","Discuss",new{boardID=Model.BoardID,slug=FindPianos.Helpers.HtmlUtilities.URLFriendly(Model.BoardName),page=1}) %> board</p>
 	</div>
 	<div id="thread-posts">
 		<% foreach (var item in Model.Posts)
