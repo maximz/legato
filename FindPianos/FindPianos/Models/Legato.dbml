@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Legato" Class="LegatoDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=HP4200_TABLET\MSSQLSERVER2008;Initial Catalog=Legato;Persist Security Info=True;User ID=pianotoiletapp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LegatoConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=MZPRECISION\MSSQLSERVER2008;Initial Catalog=Legato;Persist Security Info=True;User ID=pianotoiletapp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ApplicationServices" Provider="System.Data.SqlClient" />
   <Table Name="dbo.aspnet_Applications" Member="aspnet_Applications">
     <Type Name="aspnet_Application">
       <Column Name="ApplicationName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />

@@ -186,7 +186,7 @@ namespace FindPianos.Models
     #endregion
 		
 		public LegatoDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LegatoConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
