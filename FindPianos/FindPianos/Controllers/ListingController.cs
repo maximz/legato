@@ -15,10 +15,11 @@ using System.Web.Routing;
 namespace FindPianos.Controllers
 {
     [HandleError]
-    public class ListingController : Controller
+    public class ListingController : CustomControllerBase
     {
         protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
             {
                 ViewData["CurrentMenuItem"] = "Instruments";

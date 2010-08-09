@@ -18,6 +18,7 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
+using System.Net;
 
 namespace FindPianos.Controllers
 {
@@ -26,7 +27,7 @@ namespace FindPianos.Controllers
     /// Handles account methods.
     /// </summary>
     [HandleError]
-    public class AccountController : Controller
+    public class AccountController : CustomControllerBase
     {
         private static readonly OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
@@ -80,6 +81,18 @@ namespace FindPianos.Controllers
                 Identifier id;
                 if (Identifier.TryParse(Request.Form["openid_identifier"], out id))
                 {
+                    if(WhiteListEnabled)
+                    {
+                        using(var db = new LegatoDataContext())
+                        {
+                            if(db.OpenIDWhiteLists.FirstOrDefault(w=>w.OpenID==id.OriginalString)==null)
+                            {
+                                //not allowed in
+                                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                                return View("WhiteListBlock");
+                            }
+                        }
+                    }
                     try
                     {
                         IAuthenticationRequest request = openid.CreateRequest(Request.Form["openid_identifier"]);

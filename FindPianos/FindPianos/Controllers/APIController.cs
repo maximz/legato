@@ -9,7 +9,7 @@ namespace FindPianos.Controllers
 {
     [HandleError]
     [OutputCache(Duration = 7200, VaryByParam = "*")]
-    public class APIController : Controller
+    public class APIController : CustomControllerBase
     {
         [OutputCache(Duration = 7200, VaryByParam = "*")]
         public ActionResult Index()

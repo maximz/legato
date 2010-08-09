@@ -13,7 +13,7 @@ namespace FindPianos.Controllers
     /// Caches content.
     /// </summary>
     [HandleError]
-    public class CachedContentServeController : Controller
+    public class CachedContentServeController : CustomControllerBase
     {
         /// <summary>
         /// Returns PNG images in the Content directory.

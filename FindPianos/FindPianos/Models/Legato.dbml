@@ -666,4 +666,10 @@
       <Association Name="WeekDay_VenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.OpenIDWhiteList" Member="OpenIDWhiteLists">
+    <Type Name="OpenIDWhiteList">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpenID" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

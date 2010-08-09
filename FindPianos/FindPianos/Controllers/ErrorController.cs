@@ -9,7 +9,7 @@ using System.Net;
 namespace FindPianos.Controllers
 {
     [OutputCache(Duration=7200,VaryByParam="None")]
-    public class ErrorController : Controller
+    public class ErrorController : CustomControllerBase
     {
         //
         // GET: /Error/
@@ -64,11 +64,21 @@ namespace FindPianos.Controllers
             return View();
         }
         /// <summary>
+        /// Returns a Bad Request error.
+        /// </summary>
+        /// <returns></returns>
+        [Url("400")]
+        public ActionResult BadRequest()
+        {
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return View();
+        }
+        /// <summary>
         /// Handles all errors.
         /// </summary>
         /// <returns></returns>
         [Url("Error")]
-        [OutputCache(Duration = 7200, VaryByHeader = "StatusCode")] //TODO
+        [OutputCache(Duration = 7200, VaryByHeader = "Status")] //TODO
         public ActionResult AnyError()
         {
             try
@@ -81,6 +91,10 @@ namespace FindPianos.Controllers
                         return View("Forbidden");
                     case (int)HttpStatusCode.Unauthorized:
                         return View("Forbidden");
+                    case (int)HttpStatusCode.Conflict:
+                        return View("Conflict");
+                    case (int)HttpStatusCode.BadRequest:
+                        return View("BadRequest");
                     case (int)HttpStatusCode.InternalServerError:
                         return View("InternalServerError");
                     default:

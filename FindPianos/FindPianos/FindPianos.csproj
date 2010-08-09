@@ -86,6 +86,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CustomControllerBase.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\DiscussController.cs" />
@@ -256,6 +257,7 @@
     <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
+    <Content Include="Views\Account\WhiteListBlock.aspx" />
     <Content Include="Views\Admin\GetUserById.aspx" />
     <Content Include="Views\Admin\SuspendUser.aspx" />
     <Content Include="Views\Admin\UserSearchByNameGET.aspx" />
@@ -271,6 +273,7 @@
     <Content Include="Views\Discuss\RequestBoardSuccess.aspx" />
     <Content Include="Views\Discuss\Submit.aspx" />
     <Content Include="Views\Error\Conflict.aspx" />
+    <Content Include="Views\Error\BadRequest.aspx" />
     <Content Include="Views\Error\Forbidden.aspx" />
     <Content Include="Views\Error\InternalServerError.aspx" />
     <Content Include="Views\Error\NotFound.aspx" />

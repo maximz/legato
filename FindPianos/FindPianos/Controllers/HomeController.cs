@@ -10,10 +10,11 @@ namespace FindPianos.Controllers
 {
     [HandleError]
     [OutputCache(Duration = 7200, VaryByParam = "None")]
-    public class HomeController : Controller
+    public class HomeController : CustomControllerBase
     {
         protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
             {
                 ViewData["CurrentMenuItem"] = "Home";

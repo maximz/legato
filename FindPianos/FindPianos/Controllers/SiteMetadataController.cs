@@ -7,7 +7,7 @@ using RiaLibrary.Web;
 
 namespace FindPianos.Controllers
 {
-    public class SiteMetadataController : Controller
+    public class SiteMetadataController : CustomControllerBase
     {
         [Url("sitemap.xml")]
         public ActionResult SiteMap()

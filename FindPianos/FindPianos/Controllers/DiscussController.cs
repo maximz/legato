@@ -16,10 +16,11 @@ using System.Web.Routing;
 namespace FindPianos.Controllers
 {
     [HandleError]
-    public class DiscussController : Controller
+    public class DiscussController : CustomControllerBase
     {
         protected override void Initialize(RequestContext requestContext)
         {
+            base.Initialize(requestContext);
             if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
             {
                 ViewData["CurrentMenuItem"] = "Discuss";
@@ -592,6 +593,27 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
+        [HttpGet]
+        [Url("Discuss/Reply/{threadID}/{postID?}")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        [RateLimit(Name = "DiscussReplyGET", Seconds = 600)]
+        public ActionResult Reply(long threadID, long? postID)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    //Get thread information and load it into the model
+
+                    var model = new DiscussReplyViewModel();
+                    return View(model);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
 
         [HttpPost]
         [Url("Discuss/Reply")]
@@ -601,7 +623,7 @@ namespace FindPianos.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("InternalServerError", "Error");
+                return View(model);
             }
             try
             {

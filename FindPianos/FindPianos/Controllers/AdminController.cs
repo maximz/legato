@@ -13,7 +13,7 @@ using FindPianos.ViewModels;
 namespace FindPianos.Controllers
 {
     [CustomAuthorization(AuthorizedRoles="Admin", AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
-    public class AdminController : Controller
+    public class AdminController : CustomControllerBase
     {
         //
         // GET: /Admin/
