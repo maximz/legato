@@ -10,12 +10,20 @@ using System.Web.Security;
 using FindPianos.Helpers;
 using System.Net;
 using FindPianos.ViewModels;
+using System.Web.Routing;
 
 namespace FindPianos.Controllers
 {
     [HandleError]
     public class StoreController : Controller
     {
+        protected override void Initialize(RequestContext requestContext)
+        {
+            if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
+            {
+                ViewData["CurrentMenuItem"] = "Stores";
+            }
+        }
         [OutputCache(Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {

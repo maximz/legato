@@ -11,12 +11,21 @@ using FindPianos.Helpers;
 using System.Net;
 using FindPianos.ViewModels;
 using MvcReCaptcha;
+using System.Web.Routing;
 
 namespace FindPianos.Controllers
 {
     [HandleError]
     public class DiscussController : Controller
     {
+        protected override void Initialize(RequestContext requestContext)
+        {
+            if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
+            {
+                ViewData["CurrentMenuItem"] = "Discuss";
+            }
+        }
+
         int ThreadsPerPage = 30;
         int PostsPerPage = 20;
 
