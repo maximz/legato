@@ -604,8 +604,22 @@ namespace FindPianos.Controllers
                 using (var db = new LegatoDataContext())
                 {
                     //Get thread information and load it into the model
+                    var thread = db.DiscussThreads.Where(t => t.ThreadID == threadID).SingleOrDefault();
+                    if (thread == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
 
-                    var model = new DiscussReplyViewModel();
+                    var model = new DiscussReplyViewModel()
+                    {
+                        Post = new DiscussPostSubmissionViewModel()
+                        {
+                            InReplyToPostID = postID,
+                            Markdown = ""
+                        },
+                        ThreadID = threadID,
+                        ThreadName = thread.Title
+                    };
                     return View(model);
                 }
             }
