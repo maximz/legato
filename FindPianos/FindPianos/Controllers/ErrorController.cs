@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using RiaLibrary.Web;
 using System.Net;
+using FindPianos.Helpers;
 
 namespace FindPianos.Controllers
 {
-    [OutputCache(Duration=7200,VaryByParam="None")]
+    [CustomCache(NoCachingForAuthenticatedUsers=true,Duration=7200,VaryByParam="None")]
     public class ErrorController : CustomControllerBase
     {
         //
@@ -78,7 +79,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <returns></returns>
         [Url("Error")]
-        [OutputCache(Duration = 7200, VaryByHeader = "Status")] //TODO
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByHeader = "Status")] //TODO
         public ActionResult AnyError()
         {
             try

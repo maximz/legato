@@ -9,7 +9,7 @@ using FindPianos.Helpers;
 namespace FindPianos.Controllers
 {
     [HandleError]
-    [OutputCache(Duration = 7200, VaryByParam = "None")]
+    [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
     public class HomeController : CustomControllerBase
     {
         protected override void Initialize(RequestContext requestContext)

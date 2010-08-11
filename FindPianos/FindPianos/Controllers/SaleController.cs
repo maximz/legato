@@ -25,7 +25,7 @@ namespace FindPianos.Controllers
                 ViewData["CurrentMenuItem"] = "Instruments";
             }
         }
-        [OutputCache(Duration = 7200, VaryByParam = "None")]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
         public ActionResult Index()
         {
             return RedirectToAction("List");
@@ -33,7 +33,7 @@ namespace FindPianos.Controllers
 
         #region Read Listings and Reviews
         [Url("Sales/View/{listingId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "listingId")]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "listingId")]
         public ActionResult Read(long listingId)
         {
             using (var data = new LegatoDataContext())
@@ -62,7 +62,7 @@ namespace FindPianos.Controllers
         }
         
         [Url("Sales/Review/View/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult IndividualReview(long reviewId)
         {
             using (var data = new LegatoDataContext())
@@ -93,7 +93,7 @@ namespace FindPianos.Controllers
 
         #region Individual Review timeline- and revision-listing method
         [Url("Sales/Timeline/{reviewId}")]
-        [OutputCache(Duration = 7200, VaryByParam = "reviewId")]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewId")]
         public ActionResult ReviewTimeline(long reviewId)
         {
             try
@@ -113,13 +113,13 @@ namespace FindPianos.Controllers
         #endregion
 
         #region Searching Methods
-        [Url("Search/Sales")][OutputCache(Duration = 7200, VaryByParam = "None")]
+        [Url("Search/Sales")][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
         public ActionResult List()
         {
             return View();
         }
         [Url("Sales/EnumerateBox")]
-        [HttpPost][OutputCache(Duration = 7200, VaryByParam = "*")]
+        [HttpPost][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
