@@ -23,24 +23,49 @@ namespace FindPianos.Helpers
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether [allow only valid search engines].
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if [allow only valid search engines]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowOnlyValidSearchEngines
+        {
+            get;
+            set;
+        }
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             if (filterContext == null)
             {
                 throw new ArgumentNullException("filterContext");
             }
-            if (NoCachingForAuthenticatedUsers)
+            if (AllowOnlyValidSearchEngines)
             {
-                if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+                //TODO! See http://stackoverflow.com/questions/3465072/accessing-controller-method-from-resultexecutingcontext-in-asp-net-mvc-site
+                var IsSearchEngine = (filterContext.Controller as FindPianos.Controllers.CustomControllerBase).IsSearchEngineDns();
+                if (IsSearchEngine)
                 {
                     base.OnResultExecuting(filterContext);
+                    return;
                 }
                 return;
             }
             else
             {
-                base.OnResultExecuting(filterContext);
-                return;
+                if (NoCachingForAuthenticatedUsers)
+                {
+                    if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        base.OnResultExecuting(filterContext);
+                    }
+                    return;
+                }
+                else
+                {
+                    base.OnResultExecuting(filterContext);
+                    return;
+                }
             }
         }
     }

@@ -61,7 +61,7 @@ namespace FindPianos.Controllers
         /// <summary>
         /// returns true if the current request is from a search engine, based on the User-Agent header
         /// </summary>
-        protected bool IsSearchEngine()
+        public bool IsSearchEngine()
         {
             if (Request.UserAgent.IsNullOrEmpty()) return false;
             return _botUserAgent.IsMatch(Request.UserAgent);
@@ -81,7 +81,7 @@ namespace FindPianos.Controllers
         /// <summary>
         /// returns true if the current request is from a search engine, based on the User-Agent header *AND* a reverse DNS check
         /// </summary>
-        protected bool IsSearchEngineDns()
+        public bool IsSearchEngineDns()
         {
             if (!IsSearchEngine()) return false;
             string s = GetHostName();

@@ -21,7 +21,7 @@ namespace FindPianos.Controllers
         /// <param name="id">The file name (without .png).</param>
         /// <returns></returns>
         [Url("Content/{id}/png")]
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "id")] //two hours
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration = 7200, VaryByParam = "id")] //two hours
         public ActionResult PngImage(string id)
         {
             return File(MakeContentPath("Content",id,"png"), "image/png");
@@ -32,7 +32,7 @@ namespace FindPianos.Controllers
         /// <param name="id">The file name (without .css).</param>
         /// <returns></returns>
         [Url("Content/{id}/css")]
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "id")] //two hours
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration = 7200, VaryByParam = "id")] //two hours
         public ActionResult StyleSheet(string id)
         {
             return File(MakeContentPath("Content",id, "css"), "text/css");
@@ -43,7 +43,7 @@ namespace FindPianos.Controllers
         /// <param name="Name">The name.</param>
         /// <returns></returns>
         [Url("Content/openid/{Name}",Order=1)]
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration=7200,VaryByParam="Name")] //two hours
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration=7200,VaryByParam="Name")] //two hours
         public ActionResult OpenIDContent(string Name)
         {
             if(Name.IsNullOrEmpty())
@@ -81,7 +81,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="jqueryVersion">The requested version of jQuery.</param>
         /// <returns>The file.</returns>
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration=4838400, VaryByParam="jqueryVersion")] //8 weeks
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration=4838400, VaryByParam="jqueryVersion")] //8 weeks
         [Url("Scripts/jQuery/{jqueryVersion}")]
         public ActionResult jQuery(string jqueryVersion)
         {
@@ -92,7 +92,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="jqueryVersion">The requested version of jQuery UI.</param>
         /// <returns>The file.</returns>
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 4838400, VaryByParam = "jqueryVersion")] //8 weeks
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration = 4838400, VaryByParam = "jqueryVersion")] //8 weeks
         [Url("Scripts/jQueryUI/{jqueryUIVersion}")]
         public ActionResult jQueryUI(string jqueryUIVersion)
         {
@@ -103,7 +103,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="name">The name of the file, without its extension.</param>
         /// <returns>The file.</returns>
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 4838400, VaryByParam = "*")] //8 weeks
+        [CustomCache(NoCachingForAuthenticatedUsers=false,Duration = 4838400, VaryByParam = "*")] //8 weeks
         [Url("Scripts/js/{name}")]
         public ActionResult getSomeJavascript(string name)
         {
