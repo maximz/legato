@@ -1,0 +1,18 @@
+Submit view
+
+Akismet report spam/spam checking + captcha!
+	if a post fails the akismet spam check, show the captcha with two hidden fields in the view:
+		a.) the content that the user submits is boxed into an object, serialized into xml, and then encrypted
+		b.) the name of the action that the user was executing is also encrypted. sample values (registered in the action itself where the captcha is triggered and in the captcha form post action):
+			- "edit"
+			- "submit"
+			- etc.
+
+Lucene.Net for Discuss
+
+Flag in separate View
+
+
+
+
+Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/3409843/how-can-i-validate-a-viewmodel-in-jquery-dialog
