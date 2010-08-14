@@ -838,6 +838,26 @@ namespace FindPianos.Controllers
         }
         #endregion
         #region AJAX: Flag Listings and Reviews
+        public ActionResult Flag(long postID)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var post = db.DiscussPosts.Where(p => p.PostID == postID).SingleOrDefault();
+                    if (post == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                }
+                return View(postID);
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        
         [RateLimit(Name="DiscussFlagPostPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
