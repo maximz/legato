@@ -94,6 +94,7 @@
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SiteMetadataController.cs" />
     <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\Akismet.cs" />
     <Compile Include="Helpers\Crypto.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
     <Compile Include="Helpers\DataKeys.cs" />

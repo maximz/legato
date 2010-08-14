@@ -10,6 +10,7 @@ using System;
 using System.Net;
 using System.Web;
 using System.IO;
+using System.Diagnostics;
 
 namespace FindPianos.Helpers {
 
@@ -60,7 +61,7 @@ namespace FindPianos.Helpers {
             value = (response == "valid") ? true : false;
 
 #if DEBUG
-            Debug.WriteLine("VerifyKey() = {0}.", value);
+            Debug.WriteLine(string.Format("VerifyKey() = {0}.", value));
 #endif
 
             return value;
@@ -75,7 +76,7 @@ namespace FindPianos.Helpers {
             value = Convert.ToBoolean(HttpPost(String.Format(commentCheckUrl, apiKey), CreateData(comment), CharSet));
 
 #if DEBUG
-            Debug.WriteLine("CommentCheck() = {0}.", value);
+            Debug.WriteLine(string.Format("CommentCheck() = {0}.", value));
 #endif
 
             return value;
@@ -86,7 +87,7 @@ namespace FindPianos.Helpers {
         public void SubmitSpam(AkismetComment comment) {
             string value = HttpPost(String.Format(submitSpamUrl, apiKey), CreateData(comment), CharSet);
 #if DEBUG
-            Debug.WriteLine("SubmitSpam() = {0}.", value);
+            Debug.WriteLine(string.Format("SubmitSpam() = {0}.", value));
 #endif
         }
 
@@ -95,7 +96,7 @@ namespace FindPianos.Helpers {
         public void SubmitHam(AkismetComment comment) {
             string value = HttpPost(String.Format(submitHamUrl, apiKey), CreateData(comment), CharSet);
 #if DEBUG
-            Debug.WriteLine("SubmitHam() = {0}.", value);
+            Debug.WriteLine(string.Format("SubmitHam() = {0}.", value));
 #endif
         }
 
@@ -140,7 +141,7 @@ namespace FindPianos.Helpers {
             request.ContentLength = data.Length;
 
 #if DEBUG
-            Debug.WriteLine("request({0}) = {1}", url, data);
+            Debug.WriteLine(string.Format("request({0}) = {1}", url, data));
 #endif
 
             // Write Data
