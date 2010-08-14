@@ -367,6 +367,7 @@ namespace FindPianos.Controllers
                     p.FillProperties();
                 }
                 ViewData["OriginalPostAuthor"] = Membership.GetUser(post.DiscussPostRevisions.First().UserID, false).UserName;
+                ViewData["OriginalPostID"] = postID;
                 return View(forret);
             }
         }
