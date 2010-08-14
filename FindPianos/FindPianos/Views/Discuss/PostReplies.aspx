@@ -12,7 +12,7 @@
 	<% foreach (var item in Model) { %>
 	<div class="reply-post">
 		<div class="reply-post-text">
-			<%=item.Revisions[0].HTML.TruncateWithEllipsis(400)%> <!-- http://stackoverflow.com/questions/3485238/safely-truncate-html-using-html-agility-pack TODO: bug when ending in the middle of an html tag see http://stackoverflow.com/questions/1714764/c-truncate-html-safely-for-article-summary-->
+			<%=Html.Encode(item.Revisions[0].HTML.TruncateWithEllipsis(400))%> <!-- http://stackoverflow.com/questions/3485238/safely-truncate-html-using-html-agility-pack TODO: bug when ending in the middle of an html tag see http://stackoverflow.com/questions/1714764/c-truncate-html-safely-for-article-summary-->
 		</div>
 		<div class="reply-post-timestamps">
 			Post created:

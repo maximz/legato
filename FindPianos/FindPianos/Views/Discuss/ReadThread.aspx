@@ -15,7 +15,7 @@
 		   { %>
 		<div class="thread-post">
 			<div class="thread-post-text">
-			<%=item.Revisions[0].HTML%>
+			<%=Html.Encode(item.Revisions[0].HTML)%>
 			</div>
 			<div class="thread-post-timestamps">
 				Post created:
@@ -32,38 +32,24 @@
 			<div class="thread-post-functions">
 			<div class="thread-post-functions-link"><%=Html.ActionLink("link","IndividualPostRedirect","Discuss",new { postID = item.PostID })%></div>
 			| <div class="thread-post-functions-link"><%=Html.ActionLink("timeline","PostTimeline","Discuss",new { postID = item.PostID }) %></div>
-			| <div class="thread-post-functions-link">flag</div>
-			| <div class="thread-post-functions-link"><%=Html.ActionLink("delete","Delete","Discuss",new { postID = item.PostID})%></div>
+				<% if (User.Identity.IsAuthenticated && !User.IsInRole("EmailNotConfirmed") && User.IsInRole("ActiveUser")) { %>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("flag","Flag","Discuss",new { postID = item.PostID}) %></div> <%} %>
+			<% if (User.Identity.IsAuthenticated && (User.IsInRole("Moderator") || User.IsInRole("Admin")))
+			   {
+			   %>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("delete", "Delete", "Discuss", new
+{
+	postID = item.PostID
+})%></div>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("edit", "Edit", "Discuss", new
+{
+	postID = item.PostID
+})%></div><% } %>
 			<% if (item.ReplyCount>0)
 	  { %>
 			| <div class="thread-post-functions-link"><%=Html.ActionLink("replies (" + item.ReplyCount+")", "PostReplies", "Discuss", new { postID = item.PostID })%></div>
 			<% } %>
-			</div>
-			<div class="thread-post-flag">
-			<% if (User.Identity.IsAuthenticated && !User.IsInRole("EmailNotConfirmed") && User.IsInRole("ActiveUser"))
-	  {
-		  using (Html.BeginForm("AjaxFlagPost", "Discuss", FormMethod.Post, new { @id = "flag-form-"+item.PostID }))
-		  { %>
-			<%=Html.Hidden("idOfPost", item.PostID)%>
-			<h2>Flag</h2>
-			<input type="radio" id="flag-<%=item.PostID %>-1" name="flagTypeId" value="1"/>
-			<label for="flag-<%=item.PostID %>-1">Spam</label>
-			<br />
-			<input type="radio" id="flag-<%=item.PostID %>-2" name="flagTypeId" value="2"/>
-			<label for="flag-<%=item.PostID %>-2">
-				Offensive</label>
-			<br />
-			<input type="radio" id="flag-<%=item.PostID %>-3" name="flagTypeId" value="3"/>
-			<label for="flag-<%=item.PostID %>-3">
-				Needs serious improvement</label>
-			<br />
-				<input type="submit" value="Flag" />
-			<% }
-	  }
-	  else
-	  { %>
-			<p>You must be logged in as a user who is not suspended and who has confirmed their email address to flag a post.</p>
-			<% } %>
+			| <div class="thread-post-functions-link"><%=Html.ActionLink("Reply to this post","Reply","Discuss",new { threadID = Model.Thread.ThreadID, postID = item.PostID})%></div>
 			</div>
 		</div>
 		<% } %>
@@ -80,13 +66,10 @@
 	</div>
 	<div id="pagination">
 		<% Html.RenderPartial("PageNumbers", Model.PageNumbers);%></div>
-	<div id="reply"><!-- TODO: Reply -->
+	<div id="reply">
 		<div class="boxbutton">
-			<%=Html.ActionLink("Create new","Submit","Discuss",new { boardID = long.Parse(ViewData["BoardID"].ToString())})%></div>
+			<%=Html.ActionLink("Reply","Reply","Discuss",new { threadID = Model.Thread.ThreadID})%></div>
 	</div>
-	<p>
-		<%= Html.ActionLink("Create New", "Create") %>
-	</p>
 
 </asp:Content>
 

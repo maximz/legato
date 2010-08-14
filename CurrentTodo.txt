@@ -10,9 +10,10 @@ Akismet report spam/spam checking + captcha!
 
 Lucene.Net for Discuss
 
-Remove Flag form from ReadThread - have the flag link direct the user to Flag() instead
 
-PostReplies.aspx view
-
+download html agility pack, copy two classes from html2txt directory into helpers
+	used for:
+		converting html of body of text into text format for lucene.net indexing
+		for first 200/400 characters of a post
 
 Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/3409843/how-can-i-validate-a-viewmodel-in-jquery-dialog

@@ -44,10 +44,6 @@
 	<div id="pagination"><% Html.RenderPartial("PageNumbers", ViewData["PageNumbers"]);%></div>
 
 	<div id="createnew"><div class="boxbutton"><%=Html.ActionLink("Create new","Submit","Discuss",new { boardID = long.Parse(ViewData["BoardID"].ToString())})%></div></div>
-	
-	<p>
-		<%= Html.ActionLink("Create New", "Create") %>
-	</p>
 
 </asp:Content>
 
