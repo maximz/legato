@@ -8,12 +8,6 @@ Akismet report spam/spam checking + captcha!
 			- "submit"
 			- etc.
 
-Lucene.Net for Discuss
-
-
-download html agility pack, copy two classes from html2txt directory into helpers
-	used for:
-		converting html of body of text into text format for lucene.net indexing
-		for first 200/400 characters of a post
+Lucene.Net for Discuss - when adding documents, be sure to convert html into text format first (use extension method on string class)
 
 Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/3409843/how-can-i-validate-a-viewmodel-in-jquery-dialog
