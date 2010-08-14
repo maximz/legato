@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetOpenAuth, Version=3.4.3.10103, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL" />
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL" />
     <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,6 +99,7 @@
     <Compile Include="Helpers\Crypto.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
     <Compile Include="Helpers\DataKeys.cs" />
+    <Compile Include="Helpers\HtmlConvert.cs" />
     <Compile Include="Helpers\HtmlUtilities.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\PageNumber.cs" />
@@ -215,6 +217,7 @@
     <Content Include="Content\upvote-on.png" />
     <Content Include="Content\upvote.png" />
     <Content Include="Helpers\DotNetOpenAuth.dll" />
+    <Content Include="Helpers\HtmlAgilityPack.dll" />
     <Content Include="Helpers\MarkdownSharp.dll" />
     <Content Include="Helpers\MvcReCaptcha.dll" />
     <Content Include="Helpers\Recaptcha.dll" />

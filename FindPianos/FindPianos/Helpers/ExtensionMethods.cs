@@ -83,6 +83,14 @@ namespace FindPianos.Helpers
             return string.Format("{0}...", Truncate(s, maxLength - 3));
         }
 
+        public static string ConvertHtmlIntoText(this string s)
+        {
+            var converter = new HtmlToText();
+            var forret = converter.ConvertHtml(s);
+            converter = null;
+            return forret;
+        }
+
         /// <summary>
         /// Produces a URL-friendly version of this String, "like-this-one".
         /// </summary>
