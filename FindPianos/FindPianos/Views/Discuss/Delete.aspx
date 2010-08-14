@@ -29,7 +29,9 @@
 		<input type="submit" value="Delete" />
 	</p>
 	<% } %>
-
+	<div>
+		<%= Html.ActionLink("Cancel and return to post", "IndividualPostRedirect", new { postID = ViewData["PostID"]})%>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">

@@ -10,9 +10,9 @@ Akismet report spam/spam checking + captcha!
 
 Lucene.Net for Discuss
 
-Flag in separate View
+Remove Flag form from ReadThread - have the flag link direct the user to Flag() instead
 
-
+PostReplies.aspx view
 
 
 Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/3409843/how-can-i-validate-a-viewmodel-in-jquery-dialog
