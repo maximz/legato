@@ -14,9 +14,18 @@
 		<% foreach (var item in Model.Posts)
 		   { %>
 		<div class="thread-post">
+
+			<% if (item.Revisions[0].InReplyToPostID.HasValue)
+	  { %>
+			<div class="thread-post-inreplyto">
+			In reply to <%=Html.ActionLink("post #" + item.Revisions[0].InReplyToPostID.Value, "IndividualPostRedirect", "Discuss", new { postID = item.Revisions[0].InReplyToPostID.Value })%>:
+			</div>
+			<% } %>
+
 			<div class="thread-post-text">
 			<%=Html.Encode(item.Revisions[0].HTML)%>
 			</div>
+
 			<div class="thread-post-timestamps">
 				Post created:
 				<div class="timeago" title="<%= item.DateOfSubmission.ToString("o") %>">

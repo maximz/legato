@@ -15,7 +15,8 @@ Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/34098
 
 ask so: any way to make 960.gs syntax look better? it feels bad to have it clutter up inside html. can i have just the pure divs and stuff in html and assign the grid values inside css?
 
-display inreplytoID inside ReadThread.aspx
-
 
 implement checkflags() just like in discuss for listingcontroller
+
+read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site
+sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
