@@ -134,6 +134,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\VerifyReferrerAttribute.cs" />
     <Compile Include="Models\DiscussExtensions.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Legato.designer.cs">
@@ -270,6 +271,7 @@
     <Content Include="Views\Discuss\Delete.aspx" />
     <Content Include="Views\Discuss\Edit.aspx" />
     <Content Include="Views\Discuss\Flag.aspx" />
+    <Content Include="Views\Discuss\HiddenDueToFlags.aspx" />
     <Content Include="Views\Discuss\Index.aspx" />
     <Content Include="Views\Discuss\PostReplies.aspx" />
     <Content Include="Views\Discuss\PostTimeline.aspx" />

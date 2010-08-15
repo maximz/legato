@@ -119,7 +119,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Sales/EnumerateBox")]
-        [HttpPost][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
+        [HttpPost][VerifyReferrer][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
@@ -147,7 +147,7 @@ namespace FindPianos.Controllers
         }
         [Url("Sales/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
         public ActionResult Submit(SubmitViewModel model)
         {
@@ -275,7 +275,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Sales/Review/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [RateLimit(Name = "ListingReplyPOST", Seconds = 600)]
@@ -423,7 +423,7 @@ namespace FindPianos.Controllers
         }
         [Url("Sales/Edit/Review")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
         public ActionResult Edit(EditViewModel model)
         {
@@ -497,7 +497,7 @@ namespace FindPianos.Controllers
         #region AJAX: Flag Listings and Reviews
         [RateLimit(Name="ListingFlagListingPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Sales/Flag/Listing")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
@@ -538,7 +538,7 @@ namespace FindPianos.Controllers
         }
         [RateLimit(Name = "ListingFlagReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Sales/Flag/Review")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
@@ -582,7 +582,7 @@ namespace FindPianos.Controllers
         #region AJAX: Comment on Listings and Reviews
         [RateLimit(Name = "ListingCommentListingPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Sales/Comment/Listing")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
@@ -624,7 +624,7 @@ namespace FindPianos.Controllers
 
         [RateLimit(Name = "ListingCommentReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Sales/Comment/Review")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {

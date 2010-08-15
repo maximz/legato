@@ -118,7 +118,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Stores/EnumerateBox")]
-        [HttpPost][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
+        [HttpPost][VerifyReferrer][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             var results = StoreListing.ProcessAjaxMapSearch(new BoundingBox()
@@ -141,7 +141,7 @@ namespace FindPianos.Controllers
         }
         [Url("Stores/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name="StoreSubmitPOST", Seconds=600)]
         public ActionResult Submit(StoreSubmitViewModel model)
         {
@@ -228,7 +228,7 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Stores/Review")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [RateLimit(Name = "StoresCreateReviewPOST", Seconds = 600)]
@@ -381,7 +381,7 @@ namespace FindPianos.Controllers
         }
         [Url("Stores/Review/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name = "StoreReviewEditPOST", Seconds = 600)]
         public ActionResult EditReview(StoreEditViewModel model)
         {
@@ -458,7 +458,7 @@ namespace FindPianos.Controllers
         #region AJAX: Flag Listings and Reviews
         [RateLimit(Name="StoreFlagListingPOST", Seconds=120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Stores/Listing/Flag")]
         public ActionResult AjaxFlagListing(long idOfPost, int flagTypeId)
         {
@@ -499,7 +499,7 @@ namespace FindPianos.Controllers
         }
         [RateLimit(Name = "StoreFlagReviewPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Stores/Review/Flag")]
         public ActionResult AjaxFlagReview(long idOfPost, int flagTypeId)
         {
@@ -543,7 +543,7 @@ namespace FindPianos.Controllers
         #region AJAX: Comment on Listings and Reviews
         [RateLimit(Name = "StoreListingCommentPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Stores/Listing/Comment")]
         public ActionResult AjaxCommentListing(long idOfPost, string commentText)
         {
@@ -585,7 +585,7 @@ namespace FindPianos.Controllers
 
         [RateLimit(Name = "StoreReviewCommentPOST", Seconds = 120)]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Stores/Review/Comment")]
         public ActionResult AjaxCommentReview(long idOfPost, string commentText)
         {

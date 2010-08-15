@@ -25,7 +25,7 @@ namespace FindPianos.Controllers
         }
 
         [Url("Admin")]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         public ActionResult UserSearchByName(string nameContains)
         {
@@ -70,7 +70,7 @@ namespace FindPianos.Controllers
         }
         [Url("Admin/Users/Suspend")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         public ActionResult SuspendUser(SuspendUserViewModel model)
         {
             var sus = new UserSuspension();

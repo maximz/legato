@@ -17,12 +17,12 @@ namespace FindPianos.Controllers
         {
             return Content("NotImplemented");
         }
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")][HttpPost]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")][HttpPost][VerifyReferrer]
         public ActionResult GetListings(BoundingBox bounds, DateTime? startDateSubmission, DateTime? endDateSubmission, int? stars, int? pagenumber)
         {
             return Content("NotImplemented");
         }
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")][HttpPost]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")][HttpPost][VerifyReferrer]
         public ActionResult GetUsers(string nameContains, DateTime? startRegistration, DateTime? endRegistration, DateTime? startLastPost, DateTime? endLastPost, int? pagenumber)
         {
             return Content("NotImplemented");

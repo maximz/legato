@@ -73,7 +73,7 @@ namespace FindPianos.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Discuss/Boards/Find")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration=7200,VaryByParam="*")]
         public ActionResult FindBoardByName(string boardName)
@@ -105,7 +105,7 @@ namespace FindPianos.Controllers
             ViewData["name"] = name;
             return View();
         }
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Discuss/Boards/RequestBoard")]
         [CustomAuthorization(AuthorizeSuspended=false,AuthorizeEmailNotConfirmed=false)]
         [CaptchaValidator]
@@ -257,6 +257,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                     var thread = data.DiscussThreads.Where(t => t.ThreadID == threadID).SingleOrDefault();
                     if (thread == null)
                     {
@@ -313,6 +318,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                     return Redirect(string.Format("Discuss/Thread/{0}/Post/{1}#{1}",post.ThreadID,postID));
                 }
                 catch
@@ -338,6 +348,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                     post.Revisions = data.DiscussPostRevisions.Where(rev => rev.PostID == postID).OrderByDescending(rev => rev.EditNumber).ToList();
                     return View(post);
                 }
@@ -360,6 +375,11 @@ namespace FindPianos.Controllers
                 if(post==null)
                 {
                     return RedirectToAction("NotFound", "Error");
+                }
+                if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    return View("HiddenDueToFlags");
                 }
                 var forret = post.GetReplies();
                 foreach(var p in forret)
@@ -392,6 +412,11 @@ namespace FindPianos.Controllers
                 {
                     return RedirectToAction("NotFound","Error");
                 }
+                if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    return View("HiddenDueToFlags");
+                }
 
                 ViewData["PostNumberInThread"] = post.PostNumberInThread;
 
@@ -411,7 +436,7 @@ namespace FindPianos.Controllers
         /// <param name="expungeThread">if set to <c>true</c> [expunge thread].</param>
         /// <param name="captchaValid">if set to <c>true</c> [captcha valid].</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CaptchaValidator]
         [CustomAuthorization(AuthorizeEmailNotConfirmed=false,AuthorizeSuspended=false,AuthorizedRoles="Admin,Moderator")]
         [Url("Discuss/Delete")]
@@ -479,7 +504,7 @@ namespace FindPianos.Controllers
             return View();
         }
         [Url("Discuss/EnumerateBox")]
-        [HttpPost][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 180, VaryByParam = "*")]
+        [HttpPost][VerifyReferrer][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 180, VaryByParam = "*")]
         public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
         {
             using (var db = new LegatoDataContext())
@@ -520,7 +545,7 @@ namespace FindPianos.Controllers
         }
         [Url("Discuss/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name="DiscussSubmitPOST", Seconds=600)]
         public ActionResult Submit(DiscussCreateViewModel model)
         {
@@ -631,7 +656,7 @@ namespace FindPianos.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Discuss/Reply")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [RateLimit(Name = "DiscussReplyPOST", Seconds = 600)]
@@ -704,7 +729,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound","Error");
                     }
-                    
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     var query = db.DiscussPostRevisions.Where(r => r.PostID == postID).OrderByDescending(r => r.EditNumber);
@@ -751,7 +780,7 @@ namespace FindPianos.Controllers
         }
         [Url("Discuss/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [RateLimit(Name = "DiscussEditPOST", Seconds = 600)]
         public ActionResult Edit(DiscussEditViewModel model)
         {
@@ -768,7 +797,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     var submitterGuid = db.DiscussPostRevisions.Where(revisionforcheck => revisionforcheck.PostID == model.PostID).OrderBy(revisionforcheck=>revisionforcheck.EditNumber).First().UserID;
@@ -851,6 +884,11 @@ namespace FindPianos.Controllers
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
+                    }
                 }
                 return View(postID);
             }
@@ -864,16 +902,22 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Discuss/Flag")]
-        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId)
+        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId, bool? isNotAjax)
         {
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     //Check whether the given listing exists before creating a possibly-useless record
-                    if (db.DiscussPosts.Where(l => l.PostID == idOfPost).SingleOrDefault() == null)
+                    var post = db.DiscussPosts.Where(l => l.PostID == idOfPost).SingleOrDefault();
+                    if (post == null)
                     {
                         return RedirectToAction("NotFound", "Error");
+                    }
+                    if (!post.CheckFlagStatus() && !User.IsInRole("Moderator") && !User.IsInRole("Administrator"))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return View("HiddenDueToFlags");
                     }
 
                     //If we've gotten this far, everything's probably A-OK.
@@ -884,9 +928,16 @@ namespace FindPianos.Controllers
                     flag.PostID = idOfPost;
                     db.DiscussPostFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return new EmptyResult();
+                    if (!isNotAjax.GetValueOrDefault(false))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        return new EmptyResult();
+                    }
+                    else
+                    {
+                        //If we got here, it means the flag request was submitted from the flag view, not via AJAX.
+                        return RedirectToAction("IndividualPostRedirect", "Discuss", new { postID = idOfPost });
+                    }
                 }
             }
             catch
@@ -896,8 +947,16 @@ namespace FindPianos.Controllers
                     if error = code 500, we have reached here.
                  * 
                     if error = code 409 (conflict), user has failed rate limit check.*/
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return new EmptyResult();
+
+                if (!isNotAjax.GetValueOrDefault(false))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return new EmptyResult();
+                }
+                else
+                {
+                    return RedirectToAction("InternalServerError", "Discuss");
+                }
             }
 
         }

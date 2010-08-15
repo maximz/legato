@@ -187,7 +187,7 @@ namespace FindPianos.Controllers
         }
         [Url("Account/Register/OpenID")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers=true)]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CaptchaValidator]
         public ActionResult OpenidRegisterFormSubmit(OpenIdRegistrationViewModel model)
         {
@@ -296,7 +296,7 @@ namespace FindPianos.Controllers
         /// <param name="rememberMe">if set to <c>true</c> the user's session does not end when the browser is closed.</param>
         /// <param name="returnUrl">The return URL.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]
@@ -344,7 +344,7 @@ namespace FindPianos.Controllers
             //separated into Get and Post to prevent attacks - see http://meta.stackoverflow.com/questions/57159/stack-overflow-wmd-editor-anti-csrf/57160#57160
             return View();
         }
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Authorize]
         [Url("Account/LogOutPOST")]
         public ActionResult LogOut()
@@ -380,7 +380,7 @@ namespace FindPianos.Controllers
         /// <param name="confirmPassword">The confirm password.</param>
         /// <param name="captchaValid">if set to <c>true</c> the CAPTCHA is valid.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CaptchaValidator]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult Register(string userName, string email, string password, string confirmPassword, bool captchaValid)
@@ -591,7 +591,7 @@ namespace FindPianos.Controllers
         /// <param name="newPassword">The new password.</param>
         /// <param name="confirmPassword">The confirm password.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [CaptchaValidator]
         [Url("Account/Options/ResetPassword")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
@@ -649,7 +649,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Account/Recover/Username")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult ForgotUsername(string email)
@@ -690,7 +690,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Account/Recover/Password")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult ForgotPassword(string username)
@@ -740,7 +740,7 @@ namespace FindPianos.Controllers
         /// </summary>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Account/Recover/OpenID")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
         public ActionResult ForgotOpenID(string email)
@@ -795,7 +795,7 @@ namespace FindPianos.Controllers
         /// <param name="confirmPassword">The confirm password.</param>
         /// <returns></returns>
         [CustomAuthorization]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [Url("Account/Options/Password")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in password not being changed.")]
@@ -849,7 +849,7 @@ namespace FindPianos.Controllers
         /// <returns></returns>
         [CustomAuthorization]
         [Url("Account/Options/Email")]
-        [HttpPost]
+        [HttpPost][VerifyReferrer]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in email not being changed.")]
         public ActionResult ChangeEmail(string NewEmail, string ConfirmEmail)

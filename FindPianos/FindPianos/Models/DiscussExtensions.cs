@@ -92,6 +92,11 @@ namespace FindPianos.Models
             get;
             internal set;
         }
+        private bool? FlagStatus
+        {
+            get;
+            set;
+        }
         public void FillProperties()
         {
             using (var data = new LegatoDataContext())
@@ -99,6 +104,19 @@ namespace FindPianos.Models
                 this.Revisions = data.DiscussPostRevisions.Where(rev => rev.PostID == this.PostID).OrderByDescending(rev => rev.EditNumber).ToList();
                 this.ReplyCount = data.DiscussPosts.Where(p => p.DiscussPostRevisions.OrderByDescending(r => r.EditNumber).First().InReplyToPostID == this.PostID).Count();
             }
+        }
+        /// <summary>
+        /// Checks the flag status. If there are more than 10 flags on this post, "false" is returned; this means that the post should NOT be displayed to the general public.
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckFlagStatus()
+        {
+            if (!FlagStatus.HasValue)
+            {
+                var count = this.DiscussPostFlags.Count();
+                FlagStatus = !(count > 10);
+            }
+            return FlagStatus.Value;
         }
         public List<DiscussPost> GetReplies()
         {
