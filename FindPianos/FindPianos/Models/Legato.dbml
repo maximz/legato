@@ -356,6 +356,19 @@
       <Association Name="aspnet_User_Listing" Member="aspnet_User" ThisKey="OriginalSubmitterUserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.OneTimeRegistrationCodes" Member="OneTimeRegistrationCodes">
+    <Type Name="OneTimeRegistrationCode">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CustomWelcomeName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OpenIDWhiteList" Member="OpenIDWhiteLists">
+    <Type Name="OpenIDWhiteList">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OpenID" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="IsEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.ResetPasswordRecords" Member="ResetPasswordRecords">
     <Type Name="ResetPasswordRecord">
       <Column Name="ResetID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -664,12 +677,6 @@
       <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="ReviewRevision_VenueHour" Member="ReviewRevision" ThisKey="ReviewRevisionID" OtherKey="ReviewRevisionID" Type="ReviewRevision" IsForeignKey="true" />
       <Association Name="WeekDay_VenueHour" Member="WeekDay" ThisKey="DayOfWeek" OtherKey="WeekDayID" Type="WeekDay" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.OpenIDWhiteList" Member="OpenIDWhiteLists">
-    <Type Name="OpenIDWhiteList">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="OpenID" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

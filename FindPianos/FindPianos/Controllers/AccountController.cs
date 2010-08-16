@@ -70,15 +70,15 @@ namespace FindPianos.Controllers
             {
                 using(var db = new LegatoDataContext())
                 {
-                    var record = db.OneTimeSignupCodes.Where(s => s.Id == OneTimeSignupCode).SingleOrDefault();
+                    var record = db.OneTimeRegistrationCodes.Where(s => s.Id == OneTimeSignupCode.Value).SingleOrDefault();
                     if(record==null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
-                    ViewData["onetimesignupcode"] = OneTimeSignupCode;
-                    if(record.SpecialWelcomeName.IsNullOrEmpty())
+                    ViewData["OneTimeSignupCode"] = OneTimeSignupCode.Value.ToString();
+                    if(record.CustomWelcomeName.HasValue())
                     {
-                        ViewData["WelcomeName"] = record.SpecialWelcomeName;
+                        ViewData["WelcomeName"] = record.CustomWelcomeName.Trim();
                     }
                 }
             }
@@ -95,13 +95,25 @@ namespace FindPianos.Controllers
             {
                 // Stage 2: user submitting Identifier
                 Identifier id;
+                OneTimeRegistrationCode recordcopy = null;
                 if (Identifier.TryParse(Request.Form["openid_identifier"], out id))
                 {
                     if(WhiteListEnabled)
                     {
                         using(var db = new LegatoDataContext())
                         {
-                            if(db.OpenIDWhiteLists.FirstOrDefault(w=>w.OpenID==id.OriginalString)==null)
+                            if(Request.Form["OneTimeSignupCode"].HasValue())
+                            {
+                                var record = db.OneTimeRegistrationCodes.Where(c => c.Id.ToString() == Request.Form["OneTimeSignupCode"]).SingleOrDefault();
+                                if(record==null)
+                                {
+                                    return RedirectToAction("NotFound", "Error");
+                                }
+                                recordcopy = record;
+                                db.OneTimeRegistrationCodes.DeleteOnSubmit(record);
+                                db.SubmitChanges();
+                            }
+                            else if(db.OpenIDWhiteLists.FirstOrDefault(w=>w.OpenID==id.OriginalString)==null)
                             {
                                 //not allowed in
                                 Response.StatusCode = (int)HttpStatusCode.Forbidden;
@@ -126,12 +138,36 @@ namespace FindPianos.Controllers
                     catch (ProtocolException ex)
                     {
                         ViewData["Message"] = ex.Message;
+                        if(Request.Form["OneTimeSignupCode"].HasValue())
+                        {
+                            ViewData["OneTimeSignupCode"] = Request.Form["OneTimeSignupCode"];
+                        }
+                        if(recordcopy!=null)
+                        {
+                            using(var db = new LegatoDataContext())
+                            {
+                                db.OneTimeRegistrationCodes.InsertOnSubmit(recordcopy);
+                                db.SubmitChanges();
+                            }
+                        }
                         return View("OpenidLogin");
                     }
                 }
                 else
                 {
                     ViewData["Message"] = "Invalid OpenID";
+                    if (Request.Form["OneTimeSignupCode"].HasValue())
+                    {
+                        ViewData["OneTimeSignupCode"] = Request.Form["OneTimeSignupCode"];
+                    }
+                    if(recordcopy!=null)
+                    {
+                        using(var db = new LegatoDataContext())
+                        {
+                            db.OneTimeRegistrationCodes.InsertOnSubmit(recordcopy);
+                            db.SubmitChanges();
+                        }
+                    }
                     return View("OpenidLogin");
                 }
             }

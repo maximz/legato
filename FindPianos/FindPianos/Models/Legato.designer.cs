@@ -111,6 +111,12 @@ namespace FindPianos.Models
     partial void InsertListing(Listing instance);
     partial void UpdateListing(Listing instance);
     partial void DeleteListing(Listing instance);
+    partial void InsertOneTimeRegistrationCode(OneTimeRegistrationCode instance);
+    partial void UpdateOneTimeRegistrationCode(OneTimeRegistrationCode instance);
+    partial void DeleteOneTimeRegistrationCode(OneTimeRegistrationCode instance);
+    partial void InsertOpenIDWhiteList(OpenIDWhiteList instance);
+    partial void UpdateOpenIDWhiteList(OpenIDWhiteList instance);
+    partial void DeleteOpenIDWhiteList(OpenIDWhiteList instance);
     partial void InsertResetPasswordRecord(ResetPasswordRecord instance);
     partial void UpdateResetPasswordRecord(ResetPasswordRecord instance);
     partial void DeleteResetPasswordRecord(ResetPasswordRecord instance);
@@ -183,9 +189,6 @@ namespace FindPianos.Models
     partial void InsertVenueHour(VenueHour instance);
     partial void UpdateVenueHour(VenueHour instance);
     partial void DeleteVenueHour(VenueHour instance);
-    partial void InsertOpenIDWhiteList(OpenIDWhiteList instance);
-    partial void UpdateOpenIDWhiteList(OpenIDWhiteList instance);
-    partial void DeleteOpenIDWhiteList(OpenIDWhiteList instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -434,6 +437,22 @@ namespace FindPianos.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<OneTimeRegistrationCode> OneTimeRegistrationCodes
+		{
+			get
+			{
+				return this.GetTable<OneTimeRegistrationCode>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OpenIDWhiteList> OpenIDWhiteLists
+		{
+			get
+			{
+				return this.GetTable<OpenIDWhiteList>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ResetPasswordRecord> ResetPasswordRecords
 		{
 			get
@@ -623,14 +642,6 @@ namespace FindPianos.Models
 			get
 			{
 				return this.GetTable<VenueHour>();
-			}
-		}
-		
-		public System.Data.Linq.Table<OpenIDWhiteList> OpenIDWhiteLists
-		{
-			get
-			{
-				return this.GetTable<OpenIDWhiteList>();
 			}
 		}
 	}
@@ -8430,6 +8441,202 @@ namespace FindPianos.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OneTimeRegistrationCodes")]
+	public partial class OneTimeRegistrationCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private string _CustomWelcomeName;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnCustomWelcomeNameChanging(string value);
+    partial void OnCustomWelcomeNameChanged();
+    #endregion
+		
+		public OneTimeRegistrationCode()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomWelcomeName", DbType="NVarChar(400)")]
+		public string CustomWelcomeName
+		{
+			get
+			{
+				return this._CustomWelcomeName;
+			}
+			set
+			{
+				if ((this._CustomWelcomeName != value))
+				{
+					this.OnCustomWelcomeNameChanging(value);
+					this.SendPropertyChanging();
+					this._CustomWelcomeName = value;
+					this.SendPropertyChanged("CustomWelcomeName");
+					this.OnCustomWelcomeNameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OpenIDWhiteList")]
+	public partial class OpenIDWhiteList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ID;
+		
+		private string _OpenID;
+		
+		private bool _IsEnabled;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(long value);
+    partial void OnIDChanged();
+    partial void OnOpenIDChanging(string value);
+    partial void OnOpenIDChanged();
+    partial void OnIsEnabledChanging(bool value);
+    partial void OnIsEnabledChanged();
+    #endregion
+		
+		public OpenIDWhiteList()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenID", DbType="NVarChar(450) NOT NULL", CanBeNull=false)]
+		public string OpenID
+		{
+			get
+			{
+				return this._OpenID;
+			}
+			set
+			{
+				if ((this._OpenID != value))
+				{
+					this.OnOpenIDChanging(value);
+					this.SendPropertyChanging();
+					this._OpenID = value;
+					this.SendPropertyChanged("OpenID");
+					this.OnOpenIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsEnabled", DbType="Bit NOT NULL")]
+		public bool IsEnabled
+		{
+			get
+			{
+				return this._IsEnabled;
+			}
+			set
+			{
+				if ((this._IsEnabled != value))
+				{
+					this.OnIsEnabledChanging(value);
+					this.SendPropertyChanging();
+					this._IsEnabled = value;
+					this.SendPropertyChanged("IsEnabled");
+					this.OnIsEnabledChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResetPasswordRecords")]
 	public partial class ResetPasswordRecord : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -15286,92 +15493,6 @@ namespace FindPianos.Models
 						this._DayOfWeek = default(int);
 					}
 					this.SendPropertyChanged("WeekDay");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OpenIDWhiteList")]
-	public partial class OpenIDWhiteList : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _ID;
-		
-		private string _OpenID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(long value);
-    partial void OnIDChanged();
-    partial void OnOpenIDChanging(string value);
-    partial void OnOpenIDChanged();
-    #endregion
-		
-		public OpenIDWhiteList()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenID", DbType="NVarChar(450) NOT NULL", CanBeNull=false)]
-		public string OpenID
-		{
-			get
-			{
-				return this._OpenID;
-			}
-			set
-			{
-				if ((this._OpenID != value))
-				{
-					this.OnOpenIDChanging(value);
-					this.SendPropertyChanging();
-					this._OpenID = value;
-					this.SendPropertyChanged("OpenID");
-					this.OnOpenIDChanged();
 				}
 			}
 		}

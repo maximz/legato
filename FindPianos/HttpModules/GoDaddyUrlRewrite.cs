@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Configuration;
 
 namespace HttpModules
 {
@@ -28,17 +29,16 @@ namespace HttpModules
         private void HandleBeginRequest(object sender, EventArgs evargs)
         {
             HttpContext context = HttpContext.Current;
-            System.Collections.Specialized.NameValueCollection SimpleSettings = (System.Collections.Specialized.NameValueCollection)System.Configuration.ConfigurationSettings.GetConfig("GoDaddyUrlRewrite/SimpleSettings");
-            if (SimpleSettings != null && SimpleSettings.Count > 1)
+            var subdir = ConfigurationManager.AppSettings["GoDaddyUrlRewrite"];
+            if (!string.IsNullOrEmpty(subdir))
             {
-                var subdirectory = SimpleSettings.Get(0);
-                if(subdirectory[0]=='/')
+                if(subdir[0]=='/')
                 {
-                    subdirectory = subdirectory.Remove(0, 1);
+                    subdir = subdir.Remove(0, 1);
                 }
-                if (context.Request.Path.Contains("/" + subdirectory))
+                if (context.Request.Path.Contains("/" + subdir))
                 {
-                    HttpContext.Current.RewritePath(context.Request.Path.Replace("/" + subdirectory, ""));
+                    HttpContext.Current.RewritePath(context.Request.Path.Replace("/" + subdir, ""));
                 }
             }
         }
