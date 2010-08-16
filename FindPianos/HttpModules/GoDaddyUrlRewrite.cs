@@ -31,14 +31,14 @@ namespace HttpModules
             System.Collections.Specialized.NameValueCollection SimpleSettings = (System.Collections.Specialized.NameValueCollection)System.Configuration.ConfigurationSettings.GetConfig("GoDaddyUrlRewrite/SimpleSettings");
             if (SimpleSettings != null && SimpleSettings.Count > 1)
             {
-                //http://www.15seconds.com/issue/030522.htm
-                foreach (var key in SimpleSettings.Keys)
+                var subdirectory = SimpleSettings.Get(0);
+                if(subdirectory[0]=='/')
                 {
-                    var subdirectory = SimpleSettings(
-                    if (context.Request.Path.Contains("/" + subdirectory))
-                    {
-                        HttpContext.Current.RewritePath(context.Request.Path.Replace("/" + subdirectory, ""));
-                    }
+                    subdirectory = subdirectory.Remove(0, 1);
+                }
+                if (context.Request.Path.Contains("/" + subdirectory))
+                {
+                    HttpContext.Current.RewritePath(context.Request.Path.Replace("/" + subdirectory, ""));
                 }
             }
         }
