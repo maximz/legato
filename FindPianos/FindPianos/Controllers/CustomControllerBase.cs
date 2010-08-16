@@ -36,7 +36,7 @@ namespace FindPianos.Controllers
                 {
                     using (var db = new LegatoDataContext())
                     {
-                        whiteListEnabled = db.OpenIDWhiteLists.Count() > 0;
+                        whiteListEnabled = db.OpenIDWhiteLists.Count(w=>w.IsEnabled) > 0;
                     }
                 }
                 return whiteListEnabled.Value;

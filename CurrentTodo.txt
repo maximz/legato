@@ -24,7 +24,6 @@ implement admin panel integration for one-time registration keys
 instead of deleting all records from openid whitelist, set IsEnabled to false - also, in whitelist enabled db check, make sure to add where clause - where isenabled = true.
 admin option: enable/disable openid whitelist, add openids to whitelist, remove openids from whitelist
 
-whitelist where isenabled clause in two places
 discuss views
 sitemap
 start separating into template

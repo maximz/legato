@@ -113,7 +113,7 @@ namespace FindPianos.Controllers
                                 db.OneTimeRegistrationCodes.DeleteOnSubmit(record);
                                 db.SubmitChanges();
                             }
-                            else if(db.OpenIDWhiteLists.FirstOrDefault(w=>w.OpenID==id.OriginalString)==null)
+                            else if(db.OpenIDWhiteLists.Where(w=>w.IsEnabled).Where(w=>w.OpenID==id.OriginalString).FirstOrDefault()==null)
                             {
                                 //not allowed in
                                 Response.StatusCode = (int)HttpStatusCode.Forbidden;
