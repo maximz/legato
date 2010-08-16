@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalGzip.cs" />
+    <Compile Include="GoDaddyUrlRewrite.cs" />
     <Compile Include="IPBlacklist.cs" />
     <Compile Include="NiceErrorHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
