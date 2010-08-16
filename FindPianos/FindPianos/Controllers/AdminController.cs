@@ -105,6 +105,40 @@ namespace FindPianos.Controllers
             }
         }
 
+        #region OpenID methods
+        [HttpGet]
+        [Url("Admin/Accounts/Invite")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult GenerateOneTimeRegistrationCode()
+        {
+            return View();
+        }
+        [HttpPost][VerifyReferrer]
+        [Url("Admin/Accounts/Invite")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult GenerateOneTimeRegistrationCode(string CustomWelcomeName)
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var record = new OneTimeRegistrationCode();
+                    record.Id = Guid.NewGuid();
+                    record.CustomWelcomeName = CustomWelcomeName.HasValue() ? CustomWelcomeName.Trim() : string.Empty;
+                    db.OneTimeRegistrationCodes.InsertOnSubmit(record);
+
+                    db.SubmitChanges();
+
+                    return View("OneTimeRegCodeSuccess", record.Id);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        #endregion
+
 
     }
 }

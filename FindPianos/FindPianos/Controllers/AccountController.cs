@@ -288,6 +288,17 @@ namespace FindPianos.Controllers
                     {
                         try
                         {
+                            //Check OpenID-whitelist status and add OpenID to whitelist if needed
+                            if(WhiteListEnabled)
+                            {
+                                //If we got here, this means that the user used a valid one-time registration code.
+                                var whitelistRecord = new OpenIDWhiteList();
+                                whitelistRecord.OpenID = model.OpenIdClaim;
+                                whitelistRecord.IsEnabled = true;
+                                db.OpenIDWhiteLists.InsertOnSubmit(whitelistRecord);
+                                db.SubmitChanges();
+                            }
+
                             var userid = db.aspnet_Users.Where(u => u.UserName == model.Username).Single().UserId;
 
                             var openid = new UserOpenId();
