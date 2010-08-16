@@ -17,7 +17,7 @@ implement checkflags() just like in discuss for listingcontroller
 read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site
 sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
 
-one time openid registration key - inside admin panel
+implement admin panel integration for one-time registration keys
 	choose what roles they're applied to (cannot choose for ActiveUser and EmailNotConfirmed)
 	choose whether to display a custom welcome name (name of recepient)
 	whether to add openid into openid whitelist
