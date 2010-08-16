@@ -29,7 +29,7 @@ namespace FindPianos.Controllers
                 var discuss = db.DiscussThreads.OrderByDescending(t => t.LatestActivity).Take(5000);
                 foreach (var t in discuss)
                 {
-                    sb.Append(AddToSitemap()) //TODO
+                    //sb.Append(AddToSitemap()) //TODO
                 }
             }
             

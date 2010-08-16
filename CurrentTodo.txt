@@ -12,10 +12,6 @@ Lucene.Net for Discuss - when adding documents, be sure to convert html into tex
 
 Add ModelState.IsValid to everywhere!!! http://stackoverflow.com/questions/3409843/how-can-i-validate-a-viewmodel-in-jquery-dialog
 
-
-ask so: any way to make 960.gs syntax look better? it feels bad to have it clutter up inside html. can i have just the pure divs and stuff in html and assign the grid values inside css?
-
-
 implement checkflags() just like in discuss for listingcontroller
 
 read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site

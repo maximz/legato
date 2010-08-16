@@ -62,10 +62,26 @@ namespace FindPianos.Controllers
 
         #region OpenID Login and Registration
 
-        [Url("Account/Login")]
+        [Url("Account/Login/{OneTimeSignupCode?}")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public ActionResult Login()
+        public ActionResult Login(Guid? OneTimeSignupCode)
         {
+            if(OneTimeSignupCode.HasValue)
+            {
+                using(var db = new LegatoDataContext())
+                {
+                    var record = db.OneTimeSignupCodes.Where(s => s.Id == OneTimeSignupCode).SingleOrDefault();
+                    if(record==null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    ViewData["onetimesignupcode"] = OneTimeSignupCode;
+                    if(record.SpecialWelcomeName.IsNullOrEmpty())
+                    {
+                        ViewData["WelcomeName"] = record.SpecialWelcomeName;
+                    }
+                }
+            }
             return View("OpenidLogin");
         }
 
