@@ -21,6 +21,8 @@
     <script type="text/javascript" src="../../Scripts/jquery-1.4.2-vsdoc.js"></script>
     <% } %>
     <script type="text/javascript" src="../../Scripts/jQueryUI/1.8.2"></script>
+    <script src="../../Scripts/js/MicrosoftAjax" type="text/javascript"></script>
+    <script src="../../Scripts/js/MicrosoftMvcAjax" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server"/>
 </head>
 

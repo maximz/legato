@@ -17,7 +17,7 @@ implement checkflags() just like in discuss for listingcontroller
 read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site
 sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
 
-insert Microsoft ajax js scripts into master page
+rework master page script/css imports to use url.content()
 instead of deleting all records from openid whitelist, set IsEnabled to false - also, in whitelist enabled db check, make sure to add where clause - where isenabled = true.
 admin option: enable/disable openid whitelist, add openids to whitelist, remove openids from whitelist
 
