@@ -34,8 +34,11 @@ namespace HttpModules
         private void HandleBeginRequest(object sender, EventArgs evargs)
         {
             HttpContext context = HttpContext.Current;
-            context.Response.Filter = new GZipStream(context.Response.Filter, CompressionMode.Compress);
-            HttpContext.Current.Response.AppendHeader("Content-encoding","gzip");
+            if (context.Request.Headers["Accept-encoding"] != null && (context.Request.Headers["Accept-encoding"] as string).Contains("gzip"))
+            {
+                context.Response.Filter = new GZipStream(context.Response.Filter, CompressionMode.Compress);
+                HttpContext.Current.Response.AppendHeader("Content-encoding", "gzip");
+            }
             HttpContext.Current.Response.Cache.VaryByHeaders["Accept-encoding"] = true;
         }
     }
