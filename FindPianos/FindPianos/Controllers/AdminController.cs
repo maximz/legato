@@ -157,10 +157,18 @@ namespace FindPianos.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [HttpPost][VerifyReferrer]
+        [HttpGet]
         [Url("Admin/OpenID/Whitelist/Remove")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         public ActionResult RemoveFromOpenIDWhiteList(string OpenIDClaim)
+        {
+            return View(OpenIDClaim);
+        }
+
+        [HttpPost][VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/Remove")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult RemoveFromOpenIDWhiteList(string OpenIDClaim, bool confirm)
         {
             try
             {
@@ -188,10 +196,18 @@ namespace FindPianos.Controllers
         }
 
         [HttpPost]
-        [VerifyReferrer]
         [Url("Admin/OpenID/Whitelist/Toggle")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         public ActionResult ToggleEnabledDisabledFromOpenIDWhiteList(string OpenIDClaim)
+        {
+            return View(OpenIDClaim);
+        }
+
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/Toggle")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult ToggleEnabledDisabledFromOpenIDWhiteList(string OpenIDClaim, bool confirm)
         {
             try
             {
