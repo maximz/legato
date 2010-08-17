@@ -5,7 +5,7 @@
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | PianoSeek</title>
     <link href="<%=Url.Action("StyleSheet","CachedContentServe",new { id = "reset" }) %>" rel="Stylesheet" type="text/css" />
-    <link href="<%=Url.Action("StyleSheet","CachedContentServe", new { id = "jqueryui/pepper-grinder/jquery-ui-1.8.2/css" } ) %>" rel="Stylesheet" type="text/css" />
+    <link href="<%=Url.Action("StyleSheet","CachedContentServe", new { id = "jqueryui/pepper-grinder/jquery-ui-1.8.2" } ) %>" rel="Stylesheet" type="text/css" />
     <link href="<%=Url.Action("StyleSheet","CachedContentServe",new { id = "Site" }) %>" rel="Stylesheet" type="text/css" />
     <link href="<%=Url.Action("StyleSheet","CachedContentServe",new { id = "960" }) %>" rel="Stylesheet" type="text/css" />
     <link rel="Shortcut Icon" href="<%=Url.Action("PngImage","CachedContentServe",new { id = "favicon" }) %>" />

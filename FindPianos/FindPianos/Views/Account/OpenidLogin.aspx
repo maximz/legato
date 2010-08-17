@@ -8,6 +8,7 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
   <div class="page-description">
+  <h1>Log In or Register</h1>
 	<% if((ViewData["OneTimeSignupCode"] as string).HasValue())
 	{ %>
 		<div class="one-time-signup-welcome">
@@ -54,8 +55,8 @@
 		</form> 
   </div>
 
-  <link rel="stylesheet" href="../../Content/openid/openid.css"/>
-  <script src="../../Scripts/js/openid-jquery" type="text/javascript"></script>
+  <link rel="stylesheet" href="<%=Url.Action("OpenIDContent","CachedContentServe",new { Name = "openid.css"} ) %>"/>
+  <script src="<%=Url.Action("getSomeJavascript","CachedContentServe",new { name = "openid-jquery" }) %>" type="text/javascript"></script>
 
   <script type="text/javascript">
 	$().ready(function () {
