@@ -168,7 +168,7 @@ namespace FindPianos.Controllers
         [HttpPost][VerifyReferrer]
         [Url("Admin/OpenID/Whitelist/Remove")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        public ActionResult RemoveFromOpenIDWhiteList(string OpenIDClaim, bool confirm)
+        public ActionResult RemoveFromOpenIDWhiteList(string OpenIDClaim, string confirm)
         {
             try
             {
@@ -207,7 +207,7 @@ namespace FindPianos.Controllers
         [VerifyReferrer]
         [Url("Admin/OpenID/Whitelist/Toggle")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        public ActionResult ToggleEnabledDisabledFromOpenIDWhiteList(string OpenIDClaim, bool confirm)
+        public ActionResult ToggleEnabledDisabledFromOpenIDWhiteList(string OpenIDClaim, string confirm)
         {
             try
             {
