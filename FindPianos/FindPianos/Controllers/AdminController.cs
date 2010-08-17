@@ -106,6 +106,119 @@ namespace FindPianos.Controllers
         }
 
         #region OpenID methods
+
+        [HttpGet]
+        [Url("Admin/OpenID/Whitelist/List")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult ListOpenIDWhiteList()
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    var records = db.OpenIDWhiteLists.OrderBy(p => p.ID).ToList();
+                    return View(records);
+                }
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [HttpPost][VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/Add")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult AddToOpenIDWhiteList(string OpenIDClaim)
+        {
+            try
+            {
+                if (OpenIDClaim.IsNullOrEmpty())
+                {
+                    return RedirectToAction("BadRequest", "Error");
+                }
+                using (var db = new LegatoDataContext())
+                {
+                    var DupeCheck = db.OpenIDWhiteLists.Where(l => l.OpenID == OpenIDClaim.Trim()).SingleOrDefault();
+                    if (DupeCheck != null)
+                    {
+                        return RedirectToAction("BadRequest", "Error");
+                    }
+
+                    var record = new OpenIDWhiteList();
+                    record.IsEnabled = true;
+                    record.OpenID = OpenIDClaim.Trim();
+                    db.OpenIDWhiteLists.InsertOnSubmit(record);
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("ListOpenIDWhiteList");
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [HttpPost][VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/Remove")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult RemoveFromOpenIDWhiteList(string OpenIDClaim)
+        {
+            try
+            {
+                if (OpenIDClaim.IsNullOrEmpty())
+                {
+                    return RedirectToAction("BadRequest", "Error");
+                }
+                using (var db = new LegatoDataContext())
+                {
+                    var ExistsCheck = db.OpenIDWhiteLists.Where(l => l.OpenID == OpenIDClaim.Trim()).SingleOrDefault();
+                    if (ExistsCheck == null)
+                    {
+                        return RedirectToAction("BadRequest", "Error");
+                    }
+
+                    db.OpenIDWhiteLists.DeleteOnSubmit(ExistsCheck);
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("ListOpenIDWhiteList");
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/Toggle")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult ToggleEnabledDisabledFromOpenIDWhiteList(string OpenIDClaim)
+        {
+            try
+            {
+                if (OpenIDClaim.IsNullOrEmpty())
+                {
+                    return RedirectToAction("BadRequest", "Error");
+                }
+                using (var db = new LegatoDataContext())
+                {
+                    var ExistsCheck = db.OpenIDWhiteLists.Where(l => l.OpenID == OpenIDClaim.Trim()).SingleOrDefault();
+                    if (ExistsCheck == null)
+                    {
+                        return RedirectToAction("BadRequest", "Error");
+                    }
+
+                    ExistsCheck.IsEnabled = ExistsCheck.IsEnabled.Flip();
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("ListOpenIDWhiteList");
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+
         [HttpGet]
         [Url("Admin/Accounts/Invite")]
         [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
