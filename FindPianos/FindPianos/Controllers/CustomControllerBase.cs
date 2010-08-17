@@ -21,13 +21,13 @@ namespace FindPianos.Controllers
 
             base.Initialize(requestContext);
 
-            if (WhiteListEnabled && !(this is AccountController) && !User.Identity.IsAuthenticated)
+            if (WhiteListEnabled && !(this is AccountController || this is CachedContentServeController) && !User.Identity.IsAuthenticated)
             {
-                requestContext.HttpContext.Response.Redirect("~/Login");
+                requestContext.HttpContext.Response.Redirect("~/Account/Login");
             }
         }
 
-        static bool? whiteListEnabled;
+        static bool? whiteListEnabled = true;
         static public bool WhiteListEnabled
         {
             get

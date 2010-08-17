@@ -8,17 +8,17 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
   <div class="page-description">
-	<% if(ViewData["OneTimeSignupCode"].HasValue())
+	<% if((ViewData["OneTimeSignupCode"] as string).HasValue())
 	{ %>
 		<div class="one-time-signup-welcome">
-			<h2>Welcome<%if(ViewData["WelcomeName"].HasValue()) { %> <%=Html.Encode(ViewData["WelcomeName"])%><% } %>!</h2>
+			<h2>Welcome<%if((ViewData["WelcomeName"] as string).HasValue()) { %> <%=Html.Encode(ViewData["WelcomeName"] as string)%><% } %>!</h2>
 			<p>You've been invited to join Legato Network. To sign up, please click your OpenID account provider below.</p>
 		</div>
 	<% } %>
 	<div class="form-error">
 	</div>
 	<form id="openid_form" action="/Account/Authenticate" method="post">       
-			<% if(ViewData["OneTimeSignupCode"].HasValue()) { %><%=Html.Hidden(ViewData["OneTimeSignupCode"]) %><% } %>
+			<% if((ViewData["OneTimeSignupCode"] as string).HasValue()) { %><%=Html.Hidden(ViewData["OneTimeSignupCode"] as string) %><% } %>
 
 			<div id="openid_choice"> 
 				<p>Click your <a href="http://openid.net/what/">OpenID</a> account provider</p> 
