@@ -24,7 +24,7 @@
 			</div>
 			<% if(item.InReplyToPostID.HasValue) { %>
 			<div class="revision-replyto">
-				In reply to <%=Html.ActionLink("post #"+ Html.Encode(item.InReplyToPostID),"IndividualPostRedirect","Discuss",new { postID=item.InReplyToPostID })
+				In reply to <%=Html.ActionLink("post #"+ Html.Encode(item.InReplyToPostID),"IndividualPostRedirect","Discuss",new { postID=item.InReplyToPostID })%>
 			</div>
 			<% } %>
 		</div>
@@ -32,7 +32,7 @@
 	</div>
 
 	<p>
-		<%= Html.ActionLink("Return to post", "IndividualPostRedirect","Discuss",new { postID = model.PostID}) %>
+		<%= Html.ActionLink("Return to post", "IndividualPostRedirect","Discuss",new { postID = Model.PostID}) %>
 	</p>
 
 </asp:Content>
