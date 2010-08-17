@@ -218,6 +218,54 @@ namespace FindPianos.Controllers
             }
         }
 
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/DisableAll")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult DisableAllInOpenIDWhiteList()
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    foreach(var record in db.OpenIDWhiteLists.Where(p=>p.IsEnabled))
+                    {
+                        record.IsEnabled = false;
+                    }
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("ListOpenIDWhiteList");
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("Admin/OpenID/Whitelist/EnableAll")]
+        [CustomAuthorization(AuthorizedRoles = "Admin", AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult EnableAllInOpenIDWhiteList()
+        {
+            try
+            {
+                using (var db = new LegatoDataContext())
+                {
+                    foreach (var record in db.OpenIDWhiteLists.Where(p => !p.IsEnabled))
+                    {
+                        record.IsEnabled = true;
+                    }
+                    db.SubmitChanges();
+                }
+                return RedirectToAction("ListOpenIDWhiteList");
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
 
         [HttpGet]
         [Url("Admin/Accounts/Invite")]
