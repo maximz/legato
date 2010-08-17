@@ -903,7 +903,7 @@ namespace FindPianos.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost]
         [Url("Discuss/Flag")]
-        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId, bool? isNotAjax)
+        public ActionResult AjaxFlagPost(long idOfPost, int flagTypeId, string isNotAjax)
         {
             try
             {
@@ -929,7 +929,7 @@ namespace FindPianos.Controllers
                     flag.PostID = idOfPost;
                     db.DiscussPostFlags.InsertOnSubmit(flag);
                     db.SubmitChanges();
-                    if (!isNotAjax.GetValueOrDefault(false))
+                    if (isNotAjax.IsNullOrEmpty())
                     {
                         Response.StatusCode = (int)HttpStatusCode.OK;
                         return new EmptyResult();

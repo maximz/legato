@@ -11,6 +11,7 @@
 	<%	using (Html.BeginForm("AjaxFlagPost", "Discuss", FormMethod.Post))
 	{ %>
 	<%=Html.Hidden("idOfPost", Model)%>
+	<%=Html.Hidden("isNotAjax","Not ajax!") %>
 	<p>Flag reason:</p>
 	<input type="radio" id="flag-<%=Model%>-1" name="flagTypeId" value="1"/>
 	<label for="flag-<%=Model%>-1">Spam</label>

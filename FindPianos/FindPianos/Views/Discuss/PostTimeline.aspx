@@ -1,12 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<FindPianos.Models.DiscussPostRevision>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<FindPianos.Models.DiscussPost>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	PostTimeline
+	Post Revision Timeline
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2>PostTimeline</h2>
+	<h2>Post Revision Timeline</h2>
 
 	<table>
 		<tr>
@@ -37,7 +37,7 @@
 			</th>
 		</tr>
 
-	<% foreach (var item in Model) { %>
+	<% foreach (var item in Model.Revisions) { %>
 	
 		<tr>
 			<td>
