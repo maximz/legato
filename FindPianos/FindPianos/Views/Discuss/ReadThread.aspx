@@ -23,7 +23,7 @@
 			<% } %>
 
 			<div class="thread-post-text">
-			<%=Html.Encode(item.Revisions[0].HTML)%>
+			<%=item.Revisions[0].HTML%>
 			</div>
 
 			<div class="thread-post-timestamps">

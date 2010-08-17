@@ -949,7 +949,7 @@ namespace FindPianos.Controllers
                  * 
                     if error = code 409 (conflict), user has failed rate limit check.*/
 
-                if (!isNotAjax.GetValueOrDefault(false))
+                if (isNotAjax.IsNullOrEmpty())
                 {
                     Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     return new EmptyResult();

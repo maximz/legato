@@ -17,9 +17,7 @@ implement checkflags() just like in discuss for listingcontroller
 read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site
 sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
 
-discuss views
 sitemap
-start separating into template
-test godaddy url rewrite - doesn't work :(
 
-ALL PLACES where Revision.Html is surrounded by Html.Encode - what was I thinking? Remove Html.Encode()!!!
+
+start separating into template
