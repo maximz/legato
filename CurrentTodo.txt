@@ -17,10 +17,7 @@ implement checkflags() just like in discuss for listingcontroller
 read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-before-building-a-public-web-site
 sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
 
-instead of deleting all records from openid whitelist, set IsEnabled to false
-
-admin openidwhitelist VIEWS!
-
 discuss views
 sitemap
 start separating into template
+test godaddy url rewrite

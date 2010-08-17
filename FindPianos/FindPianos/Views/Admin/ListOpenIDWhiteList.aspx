@@ -26,8 +26,8 @@
 	
 		<tr>
 			<td>
-				<%= Html.ActionLink("Toggle status", "Details", new { id=item.ID })%> |
-				<%= Html.ActionLink("Delete", "Delete", new { id=item.ID })%>
+				<%= Html.ActionLink("Toggle status", "ToggleEnabledDisabledFromOpenIDWhiteList", new { OpenIDClaim=item.OpenID })%> |
+				<%= Html.ActionLink("Remove", "RemoveFromOpenIDWhiteList", new { OpenIDClaim=item.OpenID })%>
 			</td>
 			<td>
 				<%= Html.Encode(item.ID) %>
@@ -45,7 +45,11 @@
 	</table>
 
 	<p>
-		<%= Html.ActionLink("Create New", "Create") %>
+		<% using(Html.BeginForm("AddToOpenIDWhiteList","Admin",FormMethod.Post)) { %>
+			<label for="OpenIDClaim">Add OpenID to whitelist: </label>
+			<%=Html.TextBox("OpenIDClaim") %>
+			<p><input type="submit" value="Add!" /></p>
+		<% } %>
 	</p>
 
 </asp:Content>

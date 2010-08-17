@@ -266,8 +266,11 @@
     <Content Include="Views\Account\WhiteListBlock.aspx" />
     <Content Include="Views\Admin\GenerateOneTimeRegistrationCode.aspx" />
     <Content Include="Views\Admin\GetUserById.aspx" />
+    <Content Include="Views\Admin\ListOpenIDWhiteList.aspx" />
     <Content Include="Views\Admin\OneTimeRegCodeSuccess.aspx" />
+    <Content Include="Views\Admin\RemoveFromOpenIDWhiteList.aspx" />
     <Content Include="Views\Admin\SuspendUser.aspx" />
+    <Content Include="Views\Admin\ToggleEnabledDisabledFromOpenIDWhiteList.aspx" />
     <Content Include="Views\Admin\UserSearchByNameGET.aspx" />
     <Content Include="Views\Admin\UserSearchByNamePOST.aspx" />
     <Content Include="Views\Discuss\Delete.aspx" />
