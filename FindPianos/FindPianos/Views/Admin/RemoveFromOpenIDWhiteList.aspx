@@ -7,8 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 	<h2>Are you sure you want to remove this OpenID from the whitelist?</h2>
-	<%using (Html.BeginForm("ToggleEnabledDisabledFromOpenIDWhiteList", "Admin", FormMethod.Post))
-   { %>
+	<%using(Html.BeginForm("RemoveFromOpenIDWhiteList","Admin",FormMethod.Post)) { %>
 		<%=Html.Hidden("confirm") %>
 		<%=Html.HiddenFor(m=>m) %>
 		<input type="submit" value="I'm sure!" />
