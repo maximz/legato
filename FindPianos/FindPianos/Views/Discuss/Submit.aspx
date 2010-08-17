@@ -5,74 +5,42 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-	<h2>Submit</h2>
+	<h2>
+		Submit to <i><%=Html.Encode(Model.BoardName) %></i> board</h2>
 
 	<% using (Html.BeginForm()) {%>
 		<%= Html.ValidationSummary(true) %>
-
-		<fieldset>
-			<legend>Fields</legend>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.BoardID) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.BoardID) %>
-				<%= Html.ValidationMessageFor(model => model.BoardID) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Title) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Title) %>
-				<%= Html.ValidationMessageFor(model => model.Title) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Address) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Address) %>
-				<%= Html.ValidationMessageFor(model => model.Address) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Lat) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Lat) %>
-				<%= Html.ValidationMessageFor(model => model.Lat) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Long) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Long) %>
-				<%= Html.ValidationMessageFor(model => model.Long) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.CanSetLocation) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.CanSetLocation) %>
-				<%= Html.ValidationMessageFor(model => model.CanSetLocation) %>
-			</div>
-			
-			<p>
-				<input type="submit" value="Create" />
-			</p>
-		</fieldset>
-
-	<% } %>
-
-	<div>
-		<%= Html.ActionLink("Back to List", "Index") %>
+	<div class="editor-label">
+		<%= Html.LabelFor(model => model.Title) %>
 	</div>
-
+	<div class="editor-field">
+		<%= Html.TextBoxFor(model => model.Title) %>
+		<%= Html.ValidationMessageFor(model => model.Title) %>
+	</div>
+	<div class="editor-label">
+		<%= Html.LabelFor(model => model.Post.Markdown) %>
+	</div>
+	<div class="editor-field">
+		<%= Html.TextAreaFor(model => model.Post.Markdown) %>
+		<%= Html.ValidationMessageFor(model => model.Post.Markdown) %>
+	</div>
+	<% if(Model.CanSetLocation) { %>
+	    <div class="editor-label">
+		    <%= Html.LabelFor(model => model.Address) %>
+	    </div>
+	    <div class="editor-field">
+		    <%= Html.TextBoxFor(model => model.Address) %>
+		    <%= Html.ValidationMessageFor(model => model.Address) %>
+	    </div>
+	<% } %>
+	<%=Html.HiddenFor(model=>model.BoardID) %>
+	<p>
+		<input type="submit" value="Submit" />
+	</p>
+	<% } %>
+	<div>
+		<%= Html.ActionLink("Cancel and return to board", "ReadBoard", new { boardID = Model.BoardID, slug = HtmlUtilities.URLFriendly(Model.BoardName)})%>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">

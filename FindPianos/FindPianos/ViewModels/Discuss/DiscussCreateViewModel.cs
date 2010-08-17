@@ -17,6 +17,11 @@ namespace FindPianos.ViewModels
             get;
             set;
         }
+        public string BoardName
+        {
+            get;
+            set;
+        }
         public DiscussPostSubmissionViewModel Post
         {
             get;

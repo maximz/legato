@@ -10,59 +10,38 @@
 
 	<% using (Html.BeginForm()) {%>
 		<%= Html.ValidationSummary(true) %>
-		
-		<fieldset>
-			<legend>Fields</legend>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.CanChangeLocation) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.CanChangeLocation) %>
-				<%= Html.ValidationMessageFor(model => model.CanChangeLocation) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.PostID) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.PostID) %>
-				<%= Html.ValidationMessageFor(model => model.PostID) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Address) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Address) %>
-				<%= Html.ValidationMessageFor(model => model.Address) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Lat) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Lat, String.Format("{0:F}", Model.Lat)) %>
-				<%= Html.ValidationMessageFor(model => model.Lat) %>
-			</div>
-			
-			<div class="editor-label">
-				<%= Html.LabelFor(model => model.Long) %>
-			</div>
-			<div class="editor-field">
-				<%= Html.TextBoxFor(model => model.Long, String.Format("{0:F}", Model.Long)) %>
-				<%= Html.ValidationMessageFor(model => model.Long) %>
-			</div>
-			
-			<p>
-				<input type="submit" value="Save" />
-			</p>
-		</fieldset>
+	<div class="editor-label">
+		<%= Html.LabelFor(model => model.Post.Markdown) %>
+	</div>
+	<div class="editor-field">
+		<%= Html.TextAreaFor(model => model.Post.Markdown) %>
+		<%= Html.ValidationMessageFor(model => model.Post.Markdown) %>
+	</div>
+	<div class="editor-label">
+		<%= Html.LabelFor(model => model.Post.InReplyToPostID) %>
+	</div>
+	<div class="editor-field">
+		<%= Html.TextAreaFor(model => model.Post.InReplyToPostID) %>
+		<%= Html.ValidationMessageFor(model => model.Post.InReplyToPostID) %>
+	</div>
+	<% if (Model.CanChangeLocation)
+	   { %>
+	<div class="editor-label">
+		<%= Html.LabelFor(model => model.Address) %>
+	</div>
+	<div class="editor-field">
+		<%= Html.TextBoxFor(model => model.Address) %>
+		<%= Html.ValidationMessageFor(model => model.Address) %>
+	</div>
+	<% } %>
+	<%=Html.HiddenFor(model=>model.PostID) %>
+	<p>
+		<input type="submit" value="Edit" />
+	</p>
 
 	<% } %>
-
 	<div>
-		<%= Html.ActionLink("Back to List", "Index") %>
+		<%= Html.ActionLink("Cancel and return to post", "IndividualPostRedirect", new { postID = Model.PostID})%>
 	</div>
 
 </asp:Content>

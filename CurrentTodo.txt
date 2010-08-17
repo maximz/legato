@@ -18,6 +18,7 @@ read: http://stackoverflow.com/questions/72394/what-should-a-developer-know-befo
 sitemaps: http://www.codinghorror.com/blog/2008/10/the-importance-of-sitemaps.html
 
 discuss views
+	post-timeline
 sitemap
 start separating into template
 test godaddy url rewrite

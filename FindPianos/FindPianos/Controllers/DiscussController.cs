@@ -537,6 +537,7 @@ namespace FindPianos.Controllers
                 var model = new DiscussCreateViewModel()
                 {
                     BoardID = boardID,
+                    BoardName = board.BoardName,
                     CanSetLocation = board.IsCityBoard
                 };
                 return View(model);
