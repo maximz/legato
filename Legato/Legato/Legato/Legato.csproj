@@ -48,6 +48,9 @@
       <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="RiaLibrary.Web">
+      <HintPath>lib\RiaLibrary.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -85,9 +89,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Release Notes - Microsoft.Web.Helpers.txt" />
-    <Content Include="Scripts\jquery-1.6.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.1.js" />
-    <Content Include="Scripts\jquery-1.6.1.min.js" />
+    <Content Include="static\js\jquery-1.6.1-vsdoc.js" />
+    <Content Include="static\js\jquery-1.6.1.js" />
+    <Content Include="static\js\jquery-1.6.1.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -95,19 +99,19 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="static\css\Site.css" />
+    <Content Include="static\js\jquery-1.4.1.js" />
+    <Content Include="static\js\jquery-1.4.1.min.js" />
+    <Content Include="static\js\jquery-1.4.1-vsdoc.js" />
+    <Content Include="static\js\jquery.validate.js" />
+    <Content Include="static\js\jquery.validate.min.js" />
+    <Content Include="static\js\jquery.validate-vsdoc.js" />
+    <Content Include="static\js\MicrosoftAjax.js" />
+    <Content Include="static\js\MicrosoftAjax.debug.js" />
+    <Content Include="static\js\MicrosoftMvcAjax.js" />
+    <Content Include="static\js\MicrosoftMvcAjax.debug.js" />
+    <Content Include="static\js\MicrosoftMvcValidation.js" />
+    <Content Include="static\js\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
