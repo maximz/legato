@@ -1,0 +1,50 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+
+/* TEAM */
+  Co-Founder, Creator: Maxim Zaslavsky
+  Site: maximzaslavsky.com
+  Twitter: @zazius
+  Location: San Diego, CA
+
+/* THANKS */
+  Names (& URL): 
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Modernizr, jQuery
+  Software: ASP.NET MVC 2, SQL Server 2008, ASP.NET 4, WISCA stack (Windows, IIS, SQL Server, C#, ASP.NET), Redis
+  
+
+									
+							   -o/-                       
+							   +oo//-                     
+							  :ooo+//:                    
+							 -ooooo///-                   
+							 /oooooo//:                   
+							:ooooooo+//-                  
+						   -+oooooooo///-                 
+		   -://////////////+oooooooooo++////////////::    
+			:+ooooooooooooooooooooooooooooooooooooo+:::-  
+			  -/+ooooooooooooooooooooooooooooooo+/::////:-
+				-:+oooooooooooooooooooooooooooo/::///////:-
+				  --/+ooooooooooooooooooooo+::://////:-   
+					 -:+ooooooooooooooooo+:://////:--     
+					   /ooooooooooooooooo+//////:-        
+					  -ooooooooooooooooooo////-           
+					  /ooooooooo+oooooooooo//:            
+					 :ooooooo+/::/+oooooooo+//-           
+					-oooooo/::///////+oooooo///-          
+					/ooo+::://////:---:/+oooo//:          
+				   -o+/::///////:-      -:/+o+//-         
+				   :-:///////:-            -:/://         
+					 -////:-                 --//:        
+					   --                       -:        
+
+
+					 ~~~~~~~         ~~~~~~
+				  ~~~~~~~~~~~~~~     ~~~~~~
+				 ~~~~~~    ~~~~~~   ~~~~~~
+				~~~~~~      ~~~~~~~~~~~~~
+				~~~~~~         ~~~~~~~

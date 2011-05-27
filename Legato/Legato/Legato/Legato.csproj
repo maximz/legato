@@ -89,14 +89,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
+    <Content Include="crossdomain.xml" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="humans.txt" />
     <Content Include="lib\MvcReCaptcha.dll" />
     <Content Include="lib\Recaptcha.dll" />
     <Content Include="lib\RiaLibrary.Web.dll" />
-    <Content Include="Release Notes - Microsoft.Web.Helpers.txt" />
+    <Content Include="robots.txt" />
+    <Content Include="static\css\handheld.css" />
+    <Content Include="static\css\style.css" />
+    <Content Include="static\images\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="static\images\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="static\images\apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="static\images\apple-touch-icon-precomposed.png" />
+    <Content Include="static\images\apple-touch-icon.png" />
+    <Content Include="static\js\dd_belatedpng.js" />
     <Content Include="static\js\jquery-1.6.1-vsdoc.js" />
     <Content Include="static\js\jquery-1.6.1.js" />
     <Content Include="static\js\jquery-1.6.1.min.js" />
+    <Content Include="static\js\modernizr-1.7.min.js" />
+    <Content Include="static\js\plugins.js" />
+    <Content Include="static\js\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
