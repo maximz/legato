@@ -48,6 +48,8 @@
       <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Recaptcha, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RiaLibrary.Web">
       <HintPath>lib\RiaLibrary.Web.dll</HintPath>
     </Reference>
@@ -88,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="lib\MvcReCaptcha.dll" />
+    <Content Include="lib\Recaptcha.dll" />
+    <Content Include="lib\RiaLibrary.Web.dll" />
     <Content Include="Release Notes - Microsoft.Web.Helpers.txt" />
     <Content Include="static\js\jquery-1.6.1-vsdoc.js" />
     <Content Include="static\js\jquery-1.6.1.js" />
@@ -125,6 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
