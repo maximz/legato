@@ -33,5 +33,22 @@ namespace Legato
 
             RegisterRoutes(RouteTable.Routes);
         }
+
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            Current.Context.Response.BufferOutput = true;
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            Current.DisposeDB();
+        }
+
+        protected void Application_Exit()
+        {
+
+        }
+
     }
 }

@@ -38,12 +38,17 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth, Version=3.4.3.10103, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL" />
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Lucene.Net.Highlight, Version=2.0.0.1, Culture=neutral" />
+    <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Helpers">
       <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
@@ -53,6 +58,7 @@
     <Reference Include="RiaLibrary.Web">
       <HintPath>lib\RiaLibrary.Web.dll</HintPath>
     </Reference>
+    <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -95,9 +101,12 @@
     <Compile Include="Helpers\Crypto.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
+    <Compile Include="Helpers\DataKeys.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Geocoder.cs" />
     <Compile Include="Helpers\GlobalGzip.cs" />
+    <Compile Include="Helpers\HtmlConvert.cs" />
+    <Compile Include="Helpers\HtmlUtilities.cs" />
     <Compile Include="Helpers\IEnumerableExtensions.cs" />
     <Compile Include="Helpers\Inflector.cs" />
     <Compile Include="Helpers\IPagedList.cs" />
@@ -131,9 +140,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
+    <Content Include="lib\DotNetOpenAuth.dll" />
+    <Content Include="lib\HtmlAgilityPack.dll" />
+    <Content Include="lib\Lucene.Net.dll" />
+    <Content Include="lib\Lucene.Net.Highlight.dll" />
+    <Content Include="lib\MarkdownSharp.dll" />
     <Content Include="lib\MvcReCaptcha.dll" />
     <Content Include="lib\Recaptcha.dll" />
     <Content Include="lib\RiaLibrary.Web.dll" />
+    <Content Include="lib\RouteDebug.dll" />
     <Content Include="robots.txt" />
     <Content Include="static\css\handheld.css" />
     <Content Include="static\css\ie.css" />

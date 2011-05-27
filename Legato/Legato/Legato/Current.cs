@@ -218,55 +218,5 @@ namespace Legato
                 null);
         }
 
-        /// <summary>
-        /// manually write a message (wrapped in a simple Exception) to our standard exception log
-        /// </summary>
-        public static void LogException(string message)
-        {
-            MvcApplication.LogException(message);
-        }
-
-        /// <summary>
-        /// manually write an exception to our standard exception log
-        /// </summary>
-        public static void LogException(Exception ex)
-        {
-            MvcApplication.LogException(ex);
-        }
-
-
-        public static string GoogleAnalytics
-        {
-            get
-            {
-#if DEBUG
-                return "";
-#else
-//   return @"<script type=""text/javascript"">
-
-//  var _gaq = _gaq || [];
-//  _gaq.push(['_setAccount', 'UA-50203-8']);
-//  _gaq.push(['_trackPageview']);
-
-//  (function() {
-//    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-//    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-//    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-//  })();
-
-//</script>"; 
-
-    return "<!-- ganalytics-->";
-   
-#endif
-            }
-        }
     }
-
-    //public enum DeploymentTier
-    //{
-    //    Prod,
-    //    Dev,
-    //    Local
-    //}
 }
