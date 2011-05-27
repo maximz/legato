@@ -133,6 +133,7 @@
       <DependentUpon>Legato.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
@@ -187,6 +188,20 @@
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\plugins.js" />
     <Content Include="static\js\script.js" />
+    <Content Include="Views\Account\ChangeEmail.aspx" />
+    <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
+    <Content Include="Views\Account\ForgotOpenID.aspx" />
+    <Content Include="Views\Account\ForgotUsername.aspx" />
+    <Content Include="Views\Account\ForgotUsernameResult.aspx" />
+    <Content Include="Views\Account\LogOff.aspx" />
+    <Content Include="Views\Account\MyProfile.aspx" />
+    <Content Include="Views\Account\OpenidLogin.aspx" />
+    <Content Include="Views\Account\OpenidRegister.aspx" />
+    <Content Include="Views\Account\SentForgotOpenidEmail.aspx" />
+    <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
+    <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
+    <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
+    <Content Include="Views\Account\WhiteListBlock.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -207,10 +222,6 @@
     <Content Include="static\js\MicrosoftMvcAjax.debug.js" />
     <Content Include="static\js\MicrosoftMvcValidation.js" />
     <Content Include="static\js\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Account\ChangePassword.aspx" />
-    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
-    <Content Include="Views\Account\LogOn.aspx" />
-    <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
@@ -220,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
