@@ -82,10 +82,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomControllerBase.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Current.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AccountProfile.cs" />
+    <Compile Include="Helpers\ActionLinkExtensions.cs" />
+    <Compile Include="Helpers\AntiXSS.cs" />
+    <Compile Include="Helpers\Crypto.cs" />
+    <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Helpers\CustomCacheAttribute.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\Geocoder.cs" />
+    <Compile Include="Helpers\GlobalGzip.cs" />
+    <Compile Include="Helpers\IEnumerableExtensions.cs" />
+    <Compile Include="Helpers\Inflector.cs" />
+    <Compile Include="Helpers\IPagedList.cs" />
+    <Compile Include="Helpers\IPBlacklist.cs" />
+    <Compile Include="Helpers\IQueryableExtensions.cs" />
+    <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="Helpers\PagedList.cs" />
+    <Compile Include="Helpers\RateLimitAttribute.cs" />
+    <Compile Include="Helpers\RedirectPermanentResult.cs" />
+    <Compile Include="Helpers\UniqueStringIDGenerator.cs" />
+    <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
+    <Compile Include="Helpers\Validation\CompareValueAttribute.cs" />
+    <Compile Include="Helpers\Validation\GeocodableAttribute.cs" />
+    <Compile Include="Helpers\Validation\IsSemiValidUrlAttribute.cs" />
+    <Compile Include="Helpers\Validation\IsValidEmailAddressAttribute.cs" />
+    <Compile Include="Helpers\Validation\MaximumValueAttribute.cs" />
+    <Compile Include="Helpers\Validation\MinimumValueAttribute.cs" />
+    <Compile Include="Helpers\Validation\PropertiesMustMatchAttribute.cs" />
+    <Compile Include="Helpers\VerifyReferrerAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Legato.designer.cs">
       <AutoGen>True</AutoGen>
@@ -174,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
