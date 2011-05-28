@@ -186,6 +186,7 @@
     <Content Include="static\js\jquery-1.6.1.js" />
     <Content Include="static\js\jquery-1.6.1.min.js" />
     <Content Include="static\js\jquery.timeago.min.js" />
+    <Content Include="static\js\jquery.wmd.min.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
     <Content Include="static\js\plugins.js" />
