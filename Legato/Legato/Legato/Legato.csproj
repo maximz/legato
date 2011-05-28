@@ -191,8 +191,6 @@
     <Content Include="Views\Account\ChangeEmail.aspx" />
     <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
     <Content Include="Views\Account\ForgotOpenID.aspx" />
-    <Content Include="Views\Account\ForgotUsername.aspx" />
-    <Content Include="Views\Account\ForgotUsernameResult.aspx" />
     <Content Include="Views\Account\LogOff.aspx" />
     <Content Include="Views\Account\MyProfile.aspx" />
     <Content Include="Views\Account\OpenidLogin.aspx" />

@@ -49,32 +49,5 @@ namespace Legato.ViewModels
             set;
         }
 
-        //DU-only properties:
-        [DisplayName("Your affiliation to The Bishop's School")]
-        [Range(0,2)]
-        [Required(ErrorMessage="You must specify your affiliation to The Bishop's School.")]
-        public int BishopsAffiliation
-        {
-            get;
-            set;
-        }
-        [DisplayName("Class Year")]
-        public int? ClassYear
-        {
-            get;
-            set;
-        }
-        [DisplayName("Advisor")]
-        public string Advisor
-        {
-            get;
-            set;
-        }
-        [DisplayName("Department")]
-        public string Department
-        {
-            get;
-            set;
-        }
     }
 }

@@ -13,11 +13,11 @@
 	{ %>
 		<div class="one-time-signup-welcome">
 			<h2>Welcome <%if((ViewData["WelcomeName"] as string).HasValue()) { %> <%=Html.Encode(ViewData["WelcomeName"] as string)%><% } %>!</h2>
-			<p>You've been invited to join The Daily Urinal. To sign up, please click your OpenID account provider below.</p>
+			<p>You've been invited to join Legato Network. To sign up, please click your OpenID account provider below.</p>
 		</div>
 	<% } %>
 	<div>
-		<p>To log in or register, select your <a href="http://openid.net/what/">OpenID account provider</a> below. If you are a student at The Bishop's School, please click the Bishop's School Email option to log in.</p>
+		<p>To log in or register, select your <a href="http://openid.net/what/">OpenID account provider</a> below.</p>
 	</div>
 	<div class="form-error">
 	</div>

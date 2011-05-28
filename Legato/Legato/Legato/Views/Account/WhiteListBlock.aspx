@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 	<h2>Sorry, but you're not allowed to access this site.</h2>
-	<p>The Daily Urinal website is open only to students and faculty of The Bishop's School. Sorry for any inconveniences.</p>
+	<p>Legato Network is currently only open to a few beta users. Sorry for any inconveniences.</p>
 
 </asp:Content>
 

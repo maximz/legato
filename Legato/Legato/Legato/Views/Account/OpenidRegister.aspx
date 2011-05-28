@@ -29,25 +29,6 @@
                     <%= Html.TextBoxFor(m=>m.EmailAddress) %>
                     <%= Html.ValidationMessageFor(m=>m.EmailAddress) %>
                 </p>
-<%--                <p>
-                    <%= Html.LabelFor(m=>m.ConfirmEmailAddress) %>
-                    <%= Html.TextBoxFor(m=>m.ConfirmEmailAddress) %>
-                    <%= Html.ValidationMessageFor(m=>m.ConfirmEmailAddress) %>
-                </p>--%>
-                <p>Are you affiliated with The Bishop's School?</p>
-                <p><%=Html.ValidationMessageFor(m=>m.BishopsAffiliation) %></p>
-                <%= Html.RadioButton("BishopsAffiliation", "0") %>
-                No
-                <br />
-                <%= Html.RadioButton("BishopsAffiliation", "1")%>
-                Yes, I'm a student at Bishop's. My class year is <%=Html.TextBoxFor(m=>m.ClassYear) %> and my advisor is currently <%=Html.TextBoxFor(m=>m.Advisor) %>.
-                <br /><%=Html.ValidationMessageFor(m=>m.ClassYear) %><%=Html.ValidationMessageFor(m=>m.Advisor) %>
-                <br />
-                <%= Html.RadioButton("BishopsAffiliation", "2")%>
-                Yes, I am a member of the faculty or staff of Bishop's. My department is <%=Html.TextBoxFor(m=>m.Department) %>.
-                <br /><%=Html.ValidationMessageFor(m=>m.Department) %>
-                <%=Html.Hidden("BishopsAffiliation",null) /* see http://stackoverflow.com/questions/722655/asp-net-mvc-html-radiobutton-exception */ %>
-
                 <p>
                     <label for="CAPTCHA">Verification word(s):</label>
                     <%= Html.GenerateCaptcha() %>
