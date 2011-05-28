@@ -185,9 +185,31 @@
     <Content Include="static\js\jquery-1.6.1-vsdoc.js" />
     <Content Include="static\js\jquery-1.6.1.js" />
     <Content Include="static\js\jquery-1.6.1.min.js" />
+    <Content Include="static\js\jquery.timeago.min.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
+    <Content Include="static\js\openid-jquery.js" />
     <Content Include="static\js\plugins.js" />
     <Content Include="static\js\script.js" />
+    <Content Include="static\openid\aol.gif" />
+    <Content Include="static\openid\bishops.gif" />
+    <Content Include="static\openid\blogger.ico" />
+    <Content Include="static\openid\claimid.ico" />
+    <Content Include="static\openid\facebook.gif" />
+    <Content Include="static\openid\flickr.ico" />
+    <Content Include="static\openid\google.gif" />
+    <Content Include="static\openid\google_profile.png" />
+    <Content Include="static\openid\livejournal.ico" />
+    <Content Include="static\openid\myopenid.ico" />
+    <Content Include="static\openid\openid-inputicon.gif" />
+    <Content Include="static\openid\openid-large.png" />
+    <Content Include="static\openid\openid.css" />
+    <Content Include="static\openid\openid.gif" />
+    <Content Include="static\openid\technorati.ico" />
+    <Content Include="static\openid\verisign.gif" />
+    <Content Include="static\openid\verisign.ico" />
+    <Content Include="static\openid\vidoop.ico" />
+    <Content Include="static\openid\wordpress.ico" />
+    <Content Include="static\openid\yahoo.gif" />
     <Content Include="Views\Account\ChangeEmail.aspx" />
     <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
     <Content Include="Views\Account\ForgotOpenID.aspx" />
@@ -239,6 +261,8 @@
       <LastGenOutput>Legato.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="static\openid\bishopsemail-smaller.psd" />
+    <None Include="static\openid\bishopsemail.psd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -263,7 +287,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>9141</DevelopmentServerPort>
+          <DevelopmentServerPort>17799</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

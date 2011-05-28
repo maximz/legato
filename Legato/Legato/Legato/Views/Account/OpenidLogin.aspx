@@ -57,8 +57,8 @@
 		</form> 
   </div>
 
-  <link rel="stylesheet" href="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "openid/openid.css"} ) %>"/>
-  <script src="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "js/openid-jquery.js" }) %>" type="text/javascript"></script>
+  <link rel="stylesheet" href="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "/static/openid/openid.css"} ) %>"/>
+  <script src="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "/static/js/openid-jquery.js" }) %>" type="text/javascript"></script>
 
   <script type="text/javascript">
 	$().ready(function () {
