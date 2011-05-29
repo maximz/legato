@@ -39,6 +39,8 @@
 	   { %>
 	<script type="text/javascript" src="/static/js/jquery-1.6.1-vsdoc.js"></script>
 	<% } %>
+
+	<asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 
 <body>
@@ -75,10 +77,15 @@
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
 	<script src="/static/js/plugins.js"></script>
 	<script src="/static/js/script.js"></script>
+		
 	<!--[if lt IE 7 ]>
 	<script src="/static/js/dd_belatedpng.js"></script>
 	<script> DD_belatedPNG.fix('img, .png_bg');</script>
 	<![endif]-->
+	
+	<asp:ContentPlaceHolder ID="ScriptContentAtEndOfBody" runat="server" />
+	
+	<!-- Start GAnalytics -->
 	<script>
 		var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
 		(function (d, t) {
@@ -87,5 +94,6 @@
 			s.parentNode.insertBefore(g, s)
 		} (document, 'script'));
 	</script>
+	<!-- End GAnalytics -->
 </body>
 </html>

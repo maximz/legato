@@ -6,12 +6,12 @@ This code is licenced under the New BSD License.
 */
 
 var providers_large = {
-	bishops: {
-		id: 'bishops',
-		file: 'bishops.gif',
-		name: "The Bishop's School Student Email",
-		url: 'https://www.google.com/accounts/o8/id',
-	},
+//	dedicated: {
+//		id: 'legato',
+//		file: 'legato.gif',
+//		name: "Legato OpenID",
+//		url: 'https://www.google.com/accounts/o8/id',
+//	},
 	google: {
 		id: 'google',
 		file: 'google.gif',
@@ -24,12 +24,13 @@ var providers_large = {
 		url: 'http://yahoo.com/',
 		file: 'yahoo.gif'
 	},
-//	myopenid: {
-//		name: 'MyOpenID',
-//		label: 'Enter your MyOpenID username',
-//		url: 'http://{username}.myopenid.com/',
-//		file: 'myopenid.ico'
-//	},
+	myopenid: {
+		id: 'myopenid',
+		name: 'MyOpenID',
+		label: 'Enter your MyOpenID username',
+		url: 'http://{username}.myopenid.com/',
+		file: 'myopenid.png'
+	},
 	aol: {
 		id: 'aol',
 		name: 'AOL',
@@ -98,7 +99,7 @@ var openid = {
 	cookie_name: 'openid_provider',
 	cookie_path: '/',
 
-	img_path: '../../Content/openid/',
+	img_path: '/static/openid/',
 
 	input_id: null,
 	provider_url: null,

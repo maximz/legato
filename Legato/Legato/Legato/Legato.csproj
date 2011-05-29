@@ -192,7 +192,6 @@
     <Content Include="static\js\plugins.js" />
     <Content Include="static\js\script.js" />
     <Content Include="static\openid\aol.gif" />
-    <Content Include="static\openid\bishops.gif" />
     <Content Include="static\openid\blogger.ico" />
     <Content Include="static\openid\claimid.ico" />
     <Content Include="static\openid\facebook.gif" />
@@ -201,6 +200,7 @@
     <Content Include="static\openid\google_profile.png" />
     <Content Include="static\openid\livejournal.ico" />
     <Content Include="static\openid\myopenid.ico" />
+    <Content Include="static\openid\myopenid.png" />
     <Content Include="static\openid\openid-inputicon.gif" />
     <Content Include="static\openid\openid-large.png" />
     <Content Include="static\openid\openid.css" />
@@ -262,8 +262,6 @@
       <LastGenOutput>Legato.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="static\openid\bishopsemail-smaller.psd" />
-    <None Include="static\openid\bishopsemail.psd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

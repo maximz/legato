@@ -21,7 +21,7 @@
 	</div>
 	<div class="form-error">
 	</div>
-	<form id="openid_form" action="/Account/Authenticate" method="post">       
+	<form id="openid_form" action="<%=Url.Action("Authenticate","Account") %>" method="post">       
 			<% if((ViewData["OneTimeSignupCode"] as string).HasValue()) { %><%=Html.Hidden("OneTimeSignupCode",ViewData["OneTimeSignupCode"] as string) %><% } %>
 
 			<div id="openid_choice"> 
@@ -57,8 +57,14 @@
 		</form> 
   </div>
 
-  <link rel="stylesheet" href="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "/static/openid/openid.css"} ) %>"/>
-  <script src="<%=Url.Action("GetStaticContent","CachedContentServe",new { id = "/static/js/openid-jquery.js" }) %>" type="text/javascript"></script>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
+	<link rel="stylesheet" href="/static/openid/openid.css"/>
+</asp:Content>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ScriptContentAtEndOfBody" runat="server">
+  <script src="/static/js/openid-jquery.js" type="text/javascript"></script>
 
   <script type="text/javascript">
 	$().ready(function () {
