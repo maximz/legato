@@ -331,7 +331,7 @@ namespace Legato.Controllers
                             db.SubmitChanges();
                         }
 
-                        var userid = db.aspnet_Users.Where(u => u.UserName == model.Nickname).Single().UserId;
+                        var userid = db.aspnet_Users.Where(u => u.UserName == model.Nickname).Single().UserId; // if we fail here, this usually means that we didn't specify a constant ApplicationName in Web.config, so each user has multiple entries in that table.
 
                         var openid = new UserOpenId();
                         openid.OpenIdClaim = DecryptedOpenID;

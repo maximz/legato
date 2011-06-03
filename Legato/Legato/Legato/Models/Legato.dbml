@@ -12,14 +12,12 @@
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Users" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_User" />
     </Type>
   </Table>
-  <Table Name="dbo.UserSuspensions" Member="UserSuspensions">
-    <Type Name="UserSuspension">
-      <Column Name="SuspensionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Reason" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="SuspensionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ReinstateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="aspnet_User_UserSuspension" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+  <Table Name="dbo.VoteTypes" Member="VoteTypes">
+    <Type Name="VoteType">
+      <Column Name="VoteTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RepImpact" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="VoteType_Vote" Member="Votes" ThisKey="VoteTypeID" OtherKey="VoteType" Type="Vote" />
     </Type>
   </Table>
   <Table Name="dbo.aspnet_Membership" Member="aspnet_Memberships">
@@ -118,12 +116,18 @@
       <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
       <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_Membership" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Membership" Cardinality="One" />
       <Association Name="aspnet_User_aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers" ThisKey="UserId" OtherKey="UserId" Type="aspnet_PersonalizationPerUser" />
       <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_Profile" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Profile" Cardinality="One" />
       <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="aspnet_UsersInRole" />
+      <Association Name="aspnet_User_GlobalPostID" Member="GlobalPostIDs" ThisKey="UserId" OtherKey="UserID" Type="GlobalPostID" />
+      <Association Name="aspnet_User_InstrumentReviewRevision" Member="InstrumentReviewRevisions" ThisKey="UserId" OtherKey="UserID" Type="InstrumentReviewRevision" />
+      <Association Name="aspnet_User_InstrumentReview" Member="InstrumentReviews" ThisKey="UserId" OtherKey="UserID" Type="InstrumentReview" />
+      <Association Name="aspnet_User_Instrument" Member="Instruments" ThisKey="UserId" OtherKey="UserID" Type="Instrument" />
       <Association Name="aspnet_User_UserOpenId" Member="UserOpenIds" ThisKey="UserId" OtherKey="UserId" Type="UserOpenId" />
+      <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
+      <Association Name="aspnet_User_Vote" Member="Votes" ThisKey="UserId" OtherKey="UserAffectedByVoteID" Type="Vote" />
+      <Association Name="aspnet_User_Vote1" Member="Votes1" ThisKey="UserId" OtherKey="VoterID" Type="Vote" />
       <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
     </Type>
   </Table>
@@ -161,6 +165,89 @@
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.GlobalPostIDs" Member="GlobalPostIDs">
+    <Type Name="GlobalPostID">
+      <Column Name="GlobalPostID" Member="GlobalPostID1" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SpecificPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PostCategory" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="GlobalPostID_Vote" Member="Votes" ThisKey="GlobalPostID1" OtherKey="PostID" Type="Vote" />
+      <Association Name="aspnet_User_GlobalPostID" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InstrumentHours" Member="InstrumentHours">
+    <Type Name="InstrumentHour">
+      <Column Name="HoursID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstrumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Day" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OpenTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="CloseTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Association Name="Instrument_InstrumentHour" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InstrumentReviewRevisions" Member="InstrumentReviewRevisions">
+    <Type Name="InstrumentReviewRevision">
+      <Column Name="RevisionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReviewID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RatingGeneral" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingTuning" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingToneQuality" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingPlayingCapability" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RatingVenue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastUseDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="MessageMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="MessageHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_InstrumentReviewRevision" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="InstrumentReview_InstrumentReviewRevision" Member="InstrumentReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="InstrumentReview" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InstrumentReviews" Member="InstrumentReviews">
+    <Type Name="InstrumentReview">
+      <Column Name="ReviewID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstrumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="InstrumentReview_InstrumentReviewRevision" Member="InstrumentReviewRevisions" ThisKey="ReviewID" OtherKey="ReviewID" Type="InstrumentReviewRevision" />
+      <Association Name="aspnet_User_InstrumentReview" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="Instrument_InstrumentReview" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Instruments" Member="Instruments">
+    <Type Name="Instrument">
+      <Column Name="InstrumentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ListingClass" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="VenueName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubmissionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="GeneralInfoMarkdown" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GeneralInfoHTML" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ListingViews" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TimeSpanOfPrice" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Association Name="Instrument_InstrumentHour" Member="InstrumentHours" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentHour" />
+      <Association Name="Instrument_InstrumentReview" Member="InstrumentReviews" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentReview" />
+      <Association Name="aspnet_User_Instrument" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="InstrumentType_Instrument" Member="InstrumentType" ThisKey="TypeID" OtherKey="TypeID" Type="InstrumentType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InstrumentTypes" Member="InstrumentTypes">
+    <Type Name="InstrumentType">
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="AllowedInPublic" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AllowedInRent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AllowedInSale" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="InstrumentType_Instrument" Member="Instruments" ThisKey="TypeID" OtherKey="TypeID" Type="Instrument" />
+    </Type>
+  </Table>
   <Table Name="dbo.OneTimeRegistrationCodes" Member="OneTimeRegistrationCodes">
     <Type Name="OneTimeRegistrationCode">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -188,6 +275,30 @@
       <Column Name="OpenIdClaim" Type="System.String" DbType="NVarChar(450) NOT NULL" CanBeNull="false" />
       <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="aspnet_User_UserOpenId" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserSuspensions" Member="UserSuspensions">
+    <Type Name="UserSuspension">
+      <Column Name="SuspensionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SuspensionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReinstateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_UserSuspension" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Votes" Member="Votes">
+    <Type Name="Vote">
+      <Column Name="VoteID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VoterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserAffectedByVoteID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="PostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VoteType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VoteDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="GlobalPostID_Vote" Member="GlobalPostID" ThisKey="PostID" OtherKey="GlobalPostID1" Type="GlobalPostID" IsForeignKey="true" />
+      <Association Name="VoteType_Vote" Member="VoteType1" ThisKey="VoteType" OtherKey="VoteTypeID" Type="VoteType" IsForeignKey="true" />
+      <Association Name="aspnet_User_Vote" Member="aspnet_User" ThisKey="UserAffectedByVoteID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="aspnet_User_Vote1" Member="aspnet_User1" ThisKey="VoterID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

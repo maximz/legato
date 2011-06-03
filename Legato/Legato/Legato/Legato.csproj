@@ -91,6 +91,7 @@
     <Compile Include="Controllers\CustomControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Current.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -106,6 +107,7 @@
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
     <Compile Include="Helpers\DataKeys.cs" />
+    <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Geocoder.cs" />
     <Compile Include="Helpers\GlobalGzip.cs" />
@@ -130,7 +132,7 @@
     <Compile Include="Helpers\Validation\MinimumValueAttribute.cs" />
     <Compile Include="Helpers\Validation\PropertiesMustMatchAttribute.cs" />
     <Compile Include="Helpers\VerifyReferrerAttribute.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Legato.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -138,6 +140,14 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\EditViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\EquipmentViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\ListingSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\ReadListingViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\ReplyViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\RevisionSubmissionViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\SubmitViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
@@ -233,6 +243,12 @@
     <Content Include="Views\Error\Forbidden.aspx" />
     <Content Include="Views\Error\InternalServerError.aspx" />
     <Content Include="Views\Error\NotFound.aspx" />
+    <Content Include="Views\Instruments\Edit.aspx" />
+    <Content Include="Views\Instruments\IndividualReview.aspx" />
+    <Content Include="Views\Instruments\List.aspx" />
+    <Content Include="Views\Instruments\Read.aspx" />
+    <Content Include="Views\Instruments\ReviewTimeline.aspx" />
+    <Content Include="Views\Instruments\Submit.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

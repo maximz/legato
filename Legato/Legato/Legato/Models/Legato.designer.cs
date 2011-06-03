@@ -33,9 +33,9 @@ namespace Legato.Models
     partial void Insertaspnet_Application(aspnet_Application instance);
     partial void Updateaspnet_Application(aspnet_Application instance);
     partial void Deleteaspnet_Application(aspnet_Application instance);
-    partial void InsertUserSuspension(UserSuspension instance);
-    partial void UpdateUserSuspension(UserSuspension instance);
-    partial void DeleteUserSuspension(UserSuspension instance);
+    partial void InsertVoteType(VoteType instance);
+    partial void UpdateVoteType(VoteType instance);
+    partial void DeleteVoteType(VoteType instance);
     partial void Insertaspnet_Membership(aspnet_Membership instance);
     partial void Updateaspnet_Membership(aspnet_Membership instance);
     partial void Deleteaspnet_Membership(aspnet_Membership instance);
@@ -69,6 +69,24 @@ namespace Legato.Models
     partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void InsertGlobalPostID(GlobalPostID instance);
+    partial void UpdateGlobalPostID(GlobalPostID instance);
+    partial void DeleteGlobalPostID(GlobalPostID instance);
+    partial void InsertInstrumentHour(InstrumentHour instance);
+    partial void UpdateInstrumentHour(InstrumentHour instance);
+    partial void DeleteInstrumentHour(InstrumentHour instance);
+    partial void InsertInstrumentReviewRevision(InstrumentReviewRevision instance);
+    partial void UpdateInstrumentReviewRevision(InstrumentReviewRevision instance);
+    partial void DeleteInstrumentReviewRevision(InstrumentReviewRevision instance);
+    partial void InsertInstrumentReview(InstrumentReview instance);
+    partial void UpdateInstrumentReview(InstrumentReview instance);
+    partial void DeleteInstrumentReview(InstrumentReview instance);
+    partial void InsertInstrument(Instrument instance);
+    partial void UpdateInstrument(Instrument instance);
+    partial void DeleteInstrument(Instrument instance);
+    partial void InsertInstrumentType(InstrumentType instance);
+    partial void UpdateInstrumentType(InstrumentType instance);
+    partial void DeleteInstrumentType(InstrumentType instance);
     partial void InsertOneTimeRegistrationCode(OneTimeRegistrationCode instance);
     partial void UpdateOneTimeRegistrationCode(OneTimeRegistrationCode instance);
     partial void DeleteOneTimeRegistrationCode(OneTimeRegistrationCode instance);
@@ -81,6 +99,12 @@ namespace Legato.Models
     partial void InsertUserOpenId(UserOpenId instance);
     partial void UpdateUserOpenId(UserOpenId instance);
     partial void DeleteUserOpenId(UserOpenId instance);
+    partial void InsertUserSuspension(UserSuspension instance);
+    partial void UpdateUserSuspension(UserSuspension instance);
+    partial void DeleteUserSuspension(UserSuspension instance);
+    partial void InsertVote(Vote instance);
+    partial void UpdateVote(Vote instance);
+    partial void DeleteVote(Vote instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -121,11 +145,11 @@ namespace Legato.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<UserSuspension> UserSuspensions
+		public System.Data.Linq.Table<VoteType> VoteTypes
 		{
 			get
 			{
-				return this.GetTable<UserSuspension>();
+				return this.GetTable<VoteType>();
 			}
 		}
 		
@@ -217,6 +241,54 @@ namespace Legato.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<GlobalPostID> GlobalPostIDs
+		{
+			get
+			{
+				return this.GetTable<GlobalPostID>();
+			}
+		}
+		
+		public System.Data.Linq.Table<InstrumentHour> InstrumentHours
+		{
+			get
+			{
+				return this.GetTable<InstrumentHour>();
+			}
+		}
+		
+		public System.Data.Linq.Table<InstrumentReviewRevision> InstrumentReviewRevisions
+		{
+			get
+			{
+				return this.GetTable<InstrumentReviewRevision>();
+			}
+		}
+		
+		public System.Data.Linq.Table<InstrumentReview> InstrumentReviews
+		{
+			get
+			{
+				return this.GetTable<InstrumentReview>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Instrument> Instruments
+		{
+			get
+			{
+				return this.GetTable<Instrument>();
+			}
+		}
+		
+		public System.Data.Linq.Table<InstrumentType> InstrumentTypes
+		{
+			get
+			{
+				return this.GetTable<InstrumentType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<OneTimeRegistrationCode> OneTimeRegistrationCodes
 		{
 			get
@@ -246,6 +318,22 @@ namespace Legato.Models
 			get
 			{
 				return this.GetTable<UserOpenId>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UserSuspension> UserSuspensions
+		{
+			get
+			{
+				return this.GetTable<UserSuspension>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Vote> Votes
+		{
+			get
+			{
+				return this.GetTable<Vote>();
 			}
 		}
 	}
@@ -496,181 +584,108 @@ namespace Legato.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserSuspensions")]
-	public partial class UserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VoteTypes")]
+	public partial class VoteType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _SuspensionID;
+		private int _VoteTypeID;
 		
-		private System.Guid _UserID;
+		private string _Name;
 		
-		private string _Reason;
+		private int _RepImpact;
 		
-		private System.DateTime _SuspensionDate;
-		
-		private System.DateTime _ReinstateDate;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
+		private EntitySet<Vote> _Votes;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnSuspensionIDChanging(int value);
-    partial void OnSuspensionIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
-    partial void OnUserIDChanged();
-    partial void OnReasonChanging(string value);
-    partial void OnReasonChanged();
-    partial void OnSuspensionDateChanging(System.DateTime value);
-    partial void OnSuspensionDateChanged();
-    partial void OnReinstateDateChanging(System.DateTime value);
-    partial void OnReinstateDateChanged();
+    partial void OnVoteTypeIDChanging(int value);
+    partial void OnVoteTypeIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnRepImpactChanging(int value);
+    partial void OnRepImpactChanged();
     #endregion
 		
-		public UserSuspension()
+		public VoteType()
 		{
-			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._Votes = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes), new Action<Vote>(this.detach_Votes));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SuspensionID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoteTypeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int VoteTypeID
 		{
 			get
 			{
-				return this._SuspensionID;
+				return this._VoteTypeID;
 			}
 			set
 			{
-				if ((this._SuspensionID != value))
+				if ((this._VoteTypeID != value))
 				{
-					this.OnSuspensionIDChanging(value);
+					this.OnVoteTypeIDChanging(value);
 					this.SendPropertyChanging();
-					this._SuspensionID = value;
-					this.SendPropertyChanged("SuspensionID");
-					this.OnSuspensionIDChanged();
+					this._VoteTypeID = value;
+					this.SendPropertyChanged("VoteTypeID");
+					this.OnVoteTypeIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
-				return this._UserID;
+				return this._Name;
 			}
 			set
 			{
-				if ((this._UserID != value))
+				if ((this._Name != value))
 				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reason", DbType="NVarChar(MAX)")]
-		public string Reason
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepImpact", DbType="Int NOT NULL")]
+		public int RepImpact
 		{
 			get
 			{
-				return this._Reason;
+				return this._RepImpact;
 			}
 			set
 			{
-				if ((this._Reason != value))
+				if ((this._RepImpact != value))
 				{
-					this.OnReasonChanging(value);
+					this.OnRepImpactChanging(value);
 					this.SendPropertyChanging();
-					this._Reason = value;
-					this.SendPropertyChanged("Reason");
-					this.OnReasonChanged();
+					this._RepImpact = value;
+					this.SendPropertyChanged("RepImpact");
+					this.OnRepImpactChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionDate", DbType="DateTime NOT NULL")]
-		public System.DateTime SuspensionDate
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VoteType_Vote", Storage="_Votes", ThisKey="VoteTypeID", OtherKey="VoteType")]
+		public EntitySet<Vote> Votes
 		{
 			get
 			{
-				return this._SuspensionDate;
+				return this._Votes;
 			}
 			set
 			{
-				if ((this._SuspensionDate != value))
-				{
-					this.OnSuspensionDateChanging(value);
-					this.SendPropertyChanging();
-					this._SuspensionDate = value;
-					this.SendPropertyChanged("SuspensionDate");
-					this.OnSuspensionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReinstateDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ReinstateDate
-		{
-			get
-			{
-				return this._ReinstateDate;
-			}
-			set
-			{
-				if ((this._ReinstateDate != value))
-				{
-					this.OnReinstateDateChanging(value);
-					this.SendPropertyChanging();
-					this._ReinstateDate = value;
-					this.SendPropertyChanged("ReinstateDate");
-					this.OnReinstateDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.UserSuspensions.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.UserSuspensions.Add(this);
-						this._UserID = value.UserId;
-					}
-					else
-					{
-						this._UserID = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
+				this._Votes.Assign(value);
 			}
 		}
 		
@@ -692,6 +707,18 @@ namespace Legato.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.VoteType1 = this;
+		}
+		
+		private void detach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.VoteType1 = null;
 		}
 	}
 	
@@ -2557,8 +2584,6 @@ namespace Legato.Models
 		
 		private System.DateTime _LastActivityDate;
 		
-		private EntitySet<UserSuspension> _UserSuspensions;
-		
 		private EntityRef<aspnet_Membership> _aspnet_Membership;
 		
 		private EntitySet<aspnet_PersonalizationPerUser> _aspnet_PersonalizationPerUsers;
@@ -2567,7 +2592,21 @@ namespace Legato.Models
 		
 		private EntitySet<aspnet_UsersInRole> _aspnet_UsersInRoles;
 		
+		private EntitySet<GlobalPostID> _GlobalPostIDs;
+		
+		private EntitySet<InstrumentReviewRevision> _InstrumentReviewRevisions;
+		
+		private EntitySet<InstrumentReview> _InstrumentReviews;
+		
+		private EntitySet<Instrument> _Instruments;
+		
 		private EntitySet<UserOpenId> _UserOpenIds;
+		
+		private EntitySet<UserSuspension> _UserSuspensions;
+		
+		private EntitySet<Vote> _Votes;
+		
+		private EntitySet<Vote> _Votes1;
 		
 		private EntityRef<aspnet_Application> _aspnet_Application;
 		
@@ -2593,12 +2632,18 @@ namespace Legato.Models
 		
 		public aspnet_User()
 		{
-			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
 			this._aspnet_Membership = default(EntityRef<aspnet_Membership>);
 			this._aspnet_PersonalizationPerUsers = new EntitySet<aspnet_PersonalizationPerUser>(new Action<aspnet_PersonalizationPerUser>(this.attach_aspnet_PersonalizationPerUsers), new Action<aspnet_PersonalizationPerUser>(this.detach_aspnet_PersonalizationPerUsers));
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
+			this._GlobalPostIDs = new EntitySet<GlobalPostID>(new Action<GlobalPostID>(this.attach_GlobalPostIDs), new Action<GlobalPostID>(this.detach_GlobalPostIDs));
+			this._InstrumentReviewRevisions = new EntitySet<InstrumentReviewRevision>(new Action<InstrumentReviewRevision>(this.attach_InstrumentReviewRevisions), new Action<InstrumentReviewRevision>(this.detach_InstrumentReviewRevisions));
+			this._InstrumentReviews = new EntitySet<InstrumentReview>(new Action<InstrumentReview>(this.attach_InstrumentReviews), new Action<InstrumentReview>(this.detach_InstrumentReviews));
+			this._Instruments = new EntitySet<Instrument>(new Action<Instrument>(this.attach_Instruments), new Action<Instrument>(this.detach_Instruments));
 			this._UserOpenIds = new EntitySet<UserOpenId>(new Action<UserOpenId>(this.attach_UserOpenIds), new Action<UserOpenId>(this.detach_UserOpenIds));
+			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
+			this._Votes = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes), new Action<Vote>(this.detach_Votes));
+			this._Votes1 = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes1), new Action<Vote>(this.detach_Votes1));
 			this._aspnet_Application = default(EntityRef<aspnet_Application>);
 			OnCreated();
 		}
@@ -2747,19 +2792,6 @@ namespace Legato.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_UserSuspensions", ThisKey="UserId", OtherKey="UserID")]
-		public EntitySet<UserSuspension> UserSuspensions
-		{
-			get
-			{
-				return this._UserSuspensions;
-			}
-			set
-			{
-				this._UserSuspensions.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_aspnet_Membership", Storage="_aspnet_Membership", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
 		public aspnet_Membership aspnet_Membership
 		{
@@ -2844,6 +2876,58 @@ namespace Legato.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_GlobalPostID", Storage="_GlobalPostIDs", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<GlobalPostID> GlobalPostIDs
+		{
+			get
+			{
+				return this._GlobalPostIDs;
+			}
+			set
+			{
+				this._GlobalPostIDs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_InstrumentReviewRevision", Storage="_InstrumentReviewRevisions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<InstrumentReviewRevision> InstrumentReviewRevisions
+		{
+			get
+			{
+				return this._InstrumentReviewRevisions;
+			}
+			set
+			{
+				this._InstrumentReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_InstrumentReview", Storage="_InstrumentReviews", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<InstrumentReview> InstrumentReviews
+		{
+			get
+			{
+				return this._InstrumentReviews;
+			}
+			set
+			{
+				this._InstrumentReviews.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Instrument", Storage="_Instruments", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<Instrument> Instruments
+		{
+			get
+			{
+				return this._Instruments;
+			}
+			set
+			{
+				this._Instruments.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserOpenId", Storage="_UserOpenIds", ThisKey="UserId", OtherKey="UserId")]
 		public EntitySet<UserOpenId> UserOpenIds
 		{
@@ -2854,6 +2938,45 @@ namespace Legato.Models
 			set
 			{
 				this._UserOpenIds.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_UserSuspensions", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<UserSuspension> UserSuspensions
+		{
+			get
+			{
+				return this._UserSuspensions;
+			}
+			set
+			{
+				this._UserSuspensions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Vote", Storage="_Votes", ThisKey="UserId", OtherKey="UserAffectedByVoteID")]
+		public EntitySet<Vote> Votes
+		{
+			get
+			{
+				return this._Votes;
+			}
+			set
+			{
+				this._Votes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Vote1", Storage="_Votes1", ThisKey="UserId", OtherKey="VoterID")]
+		public EntitySet<Vote> Votes1
+		{
+			get
+			{
+				return this._Votes1;
+			}
+			set
+			{
+				this._Votes1.Assign(value);
 			}
 		}
 		
@@ -2911,18 +3034,6 @@ namespace Legato.Models
 			}
 		}
 		
-		private void attach_UserSuspensions(UserSuspension entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = this;
-		}
-		
-		private void detach_UserSuspensions(UserSuspension entity)
-		{
-			this.SendPropertyChanging();
-			entity.aspnet_User = null;
-		}
-		
 		private void attach_aspnet_PersonalizationPerUsers(aspnet_PersonalizationPerUser entity)
 		{
 			this.SendPropertyChanging();
@@ -2947,6 +3058,54 @@ namespace Legato.Models
 			entity.aspnet_User = null;
 		}
 		
+		private void attach_GlobalPostIDs(GlobalPostID entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_GlobalPostIDs(GlobalPostID entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_InstrumentReviewRevisions(InstrumentReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_InstrumentReviewRevisions(InstrumentReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_InstrumentReviews(InstrumentReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_InstrumentReviews(InstrumentReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Instruments(Instrument entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Instruments(Instrument entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
 		private void attach_UserOpenIds(UserOpenId entity)
 		{
 			this.SendPropertyChanging();
@@ -2957,6 +3116,42 @@ namespace Legato.Models
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
+		}
+		
+		private void attach_UserSuspensions(UserSuspension entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_UserSuspensions(UserSuspension entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Votes1(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = this;
+		}
+		
+		private void detach_Votes1(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = null;
 		}
 	}
 	
@@ -3653,6 +3848,1806 @@ namespace Legato.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GlobalPostIDs")]
+	public partial class GlobalPostID : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _GlobalPostID1;
+		
+		private System.Guid _UserID;
+		
+		private int _SpecificPostID;
+		
+		private string _PostCategory;
+		
+		private EntitySet<Vote> _Votes;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnGlobalPostID1Changing(int value);
+    partial void OnGlobalPostID1Changed();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnSpecificPostIDChanging(int value);
+    partial void OnSpecificPostIDChanged();
+    partial void OnPostCategoryChanging(string value);
+    partial void OnPostCategoryChanged();
+    #endregion
+		
+		public GlobalPostID()
+		{
+			this._Votes = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes), new Action<Vote>(this.detach_Votes));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="GlobalPostID", Storage="_GlobalPostID1", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int GlobalPostID1
+		{
+			get
+			{
+				return this._GlobalPostID1;
+			}
+			set
+			{
+				if ((this._GlobalPostID1 != value))
+				{
+					this.OnGlobalPostID1Changing(value);
+					this.SendPropertyChanging();
+					this._GlobalPostID1 = value;
+					this.SendPropertyChanged("GlobalPostID1");
+					this.OnGlobalPostID1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecificPostID", DbType="Int NOT NULL")]
+		public int SpecificPostID
+		{
+			get
+			{
+				return this._SpecificPostID;
+			}
+			set
+			{
+				if ((this._SpecificPostID != value))
+				{
+					this.OnSpecificPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._SpecificPostID = value;
+					this.SendPropertyChanged("SpecificPostID");
+					this.OnSpecificPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostCategory", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string PostCategory
+		{
+			get
+			{
+				return this._PostCategory;
+			}
+			set
+			{
+				if ((this._PostCategory != value))
+				{
+					this.OnPostCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._PostCategory = value;
+					this.SendPropertyChanged("PostCategory");
+					this.OnPostCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Vote", Storage="_Votes", ThisKey="GlobalPostID1", OtherKey="PostID")]
+		public EntitySet<Vote> Votes
+		{
+			get
+			{
+				return this._Votes;
+			}
+			set
+			{
+				this._Votes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_GlobalPostID", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.GlobalPostIDs.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.GlobalPostIDs.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID = this;
+		}
+		
+		private void detach_Votes(Vote entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentHours")]
+	public partial class InstrumentHour : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _HoursID;
+		
+		private int _InstrumentID;
+		
+		private int _Day;
+		
+		private System.Nullable<System.TimeSpan> _OpenTime;
+		
+		private System.Nullable<System.TimeSpan> _CloseTime;
+		
+		private EntityRef<Instrument> _Instrument;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnHoursIDChanging(int value);
+    partial void OnHoursIDChanged();
+    partial void OnInstrumentIDChanging(int value);
+    partial void OnInstrumentIDChanged();
+    partial void OnDayChanging(int value);
+    partial void OnDayChanged();
+    partial void OnOpenTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnOpenTimeChanged();
+    partial void OnCloseTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnCloseTimeChanged();
+    #endregion
+		
+		public InstrumentHour()
+		{
+			this._Instrument = default(EntityRef<Instrument>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoursID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int HoursID
+		{
+			get
+			{
+				return this._HoursID;
+			}
+			set
+			{
+				if ((this._HoursID != value))
+				{
+					this.OnHoursIDChanging(value);
+					this.SendPropertyChanging();
+					this._HoursID = value;
+					this.SendPropertyChanged("HoursID");
+					this.OnHoursIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentID", DbType="Int NOT NULL")]
+		public int InstrumentID
+		{
+			get
+			{
+				return this._InstrumentID;
+			}
+			set
+			{
+				if ((this._InstrumentID != value))
+				{
+					if (this._Instrument.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentID = value;
+					this.SendPropertyChanged("InstrumentID");
+					this.OnInstrumentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Day", DbType="Int NOT NULL")]
+		public int Day
+		{
+			get
+			{
+				return this._Day;
+			}
+			set
+			{
+				if ((this._Day != value))
+				{
+					this.OnDayChanging(value);
+					this.SendPropertyChanging();
+					this._Day = value;
+					this.SendPropertyChanged("Day");
+					this.OnDayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenTime", DbType="Time")]
+		public System.Nullable<System.TimeSpan> OpenTime
+		{
+			get
+			{
+				return this._OpenTime;
+			}
+			set
+			{
+				if ((this._OpenTime != value))
+				{
+					this.OnOpenTimeChanging(value);
+					this.SendPropertyChanging();
+					this._OpenTime = value;
+					this.SendPropertyChanged("OpenTime");
+					this.OnOpenTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CloseTime", DbType="Time")]
+		public System.Nullable<System.TimeSpan> CloseTime
+		{
+			get
+			{
+				return this._CloseTime;
+			}
+			set
+			{
+				if ((this._CloseTime != value))
+				{
+					this.OnCloseTimeChanging(value);
+					this.SendPropertyChanging();
+					this._CloseTime = value;
+					this.SendPropertyChanged("CloseTime");
+					this.OnCloseTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentHour", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
+		public Instrument Instrument
+		{
+			get
+			{
+				return this._Instrument.Entity;
+			}
+			set
+			{
+				Instrument previousValue = this._Instrument.Entity;
+				if (((previousValue != value) 
+							|| (this._Instrument.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Instrument.Entity = null;
+						previousValue.InstrumentHours.Remove(this);
+					}
+					this._Instrument.Entity = value;
+					if ((value != null))
+					{
+						value.InstrumentHours.Add(this);
+						this._InstrumentID = value.InstrumentID;
+					}
+					else
+					{
+						this._InstrumentID = default(int);
+					}
+					this.SendPropertyChanged("Instrument");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentReviewRevisions")]
+	public partial class InstrumentReviewRevision : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RevisionID;
+		
+		private int _ReviewID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _RevisionDate;
+		
+		private int _RatingGeneral;
+		
+		private int _RatingTuning;
+		
+		private int _RatingToneQuality;
+		
+		private int _RatingPlayingCapability;
+		
+		private int _RatingVenue;
+		
+		private System.DateTime _LastUseDate;
+		
+		private string _MessageMarkdown;
+		
+		private string _MessageHTML;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<InstrumentReview> _InstrumentReview;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRevisionIDChanging(int value);
+    partial void OnRevisionIDChanged();
+    partial void OnReviewIDChanging(int value);
+    partial void OnReviewIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnRevisionDateChanging(System.DateTime value);
+    partial void OnRevisionDateChanged();
+    partial void OnRatingGeneralChanging(int value);
+    partial void OnRatingGeneralChanged();
+    partial void OnRatingTuningChanging(int value);
+    partial void OnRatingTuningChanged();
+    partial void OnRatingToneQualityChanging(int value);
+    partial void OnRatingToneQualityChanged();
+    partial void OnRatingPlayingCapabilityChanging(int value);
+    partial void OnRatingPlayingCapabilityChanged();
+    partial void OnRatingVenueChanging(int value);
+    partial void OnRatingVenueChanged();
+    partial void OnLastUseDateChanging(System.DateTime value);
+    partial void OnLastUseDateChanged();
+    partial void OnMessageMarkdownChanging(string value);
+    partial void OnMessageMarkdownChanged();
+    partial void OnMessageHTMLChanging(string value);
+    partial void OnMessageHTMLChanged();
+    #endregion
+		
+		public InstrumentReviewRevision()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._InstrumentReview = default(EntityRef<InstrumentReview>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RevisionID
+		{
+			get
+			{
+				return this._RevisionID;
+			}
+			set
+			{
+				if ((this._RevisionID != value))
+				{
+					this.OnRevisionIDChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionID = value;
+					this.SendPropertyChanged("RevisionID");
+					this.OnRevisionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", DbType="Int NOT NULL")]
+		public int ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					if (this._InstrumentReview.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RevisionDate
+		{
+			get
+			{
+				return this._RevisionDate;
+			}
+			set
+			{
+				if ((this._RevisionDate != value))
+				{
+					this.OnRevisionDateChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionDate = value;
+					this.SendPropertyChanged("RevisionDate");
+					this.OnRevisionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingGeneral", DbType="Int NOT NULL")]
+		public int RatingGeneral
+		{
+			get
+			{
+				return this._RatingGeneral;
+			}
+			set
+			{
+				if ((this._RatingGeneral != value))
+				{
+					this.OnRatingGeneralChanging(value);
+					this.SendPropertyChanging();
+					this._RatingGeneral = value;
+					this.SendPropertyChanged("RatingGeneral");
+					this.OnRatingGeneralChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingTuning", DbType="Int NOT NULL")]
+		public int RatingTuning
+		{
+			get
+			{
+				return this._RatingTuning;
+			}
+			set
+			{
+				if ((this._RatingTuning != value))
+				{
+					this.OnRatingTuningChanging(value);
+					this.SendPropertyChanging();
+					this._RatingTuning = value;
+					this.SendPropertyChanged("RatingTuning");
+					this.OnRatingTuningChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingToneQuality", DbType="Int NOT NULL")]
+		public int RatingToneQuality
+		{
+			get
+			{
+				return this._RatingToneQuality;
+			}
+			set
+			{
+				if ((this._RatingToneQuality != value))
+				{
+					this.OnRatingToneQualityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingToneQuality = value;
+					this.SendPropertyChanged("RatingToneQuality");
+					this.OnRatingToneQualityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingPlayingCapability", DbType="Int NOT NULL")]
+		public int RatingPlayingCapability
+		{
+			get
+			{
+				return this._RatingPlayingCapability;
+			}
+			set
+			{
+				if ((this._RatingPlayingCapability != value))
+				{
+					this.OnRatingPlayingCapabilityChanging(value);
+					this.SendPropertyChanging();
+					this._RatingPlayingCapability = value;
+					this.SendPropertyChanged("RatingPlayingCapability");
+					this.OnRatingPlayingCapabilityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RatingVenue", DbType="Int NOT NULL")]
+		public int RatingVenue
+		{
+			get
+			{
+				return this._RatingVenue;
+			}
+			set
+			{
+				if ((this._RatingVenue != value))
+				{
+					this.OnRatingVenueChanging(value);
+					this.SendPropertyChanging();
+					this._RatingVenue = value;
+					this.SendPropertyChanged("RatingVenue");
+					this.OnRatingVenueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUseDate", DbType="DateTime NOT NULL")]
+		public System.DateTime LastUseDate
+		{
+			get
+			{
+				return this._LastUseDate;
+			}
+			set
+			{
+				if ((this._LastUseDate != value))
+				{
+					this.OnLastUseDateChanging(value);
+					this.SendPropertyChanging();
+					this._LastUseDate = value;
+					this.SendPropertyChanged("LastUseDate");
+					this.OnLastUseDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageMarkdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageMarkdown
+		{
+			get
+			{
+				return this._MessageMarkdown;
+			}
+			set
+			{
+				if ((this._MessageMarkdown != value))
+				{
+					this.OnMessageMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._MessageMarkdown = value;
+					this.SendPropertyChanged("MessageMarkdown");
+					this.OnMessageMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageHTML", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string MessageHTML
+		{
+			get
+			{
+				return this._MessageHTML;
+			}
+			set
+			{
+				if ((this._MessageHTML != value))
+				{
+					this.OnMessageHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._MessageHTML = value;
+					this.SendPropertyChanged("MessageHTML");
+					this.OnMessageHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_InstrumentReviewRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.InstrumentReviewRevisions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.InstrumentReviewRevisions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentReview_InstrumentReviewRevision", Storage="_InstrumentReview", ThisKey="ReviewID", OtherKey="ReviewID", IsForeignKey=true)]
+		public InstrumentReview InstrumentReview
+		{
+			get
+			{
+				return this._InstrumentReview.Entity;
+			}
+			set
+			{
+				InstrumentReview previousValue = this._InstrumentReview.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentReview.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentReview.Entity = null;
+						previousValue.InstrumentReviewRevisions.Remove(this);
+					}
+					this._InstrumentReview.Entity = value;
+					if ((value != null))
+					{
+						value.InstrumentReviewRevisions.Add(this);
+						this._ReviewID = value.ReviewID;
+					}
+					else
+					{
+						this._ReviewID = default(int);
+					}
+					this.SendPropertyChanged("InstrumentReview");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentReviews")]
+	public partial class InstrumentReview : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ReviewID;
+		
+		private int _InstrumentID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _SubmitDate;
+		
+		private EntitySet<InstrumentReviewRevision> _InstrumentReviewRevisions;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<Instrument> _Instrument;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnReviewIDChanging(int value);
+    partial void OnReviewIDChanged();
+    partial void OnInstrumentIDChanging(int value);
+    partial void OnInstrumentIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnSubmitDateChanging(System.DateTime value);
+    partial void OnSubmitDateChanged();
+    #endregion
+		
+		public InstrumentReview()
+		{
+			this._InstrumentReviewRevisions = new EntitySet<InstrumentReviewRevision>(new Action<InstrumentReviewRevision>(this.attach_InstrumentReviewRevisions), new Action<InstrumentReviewRevision>(this.detach_InstrumentReviewRevisions));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._Instrument = default(EntityRef<Instrument>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReviewID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ReviewID
+		{
+			get
+			{
+				return this._ReviewID;
+			}
+			set
+			{
+				if ((this._ReviewID != value))
+				{
+					this.OnReviewIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReviewID = value;
+					this.SendPropertyChanged("ReviewID");
+					this.OnReviewIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentID", DbType="Int NOT NULL")]
+		public int InstrumentID
+		{
+			get
+			{
+				return this._InstrumentID;
+			}
+			set
+			{
+				if ((this._InstrumentID != value))
+				{
+					if (this._Instrument.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnInstrumentIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentID = value;
+					this.SendPropertyChanged("InstrumentID");
+					this.OnInstrumentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmitDate", DbType="DateTime NOT NULL")]
+		public System.DateTime SubmitDate
+		{
+			get
+			{
+				return this._SubmitDate;
+			}
+			set
+			{
+				if ((this._SubmitDate != value))
+				{
+					this.OnSubmitDateChanging(value);
+					this.SendPropertyChanging();
+					this._SubmitDate = value;
+					this.SendPropertyChanged("SubmitDate");
+					this.OnSubmitDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentReview_InstrumentReviewRevision", Storage="_InstrumentReviewRevisions", ThisKey="ReviewID", OtherKey="ReviewID")]
+		public EntitySet<InstrumentReviewRevision> InstrumentReviewRevisions
+		{
+			get
+			{
+				return this._InstrumentReviewRevisions;
+			}
+			set
+			{
+				this._InstrumentReviewRevisions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_InstrumentReview", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.InstrumentReviews.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.InstrumentReviews.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentReview", Storage="_Instrument", ThisKey="InstrumentID", OtherKey="InstrumentID", IsForeignKey=true)]
+		public Instrument Instrument
+		{
+			get
+			{
+				return this._Instrument.Entity;
+			}
+			set
+			{
+				Instrument previousValue = this._Instrument.Entity;
+				if (((previousValue != value) 
+							|| (this._Instrument.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Instrument.Entity = null;
+						previousValue.InstrumentReviews.Remove(this);
+					}
+					this._Instrument.Entity = value;
+					if ((value != null))
+					{
+						value.InstrumentReviews.Add(this);
+						this._InstrumentID = value.InstrumentID;
+					}
+					else
+					{
+						this._InstrumentID = default(int);
+					}
+					this.SendPropertyChanged("Instrument");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_InstrumentReviewRevisions(InstrumentReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentReview = this;
+		}
+		
+		private void detach_InstrumentReviewRevisions(InstrumentReviewRevision entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentReview = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Instruments")]
+	public partial class Instrument : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _InstrumentID;
+		
+		private string _ListingClass;
+		
+		private int _TypeID;
+		
+		private decimal _Lat;
+		
+		private decimal _Long;
+		
+		private string _StreetAddress;
+		
+		private string _VenueName;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _SubmissionDate;
+		
+		private string _Brand;
+		
+		private string _Model;
+		
+		private string _GeneralInfoMarkdown;
+		
+		private string _GeneralInfoHTML;
+		
+		private int _ListingViews;
+		
+		private System.Nullable<decimal> _Price;
+		
+		private string _TimeSpanOfPrice;
+		
+		private EntitySet<InstrumentHour> _InstrumentHours;
+		
+		private EntitySet<InstrumentReview> _InstrumentReviews;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<InstrumentType> _InstrumentType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnInstrumentIDChanging(int value);
+    partial void OnInstrumentIDChanged();
+    partial void OnListingClassChanging(string value);
+    partial void OnListingClassChanged();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnLatChanging(decimal value);
+    partial void OnLatChanged();
+    partial void OnLongChanging(decimal value);
+    partial void OnLongChanged();
+    partial void OnStreetAddressChanging(string value);
+    partial void OnStreetAddressChanged();
+    partial void OnVenueNameChanging(string value);
+    partial void OnVenueNameChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnSubmissionDateChanging(System.DateTime value);
+    partial void OnSubmissionDateChanged();
+    partial void OnBrandChanging(string value);
+    partial void OnBrandChanged();
+    partial void OnModelChanging(string value);
+    partial void OnModelChanged();
+    partial void OnGeneralInfoMarkdownChanging(string value);
+    partial void OnGeneralInfoMarkdownChanged();
+    partial void OnGeneralInfoHTMLChanging(string value);
+    partial void OnGeneralInfoHTMLChanged();
+    partial void OnListingViewsChanging(int value);
+    partial void OnListingViewsChanged();
+    partial void OnPriceChanging(System.Nullable<decimal> value);
+    partial void OnPriceChanged();
+    partial void OnTimeSpanOfPriceChanging(string value);
+    partial void OnTimeSpanOfPriceChanged();
+    #endregion
+		
+		public Instrument()
+		{
+			this._InstrumentHours = new EntitySet<InstrumentHour>(new Action<InstrumentHour>(this.attach_InstrumentHours), new Action<InstrumentHour>(this.detach_InstrumentHours));
+			this._InstrumentReviews = new EntitySet<InstrumentReview>(new Action<InstrumentReview>(this.attach_InstrumentReviews), new Action<InstrumentReview>(this.detach_InstrumentReviews));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._InstrumentType = default(EntityRef<InstrumentType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstrumentID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int InstrumentID
+		{
+			get
+			{
+				return this._InstrumentID;
+			}
+			set
+			{
+				if ((this._InstrumentID != value))
+				{
+					this.OnInstrumentIDChanging(value);
+					this.SendPropertyChanging();
+					this._InstrumentID = value;
+					this.SendPropertyChanged("InstrumentID");
+					this.OnInstrumentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingClass", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string ListingClass
+		{
+			get
+			{
+				return this._ListingClass;
+			}
+			set
+			{
+				if ((this._ListingClass != value))
+				{
+					this.OnListingClassChanging(value);
+					this.SendPropertyChanging();
+					this._ListingClass = value;
+					this.SendPropertyChanged("ListingClass");
+					this.OnListingClassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", DbType="Int NOT NULL")]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					if (this._InstrumentType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Lat
+		{
+			get
+			{
+				return this._Lat;
+			}
+			set
+			{
+				if ((this._Lat != value))
+				{
+					this.OnLatChanging(value);
+					this.SendPropertyChanging();
+					this._Lat = value;
+					this.SendPropertyChanged("Lat");
+					this.OnLatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Long
+		{
+			get
+			{
+				return this._Long;
+			}
+			set
+			{
+				if ((this._Long != value))
+				{
+					this.OnLongChanging(value);
+					this.SendPropertyChanging();
+					this._Long = value;
+					this.SendPropertyChanged("Long");
+					this.OnLongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetAddress", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string StreetAddress
+		{
+			get
+			{
+				return this._StreetAddress;
+			}
+			set
+			{
+				if ((this._StreetAddress != value))
+				{
+					this.OnStreetAddressChanging(value);
+					this.SendPropertyChanging();
+					this._StreetAddress = value;
+					this.SendPropertyChanged("StreetAddress");
+					this.OnStreetAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueName", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string VenueName
+		{
+			get
+			{
+				return this._VenueName;
+			}
+			set
+			{
+				if ((this._VenueName != value))
+				{
+					this.OnVenueNameChanging(value);
+					this.SendPropertyChanging();
+					this._VenueName = value;
+					this.SendPropertyChanged("VenueName");
+					this.OnVenueNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubmissionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime SubmissionDate
+		{
+			get
+			{
+				return this._SubmissionDate;
+			}
+			set
+			{
+				if ((this._SubmissionDate != value))
+				{
+					this.OnSubmissionDateChanging(value);
+					this.SendPropertyChanging();
+					this._SubmissionDate = value;
+					this.SendPropertyChanged("SubmissionDate");
+					this.OnSubmissionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="NVarChar(100)")]
+		public string Brand
+		{
+			get
+			{
+				return this._Brand;
+			}
+			set
+			{
+				if ((this._Brand != value))
+				{
+					this.OnBrandChanging(value);
+					this.SendPropertyChanging();
+					this._Brand = value;
+					this.SendPropertyChanged("Brand");
+					this.OnBrandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(100)")]
+		public string Model
+		{
+			get
+			{
+				return this._Model;
+			}
+			set
+			{
+				if ((this._Model != value))
+				{
+					this.OnModelChanging(value);
+					this.SendPropertyChanging();
+					this._Model = value;
+					this.SendPropertyChanged("Model");
+					this.OnModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeneralInfoMarkdown", DbType="NVarChar(MAX)")]
+		public string GeneralInfoMarkdown
+		{
+			get
+			{
+				return this._GeneralInfoMarkdown;
+			}
+			set
+			{
+				if ((this._GeneralInfoMarkdown != value))
+				{
+					this.OnGeneralInfoMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._GeneralInfoMarkdown = value;
+					this.SendPropertyChanged("GeneralInfoMarkdown");
+					this.OnGeneralInfoMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GeneralInfoHTML", DbType="NVarChar(MAX)")]
+		public string GeneralInfoHTML
+		{
+			get
+			{
+				return this._GeneralInfoHTML;
+			}
+			set
+			{
+				if ((this._GeneralInfoHTML != value))
+				{
+					this.OnGeneralInfoHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._GeneralInfoHTML = value;
+					this.SendPropertyChanged("GeneralInfoHTML");
+					this.OnGeneralInfoHTMLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListingViews", DbType="Int NOT NULL")]
+		public int ListingViews
+		{
+			get
+			{
+				return this._ListingViews;
+			}
+			set
+			{
+				if ((this._ListingViews != value))
+				{
+					this.OnListingViewsChanging(value);
+					this.SendPropertyChanging();
+					this._ListingViews = value;
+					this.SendPropertyChanged("ListingViews");
+					this.OnListingViewsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money")]
+		public System.Nullable<decimal> Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeSpanOfPrice", DbType="VarChar(15)")]
+		public string TimeSpanOfPrice
+		{
+			get
+			{
+				return this._TimeSpanOfPrice;
+			}
+			set
+			{
+				if ((this._TimeSpanOfPrice != value))
+				{
+					this.OnTimeSpanOfPriceChanging(value);
+					this.SendPropertyChanging();
+					this._TimeSpanOfPrice = value;
+					this.SendPropertyChanged("TimeSpanOfPrice");
+					this.OnTimeSpanOfPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentHour", Storage="_InstrumentHours", ThisKey="InstrumentID", OtherKey="InstrumentID")]
+		public EntitySet<InstrumentHour> InstrumentHours
+		{
+			get
+			{
+				return this._InstrumentHours;
+			}
+			set
+			{
+				this._InstrumentHours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Instrument_InstrumentReview", Storage="_InstrumentReviews", ThisKey="InstrumentID", OtherKey="InstrumentID")]
+		public EntitySet<InstrumentReview> InstrumentReviews
+		{
+			get
+			{
+				return this._InstrumentReviews;
+			}
+			set
+			{
+				this._InstrumentReviews.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Instrument", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Instruments.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Instruments.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_Instrument", Storage="_InstrumentType", ThisKey="TypeID", OtherKey="TypeID", IsForeignKey=true)]
+		public InstrumentType InstrumentType
+		{
+			get
+			{
+				return this._InstrumentType.Entity;
+			}
+			set
+			{
+				InstrumentType previousValue = this._InstrumentType.Entity;
+				if (((previousValue != value) 
+							|| (this._InstrumentType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._InstrumentType.Entity = null;
+						previousValue.Instruments.Remove(this);
+					}
+					this._InstrumentType.Entity = value;
+					if ((value != null))
+					{
+						value.Instruments.Add(this);
+						this._TypeID = value.TypeID;
+					}
+					else
+					{
+						this._TypeID = default(int);
+					}
+					this.SendPropertyChanged("InstrumentType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_InstrumentHours(InstrumentHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = this;
+		}
+		
+		private void detach_InstrumentHours(InstrumentHour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = null;
+		}
+		
+		private void attach_InstrumentReviews(InstrumentReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = this;
+		}
+		
+		private void detach_InstrumentReviews(InstrumentReview entity)
+		{
+			this.SendPropertyChanging();
+			entity.Instrument = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.InstrumentTypes")]
+	public partial class InstrumentType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TypeID;
+		
+		private string _Name;
+		
+		private System.Nullable<bool> _AllowedInPublic;
+		
+		private System.Nullable<bool> _AllowedInRent;
+		
+		private System.Nullable<bool> _AllowedInSale;
+		
+		private EntitySet<Instrument> _Instruments;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTypeIDChanging(int value);
+    partial void OnTypeIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnAllowedInPublicChanging(System.Nullable<bool> value);
+    partial void OnAllowedInPublicChanged();
+    partial void OnAllowedInRentChanging(System.Nullable<bool> value);
+    partial void OnAllowedInRentChanged();
+    partial void OnAllowedInSaleChanging(System.Nullable<bool> value);
+    partial void OnAllowedInSaleChanged();
+    #endregion
+		
+		public InstrumentType()
+		{
+			this._Instruments = new EntitySet<Instrument>(new Action<Instrument>(this.attach_Instruments), new Action<Instrument>(this.detach_Instruments));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int TypeID
+		{
+			get
+			{
+				return this._TypeID;
+			}
+			set
+			{
+				if ((this._TypeID != value))
+				{
+					this.OnTypeIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypeID = value;
+					this.SendPropertyChanged("TypeID");
+					this.OnTypeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllowedInPublic", DbType="Bit")]
+		public System.Nullable<bool> AllowedInPublic
+		{
+			get
+			{
+				return this._AllowedInPublic;
+			}
+			set
+			{
+				if ((this._AllowedInPublic != value))
+				{
+					this.OnAllowedInPublicChanging(value);
+					this.SendPropertyChanging();
+					this._AllowedInPublic = value;
+					this.SendPropertyChanged("AllowedInPublic");
+					this.OnAllowedInPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllowedInRent", DbType="Bit")]
+		public System.Nullable<bool> AllowedInRent
+		{
+			get
+			{
+				return this._AllowedInRent;
+			}
+			set
+			{
+				if ((this._AllowedInRent != value))
+				{
+					this.OnAllowedInRentChanging(value);
+					this.SendPropertyChanging();
+					this._AllowedInRent = value;
+					this.SendPropertyChanged("AllowedInRent");
+					this.OnAllowedInRentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllowedInSale", DbType="Bit")]
+		public System.Nullable<bool> AllowedInSale
+		{
+			get
+			{
+				return this._AllowedInSale;
+			}
+			set
+			{
+				if ((this._AllowedInSale != value))
+				{
+					this.OnAllowedInSaleChanging(value);
+					this.SendPropertyChanging();
+					this._AllowedInSale = value;
+					this.SendPropertyChanged("AllowedInSale");
+					this.OnAllowedInSaleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="InstrumentType_Instrument", Storage="_Instruments", ThisKey="TypeID", OtherKey="TypeID")]
+		public EntitySet<Instrument> Instruments
+		{
+			get
+			{
+				return this._Instruments;
+			}
+			set
+			{
+				this._Instruments.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Instruments(Instrument entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = this;
+		}
+		
+		private void detach_Instruments(Instrument entity)
+		{
+			this.SendPropertyChanging();
+			entity.InstrumentType = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OneTimeRegistrationCodes")]
 	public partial class OneTimeRegistrationCode : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4126,6 +6121,551 @@ namespace Legato.Models
 						this._UserId = default(System.Guid);
 					}
 					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserSuspensions")]
+	public partial class UserSuspension : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SuspensionID;
+		
+		private System.Guid _UserID;
+		
+		private string _Reason;
+		
+		private System.DateTime _SuspensionDate;
+		
+		private System.DateTime _ReinstateDate;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSuspensionIDChanging(int value);
+    partial void OnSuspensionIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnReasonChanging(string value);
+    partial void OnReasonChanged();
+    partial void OnSuspensionDateChanging(System.DateTime value);
+    partial void OnSuspensionDateChanged();
+    partial void OnReinstateDateChanging(System.DateTime value);
+    partial void OnReinstateDateChanged();
+    #endregion
+		
+		public UserSuspension()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SuspensionID
+		{
+			get
+			{
+				return this._SuspensionID;
+			}
+			set
+			{
+				if ((this._SuspensionID != value))
+				{
+					this.OnSuspensionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionID = value;
+					this.SendPropertyChanged("SuspensionID");
+					this.OnSuspensionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reason", DbType="NVarChar(MAX)")]
+		public string Reason
+		{
+			get
+			{
+				return this._Reason;
+			}
+			set
+			{
+				if ((this._Reason != value))
+				{
+					this.OnReasonChanging(value);
+					this.SendPropertyChanging();
+					this._Reason = value;
+					this.SendPropertyChanged("Reason");
+					this.OnReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SuspensionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime SuspensionDate
+		{
+			get
+			{
+				return this._SuspensionDate;
+			}
+			set
+			{
+				if ((this._SuspensionDate != value))
+				{
+					this.OnSuspensionDateChanging(value);
+					this.SendPropertyChanging();
+					this._SuspensionDate = value;
+					this.SendPropertyChanged("SuspensionDate");
+					this.OnSuspensionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReinstateDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ReinstateDate
+		{
+			get
+			{
+				return this._ReinstateDate;
+			}
+			set
+			{
+				if ((this._ReinstateDate != value))
+				{
+					this.OnReinstateDateChanging(value);
+					this.SendPropertyChanging();
+					this._ReinstateDate = value;
+					this.SendPropertyChanged("ReinstateDate");
+					this.OnReinstateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_UserSuspension", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.UserSuspensions.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.UserSuspensions.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Votes")]
+	public partial class Vote : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _VoteID;
+		
+		private System.Guid _VoterID;
+		
+		private System.Nullable<System.Guid> _UserAffectedByVoteID;
+		
+		private int _PostID;
+		
+		private int _VoteType;
+		
+		private System.DateTime _VoteDate;
+		
+		private EntityRef<GlobalPostID> _GlobalPostID;
+		
+		private EntityRef<VoteType> _VoteType1;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<aspnet_User> _aspnet_User1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVoteIDChanging(int value);
+    partial void OnVoteIDChanged();
+    partial void OnVoterIDChanging(System.Guid value);
+    partial void OnVoterIDChanged();
+    partial void OnUserAffectedByVoteIDChanging(System.Nullable<System.Guid> value);
+    partial void OnUserAffectedByVoteIDChanged();
+    partial void OnPostIDChanging(int value);
+    partial void OnPostIDChanged();
+    partial void OnVoteTypeChanging(int value);
+    partial void OnVoteTypeChanged();
+    partial void OnVoteDateChanging(System.DateTime value);
+    partial void OnVoteDateChanged();
+    #endregion
+		
+		public Vote()
+		{
+			this._GlobalPostID = default(EntityRef<GlobalPostID>);
+			this._VoteType1 = default(EntityRef<VoteType>);
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._aspnet_User1 = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoteID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int VoteID
+		{
+			get
+			{
+				return this._VoteID;
+			}
+			set
+			{
+				if ((this._VoteID != value))
+				{
+					this.OnVoteIDChanging(value);
+					this.SendPropertyChanging();
+					this._VoteID = value;
+					this.SendPropertyChanged("VoteID");
+					this.OnVoteIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoterID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid VoterID
+		{
+			get
+			{
+				return this._VoterID;
+			}
+			set
+			{
+				if ((this._VoterID != value))
+				{
+					if (this._aspnet_User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnVoterIDChanging(value);
+					this.SendPropertyChanging();
+					this._VoterID = value;
+					this.SendPropertyChanged("VoterID");
+					this.OnVoterIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAffectedByVoteID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> UserAffectedByVoteID
+		{
+			get
+			{
+				return this._UserAffectedByVoteID;
+			}
+			set
+			{
+				if ((this._UserAffectedByVoteID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserAffectedByVoteIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserAffectedByVoteID = value;
+					this.SendPropertyChanged("UserAffectedByVoteID");
+					this.OnUserAffectedByVoteIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int NOT NULL")]
+		public int PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._GlobalPostID.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoteType", DbType="Int NOT NULL")]
+		public int VoteType
+		{
+			get
+			{
+				return this._VoteType;
+			}
+			set
+			{
+				if ((this._VoteType != value))
+				{
+					if (this._VoteType1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnVoteTypeChanging(value);
+					this.SendPropertyChanging();
+					this._VoteType = value;
+					this.SendPropertyChanged("VoteType");
+					this.OnVoteTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VoteDate", DbType="DateTime NOT NULL")]
+		public System.DateTime VoteDate
+		{
+			get
+			{
+				return this._VoteDate;
+			}
+			set
+			{
+				if ((this._VoteDate != value))
+				{
+					this.OnVoteDateChanging(value);
+					this.SendPropertyChanging();
+					this._VoteDate = value;
+					this.SendPropertyChanged("VoteDate");
+					this.OnVoteDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Vote", Storage="_GlobalPostID", ThisKey="PostID", OtherKey="GlobalPostID1", IsForeignKey=true)]
+		public GlobalPostID GlobalPostID
+		{
+			get
+			{
+				return this._GlobalPostID.Entity;
+			}
+			set
+			{
+				GlobalPostID previousValue = this._GlobalPostID.Entity;
+				if (((previousValue != value) 
+							|| (this._GlobalPostID.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GlobalPostID.Entity = null;
+						previousValue.Votes.Remove(this);
+					}
+					this._GlobalPostID.Entity = value;
+					if ((value != null))
+					{
+						value.Votes.Add(this);
+						this._PostID = value.GlobalPostID1;
+					}
+					else
+					{
+						this._PostID = default(int);
+					}
+					this.SendPropertyChanged("GlobalPostID");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="VoteType_Vote", Storage="_VoteType1", ThisKey="VoteType", OtherKey="VoteTypeID", IsForeignKey=true)]
+		public VoteType VoteType1
+		{
+			get
+			{
+				return this._VoteType1.Entity;
+			}
+			set
+			{
+				VoteType previousValue = this._VoteType1.Entity;
+				if (((previousValue != value) 
+							|| (this._VoteType1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._VoteType1.Entity = null;
+						previousValue.Votes.Remove(this);
+					}
+					this._VoteType1.Entity = value;
+					if ((value != null))
+					{
+						value.Votes.Add(this);
+						this._VoteType = value.VoteTypeID;
+					}
+					else
+					{
+						this._VoteType = default(int);
+					}
+					this.SendPropertyChanged("VoteType1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Vote", Storage="_aspnet_User", ThisKey="UserAffectedByVoteID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Votes.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Votes.Add(this);
+						this._UserAffectedByVoteID = value.UserId;
+					}
+					else
+					{
+						this._UserAffectedByVoteID = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Vote1", Storage="_aspnet_User1", ThisKey="VoterID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User1
+		{
+			get
+			{
+				return this._aspnet_User1.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User1.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User1.Entity = null;
+						previousValue.Votes1.Remove(this);
+					}
+					this._aspnet_User1.Entity = value;
+					if ((value != null))
+					{
+						value.Votes1.Add(this);
+						this._VoterID = value.UserId;
+					}
+					else
+					{
+						this._VoterID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User1");
 				}
 			}
 		}
