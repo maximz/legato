@@ -686,8 +686,8 @@ namespace Legato.Controllers
         /// <param name="id">The id.</param>
         internal void SendPasswordResetEmail(string emailAddress, Guid id)
         {
-            const string subject = "Reset your password - The Daily Urinal";
-            const string fromName = "The Daily Urinal";
+            const string subject = "Reset your password - Legato Network";
+            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
@@ -700,9 +700,9 @@ namespace Legato.Controllers
             sb.Append(id.ToString());
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
-            sb.Append("If you did NOT select to reset your password at The Daily Urinal and believe you received this email in error, please ignore this message.");
+            sb.Append("If you did NOT select to reset your password at Legato Network and believe you received this email in error, please ignore this message.");
             sb.Append(Environment.NewLine);
-            sb.Append("- The Daily Urinal :)");
+            sb.Append("- Legato Network :)");
 
 
 
@@ -712,7 +712,7 @@ namespace Legato.Controllers
             {
                 Subject = subject,
                 Body = body,
-                From = "\"" + fromName + "\" <no-reply@dailyurinal.com>",
+                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
                 To = emailAddress,
                 BodyFormat = MailFormat.Text,
                 Priority = MailPriority.Normal
@@ -727,23 +727,23 @@ namespace Legato.Controllers
         /// <param name="id">The id.</param>
         internal void SendEmailVerificationEmail(string emailAddress, Guid id)
         {
-            const string subject = "Verify your email address - The Daily Urinal";
-            const string fromName = "The Daily Urinal";
+            const string subject = "Verify your email address - Legato Network";
+            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
             sb.Append(Environment.NewLine);
-            sb.Append("Thank you for registering at The Daily Urinal. To complete the sign up process, please verify your email address by clicking the link below.");
+            sb.Append("Thank you for registering at Legato Network. To complete the sign up process, please verify your email address by clicking the link below.");
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("Click this link to verify: ");
-            sb.Append("http://dailyurinal.com/Account/Verify/");
+            sb.Append("http://legatonetwork.com/Account/Verify/");
             sb.Append(id.ToString());
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
-            sb.Append("If you did not register for an account at The Daily Urinal and believe you received this email in error, please ignore this message.");
+            sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
             sb.Append(Environment.NewLine);
-            sb.Append("- The Daily Urinal :)");
+            sb.Append("- Legato Network :)");
 
             string body = sb.ToString();
 
@@ -751,7 +751,7 @@ namespace Legato.Controllers
             {
                 Subject = subject,
                 Body = body,
-                From = "\"" + fromName + "\" <no-reply@dailyurinal.com>",
+                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
                 To = emailAddress,
                 BodyFormat = MailFormat.Text,
                 Priority = MailPriority.Normal
@@ -766,24 +766,24 @@ namespace Legato.Controllers
         /// <param name="id">The id.</param>
         internal void SendForgotOpenIDEmail(string emailAddress, string openID)
         {
-            const string subject = "OpenID retrieval - The Daily Urinal";
-            const string fromName = "The Daily Urinal";
+            const string subject = "OpenID retrieval - Legato Network";
+            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
             sb.Append(Environment.NewLine);
-            sb.Append("Someone requested the OpenID belonging to this email address at the The Daily Urinal.");
+            sb.Append("Someone requested the OpenID belonging to this email address at the Legato Network.");
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("The OpenID belonging to the user with this email address is: ");
             sb.Append(openID);
             sb.Append(Environment.NewLine);
-            sb.Append("To log in, go to: http://dailyurinal.com/Account/Login");
+            sb.Append("To log in, go to: http://legatonetwork.com/Account/Login");
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
-            sb.Append("If you did not register for an account at The Daily Urinal and believe you received this email in error, please ignore this message.");
+            sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
             sb.Append(Environment.NewLine);
-            sb.Append("- The Daily Urinal :)");
+            sb.Append("- Legato Network :)");
 
             string body = sb.ToString();
 
@@ -791,7 +791,7 @@ namespace Legato.Controllers
             {
                 Subject = subject,
                 Body = body,
-                From = "\"" + fromName + "\" <no-reply@dailyurinal.com>",
+                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
                 To = emailAddress,
                 BodyFormat = MailFormat.Text,
                 Priority = MailPriority.Normal
