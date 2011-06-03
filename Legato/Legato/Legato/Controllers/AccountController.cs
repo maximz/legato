@@ -239,12 +239,12 @@ namespace Legato.Controllers
                             {
                                 //check whether user is suspended and whether suspension has already ended
                                 var userName = openId.aspnet_User.UserName;
-                                if (!Roles.IsUserInRole(userName, "ActiveUser"))
+                                if (!Roles.IsUserInRole(userName, RoleNames.ActiveUser))
                                 {
                                     var currentProfile = AccountProfile.GetProfileOfUser(userName);
                                     if (DateTime.Now >= currentProfile.ReinstateDate)
                                     {
-                                        Roles.AddUserToRole(userName, "ActiveUser");
+                                        Roles.AddUserToRole(userName, RoleNames.ActiveUser);
                                         currentProfile.ReinstateDate = DateTime.MinValue;
                                         currentProfile.Save();
                                     }
@@ -313,7 +313,7 @@ namespace Legato.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    Roles.AddUserToRoles(model.Nickname, new string[] { "ActiveUser", "EmailNotConfirmed" });
+                    Roles.AddUserToRoles(model.Nickname, new string[] { RoleNames.ActiveUser, RoleNames.EmailNotConfirmed });
                     AccountProfile.NewUser.Initialize(model.Nickname, true);
                     AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
                     AccountProfile.NewUser.FullName = model.FullName.Trim();
@@ -403,7 +403,7 @@ namespace Legato.Controllers
         /// Shows the suspension status of a user.
         /// </summary>
         /// <returns></returns>
-        [CustomAuthorization(UnauthorizedRoles = "ActiveUser")]
+        [CustomAuthorization(UnauthorizedRoles = RoleNames.ActiveUser)]
         [Url("Account/Status/Suspended")]
         public virtual ActionResult ShowSuspensionStatus()
         {
@@ -427,7 +427,7 @@ namespace Legato.Controllers
         [Url("Account/Status/NotVerified")]
         public virtual ActionResult ShowEmailAddressVerificationStatus()
         {
-            if (!Current.Context.User.IsInRole("EmailNotConfirmed"))
+            if (!Current.Context.User.IsInRole(RoleNames.EmailNotConfirmed))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -441,7 +441,7 @@ namespace Legato.Controllers
         [Url("Account/VerifyEmail/Resend")]
         public virtual ActionResult ResendVerificationEmail()
         {
-            if (!Current.Context.User.IsInRole("EmailNotConfirmed"))
+            if (!Current.Context.User.IsInRole(RoleNames.EmailNotConfirmed))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -455,7 +455,7 @@ namespace Legato.Controllers
             }
             catch
             {
-                Roles.RemoveUserFromRole(User.Identity.Name, "EmailNotConfirmed");
+                Roles.RemoveUserFromRole(User.Identity.Name, RoleNames.EmailNotConfirmed);
                 return RedirectToAction("Index", "Home");
             }
             try
@@ -477,7 +477,7 @@ namespace Legato.Controllers
         [Url("Account/Verify/{confirmId}")]
         public virtual ActionResult VerifyEmailAddress(Guid confirmId)
         {
-            if (!User.IsInRole("EmailNotConfirmed"))
+            if (!User.IsInRole(RoleNames.EmailNotConfirmed))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -496,7 +496,7 @@ namespace Legato.Controllers
                 }
                 db.ConfirmEmailAddresses.DeleteOnSubmit(confirm);
                 db.SubmitChanges();
-                Roles.RemoveUserFromRole(User.Identity.Name, "EmailNotConfirmed");
+                Roles.RemoveUserFromRole(User.Identity.Name, RoleNames.EmailNotConfirmed);
                 return View("VerifyEmailAddressSuccess");
             }
             catch
@@ -672,8 +672,8 @@ namespace Legato.Controllers
         public virtual ActionResult MyProfile()
         {
             ViewData["MainInfo"] = Membership.GetUser();
-            ViewData["IsEmailNotConfirmed"] = User.IsInRole("EmailNotConfirmed");
-            ViewData["IsSuspended"] = !User.IsInRole("ActiveUser");
+            ViewData["IsEmailNotConfirmed"] = User.IsInRole(RoleNames.EmailNotConfirmed);
+            ViewData["IsSuspended"] = !User.IsInRole(RoleNames.ActiveUser);
             return View();
         }
         #endregion

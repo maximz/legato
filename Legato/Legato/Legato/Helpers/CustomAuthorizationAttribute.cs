@@ -99,14 +99,14 @@ namespace Legato.Helpers
                     filterContext.HttpContext.Response.Redirect(u.Action("Forbidden", "Error"), true);
                     return;
                 }
-                if (!AuthorizeSuspended && !filterContext.HttpContext.User.IsInRole("ActiveUser"))
+                if (!AuthorizeSuspended && !filterContext.HttpContext.User.IsInRole(RoleNames.ActiveUser))
                 {
                     //Is suspended
                     filterContext.HttpContext.Response.Clear();
                     filterContext.HttpContext.Response.Redirect(u.Action("ShowSuspensionStatus", "Account"), true);
                     return;
                 }
-                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole("EmailNotConfirmed"))
+                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole(RoleNames.EmailNotConfirmed))
                 {
                     //Email hasn't been confirmed
                     filterContext.HttpContext.Response.Clear();

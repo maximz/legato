@@ -12,7 +12,7 @@
 	</p>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ScriptContentAtEndOfBody" runat="server">

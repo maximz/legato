@@ -15,4 +15,10 @@ namespace Legato.Helpers
         public const string ReturnUrl = "returnurl";
         public const string UserFlag = "m";
     }
+    public static class RoleNames
+    {
+        public const string ActiveUser = "ActiveUser";
+        public const string EmailNotConfirmed = "EmailNotConfirmed";
+        public const string Administrator = "Administrator";
+    }
 }

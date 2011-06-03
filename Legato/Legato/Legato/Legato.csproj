@@ -223,6 +223,11 @@
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
     <Content Include="Views\Account\WhiteListBlock.aspx" />
+    <Content Include="Views\Error\BadRequest.aspx" />
+    <Content Include="Views\Error\Conflict.aspx" />
+    <Content Include="Views\Error\Forbidden.aspx" />
+    <Content Include="Views\Error\InternalServerError.aspx" />
+    <Content Include="Views\Error\NotFound.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

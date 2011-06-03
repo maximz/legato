@@ -28,7 +28,7 @@ namespace Legato.Controllers
             }
         }
 
-        static bool? whiteListEnabled = true;
+        static bool? whiteListEnabled = false;
         static public bool WhiteListEnabled
         {
             get
