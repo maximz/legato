@@ -41,7 +41,7 @@ namespace Legato.Controllers
                     return RedirectToAction("Individual","Instruments", new{ instrumentID = globalpost.SpecificPostID});
                     break;
                 case "ins.rev":
-                    return RedirectToAction("Timeline","Instruments", new{ reviewID = globalpost.SpecificPostID});
+                    return RedirectToAction("IndividualReview","Instruments", new{ reviewID = globalpost.SpecificPostID});
                     break;
                 case "i.r.r":
                     var reviewr = db.InstrumentReviewRevisions.Where(r=>r.RevisionID==globalpost.SpecificPostID).SingleOrDefault();

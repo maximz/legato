@@ -50,74 +50,74 @@ namespace Legato.Controllers
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
         public ActionResult Individual(int instrumentID)
         {
-            using (var data = new LegatoDataContext())
-            {
+            var db = Current.DB;
                 try
                 {
-                    var listing = data.Listings.Where(l => l.ListingID == listingId).Single();
+                    var listing = db.Instruments.Where(l => l.InstrumentID == instrumentID).Single();
                     listing.FillProperties();
-                    var reviews = data.Reviews.Where(r => r.ListingID == listingId).ToList();
+                    var reviews = db.InstrumentReviews.Where(r => r.InstrumentID == instrumentID).ToList();
                     foreach (var r in reviews)
                     {
                         r.FillProperties();
                     }
                     var model = new ReadListingViewModel
                     {
-                        Listing = listing,
+                        Instrument = listing,
                         Reviews = reviews
                     };
-                    return View(model);
+                    return View("Listing",model);
                 }
                 catch
                 {
                     return RedirectToAction("NotFound", "Error");
                 }
-            }
         }
-        
-        [Url("Review/View/{reviewId}")]
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewId")]
-        public ActionResult IndividualReview(long reviewId)
+
+        /// <summary>
+        /// Shows the instrument listing page with only the review in question.
+        /// </summary>
+        /// <param name="reviewID">The review ID.</param>
+        /// <returns></returns>
+        [Url("Instrument/Review/{reviewID}")]
+        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
+        public ActionResult IndividualReview(int reviewID)
         {
-            using (var data = new LegatoDataContext())
-            {
+            var db = Current.DB;
                 try
                 {
-                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
+                    var review = db.InstrumentReviews.Where(r => r.ReviewID == reviewID).Single();
                     review.FillProperties();
 
-                    var listing = review.Listing;
+                    var listing = review.Instrument;
                     listing.FillProperties();
 
                     var model = new ReadListingViewModel()
                     {
-                        Listing = listing,
-                        Reviews = new List<Review>()
+                        Instrument = listing,
+                        Reviews = new List<InstrumentReview>(),
+                        IsFilteredToIndividualReview = true
                     };
                     model.Reviews.Add(review);
-                    return View(model);
+                    return View("Listing",model);
                 }
                 catch
                 {
                     return RedirectToAction("NotFound", "Error");
                 }
-            }
         }
         #endregion
 
         #region Individual Review timeline- and revision-listing method
-        [Url("Review/Timeline/{reviewId}")]
+        [Url("Review/Timeline/{reviewID}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
         public ActionResult Timeline(int reviewID)
         {
             try
             {
-                using (var data = new LegatoDataContext())
-                {
-                    var review = data.Reviews.Where(r => r.ReviewID == reviewId).Single();
-                    review.Revisions = data.ReviewRevisions.Where(rev => rev.ReviewID == review.ReviewID).OrderByDescending(rev => rev.RevisionNumberOfReview).ToList();
+                var db = Current.DB;
+                    var review = db.InstrumentReviews.Where(r => r.ReviewID == reviewID).Single();
+                    review.Revisions = db.InstrumentReviewRevisions.Where(rev => rev.ReviewID == review.ReviewID).OrderByDescending(rev => rev.RevisionDate).ToList();
                     return View(review);
-                }
             }
             catch
             {
