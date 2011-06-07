@@ -157,7 +157,6 @@
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="! mvc project awesome readme.txt" />
     <Content Include="404.html" />
     <Content Include="Content\Awesome.css" />
     <Content Include="crossdomain.xml" />
@@ -175,10 +174,10 @@
     <Content Include="lib\RiaLibrary.Web.dll" />
     <Content Include="lib\RouteDebug.dll" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\Awesome.js" />
-    <Content Include="Scripts\Awesome.min.js" />
-    <Content Include="Scripts\jquery.form.js" />
-    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="static\js\Awesome.js" />
+    <Content Include="static\js\Awesome.min.js" />
+    <Content Include="static\js\jquery.form.js" />
+    <Content Include="static\js\jquery.form.min.js" />
     <Content Include="static\css\handheld.css" />
     <Content Include="static\css\ie.css" />
     <Content Include="static\css\plugins\buttons\icons\cross.png" />
