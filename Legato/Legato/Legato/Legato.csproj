@@ -54,6 +54,12 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Omu.Awesome.Core">
+      <HintPath>..\packages\MvcProjectAwesome.1.9\lib\40\Omu.Awesome.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.Awesome.Mvc">
+      <HintPath>..\packages\MvcProjectAwesome.1.9\lib\40\Omu.Awesome.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Recaptcha, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RiaLibrary.Web">
       <HintPath>lib\RiaLibrary.Web.dll</HintPath>
@@ -87,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\MvcProjectAwesome.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -150,7 +157,9 @@
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="! mvc project awesome readme.txt" />
     <Content Include="404.html" />
+    <Content Include="Content\Awesome.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -166,6 +175,10 @@
     <Content Include="lib\RiaLibrary.Web.dll" />
     <Content Include="lib\RouteDebug.dll" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\Awesome.js" />
+    <Content Include="Scripts\Awesome.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="static\css\handheld.css" />
     <Content Include="static\css\ie.css" />
     <Content Include="static\css\plugins\buttons\icons\cross.png" />
@@ -249,6 +262,20 @@
     <Content Include="Views\Instruments\Read.aspx" />
     <Content Include="Views\Instruments\ReviewTimeline.aspx" />
     <Content Include="Views\Instruments\Submit.aspx" />
+    <Content Include="Views\Shared\Awesome\AjaxCheckBoxList.ascx" />
+    <Content Include="Views\Shared\Awesome\AjaxDropdown.ascx" />
+    <Content Include="Views\Shared\Awesome\AjaxRadioList.ascx" />
+    <Content Include="Views\Shared\Awesome\Autocomplete.ascx" />
+    <Content Include="Views\Shared\Awesome\Confirm.ascx" />
+    <Content Include="Views\Shared\Awesome\header.ascx" />
+    <Content Include="Views\Shared\Awesome\Lookup.ascx" />
+    <Content Include="Views\Shared\Awesome\LookupList.ascx" />
+    <Content Include="Views\Shared\Awesome\LookupPopup.ascx" />
+    <Content Include="Views\Shared\Awesome\MultiLookup.ascx" />
+    <Content Include="Views\Shared\Awesome\MultiLookupPopup.ascx" />
+    <Content Include="Views\Shared\Awesome\Popup.ascx" />
+    <Content Include="Views\Shared\Awesome\PopupForm.ascx" />
+    <Content Include="Views\Shared\Awesome\SearchForm.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
