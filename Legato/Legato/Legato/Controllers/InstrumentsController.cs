@@ -39,8 +39,17 @@ namespace Legato.Controllers
         [Url("Instruments/Map/{type?}")]
         public ActionResult Map(string type)
         {
-            throw new NotImplementedException();
-            return View();
+            // Rough hack: put everything as JS array for now
+            var db = Current.DB;
+            var points = from ins in db.Instruments
+                         select new {
+                             lat = ins.Lat,
+                             lon = ins.Long,
+                             label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress,
+                             icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
+                         };
+            var result = Json(points,JsonRequestBehavior.AllowGet).ToString();
+            return View(result);
         }
 
         #endregion
