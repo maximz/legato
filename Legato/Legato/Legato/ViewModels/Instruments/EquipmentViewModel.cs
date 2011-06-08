@@ -56,9 +56,9 @@ namespace Legato.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the selected instrument style.
+        /// Gets or sets the selected instrument class.
         /// </summary>
-        /// <value>The selected instrument style.</value>
+        /// <value>The selected instrument class.</value>
         [Required(ErrorMessage="You must select an instrument class.")]
         [DisplayName("Selected instrument class")]
         public int SelectedClass

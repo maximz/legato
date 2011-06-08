@@ -255,7 +255,7 @@ namespace Legato.Controllers
             // Types are loaded into the View via AJAX.
             return View(new SubmitViewModel());
         }
-        [Url("Listing/Create")]
+        [Url("Instrument/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
         [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
@@ -275,16 +275,18 @@ namespace Legato.Controllers
                     var time = DateTime.Now;
 
                     //LISTING:
-                    var listing = new Listing();
+                    var listing = new Instrument();
 
                     listing.StreetAddress = model.Listing.StreetAddress;
                     listing.Lat = model.Listing.Lat;
                     listing.Long = model.Listing.Long;
-                    listing.InstrumentBrand = model.Listing.Equipment.Brand.Trim();
-                    if(model.Listing.Equipment.Model.IsNullOrEmpty())
-                        listing.InstrumentModel = null;
-                    else
-                        listing.InstrumentModel = model.Listing.Equipment.Model.Trim();
+                    listing.Model = model.Listing.Equipment.Model.Trim();
+                    listing.Brand = model.Listing.Equipment.Brand.Trim();
+                    listing.Price = model.Listing.Price;
+                    listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
+                    listing.VenueName = model.Listing.VenueName;
+                    listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
+                    listing.GeneralInfoHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 
                     /*Matching instrument and style:
                      * 1. take instrument name, find match in Instruments table
@@ -293,83 +295,58 @@ namespace Legato.Controllers
                      * 4. Apply ID of record in #3 to Listing
                      * 5. Same for Styles
                      * that's how we do it! */
-                    var instrument = db.Instruments.Where(i => i.Name == model.Listing.InstrumentName).SingleOrDefault();
+                    var instrument = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
                     if(instrument==null)
                     {
-                        ModelState.AddModelError("InstrumentName", "No such instrument exists.");
+                        ModelState.AddModelError("Type", "No such instrument type exists.");
                         return View();
                     }
-                    var style = model.Listing.Equipment.Styles.ElementAtOrDefault(model.Listing.Equipment.SelectedStyle);
-                    if(style==null)
+                    var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Value;
+                    if(style==null || (style != "public" && style != "rent" && style != "sale"))
                     {
                         ModelState.AddModelError("Style", "No such style exists.");
                         return View();
                     }
-                    var modelStyle = db.InstrumentStyles.Where(s => s.InstrumentID == instrument.InstrumentID && s.StyleName == style.Value).SingleOrDefault(); //TODO: is it style.Value or style.Text?
-                    if(modelStyle==null)
-                    {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
-                    }
-                    listing.InstrumentStyleID = modelStyle.StyleID;
-                    style = null;
-                    modelStyle = null;
-                    var type = model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType);
-                    if (type == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    var modelType = db.InstrumentTypes.Where(t => t.InstrumentID == instrument.InstrumentID && t.TypeName == type.Value).SingleOrDefault(); //TODO: is it type.Value or type.Text?
-                    if (modelType == null)
-                    {
-                        ModelState.AddModelError("Type", "No such type exists.");
-                        return View();
-                    }
-                    listing.InstrumentTypeID = modelType.TypeID;
-                    type = null;
-                    modelType = null;
 
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    listing.OriginalSubmitterUserID = userGuid;
-                    listing.DateOfSubmission = time;
+                    listing.UserID = userGuid;
+                    listing.SubmissionDate = time;
 
-                    db.Listings.InsertOnSubmit(listing);
+                    db.Instruments.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
                     //REVIEW:
-                    var review = new Review();
-                    review.Listing = listing;
-                    db.Reviews.InsertOnSubmit(review);
+                    var review = new InstrumentReview();
+                    review.Instrument = listing;
+                    review.UserID = userGuid;
+                    db.InstrumentReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
                     //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
+                    var r = new InstrumentReviewRevision();
+                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                    r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
+                    r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+                    r.RatingGeneral = model.ReviewRevision.RatingOverall;
                     r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
                     r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
                     r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.Review = review;
-                    //r.RevisionNumberOfReview = (from rev in db.PianoReviewRevisions
-                    //                            where rev.PianoReviewID == review.PianoReviewID
-                    //                            select rev.RevisionNumberOfReview).Max() + 1;
-                    r.RevisionNumberOfReview = 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.RatingVenue = model.ReviewRevision.RatingVenue;
+                    r.RevisionDate = time;
+                    r.InstrumentReview = review;
+                    r.UserID = userGuid;
+
+                    db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
                     //VENUE HOURS:
                     foreach (var hour in model.Hours)
                     {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if(!hour.Closed)
+                        var submit = new InstrumentHour();
+                        submit.Day = hour.DayOfWeekId;
+                        if(!hour.Closed.GetValueOrDefault(false))
                         {
-                            submit.StartTime = hour.StartTime;
+                            submit.OpenTime = hour.StartTime;
                             submit.EndTime = hour.EndTime;
                         }
                         else

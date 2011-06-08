@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Legato.Helpers;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace Legato.ViewModels
 {
@@ -18,6 +19,26 @@ namespace Legato.ViewModels
             get;
             set;
         }
+        [Required(ErrorMessage = "A venue name is required.")]
+        [DisplayName("Venue name")]
+        public string VenueName
+        {
+            get;
+            set;
+        }
+
+        public int Price
+        {
+            get;
+            set;
+        }
+
+        public string TimeSpanOfPrice
+        {
+            get;
+            set;
+        }
+
         [Required]
         public decimal Lat
         {
@@ -33,6 +54,14 @@ namespace Legato.ViewModels
         [Required(ErrorMessage="Equipment must be present.")]
         [DisplayName("Equipment")]
         public EquipmentViewModel Equipment
+        {
+            get;
+            set;
+        }
+
+        [Required]
+        [AllowHtml]
+        public string GeneralInfoMarkdown
         {
             get;
             set;
