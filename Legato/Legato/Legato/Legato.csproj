@@ -295,7 +295,6 @@
     <Content Include="static\js\MicrosoftMvcAjax.debug.js" />
     <Content Include="static\js\MicrosoftMvcValidation.js" />
     <Content Include="static\js\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />
