@@ -346,19 +346,19 @@ namespace Legato.Controllers
                         submit.Day = hour.DayOfWeekId;
                         if(!hour.Closed.GetValueOrDefault(false))
                         {
-                            submit.OpenTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
+                            submit.OpenTime = new TimeSpan(hour.StartTime.Hour,hour.StartTime.Minute,hour.StartTime.Second);
+                            submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);
                         }
                         else
                         {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
+                            submit.OpenTime = null;
+                            submit.CloseTime = null;
                         }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
+                        submit.Instrument = listing;
+                        db.InstrumentHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
-                    return RedirectToAction("Read", new { id = listing.ListingID}); //shows details for that submission thread, with only one revision!
+                    return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
                 }
             }
             catch
