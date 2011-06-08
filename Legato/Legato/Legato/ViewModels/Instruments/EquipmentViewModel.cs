@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.ComponentModel;
 
-namespace FindPianos.ViewModels
+namespace Legato.ViewModels
 {
     public class EquipmentViewModel
     {
@@ -45,7 +45,7 @@ namespace FindPianos.ViewModels
             set;
         }
         /// <summary>
-        /// Gets or sets the types that the instrument in question can be; e.g., acoustic or electric.
+        /// Gets or sets the types that the instrument in question can be; e.g., piano, clarinet, saxophone.
         /// </summary>
         /// <value>The types.</value>
         [DisplayName("Possible instrument types")]
@@ -59,20 +59,20 @@ namespace FindPianos.ViewModels
         /// Gets or sets the selected instrument style.
         /// </summary>
         /// <value>The selected instrument style.</value>
-        [Required(ErrorMessage="You must select an instrument style.")]
-        [DisplayName("Selected instrument type")]
-        public int SelectedStyle
+        [Required(ErrorMessage="You must select an instrument class.")]
+        [DisplayName("Selected instrument class")]
+        public int SelectedClass
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets possible instrument styles; e.g., grand, upright, or baby grand.
+        /// Gets or sets possible instrument styles; e.g., public, for sale, for rent.
         /// </summary>
         /// <value>The styles.</value>
-        [DisplayName("Possible instrument types")]
-        public IEnumerable<SelectListItem> Styles
+        [DisplayName("Possible instrument classes")]
+        public IEnumerable<SelectListItem> Classes
         {
             get;
             set;

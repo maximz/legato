@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Legato.Helpers;
 
 namespace Legato.Models
 {
@@ -40,12 +41,33 @@ namespace Legato.Models
             internal set;
         }
 
+        /// <summary>
+        /// The "title" of the instrument; used in URL slug, individual instrument page
+        /// </summary>
+        public string Title
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// Gets the URL slug (based on the TItle)
+        /// </summary>
+        public string UrlSlug
+        {
+            get;
+            internal set;
+        }
+
         public void FillProperties()
         {
+            // Arrange
             var OverallRatings = new List<int>();
             var RevisionDates = new List<DateTime>();
             var UseDates = new List<DateTime>();
             var reviewCount = 0;
+
+            // Get data
             var db = Current.DB;
                 foreach (var review in db.InstrumentReviews.Where(rev => rev.InstrumentID == this.InstrumentID))
                 {
@@ -55,10 +77,16 @@ namespace Legato.Models
                     UseDates.Add(LatestRevision.LastUseDate);
                     reviewCount++;
                 }
+
+            // Process
             AverageOverallRating = (int)Math.Round(OverallRatings.Average());
             LatestReviewRevisionDate = RevisionDates.Max();
             LatestUseDate = UseDates.Max();
             NumberOfReviews = reviewCount;
+
+            // Generate Title and UrlSlug
+            Title = this.Brand.Trim() + " " + this.Model.Trim() + " (" + this.InstrumentType.Name + ") at" + this.StreetAddress.Trim();
+            UrlSlug = HtmlUtilities.URLFriendly(Title);
         }
 
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using FindPianos.Helpers;
+using Legato.Helpers;
 
-namespace FindPianos.ViewModels
+namespace Legato.ViewModels
 {
     public class RevisionSubmissionViewModel
     {

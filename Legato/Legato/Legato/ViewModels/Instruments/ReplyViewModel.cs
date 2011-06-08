@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace FindPianos.ViewModels
+namespace Legato.ViewModels
 {
     public class ReplyViewModel
     {

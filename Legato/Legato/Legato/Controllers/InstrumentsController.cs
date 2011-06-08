@@ -35,26 +35,132 @@ namespace Legato.Controllers
 
         #region Map
 
-        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "type")]
-        [Url("Instruments/Map/{type?}")]
-        public ActionResult Map(string type)
+        /// <summary>
+        /// Displays a map of instruments.
+        /// </summary>
+        /// <param name="classIns">Optional. The instrument class that is requested; e.g. "public", "rent", "sale"</param>
+        /// <returns></returns>
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
+        [Url("Instruments/Map/{classIns?}")]
+        public ActionResult Map(string classIns)
         {
+            // TODO: currently, users can view instruments in all classes or in one specific class. Ideally, we can have them select classes as checkboxes, so we can have them view 2 classes out of 3, for example. Should be improved, but later.
+
             // Rough hack: put everything as JS array for now
             var db = Current.DB;
-            var points = from ins in db.Instruments
+            var points = (from ins in db.Instruments
                          select new {
                              lat = ins.Lat,
                              lon = ins.Long,
-                             label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress,
+                             label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim(),
+                             typename = ins.InstrumentType.Name,
+                             typeid = ins.InstrumentType.TypeID,
+                             type = ins.InstrumentType,
                              icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
-                         };
+                         }).ToList();;
+            if (classIns.HasValue()) // for example, if classIns="public", only instruments that are allowed in public mode are shown.
+            {
+                foreach (var p in points)
+                {
+                    bool forceBreak = false; // so we can break out of this foreach - see default case in switch block
+                    switch(classIns.Trim())
+                    {
+                        case "public":
+                            if(!p.type.AllowedInPublic.GetValueOrDefault(false))
+                            {
+                                points.Remove(p);
+                            }
+                            break;
+                        case "rent":
+                            if(!p.type.AllowedInRent.GetValueOrDefault(false))
+                            {
+                                points.Remove(p);
+                            }
+                            break;
+                        case "sale":
+                            if (!p.type.AllowedInSale.GetValueOrDefault(false))
+                            {
+                                points.Remove(p);
+                            }
+                            break;
+                        default:
+                            // some weird classIns value was given, so let's not waste time on the rest of the points
+                            forceBreak = true;
+                            break;
+                    }
+                    if(forceBreak)
+                    {
+                        break; // see default case of switch block ^^
+                    }
+                }
+            }
             var result = Json(points,JsonRequestBehavior.AllowGet).ToString();
             return View(result);
         }
 
         #endregion
 
+        #region AJAX Methods
+
+        /// <summary>
+        /// Returns a list of instrument types, such as "piano", "clarinet", etc. On the map page, the user can either view all instrument types, or only specific ones. To choose specific ones, we load this list via AJAX and show it as checkboxes. Then, the map points are filtered via JS. This is also used on the Submit page.
+        /// </summary>
+        /// <param name="classIns">Optional. The instrument class that is requested; e.g. "public", "rent", "sale"</param>
+        /// <returns></returns>
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
+        [Url("Instruments/AJAX/InsList/{classIns?}")]
+        public ActionResult PossibleInstrumentTypes(string classIns)
+        {
+            var db = Current.DB;
+            var types = db.InstrumentTypes.Select(p => p).ToList();
+            if (classIns.HasValue()) // for example, if classIns="public", only instrument types that are allowed in public mode are shown.
+            {
+                foreach (var p in types)
+                {
+                    bool forceBreak = false; // so we can break out of this foreach - see default case in switch block
+                    switch (classIns.Trim())
+                    {
+                        case "public":
+                            if (!p.AllowedInPublic.GetValueOrDefault(false))
+                            {
+                                types.Remove(p);
+                            }
+                            break;
+                        case "rent":
+                            if (!p.AllowedInRent.GetValueOrDefault(false))
+                            {
+                                types.Remove(p);
+                            }
+                            break;
+                        case "sale":
+                            if (!p.AllowedInSale.GetValueOrDefault(false))
+                            {
+                                types.Remove(p);
+                            }
+                            break;
+                        default:
+                            // some weird classIns value was given, so let's not waste time on the rest of the types
+                            forceBreak = true;
+                            break;
+                    }
+                    if (forceBreak)
+                    {
+                        break; // see default case of switch block ^^
+                    }
+                }
+            }
+
+            return Json(types, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
         #region Read Listings and Reviews
+        /// <summary>
+        /// Displays an instrument's individual page, with the listing and reviews.
+        /// </summary>
+        /// <param name="instrumentID">The instrument ID.</param>
+        /// <returns></returns>
         [Url("Instrument/View/{instrumentID}/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
         public ActionResult Individual(int instrumentID)
@@ -117,6 +223,11 @@ namespace Legato.Controllers
         #endregion
 
         #region Individual Review timeline- and revision-listing method
+        /// <summary>
+        /// Displays a timeline of revisions of a specific review.
+        /// </summary>
+        /// <param name="reviewID">The review ID.</param>
+        /// <returns></returns>
         [Url("Review/Timeline/{reviewID}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
         public ActionResult Timeline(int reviewID)
@@ -135,37 +246,13 @@ namespace Legato.Controllers
         }
         #endregion
 
-        #region Searching Methods
-        [Url("Search")][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
-        public ActionResult List()
-        {
-            return View();
-        }
-        [Url("Search/EnumerateBox")]
-        [HttpPost][VerifyReferrer][CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "*")]
-        public ActionResult AjaxSearchMapFill(decimal lat1, decimal long1, decimal lat2, decimal long2)
-        {
-            using (var db = new LegatoDataContext())
-            {
-                var results = db.ProcessAjaxMapSearch(new BoundingBox()
-            {
-                extent1 = new LatLong() { latitude = lat1, longitude = long1 },
-                extent2 = new LatLong() { latitude = lat2, longitude = long2 }
-            });
-                return Json(results);
-            }
-
-        }
-        #endregion
-
         #region Submission and Editing methods
-        [Url("Listing/Create")]
+        [Url("Instrument/Submit")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name="ListingSubmitGET", Seconds=600)]
         public ActionResult Submit()
         {
-            //TODO: load styles and types into the model; or rather, don't. that will be Ajax.
+            // Types are loaded into the View via AJAX.
             return View(new SubmitViewModel());
         }
         [Url("Listing/Create")]
@@ -438,7 +525,7 @@ namespace Legato.Controllers
                         Reviews=null
                     };
 
-                    var model = new EditViewModel()
+                    var model = new EditReviewViewModel()
                     {
                         ReviewRevision=revisionmodel,
                         Hours=hourmodel,
@@ -456,7 +543,7 @@ namespace Legato.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
         [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
-        public ActionResult Edit(EditViewModel model)
+        public ActionResult Edit(EditReviewViewModel model)
         {
             if (!ModelState.IsValid)
             {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using FindPianos.Helpers;
+using Legato.Helpers;
 
-namespace FindPianos.ViewModels
+namespace Legato.ViewModels
 {
     [CompareProperties(ComparisonProperty1="StartTime",ComparisonProperty2="EndTime",LessThanAllowed=false,GreaterThanAllowed=true,EqualToAllowed=false,AllowNullValues=true,ErrorMessage="End time must be after start time.")]
     public class VenueHourViewModel
@@ -34,8 +34,9 @@ namespace FindPianos.ViewModels
         {
             get;set;
         }
-        [Required(ErrorMessage="You must indicate whether the instrument is available or not on this day of the week.")]
-        public bool Closed
+
+        [DisplayName("Closed")]
+        public bool? Closed
         {
             get;
             set;

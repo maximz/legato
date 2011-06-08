@@ -147,7 +147,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
-    <Compile Include="ViewModels\Instruments\EditViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\EditReviewViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\Instruments\ListingSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Instruments\ReadListingViewModel.cs" />

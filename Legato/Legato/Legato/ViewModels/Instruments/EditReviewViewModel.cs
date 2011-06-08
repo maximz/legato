@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace FindPianos.ViewModels
+namespace Legato.ViewModels
 {
-    public class EditViewModel
+    public class EditReviewViewModel
     {
         /// <summary>
         /// Gets or sets the review revision. Is first set to the latest revision, then the user changes it to create another revision.
         /// </summary>
         /// <value>The review revision.</value>
         [DisplayName("Review")]
+        [Required]
         public RevisionSubmissionViewModel ReviewRevision
-        {
-            get;
-            set;
-        }
-        [DisplayName("Hours of availability")]
-        public List<VenueHourViewModel> Hours
         {
             get;
             set;
