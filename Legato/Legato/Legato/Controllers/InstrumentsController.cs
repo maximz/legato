@@ -483,71 +483,48 @@ namespace Legato.Controllers
 
         #region Editing Methods
 
-        [Url("Instrument/Review/{reviewId}")]
+        /// <summary>
+        /// Edit an individual review.
+        /// </summary>
+        /// <param name="reviewID">The review ID.</param>
+        /// <returns></returns>
+        [Url("Instrument/Review/Edit/{reviewID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        [RateLimit(Name = "ListingEditGET", Seconds = 600)]
-        public ActionResult EditReview(long reviewId)
+        public ActionResult EditReview(long reviewID)
         {
-            //edit an individual review
             try
             {
                 using (var db = new LegatoDataContext())
                 {
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                    var query = db.ReviewRevisions.Where(r => r.ReviewID == reviewId).OrderByDescending(r => r.RevisionNumberOfReview);
+                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
+                    var query = db.InstrumentReviewRevisions.Where(r => r.ReviewID == reviewID).OrderByDescending(r => r.RevisionDate);
                     var revision = query.First();
-                    var submitterGuid = query.Last().SubmitterUserID;
-                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                    var submitterGuid = query.Last().UserID;
+                    
+                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator")) // if user isn't submitter and doesn't have edit privileges, forbidden!
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
-                    var listing = db.Listings.Where(l => l.ListingID == revision.Review.ListingID).Single();
-                    var hours = db.VenueHours.Where(h => h.ReviewRevisionID == revision.ReviewRevisionID).ToList();
+
+                    var listing = revision.InstrumentReview.Instrument;
+                    var hours = listing.InstrumentHours;
                     var revisionmodel = new RevisionSubmissionViewModel()
                     {
-                        DateOfLastUsage=revision.DateOfLastUsageOfPianoBySubmitter,
-                        Message=revision.Message,
-                        PricePerHour=revision.PricePerHourInUSD,
-                        RatingOverall=revision.RatingOverall,
+                        DateOfLastUsage=revision.LastUseDate,
+                        ReviewMarkdown=revision.MessageMarkdown,
+                        RatingOverall=revision.RatingGeneral,
                         RatingPlayingCapability=(int)revision.RatingPlayingCapability,
                         RatingToneQuality=(int)revision.RatingToneQuality,
                         RatingTuning=(int)revision.RatingTuning,
-                        ReviewId=(int)revision.ReviewID,
-                        VenueName=revision.VenueName
+                        RatingVenue=(int)revision.RatingVenue,
+                        ReviewID=(int)revision.ReviewID
                     };
-                    var hourmodel = new List<VenueHourViewModel>();
-                    foreach(var h in hours)
-                    {
-                        var item = new VenueHourViewModel();
-                        item.DayOfWeekId = h.WeekDay.WeekDayID;
-                        item.DayOfWeekName = h.WeekDay.WeekDayName;
-                        if(h.StartTime==null||!h.StartTime.HasValue||h.StartTime==DateTime.MinValue) //we only need to check one of them, because if one's null the other one is, too
-                        {
-                            item.StartTime = DateTime.MinValue;
-                            item.EndTime = DateTime.MinValue;
-                            item.Closed = true;
-                        }
-                        else
-                        {
-                            item.Closed = false;
-                            item.StartTime = (DateTime)h.StartTime;
-                            item.EndTime = (DateTime)h.EndTime;
-                        }
-                        hourmodel.Add(item);
-                    }
-                    var listingmodel = new ReadListingViewModel()
-                    {
-                        Listing=listing,
-                        Reviews=null
-                    };
-
+                    
                     var model = new EditReviewViewModel()
                     {
-                        ReviewRevision=revisionmodel,
-                        Hours=hourmodel,
-                        Listing=listingmodel
+                        ReviewRevision=revisionmodel
                     };
                     return View(model);
                 }
@@ -557,11 +534,11 @@ namespace Legato.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
         }
-        [Url("Review/Edit")]
+        [Url("Instrument/Review/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
-        [RateLimit(Name = "ListingEditPOST", Seconds = 600)]
-        public ActionResult Edit(EditReviewViewModel model)
+        [RateLimit(Name = "InstrumentReviewEditPOST", Seconds = 600)]
+        public ActionResult EditReview(EditReviewViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -569,13 +546,12 @@ namespace Legato.Controllers
             }
             try
             {
-                using (var db = new LegatoDataContext())
-                {
+                var db=Current.DB;
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     try
                     {
                         //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                        var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                        var submitterGuid = db.ReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewId).OrderBy(revisionforcheck=>revisionforcheck.RevisionNumberOfReview).First().SubmitterUserID;
+                        var submitterGuid = db.InstrumentReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewID).OrderBy(revisionforcheck=>revisionforcheck.RevisionDate).First().UserID;
                         if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
                         {
                             return RedirectToAction("Forbidden", "Error");
@@ -589,44 +565,23 @@ namespace Legato.Controllers
                     var time = DateTime.Now;
 
                     //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
+                    var r = new InstrumentReviewRevision();
+                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                    r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
+                    r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+                    r.RatingGeneral = model.ReviewRevision.RatingOverall;
                     r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
                     r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
                     r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.ReviewID = model.ReviewRevision.ReviewId;
-                    r.RevisionNumberOfReview = (from rev in db.ReviewRevisions
-                                                where rev.ReviewID == model.ReviewRevision.ReviewId
-                                                select rev.RevisionNumberOfReview).Max() + 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    r.RatingVenue = model.ReviewRevision.RatingVenue;
+                    r.RevisionDate = time;
+                    r.ReviewID = model.ReviewRevision.ReviewID;
+                    r.UserID = userGuid;
+
+                    db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
                     db.SubmitChanges();
 
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
-                    {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if (!hour.Closed)
-                        {
-                            submit.StartTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
-                        }
-                        else
-                        {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
-                        }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
-                    }
-                    db.SubmitChanges();
-                    return RedirectToAction("ReviewTimeline", new { reviewId = model.ReviewRevision.ReviewId});
-                }
+                    return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});
             }
             catch
             {

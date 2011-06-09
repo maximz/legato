@@ -20,15 +20,5 @@ namespace Legato.ViewModels
             get;
             set;
         }
-        /// <summary>
-        /// Gets or sets the listing. Do not change it from the View!
-        /// </summary>
-        /// <value>The listing.</value>
-        [DisplayName("Listing")]
-        public ReadListingViewModel Listing
-        {
-            get;
-            set;
-        }
     }
 }

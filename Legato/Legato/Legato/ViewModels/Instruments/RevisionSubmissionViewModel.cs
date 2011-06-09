@@ -12,7 +12,7 @@ namespace Legato.ViewModels
     public class RevisionSubmissionViewModel
     {
         //Not required because this is also used for Submit, where we don't have a ReviewId yet
-        public int ReviewId
+        public int ReviewID
         {
             get;
             set;
