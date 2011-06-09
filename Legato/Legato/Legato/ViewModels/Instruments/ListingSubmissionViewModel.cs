@@ -27,7 +27,7 @@ namespace Legato.ViewModels
             set;
         }
 
-        public int Price
+        public decimal? Price
         {
             get;
             set;
@@ -62,6 +62,12 @@ namespace Legato.ViewModels
         [Required]
         [AllowHtml]
         public string GeneralInfoMarkdown
+        {
+            get;
+            set;
+        }
+
+        public int? InstrumentID
         {
             get;
             set;

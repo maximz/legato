@@ -498,7 +498,7 @@ namespace Legato.Controllers
                     var revision = query.First();
                     var submitterGuid = query.Last().UserID;
                     
-                    if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator")) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                    if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
@@ -546,7 +546,7 @@ namespace Legato.Controllers
                     {
                         //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                         var submitterGuid = db.InstrumentReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewID).OrderBy(revisionforcheck=>revisionforcheck.RevisionDate).First().UserID;
-                        if (userGuid != submitterGuid && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                        if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator))
                         {
                             return RedirectToAction("Forbidden", "Error");
                         }
@@ -576,6 +576,124 @@ namespace Legato.Controllers
                     db.SubmitChanges();
 
                     return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+        /// <summary>
+        /// Edit an individual listing.
+        /// </summary>
+        /// <param name="reviewID">The listing ID.</param>
+        /// <returns></returns>
+        [Url("Instrument/Listing/Edit/{instrumentID}")]
+        [HttpGet]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        public ActionResult EditListing(long instrumentID)
+        {
+            try
+            {
+                var db = Current.DB;
+                //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
+                var listing = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
+                if(listing==null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+                var submitterGuid = listing.UserID;
+
+                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                {
+                    return RedirectToAction("Forbidden", "Error");
+                }
+
+                var hours = listing.InstrumentHours;
+                var listingmodel = new ListingSubmissionViewModel()
+                {
+                    GeneralInfoMarkdown = listing.GeneralInfoMarkdown,
+                    Lat = listing.Lat,
+                    Long = listing.Long,
+                    Price = listing.Price,
+                    TimeSpanOfPrice = listing.TimeSpanOfPrice,
+                    StreetAddress = listing.StreetAddress,
+                    VenueName = listing.VenueName,
+                    InstrumentID = listing.InstrumentID
+                };
+                listingmodel.Equipment = new EquipmentViewModel()
+                {
+                    Brand=listing.Brand,
+                    Model=listing.Model,
+                    Classes = new SelectList(new[]
+            {
+                new { Id = 1, Name = "Public" },
+                new { Id = 2, Name = "Rent" },
+                new { Id = 3, Name = "Sale" },
+            }, "Id", "Name")
+                };
+
+                var model = new EditListingViewModel()
+                {
+                    Listing = listingmodel
+                };
+                return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+        }
+        [Url("Instrument/Listing/Edit")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        [HttpPost]
+        [VerifyReferrer]
+        [RateLimit(Name = "InstrumentListingEditPOST", Seconds = 600)]
+        public ActionResult EditListing(EditReviewViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var db = Current.DB;
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                try
+                {
+                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                    var submitterGuid = db.InstrumentReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewID).OrderBy(revisionforcheck => revisionforcheck.RevisionDate).First().UserID;
+                    if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator))
+                    {
+                        return RedirectToAction("Forbidden", "Error");
+                    }
+                }
+                catch
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+
+                var time = DateTime.Now;
+
+                //REVISION:
+                var r = new InstrumentReviewRevision();
+                r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
+                r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+                r.RatingGeneral = model.ReviewRevision.RatingOverall;
+                r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
+                r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
+                r.RatingTuning = model.ReviewRevision.RatingTuning;
+                r.RatingVenue = model.ReviewRevision.RatingVenue;
+                r.RevisionDate = time;
+                r.ReviewID = model.ReviewRevision.ReviewID;
+                r.UserID = userGuid;
+
+                db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                db.SubmitChanges();
+
+                return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID });
             }
             catch
             {
