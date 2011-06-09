@@ -157,7 +157,7 @@
     <Compile Include="ViewModels\Instruments\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\Instruments\ListingSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Instruments\ReadListingViewModel.cs" />
-    <Compile Include="ViewModels\Instruments\ReplyViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\ReviewCreateViewModel.cs" />
     <Compile Include="ViewModels\Instruments\RevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Instruments\SubmitViewModel.cs" />
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
@@ -324,6 +324,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Instruments\AlreadyReviewed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

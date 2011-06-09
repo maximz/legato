@@ -11,6 +11,7 @@ using Legato.Helpers;
 using System.Net;
 using Legato.ViewModels;
 using System.Web.Routing;
+using MvcMiniProfiler;
 
 namespace Legato.Controllers
 {
@@ -161,7 +162,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="instrumentID">The instrument ID.</param>
         /// <returns></returns>
-        [Url("Instrument/View/{instrumentID}/{slug?}")]
+        [Url("Instrument/Listing/{instrumentID}/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
         public ActionResult Individual(int instrumentID)
         {
@@ -228,7 +229,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="reviewID">The review ID.</param>
         /// <returns></returns>
-        [Url("Review/Timeline/{reviewID}")]
+        [Url("Instrument/Review/Timeline/{reviewID}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
         public ActionResult Timeline(int reviewID)
         {
@@ -246,7 +247,7 @@ namespace Legato.Controllers
         }
         #endregion
 
-        #region Submission and Editing methods
+        #region Listing and Review Creation Methods
         [Url("Instrument/Submit")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
@@ -258,7 +259,7 @@ namespace Legato.Controllers
         [Url("Instrument/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
-        [RateLimit(Name="ListingSubmitPOST", Seconds=600)]
+        [RateLimit(Name="InstrumentSubmitPOST", Seconds=600)]
         public ActionResult Submit(SubmitViewModel model)
         {
             if (!ModelState.IsValid)
@@ -319,6 +320,7 @@ namespace Legato.Controllers
                     var review = new InstrumentReview();
                     review.Instrument = listing;
                     review.UserID = userGuid;
+                    review.SubmitDate = time;
                     db.InstrumentReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
@@ -366,12 +368,54 @@ namespace Legato.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [HttpPost][VerifyReferrer]
-        [Url("Review/Create")]
+
+
+        [Url("Instrument/Review/Create/{instrumentID}")]
+        [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "ListingReplyPOST", Seconds = 600)]
-        public ActionResult Reply(ReplyViewModel model)
+        public ActionResult Review(int instrumentID)
         {
+            var db = Current.DB;
+            var profiler = Current.MiniProfiler;
+
+            using (profiler.Step("Checks"))
+            {
+                using (profiler.Step("Instrument to review exists"))
+                {
+                    // Check to see whether instrumentID exists
+                    if (instrumentID == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                    if (db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault() == null)
+                    {
+                        return RedirectToAction("NotFound", "Error");
+                    }
+                }
+
+                using (profiler.Step("User hasn't previously reviewed this"))
+                {
+                    // Check to see whether this user has already reviewed this instrument (checks using UserGuid and InstrumentID)
+                    var existingReview = db.InstrumentReviews.Where(r => r.UserID == (Guid)Membership.GetUser().ProviderUserKey && r.InstrumentID == instrumentID).SingleOrDefault();
+                    if (existingReview != null)
+                    {
+                        return View("AlreadyReviewed", existingReview);
+                    }
+                }
+            }
+
+            // All checks succeeded. Rendering review creation view.
+            return View(new ReviewCreateViewModel() { InstrumentID = instrumentID });
+        }
+        
+        [HttpPost][VerifyReferrer]
+        [Url("Instrument/Review/Create")]
+        [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
+        [RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
+        public ActionResult Review(ReviewCreateViewModel model)
+        {
+            var profiler = Current.MiniProfiler;
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("InternalServerError", "Error");
@@ -383,57 +427,49 @@ namespace Legato.Controllers
                     var time = DateTime.Now;
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 
-                    var listing = db.Listings.Where(l => l.ListingID == model.ListingID).SingleOrDefault();
+                    var listing = db.Instruments.Where(l => l.InstrumentID == model.InstrumentID).SingleOrDefault();
                     if(listing==null)
                     {
                         return RedirectToAction("NotFound", "Error");
                     }
 
-                    //REVIEW:
-                    var review = new Review();
-                    review.Listing = listing;
-                    db.Reviews.InsertOnSubmit(review);
-                    db.SubmitChanges();
-
-                    //REVISION:
-                    var r = new ReviewRevision();
-                    r.DateOfLastUsageOfPianoBySubmitter = model.ReviewRevision.DateOfLastUsage;
-                    r.Message = model.ReviewRevision.Message;
-                    r.PricePerHourInUSD = model.ReviewRevision.PricePerHour;
-                    r.RatingOverall = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.VenueName = model.ReviewRevision.VenueName;
-                    r.DateOfRevision = time;
-                    r.Review = review;
-                    r.RevisionNumberOfReview = 1;
-                    db.ReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-                    db.SubmitChanges();
-
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
+                    InstrumentReview review;
+                    using (profiler.Step("Create Review"))
                     {
-                        var submit = new VenueHour();
-                        submit.DayOfWeek = hour.DayOfWeekId;
-                        if (!hour.Closed)
-                        {
-                            submit.StartTime = hour.StartTime;
-                            submit.EndTime = hour.EndTime;
-                        }
-                        else
-                        {
-                            submit.StartTime = null;
-                            submit.EndTime = null;
-                        }
-                        submit.ReviewRevision = r;
-                        db.VenueHours.InsertOnSubmit(submit);
-                    }
-                    db.SubmitChanges();
+                        // REVIEW:
+                        review = new InstrumentReview();
+                        review.Instrument = listing;
+                        review.UserID = userGuid;
+                        review.SubmitDate = time;
 
+                        db.InstrumentReviews.InsertOnSubmit(review); //An exception will be thrown here if there are invalid properties
+                        db.SubmitChanges();
+                    }
+
+                    using (profiler.Step("Create Revision"))
+                    {
+                        // REVISION:
+                        var r = new InstrumentReviewRevision();
+                        r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                        r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
+                        r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+                        r.RatingGeneral = model.ReviewRevision.RatingOverall;
+                        r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
+                        r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
+                        r.RatingTuning = model.ReviewRevision.RatingTuning;
+                        r.RatingVenue = model.ReviewRevision.RatingVenue;
+                        r.RevisionDate = time;
+                        r.InstrumentReview = review;
+                        r.UserID = userGuid;
+
+                        db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                        db.SubmitChanges();
+                    }
+
+                    // Done
                     return RedirectToAction("IndividualReview", new
                     {
-                        reviewId = review.ReviewID
+                        reviewID = review.ReviewID
                     });
                 }
             }
@@ -442,11 +478,16 @@ namespace Legato.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Review/Edit/{reviewId}")]
+        
+        #endregion
+
+        #region Editing Methods
+
+        [Url("Instrument/Review/{reviewId}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [RateLimit(Name = "ListingEditGET", Seconds = 600)]
-        public ActionResult Edit(long reviewId)
+        public ActionResult EditReview(long reviewId)
         {
             //edit an individual review
             try

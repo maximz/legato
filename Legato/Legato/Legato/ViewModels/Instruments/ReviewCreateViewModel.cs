@@ -6,20 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Legato.ViewModels
 {
-    public class ReplyViewModel
+    public class ReviewCreateViewModel
     {
         public RevisionSubmissionViewModel ReviewRevision
         {
             get;
             set;
         }
-        public List<VenueHourViewModel> Hours
-        {
-            get;
-            set;
-        }
         [Required(ErrorMessage="The ListingID must be specified.")]
-        public long ListingID
+        public long InstrumentID
         {
             get;
             set;
