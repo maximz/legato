@@ -51,12 +51,18 @@
     <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="MvcMiniProfiler">
+      <HintPath>lib\MvcMiniProfiler.dll</HintPath>
+    </Reference>
     <Reference Include="MvcReCaptcha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Omu.Awesome.Core">
       <HintPath>..\packages\MvcProjectAwesome.1.9\lib\40\Omu.Awesome.Core.dll</HintPath>
     </Reference>
     <Reference Include="Omu.Awesome.Mvc">
       <HintPath>..\packages\MvcProjectAwesome.1.9\lib\40\Omu.Awesome.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.1.0.0.280\lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="Recaptcha, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="RiaLibrary.Web">
@@ -169,6 +175,7 @@
     <Content Include="lib\Lucene.Net.dll" />
     <Content Include="lib\Lucene.Net.Highlight.dll" />
     <Content Include="lib\MarkdownSharp.dll" />
+    <Content Include="lib\MvcMiniProfiler.dll" />
     <Content Include="lib\MvcReCaptcha.dll" />
     <Content Include="lib\Recaptcha.dll" />
     <Content Include="lib\RiaLibrary.Web.dll" />

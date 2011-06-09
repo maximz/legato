@@ -336,6 +336,14 @@ namespace Legato.Models
 				return this.GetTable<Vote>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MiniProfilerResult> MiniProfilerResults
+		{
+			get
+			{
+				return this.GetTable<MiniProfilerResult>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.aspnet_Applications")]
@@ -6687,6 +6695,51 @@ namespace Legato.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MiniProfilerResults")]
+	public partial class MiniProfilerResult
+	{
+		
+		private System.Guid _Id;
+		
+		private System.Data.Linq.Binary _Results;
+		
+		public MiniProfilerResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Results", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Results
+		{
+			get
+			{
+				return this._Results;
+			}
+			set
+			{
+				if ((this._Results != value))
+				{
+					this._Results = value;
+				}
 			}
 		}
 	}

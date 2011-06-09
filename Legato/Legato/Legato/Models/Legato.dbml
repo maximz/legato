@@ -301,4 +301,10 @@
       <Association Name="aspnet_User_Vote1" Member="aspnet_User1" ThisKey="VoterID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MiniProfilerResults" Member="MiniProfilerResults">
+    <Type Name="MiniProfilerResult">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Results" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+    </Type>
+  </Table>
 </Database>
