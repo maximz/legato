@@ -271,8 +271,7 @@ namespace Legato.Controllers
             //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
             try
             {
-                using (var db = new LegatoDataContext())
-                {
+                var db = Current.DB;
                     var time = DateTime.Now;
 
                     //LISTING:
@@ -361,7 +360,6 @@ namespace Legato.Controllers
                     }
                     db.SubmitChanges();
                     return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
-                }
             }
             catch
             {
@@ -422,8 +420,7 @@ namespace Legato.Controllers
             }
             try
             {
-                using (var db = new LegatoDataContext())
-                {
+                var db = Current.DB;
                     var time = DateTime.Now;
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 
@@ -471,7 +468,6 @@ namespace Legato.Controllers
                     {
                         reviewID = review.ReviewID
                     });
-                }
             }
             catch
             {
@@ -495,8 +491,7 @@ namespace Legato.Controllers
         {
             try
             {
-                using (var db = new LegatoDataContext())
-                {
+                var db = Current.DB;
                     //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
                     var query = db.InstrumentReviewRevisions.Where(r => r.ReviewID == reviewID).OrderByDescending(r => r.RevisionDate);
@@ -527,7 +522,6 @@ namespace Legato.Controllers
                         ReviewRevision=revisionmodel
                     };
                     return View(model);
-                }
             }
             catch
             {
