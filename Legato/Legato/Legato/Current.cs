@@ -12,6 +12,7 @@ using System.Net;
 using Legato.Controllers;
 using System.Runtime.Remoting.Messaging;
 using System.Web.Caching;
+using MvcMiniProfiler;
 
 namespace Legato
 {
@@ -46,6 +47,15 @@ namespace Legato
             get { return Context.Items["Controller"] as CustomControllerBase; }
             set { Context.Items["Controller"] = value; }
         }
+
+        /// <summary>
+        /// Returns the current MiniProfiler. Shorthand for MiniProfiler.Current - just so that all our common things can be stored under one class (Current)
+        /// </summary>
+        public static MiniProfiler MiniProfiler
+        {
+            get { return MiniProfiler.Current; }
+        }
+
 
         ///// <summary>
         ///// Gets the current "authenticated" user from this request's controller.
