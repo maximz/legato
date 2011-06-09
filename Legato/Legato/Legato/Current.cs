@@ -13,6 +13,7 @@ using Legato.Controllers;
 using System.Runtime.Remoting.Messaging;
 using System.Web.Caching;
 using MvcMiniProfiler;
+using MvcMiniProfiler.Data;
 
 namespace Legato
 {
@@ -86,7 +87,8 @@ namespace Legato
 
                 if (result == null)
                 {
-                    result = new LegatoDataContext();
+                    //result = new LegatoDataContext(); // without MvcMiniProfiler
+                    result = LegatoDataContext.GetContext(); // so that MvcMiniProfiler SQL logging is enabled - see Models --> SqlProfiling.cs
                     if (Context != null)
                     {
                         Context.Items["DB"] = result;

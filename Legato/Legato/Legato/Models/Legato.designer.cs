@@ -105,6 +105,9 @@ namespace Legato.Models
     partial void InsertVote(Vote instance);
     partial void UpdateVote(Vote instance);
     partial void DeleteVote(Vote instance);
+    partial void InsertMiniProfilerResult(MiniProfilerResult instance);
+    partial void UpdateMiniProfilerResult(MiniProfilerResult instance);
+    partial void DeleteMiniProfilerResult(MiniProfilerResult instance);
     #endregion
 		
 		public LegatoDataContext() : 
@@ -6700,18 +6703,31 @@ namespace Legato.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MiniProfilerResults")]
-	public partial class MiniProfilerResult
+	public partial class MiniProfilerResult : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Guid _Id;
 		
 		private System.Data.Linq.Binary _Results;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnResultsChanging(System.Data.Linq.Binary value);
+    partial void OnResultsChanged();
+    #endregion
+		
 		public MiniProfilerResult()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid Id
 		{
 			get
@@ -6722,7 +6738,11 @@ namespace Legato.Models
 			{
 				if ((this._Id != value))
 				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
 					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
@@ -6738,8 +6758,32 @@ namespace Legato.Models
 			{
 				if ((this._Results != value))
 				{
+					this.OnResultsChanging(value);
+					this.SendPropertyChanging();
 					this._Results = value;
+					this.SendPropertyChanged("Results");
+					this.OnResultsChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
