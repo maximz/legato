@@ -10,23 +10,23 @@ using Legato.Helpers;
 namespace Legato.Controllers
 {
     [HandleError]
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
 
             return View();
         }
 
-        public ActionResult About()
+        public virtual ActionResult About()
         {
             return View();
         }
 
         [Url("p/{pid}")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200 * 40, VaryByParam = "pid")]
-        public ActionResult PostRedirect(int pid)
+        public virtual ActionResult PostRedirect(int pid)
         {
             var db = Current.DB;
             var globalpost = db.GlobalPostIDs.Where(p=>p.GlobalPostID1==pid).SingleOrDefault();

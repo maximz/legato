@@ -16,7 +16,7 @@ using MvcMiniProfiler;
 namespace Legato.Controllers
 {
     [HandleError]
-    public class InstrumentsController : CustomControllerBase
+    public partial class InstrumentsController : CustomControllerBase
     {
         protected override void Initialize(RequestContext requestContext)
         {
@@ -29,7 +29,7 @@ namespace Legato.Controllers
 
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
         [Url("Instruments")]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View(); // In the view, we give options of navigating to public/rent/sale pages or of viewing them all together on a map
         }
@@ -43,7 +43,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
         [Url("Instruments/Map/{classIns?}")]
-        public ActionResult Map(string classIns)
+        public virtual ActionResult Map(string classIns)
         {
             // TODO: currently, users can view instruments in all classes or in one specific class. Ideally, we can have them select classes as checkboxes, so we can have them view 2 classes out of 3, for example. Should be improved, but later.
 
@@ -110,7 +110,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
         [Url("Instruments/AJAX/InsList/{classIns?}")]
-        public ActionResult PossibleInstrumentTypes(string classIns)
+        public virtual ActionResult PossibleInstrumentTypes(string classIns)
         {
             var db = Current.DB;
             var types = db.InstrumentTypes.Select(p => p).ToList();
@@ -164,7 +164,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("Instrument/Listing/{instrumentID}/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
-        public ActionResult Individual(int instrumentID)
+        public virtual ActionResult Individual(int instrumentID)
         {
             var db = Current.DB;
                 try
@@ -196,7 +196,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("Instrument/Review/{reviewID}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
-        public ActionResult IndividualReview(int reviewID)
+        public virtual ActionResult IndividualReview(int reviewID)
         {
             var db = Current.DB;
                 try
@@ -231,7 +231,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("Instrument/Review/Timeline/{reviewID}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
-        public ActionResult Timeline(int reviewID)
+        public virtual ActionResult Timeline(int reviewID)
         {
             try
             {
@@ -251,7 +251,7 @@ namespace Legato.Controllers
         [Url("Instrument/Submit")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
-        public ActionResult Submit()
+        public virtual ActionResult Submit()
         {
             // Types are loaded into the View via AJAX.
             return View(new SubmitViewModel()
@@ -274,7 +274,7 @@ namespace Legato.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
         [RateLimit(Name="InstrumentSubmitPOST", Seconds=600)]
-        public ActionResult Submit(SubmitViewModel model)
+        public virtual ActionResult Submit(SubmitViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -385,7 +385,7 @@ namespace Legato.Controllers
         [Url("Instrument/Review/Create/{instrumentID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        public ActionResult Review(int instrumentID)
+        public virtual ActionResult Review(int instrumentID)
         {
             var db = Current.DB;
             var profiler = Current.MiniProfiler;
@@ -424,7 +424,7 @@ namespace Legato.Controllers
         [Url("Instrument/Review/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
-        public ActionResult Review(ReviewCreateViewModel model)
+        public virtual ActionResult Review(ReviewCreateViewModel model)
         {
             var profiler = Current.MiniProfiler;
 
@@ -501,7 +501,7 @@ namespace Legato.Controllers
         [Url("Instrument/Review/Edit/{reviewID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        public ActionResult EditReview(long reviewID)
+        public virtual ActionResult EditReview(long reviewID)
         {
             try
             {
@@ -546,7 +546,7 @@ namespace Legato.Controllers
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
         [RateLimit(Name = "InstrumentReviewEditPOST", Seconds = 600)]
-        public ActionResult EditReview(EditReviewViewModel model)
+        public virtual ActionResult EditReview(EditReviewViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -605,7 +605,7 @@ namespace Legato.Controllers
         [Url("Instrument/Listing/Edit/{instrumentID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        public ActionResult EditListing(long instrumentID)
+        public virtual ActionResult EditListing(long instrumentID)
         {
             try
             {
@@ -685,7 +685,7 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [RateLimit(Name = "InstrumentListingEditPOST", Seconds = 600)]
-        public ActionResult EditListing(EditListingViewModel model)
+        public virtual ActionResult EditListing(EditListingViewModel model)
         {
             if (!ModelState.IsValid)
             {
