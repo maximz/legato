@@ -50,6 +50,11 @@ namespace Legato.Helpers
             this.Location = System.Web.UI.OutputCacheLocation.Client; // to make sure people only get their own cached stuff
             Current.Context.Response.Cache.SetCacheability(HttpCacheability.Private); // same thing, just in case
 
+            if (filterContext.IsChildAction)
+            {
+                return; // don't cache child actions - see http://haacked.com/archive/2009/11/18/aspnetmvc2-render-action.aspx "Cooperating with Output Caching"
+            }
+
             if (AllowOnlyValidSearchEngines)
             {
                 var IsSearchEngine = (filterContext.Controller as Legato.Controllers.CustomControllerBase).IsSearchEngineDns();
