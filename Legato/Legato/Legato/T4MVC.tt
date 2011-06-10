@@ -405,6 +405,12 @@ namespace <#=controller.Namespace #> {
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
+		[<#= GeneratedCode #>, DebuggerNonUserCode]
+		protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+			var callInfo = result.GetT4MVCResult();
+			return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+		}
+
 <#foreach (var method in controller.ActionMethodsUniqueWithoutParameterlessOverload) { #>
         [NonAction]
         [<#= GeneratedCode #>, DebuggerNonUserCode]
