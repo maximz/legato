@@ -254,7 +254,21 @@ namespace Legato.Controllers
         public ActionResult Submit()
         {
             // Types are loaded into the View via AJAX.
-            return View(new SubmitViewModel());
+            return View(new SubmitViewModel()
+            {
+                Listing = new ListingSubmissionViewModel()
+                {
+                    Equipment = new EquipmentViewModel()
+                    {
+                        Classes = new SelectList(new[]
+            {
+                new { Id = 1, Name = "Public" },
+                new { Id = 2, Name = "Rent" },
+                new { Id = 3, Name = "Sale" },
+            }, "Id", "Name")
+                    }
+                }
+            });
         }
         [Url("Instrument/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
@@ -611,6 +625,26 @@ namespace Legato.Controllers
                 }
 
                 var hours = listing.InstrumentHours;
+                var hourModel = new List<VenueHourViewModel>();
+                foreach (var hour in hours)
+                {
+                    var mhour = new VenueHourViewModel();
+                    mhour.DayOfWeekId = hour.Day;
+                    
+                    if(hour.CloseTime.GetValueOrDefault() == null && hour.OpenTime.GetValueOrDefault() == null)
+                    {
+                        mhour.Closed = true;
+                    }
+                    else
+                    {
+                        mhour.StartTime = new DateTime(2000,1,1,hour.OpenTime.Value.Hours,hour.OpenTime.Value.Minutes,hour.OpenTime.Value.Seconds);
+                        mhour.EndTime = new DateTime(2000,1,1,hour.CloseTime.Value.Hours,hour.CloseTime.Value.Minutes,hour.CloseTime.Value.Seconds);
+
+                    }
+                    hourModel.Add(mhour);
+                }
+
+
                 var listingmodel = new ListingSubmissionViewModel()
                 {
                     GeneralInfoMarkdown = listing.GeneralInfoMarkdown,
@@ -636,7 +670,8 @@ namespace Legato.Controllers
 
                 var model = new EditListingViewModel()
                 {
-                    Listing = listingmodel
+                    Listing = listingmodel,
+                    Hours=hourModel
                 };
                 return View(model);
             }
@@ -650,7 +685,7 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [RateLimit(Name = "InstrumentListingEditPOST", Seconds = 600)]
-        public ActionResult EditListing(EditReviewViewModel model)
+        public ActionResult EditListing(EditListingViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -660,40 +695,81 @@ namespace Legato.Controllers
             {
                 var db = Current.DB;
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
-                try
-                {
-                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                    var submitterGuid = db.InstrumentReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewID).OrderBy(revisionforcheck => revisionforcheck.RevisionDate).First().UserID;
-                    if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator))
-                    {
-                        return RedirectToAction("Forbidden", "Error");
-                    }
-                }
-                catch
+                var listing = db.Instruments.Where(i => i.InstrumentID == model.Listing.InstrumentID).SingleOrDefault();
+                if (listing == null)
                 {
                     return RedirectToAction("NotFound", "Error");
+                }
+                var submitterGuid = listing.UserID;
+
+                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                {
+                    return RedirectToAction("Forbidden", "Error");
                 }
 
                 var time = DateTime.Now;
 
-                //REVISION:
-                var r = new InstrumentReviewRevision();
-                r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
-                r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
-                r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
-                r.RatingGeneral = model.ReviewRevision.RatingOverall;
-                r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                r.RatingTuning = model.ReviewRevision.RatingTuning;
-                r.RatingVenue = model.ReviewRevision.RatingVenue;
-                r.RevisionDate = time;
-                r.ReviewID = model.ReviewRevision.ReviewID;
-                r.UserID = userGuid;
+                //LISTING:
+                listing.StreetAddress = model.Listing.StreetAddress;
+                listing.Lat = model.Listing.Lat;
+                listing.Long = model.Listing.Long;
+                listing.Model = model.Listing.Equipment.Model.Trim();
+                listing.Brand = model.Listing.Equipment.Brand.Trim();
+                listing.Price = model.Listing.Price;
+                listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
+                listing.VenueName = model.Listing.VenueName;
+                listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
+                listing.GeneralInfoHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 
-                db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                /*Matching instrument and style:
+                 * 1. take instrument name, find match in Instruments table
+                 * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
+                 * 3. Match name to a record in InstrumentTypes with InstrumentID from step 1 and Name from step 2
+                 * 4. Apply ID of record in #3 to Listing
+                 * 5. Same for Styles
+                 * that's how we do it! */
+                var instrument = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
+                if (instrument == null)
+                {
+                    ModelState.AddModelError("Type", "No such instrument type exists.");
+                    return View();
+                }
+                var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Value;
+                if (style == null || (style != "public" && style != "rent" && style != "sale"))
+                {
+                    ModelState.AddModelError("Style", "No such style exists.");
+                    return View();
+                }
+
+                listing.UserID = userGuid;
+                listing.SubmissionDate = time;
+
+                db.SubmitChanges(); // Listing is changed
+
+                //VENUE HOURS:
+                db.InstrumentHours.DeleteAllOnSubmit(listing.InstrumentHours); // remove all previous venue hours
+
+                foreach (var hour in model.Hours)
+                {
+                    var submit = new InstrumentHour();
+                    submit.Day = hour.DayOfWeekId;
+                    if (!hour.Closed.GetValueOrDefault(false))
+                    {
+                        submit.OpenTime = new TimeSpan(hour.StartTime.Hour, hour.StartTime.Minute, hour.StartTime.Second);
+                        submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);
+                    }
+                    else
+                    {
+                        submit.OpenTime = null;
+                        submit.CloseTime = null;
+                    }
+                    submit.Instrument = listing;
+                    db.InstrumentHours.InsertOnSubmit(submit);
+                }
                 db.SubmitChanges();
 
-                return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID });
+
+                return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID });
             }
             catch
             {
