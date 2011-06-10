@@ -96,6 +96,10 @@ namespace Legato.Controllers
                 }
             }
             var result = Json(points,JsonRequestBehavior.AllowGet).ToString();
+            if(ControllerContext.IsChildAction)
+            {
+                return PartialView(result);
+            }
             return View(result);
         }
 

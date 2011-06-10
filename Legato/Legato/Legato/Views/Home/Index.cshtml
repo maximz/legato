@@ -2,7 +2,10 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>@ViewBag.Message</h2>
+<h1>Find a place to play.</h1>
+<h2>Find an instrument @Html.ActionLink("for public use",MVC.Instruments.Map("public")), for rent, or for sale.</h2>
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    Since 2011, Legato Network has connected musicians around the world to create a network for information exchange - a connected network.
 </p>
+
+@Html.Action(MVC.Instruments.Map())
