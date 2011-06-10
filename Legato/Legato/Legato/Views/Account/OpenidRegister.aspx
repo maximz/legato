@@ -30,6 +30,16 @@
                     <%= Html.ValidationMessageFor(m=>m.EmailAddress) %>
                 </p>
                 <p>
+                    <%= Html.LabelFor(m=>m.ConfirmEmailAddress) %>
+                    <%= Html.TextBoxFor(m => m.ConfirmEmailAddress)%>
+                    <%= Html.ValidationMessageFor(m => m.ConfirmEmailAddress)%>
+                </p>
+                <p>
+                    <%= Html.LabelFor(m=>m.AboutMe) %>
+                    <%= Html.TextAreaFor(m=>m.FullName)%>
+                    <%= Html.ValidationMessageFor(m=>m.FullName) %>
+                </p>
+                <p>
                     <label for="CAPTCHA">Verification word(s):</label>
                     <%= Html.GenerateCaptcha() %>
                 </p>

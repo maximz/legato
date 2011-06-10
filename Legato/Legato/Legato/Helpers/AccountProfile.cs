@@ -46,6 +46,12 @@ namespace Legato
             set { base["FullName"] = value; Save(); }
         }
 
+        public int Reputation
+        {
+            get { return ((int)(base["Reputation"])); }
+            set { base["Reputation"] = value; Save(); }
+        }
+
         public string AboutMe
         {
             get { return ((string)(base["AboutMe"])); }
