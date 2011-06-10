@@ -53,10 +53,14 @@ namespace Legato
             // the user, or similar; this could also all be done in action filters, but this
             // is simple and practical; just return null for most users. For our test, we'll
             // profile only for local requests (seems reasonable)
-            if (Request.IsLocal)
-            {
-                profiler = MvcMiniProfiler.MiniProfiler.Start();
-            }
+            //if (Request.IsLocal)
+            //{
+            //    profiler = MvcMiniProfiler.MiniProfiler.Start();
+            //}
+
+#if DEBUG
+            profiler = MvcMiniProfiler.MiniProfiler.Start();
+#endif
 
             using (profiler.Step("Application_BeginRequest"))
             {
