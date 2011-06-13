@@ -1,19 +1,27 @@
 ﻿@model Legato.ViewModels.ReadListingViewModel
 
 @{
-    ViewBag.Title = "Listing";
+    ViewBag.Title = Model.Instrument.Title;
 }
 
-<h2>Listing</h2>
+<h2>@Model.Instrument.Brand @Model.Instrument.Model</h2>
+<h3><i>@Model.Instrument.StreetAddress</i></h3>
 
-<fieldset>
-    <legend>ReadListingViewModel</legend>
+<div id="info">
+
+</div>
+<div id="minimap"></div>
+<div id="description"></div>
+<div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
+<div id="userdetails"></div>
+<hr />
+<div id="reviews">
+
+</div>
 
     <div class="display-label">IsFilteredToIndividualReview</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsFilteredToIndividualReview)
-    </div>
-</fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")

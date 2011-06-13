@@ -80,6 +80,11 @@ namespace Legato.Controllers {
         public System.Web.Mvc.ActionResult EditListing() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.EditListing);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult UserLinksForListing() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.UserLinksForListing);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public InstrumentsController Actions { get { return MVC.Instruments; } }
@@ -103,6 +108,7 @@ namespace Legato.Controllers {
             public readonly string Review = "Review";
             public readonly string EditReview = "EditReview";
             public readonly string EditListing = "EditListing";
+            public readonly string UserLinksForListing = "UserLinksForListing";
         }
 
 
@@ -113,11 +119,19 @@ namespace Legato.Controllers {
         public class ViewNames {
             public readonly string AlreadyReviewed = "~/Views/Instruments/AlreadyReviewed.cshtml";
             public readonly string Edit = "~/Views/Instruments/Edit.aspx";
+            public readonly string EditListing = "~/Views/Instruments/EditListing.cshtml";
+            public readonly string EditReview = "~/Views/Instruments/EditReview.cshtml";
             public readonly string IndividualReview = "~/Views/Instruments/IndividualReview.aspx";
             public readonly string List = "~/Views/Instruments/List.aspx";
+            public readonly string Listing = "~/Views/Instruments/Listing.cshtml";
+            public readonly string Map = "~/Views/Instruments/Map.cshtml";
             public readonly string Read = "~/Views/Instruments/Read.aspx";
+            public readonly string Review = "~/Views/Instruments/Review.cshtml";
             public readonly string ReviewTimeline = "~/Views/Instruments/ReviewTimeline.aspx";
             public readonly string Submit = "~/Views/Instruments/Submit.aspx";
+            public readonly string Submit_cshtml = "~/Views/Instruments/Submit.cshtml";
+            public readonly string Timeline = "~/Views/Instruments/Timeline.cshtml";
+            public readonly string UserLinksForListing = "~/Views/Instruments/UserLinksForListing.cshtml";
         }
     }
 
@@ -142,9 +156,10 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Individual(int instrumentID) {
+        public override System.Web.Mvc.ActionResult Individual(int instrumentID, string slug) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Individual);
             callInfo.RouteValueDictionary.Add("instrumentID", instrumentID);
+            callInfo.RouteValueDictionary.Add("slug", slug);
             return callInfo;
         }
 
@@ -183,7 +198,7 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditReview(long reviewID) {
+        public override System.Web.Mvc.ActionResult EditReview(int reviewID) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditReview);
             callInfo.RouteValueDictionary.Add("reviewID", reviewID);
             return callInfo;
@@ -195,7 +210,7 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditListing(long instrumentID) {
+        public override System.Web.Mvc.ActionResult EditListing(int instrumentID) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditListing);
             callInfo.RouteValueDictionary.Add("instrumentID", instrumentID);
             return callInfo;
@@ -204,6 +219,12 @@ namespace Legato.Controllers {
         public override System.Web.Mvc.ActionResult EditListing(Legato.ViewModels.EditListingViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditListing);
             callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult UserLinksForListing(int instrumentID) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UserLinksForListing);
+            callInfo.RouteValueDictionary.Add("instrumentID", instrumentID);
             return callInfo;
         }
 

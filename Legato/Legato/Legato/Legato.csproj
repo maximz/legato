@@ -360,6 +360,8 @@
     <Content Include="Views\Instruments\Review.cshtml" />
     <Content Include="Views\Instruments\EditReview.cshtml" />
     <Content Include="Views\Instruments\EditListing.cshtml" />
+    <Content Include="Views\Instruments\UserLinksForListing.cshtml" />
+    <Content Include="Views\Instruments\UserLinksForReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

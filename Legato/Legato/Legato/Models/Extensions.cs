@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Legato.Helpers;
+using System.Web.Security;
 
 namespace Legato.Models
 {
@@ -89,6 +90,79 @@ namespace Legato.Models
             UrlSlug = HtmlUtilities.URLFriendly(Title);
         }
 
+        public ListingPermissionsModel Permissions()
+        {
+            if (Current.Request.IsAuthenticated)
+            {
+                var model = new ListingPermissionsModel();
+
+                model.Listing = this;
+                var User = Current.Controller.User;
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
+
+                //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                var submitterGuid = this.UserID;
+                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                {
+                    model.CanEdit = false;
+                    model.CanDelete = false;
+                }
+                else
+                {
+                    model.CanEdit = true;
+                    model.CanDelete = true;
+                }
+
+                // Check to see whether this user has already reviewed this instrument (checks using UserGuid and InstrumentID)
+                var existingReview = Current.DB.InstrumentReviews.Where(r => r.UserID == userGuid && r.InstrumentID == this.InstrumentID).SingleOrDefault();
+                if (existingReview != null)
+                {
+                    model.HasAlreadyReviewed = true;
+                }
+                else
+                {
+                    model.HasAlreadyReviewed = false;
+                }
+
+                return model;
+            }
+            return null;
+        }
+
+        public class ListingPermissionsModel
+        {
+            public Instrument Listing
+            {
+                get;
+                set;
+            }
+            public bool CanEdit
+            {
+                get;
+                set;
+            }
+            public bool CanFlag
+            {
+                get;
+                set;
+            }
+            public bool CanDelete
+            {
+                get;
+                set;
+            }
+            public bool CanComment
+            {
+                get;
+                set;
+            }
+            public bool HasAlreadyReviewed
+            {
+                get;
+                set;
+            }
+        }
+
     }
 
     public partial class InstrumentReview
@@ -105,6 +179,65 @@ namespace Legato.Models
                 this.Revisions = db.InstrumentReviewRevisions.Where(rev => rev.ReviewID == this.ReviewID).OrderByDescending(rev => rev.RevisionDate).ToList();
         }
 
+        public ReviewPermissionsModel Permissions()
+        {
+            if (Current.Request.IsAuthenticated)
+            {
+                var model = new ReviewPermissionsModel();
+
+                model.Review = this;
+                var User = Current.Controller.User;
+                var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
+
+                //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
+                var query = this.InstrumentReviewRevisions.OrderByDescending(d=>d.RevisionDate);
+                var revision = query.First();
+                var submitterGuid = query.Last().UserID;
+                    
+                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                {
+                    model.CanEdit = false;
+                    model.CanDelete = false;
+                }
+                else
+                {
+                    model.CanEdit = true;
+                    model.CanDelete = true;
+                }
+
+                return model;
+            }
+            return null;
+        }
+
+        public class ReviewPermissionsModel
+        {
+            public InstrumentReview Review
+            {
+                get;
+                set;
+            }
+            public bool CanEdit
+            {
+                get;
+                set;
+            }
+            public bool CanFlag
+            {
+                get;
+                set;
+            }
+            public bool CanDelete
+            {
+                get;
+                set;
+            }
+            public bool CanComment
+            {
+                get;
+                set;
+            }
+        }
     }
 
     public class BoundingBox

@@ -168,7 +168,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("Instrument/Listing/{instrumentID}/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
-        public virtual ActionResult Individual(int instrumentID)
+        public virtual ActionResult Individual(int instrumentID, string slug)
         {
             var db = Current.DB;
                 try
@@ -505,24 +505,27 @@ namespace Legato.Controllers
         [Url("Instrument/Review/Edit/{reviewID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
-        public virtual ActionResult EditReview(long reviewID)
+        public virtual ActionResult EditReview(int reviewID)
         {
             try
             {
                 var db = Current.DB;
-                    //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                    var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
-                    var query = db.InstrumentReviewRevisions.Where(r => r.ReviewID == reviewID).OrderByDescending(r => r.RevisionDate);
-                    var revision = query.First();
-                    var submitterGuid = query.Last().UserID;
+                var review = db.InstrumentReviews.Where(r=>r.ReviewID == reviewID).SingleOrDefault();
+                if(review==null)
+                {
+                    return RedirectToAction(MVC.Error.NotFound());
+                }
+                var permissions = review.Permissions();
                     
-                    if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                    if (!permissions.CanEdit) // if user isn't submitter and doesn't have edit privileges, forbidden!
                     {
                         return RedirectToAction("Forbidden", "Error");
                     }
 
-                    var listing = revision.InstrumentReview.Instrument;
+                    var revision = review.InstrumentReviewRevisions.OrderByDescending(rr => rr.RevisionDate).First();    
+                    var listing = review.Instrument;
                     var hours = listing.InstrumentHours;
+
                     var revisionmodel = new RevisionSubmissionViewModel()
                     {
                         DateOfLastUsage=revision.LastUseDate,
@@ -560,11 +563,16 @@ namespace Legato.Controllers
             {
                 var db=Current.DB;
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
+                var review = db.InstrumentReviews.Where(rrr => rrr.ReviewID == model.ReviewRevision.ReviewID).SingleOrDefault();
+                if(review==null)
+                {
+                    return RedirectToAction(MVC.Error.NotFound());
+                }
+                var permissions = review.Permissions();
                     try
                     {
                         //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                        var submitterGuid = db.InstrumentReviewRevisions.Where(revisionforcheck => revisionforcheck.ReviewID == model.ReviewRevision.ReviewID).OrderBy(revisionforcheck=>revisionforcheck.RevisionDate).First().UserID;
-                        if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator))
+                        if(!permissions.CanEdit)
                         {
                             return RedirectToAction("Forbidden", "Error");
                         }
@@ -609,21 +617,18 @@ namespace Legato.Controllers
         [Url("Instrument/Listing/Edit/{instrumentID}")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        public virtual ActionResult EditListing(long instrumentID)
+        public virtual ActionResult EditListing(int instrumentID)
         {
             try
             {
                 var db = Current.DB;
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
-                var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
                 var listing = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
                 if(listing==null)
                 {
                     return RedirectToAction("NotFound", "Error");
                 }
-                var submitterGuid = listing.UserID;
-
-                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                if (!listing.Permissions().CanEdit) // if user isn't submitter and doesn't have edit privileges, forbidden!
                 {
                     return RedirectToAction("Forbidden", "Error");
                 }
@@ -706,7 +711,7 @@ namespace Legato.Controllers
                 }
                 var submitterGuid = listing.UserID;
 
-                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                if (!listing.Permissions().CanEdit) // if user isn't submitter and doesn't have edit privileges, forbidden!
                 {
                     return RedirectToAction("Forbidden", "Error");
                 }
@@ -780,6 +785,49 @@ namespace Legato.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
+        #endregion
+
+        #region User Links
+        // http://stackoverflow.com/questions/6247009/whats-a-clean-dry-way-to-show-available-operations-on-user-content
+
+        /// <summary>
+        /// Displays available actions on a listing as links.
+        /// </summary>
+        /// <param name="instrumentID">The instrument listing ID.</param>
+        /// <returns></returns>
+        public virtual ActionResult UserLinksForListing(int instrumentID)
+        {
+            var db = Current.DB;
+            var instrument = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
+            if(instrument==null)
+            {
+                return RedirectToAction(MVC.Error.NotFound());
+            }
+
+            var model = instrument.Permissions();
+
+            return PartialView(model);
+        }
+
+        /// <summary>
+        /// Displays available actions on a review as links.
+        /// </summary>
+        /// <param name="instrumentID">The instrument review ID.</param>
+        /// <returns></returns>
+        public virtual ActionResult UserLinksForReview(int reviewID)
+        {
+            var db = Current.DB;
+            var review = db.InstrumentReviews.Where(i => i.ReviewID == reviewID).SingleOrDefault();
+            if (review == null)
+            {
+                return RedirectToAction(MVC.Error.NotFound());
+            }
+
+            var model = review.Permissions();
+
+            return PartialView(model);
+        }
+
         #endregion
 
     }

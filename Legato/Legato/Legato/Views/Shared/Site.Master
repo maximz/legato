@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
 	<meta name="description" content="Welcome to Legato Network - The Future of Music" />
 	<meta name="author" content="Maxim Zaslavsky" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
