@@ -21,7 +21,7 @@ namespace Legato.Controllers
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            if (ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
+            if (ViewData["CurrentMenuItem"] == null || ViewData["CurrentMenuItem"].ToString().IsNullOrEmpty())
             {
                 ViewData["CurrentMenuItem"] = "Instruments";
             }
@@ -56,9 +56,9 @@ namespace Legato.Controllers
                              label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim(),
                              typename = ins.InstrumentType.Name,
                              typeid = ins.InstrumentType.TypeID,
-                             type = ins.InstrumentType,
-                             icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
-                         }).ToList();;
+                             type = ins.InstrumentType
+                             //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
+                         }).ToList();
             if (classIns.HasValue()) // for example, if classIns="public", only instruments that are allowed in public mode are shown.
             {
                 foreach (var p in points)
