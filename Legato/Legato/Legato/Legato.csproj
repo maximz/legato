@@ -186,7 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
-    <Content Include="Content\Awesome.css" />
+    <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -243,6 +243,7 @@
     <Content Include="static\js\jquery-1.6.1.min.js" />
     <Content Include="static\js\jquery.timeago.min.js" />
     <Content Include="static\js\jquery.wmd.min.js" />
+    <Content Include="static\js\map.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
     <Content Include="static\js\plugins.js" />

@@ -51,9 +51,11 @@ namespace Legato.Controllers
             var db = Current.DB;
             var points = (from ins in db.Instruments
                          select new {
+                             id = ins.InstrumentID,
                              lat = ins.Lat,
-                             lon = ins.Long,
+                             lng = ins.Long,
                              label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim(),
+                             slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim()),
                              typename = ins.InstrumentType.Name,
                              typeid = ins.InstrumentType.TypeID,
                              type = ins.InstrumentType
@@ -95,12 +97,12 @@ namespace Legato.Controllers
                     }
                 }
             }
-            var result = Json(points,JsonRequestBehavior.AllowGet).ToString();
+            return Json(points,JsonRequestBehavior.AllowGet);
             if(ControllerContext.IsChildAction)
             {
-                return PartialView(result);
+                //return PartialView(result);
             }
-            return View(result);
+            //return View(result);
         }
 
         #endregion
@@ -166,7 +168,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="instrumentID">The instrument ID.</param>
         /// <returns></returns>
-        [Url("Instrument/Listing/{instrumentID}/{slug?}")]
+        [Url("Instruments/Listing/{instrumentID}/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
         public virtual ActionResult Individual(int instrumentID, string slug)
         {

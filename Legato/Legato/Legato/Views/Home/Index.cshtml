@@ -2,10 +2,34 @@
     ViewBag.Title = "Home Page";
 }
 
+<div class="centered">
 <h1>Find a place to play.</h1>
-<h2>Find an instrument @Html.ActionLink("for public use",MVC.Instruments.Map("public")), for rent, or for sale.</h2>
+<h2>Find an instrument for public use, for rent, or for sale.</h2>
 <p>
     Since 2011, Legato Network has connected musicians around the world to create a network for information exchange - a connected network.
 </p>
 
-@Html.Action(MVC.Instruments.Map())
+<div id="mapCanvas" style="width:100%; height:100%"></div>
+</div>
+
+@section ScriptContentAtEndOfBody {
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="/static/js/map.js"></script>
+<script>
+    var points = [];
+
+    $.getJSON("@Url.Action("Map","Instruments")",
+      {
+      },
+      function (data) {
+          points = data.items;
+      });
+
+    Legato.map.init();
+
+    google.maps.event.addListenerOnce(Legato.map.map, 'tilesloaded', function () {
+        Legato.map.markLocations(points);
+    });
+</script>
+}
