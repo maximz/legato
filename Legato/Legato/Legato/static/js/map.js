@@ -7,14 +7,15 @@
 		this.map = null;
 		this.mapCanvas = null;
 		this.markers = [];
+		this.geocoder = null;
 		this.mapOptions = {
 			maxZoom: 9,
 			minZoom:2,
 			zoom: 3,
 			center: new google.maps.LatLng(40, 190),
 			scrollwheel: false,
-			mapTypeControl: false,
-			streetViewControl: false,
+			mapTypeControl: true,
+			streetViewControl: true,
 			zoomControlOptions: {
 				position: google.maps.ControlPosition.LEFT_BOTTOM
 			},
@@ -53,12 +54,15 @@
 			self.overlay.draw = function() {};
 			self.overlay.setMap(self.map);
 
+			geocoder = new google.maps.Geocoder();
+
 			// This is a stop-gap measure to minimize the effect of
 			// a bug we haven't solved yet.
 			
-			google.maps.event.addListener(self.map, 'dragstart', function() {
-				$(".message").not("#messageTemplate").remove();
-			});
+//			google.maps.event.addListener(self.map, 'dragstart', function() {
+//				$(".message").not("#messageTemplate").remove();
+//			});
+
 		}
 
 		this.newMarker = function(lat, lng) {
@@ -79,7 +83,11 @@
 		}
 
 		this.markLocations = function(locations) {
-			var i = locations.length;
+			if(locations==null) {
+                // this is if no instruments exist in the DB
+                return;
+            }
+            var i = locations.length;
 			while (i--) {
 				var loc = locations[i];
 
@@ -120,6 +128,23 @@ var infowindow = new google.maps.InfoWindow({
 				}
 			}
 		}
+
+		// For panning to an address
+		function codeAddress() {
+			var address = $("#address").value;
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: map, 
+					position: results[0].geometry.location
+				});
+			  } else {
+				alert("We couldn't find that address: " + status);
+			  }
+			});
+		}
+
 		/* This method is unneccessary
 		this.createOverlay = function(message, position) {
 			

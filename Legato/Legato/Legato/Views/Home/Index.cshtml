@@ -9,7 +9,11 @@
     Since 2011, Legato Network has connected musicians around the world to create a network for information exchange - a connected network.
 </p>
 
-<div id="mapCanvas" style="width:100%; height:100%"></div>
+<div>
+    <input id="address" type="textbox" value="Zoom to an address" />
+    <input type="button" value="Zoom" onclick="Legato.map.codeAddress()" />
+</div>
+<div id="mapCanvas" style="z-index:22; height:90%;top:30px"></div>
 </div>
 
 @section ScriptContentAtEndOfBody {
