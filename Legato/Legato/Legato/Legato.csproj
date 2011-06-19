@@ -137,6 +137,7 @@
     <Compile Include="Helpers\HtmlUtilities.cs" />
     <Compile Include="Helpers\IEnumerableExtensions.cs" />
     <Compile Include="Helpers\Inflector.cs" />
+    <Compile Include="Helpers\InstrumentDetailsDynamicNodeProvider.cs" />
     <Compile Include="Helpers\IPagedList.cs" />
     <Compile Include="Helpers\IPBlacklist.cs" />
     <Compile Include="Helpers\IQueryableExtensions.cs" />
@@ -361,6 +362,7 @@
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Instruments\AlreadyReviewed.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Mvc.sitemap" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>

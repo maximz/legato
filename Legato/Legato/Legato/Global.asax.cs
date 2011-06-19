@@ -8,6 +8,7 @@ using RiaLibrary.Web;
 using MvcMiniProfiler;
 using System.IO;
 using Legato.Models;
+using MvcSiteMapProvider.Web;
 
 namespace Legato
 {
@@ -33,6 +34,8 @@ namespace Legato
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            XmlSiteMapController.RegisterRoutes(RouteTable.Routes); // register sitemap.xml
 
             RegisterRoutes(RouteTable.Routes);
 

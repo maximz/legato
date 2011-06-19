@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0" enableLocalization="true">
+  <mvcSiteMapNode title="Home" controller="Home" action="Index" changeFrequency="Always" updatePriority="Normal">
+    <mvcSiteMapNode title="Instruments" controller="Instruments" clickable="false">
+        <mvcSiteMapNode title="Add Instrument" controller="Instruments" action="Submit" />
+        <mvcSiteMapNode title="Details" action="Details" dynamicNodeProvider="Legato.Helpers.InstrumentDetailsDynamicNodeProvider, Legato" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Account" controller="Account" clickable="false">
+      <mvcSiteMapNode title="Log In or Register" action="Login"/>
+    </mvcSiteMapNode>
+
+    <!--<mvcSiteMapNode title="$resources:SiteMapLocalizations,AdministrationTitle" area="Admin" controller="Home" visibility="SiteMapPathHelper,!*" visibilityProvider="MvcSiteMapProvider.FilteredSiteMapNodeVisibilityProvider, MvcSiteMapProvider">
+      <mvcSiteMapNode title="$resources:SiteMapLocalizations,StoreManagerTitle" area="Admin" controller="StoreManager" action="Index">
+        <mvcSiteMapNode title="$resources:SiteMapLocalizations,CreateAlbumTitle" action="Create"/>
+        <mvcSiteMapNode title="$resources:SiteMapLocalizations,EditAlbumTitle" action="Edit"/>
+        <mvcSiteMapNode title="$resources:SiteMapLocalizations,DeleteAlbumTitle" action="Delete"/>
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>-->
+
+    <!--<mvcSiteMapNode title="SiteMap" action="SiteMap" urlResolver="MvcMusicStore.Code.UpperCaseSiteMapNodeUrlResolver, Mvc Music Store" />-->
+  </mvcSiteMapNode>
+</mvcSiteMap>
