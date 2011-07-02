@@ -9,18 +9,18 @@
 		this.markers = [];
 		this.geocoder = null;
 		this.mapOptions = {
-			maxZoom: 9,
+			maxZoom: 20,
 			minZoom:2,
 			zoom: 3,
 			center: new google.maps.LatLng(40, 190),
-			scrollwheel: false,
+			scrollwheel: true,
 			mapTypeControl: true,
 			streetViewControl: true,
 			zoomControlOptions: {
-				position: google.maps.ControlPosition.LEFT_BOTTOM
+				position: google.maps.ControlPosition.LEFT_TOP
 			},
 			panControlOptions: {
-				position: google.maps.ControlPosition.LEFT_BOTTOM
+				position: google.maps.ControlPosition.LEFT_TOP
 			}
 		}
 		this.mapType = new google.maps.StyledMapType([
@@ -39,16 +39,27 @@
 					{ lightness: -9 },  // Must be < 0 to compensate for the "all" lightness
 					{ saturation: -100 }
 				]
-			}
-		]);
+			}, {
+                featureType: "all",
+                elementType: "labels",
+                stylers: [
+                  { visibility: "on" },
+                  { lightness: -50 }
+                ]
+              }
+		], {
+            name: "Styled Map"
+        });
 		this.overlay = null;
 
 		this.init = function() {
 			self.mapCanvas = $("#mapCanvas")[0];
 
 			self.map = new google.maps.Map(self.mapCanvas, self.mapOptions);
-			self.map.mapTypes.set('styledMapType', self.mapType);
-			self.map.setMapTypeId('styledMapType');
+            self.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+            // if we use the styled map type:
+//			self.map.mapTypes.set('styledMapType', self.mapType);
+//			self.map.setMapTypeId('styledMapType');
 
 			self.overlay = new google.maps.OverlayView();
 			self.overlay.draw = function() {};
@@ -130,13 +141,14 @@ var infowindow = new google.maps.InfoWindow({
 		}
 
 		// For panning to an address
-		function codeAddress() {
-			var address = $("#address").value;
+		this.codeAddress = function() {
+			var address = $('#address').val();
 			geocoder.geocode( { 'address': address}, function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
-				map.setCenter(results[0].geometry.location);
+				self.map.setCenter(results[0].geometry.location);
+                self.map.fitBounds(results[0].geometry.viewport);
 				var marker = new google.maps.Marker({
-					map: map, 
+					map: self.map, 
 					position: results[0].geometry.location
 				});
 			  } else {
