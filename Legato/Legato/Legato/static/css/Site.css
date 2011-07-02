@@ -215,6 +215,11 @@ input[type="password"]
 	border: 1px solid #CCC;
 }
 
+input.blur
+{
+    color: #999;
+}
+
 /* TABLE
 ----------------------------------------------------------*/
 

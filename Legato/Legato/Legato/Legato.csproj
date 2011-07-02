@@ -249,6 +249,7 @@
     <Content Include="static\js\jquery-1.6.1-vsdoc.js" />
     <Content Include="static\js\jquery-1.6.1.js" />
     <Content Include="static\js\jquery-1.6.1.min.js" />
+    <Content Include="static\js\jquery.hint.js" />
     <Content Include="static\js\jquery.timeago.min.js" />
     <Content Include="static\js\jquery.unobtrusive-ajax.js" />
     <Content Include="static\js\jquery.unobtrusive-ajax.min.js" />

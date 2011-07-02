@@ -10,7 +10,7 @@
 </p>
 
 <div>
-	<input id="address" type="textbox" value="Zoom to an address" />
+	<input id="address" type="textbox" value="" title="find address" />
 	<input type="button" value="Zoom" id="zoomButton" />
 </div>
 <div id="mapCanvas" style="z-index:22; height:400px;width:930px;margin:10px;"></div>
@@ -38,6 +38,15 @@
 	
 	$('#zoomButton').click(function() {
 		Legato.map.codeAddress();
+	});
+
+	// Handle ENTER keypress
+	$('#address').keypress(function(e) {
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code == 13) { //Keycode for ENTER key
+			//Do something
+			Legato.map.codeAddress();
+		}
 	});
 </script>
 }

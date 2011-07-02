@@ -33,4 +33,6 @@ $(function(){
             }
         }
     }
+
+    $('input[title!=""]').hint();
 });
