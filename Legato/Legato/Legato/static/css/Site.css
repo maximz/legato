@@ -1241,8 +1241,8 @@ table.grid td
 
 #mapCanvas {
     /*position: absolute;*/
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 20%;
     right: 0;
     bottom: 30px;
 }
