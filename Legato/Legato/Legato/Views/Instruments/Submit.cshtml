@@ -4,20 +4,108 @@
     ViewBag.Title = "Submit";
 }
 
-<h2>Submit</h2>
-
+@section ScriptContentAtEndOfBody {
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+}
+
+<h2>Submit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>SubmitViewModel</legend>
+<fieldset>
+			<legend>Listing</legend>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Listing.StreetAddress)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.StreetAddress)
+				@Html.ValidationMessageFor(model => model.Listing.StreetAddress)
+			</div>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.VenueName)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.VenueName)
+				@Html.ValidationMessageFor(model => model.Listing.VenueName)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Equipment.Brand)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.Equipment.Brand)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.Brand)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Equipment.Model)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.Equipment.Model)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.Model)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Equipment.SelectedClass)
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedClass, Model.Listing.Equipment.Classes)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Price)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.Price)
+				@Html.ValidationMessageFor(model => model.Listing.Price)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.TimeSpanOfPrice)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice)
+				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown)
+				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
+			</div>
+			</fieldset>
+    <fieldset>
+    <legend>Hours of Availability</legend>
+    <p>Please list the hours of availability of this instrument.</p>
+            
+                <div class="editor-label">
+				    @Html.LabelFor(Model=>Model.Hours.
+			    </div>
+			    <div class="editor-field">
+				    @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice)
+				    @Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
+			    </div>
     </fieldset>
+    <fieldset>
+    <legend>Review</legend>
+			<p>
+				<input type="submit" value="Create" />
+			</p>
+		</fieldset>
 }
 
 <div>
