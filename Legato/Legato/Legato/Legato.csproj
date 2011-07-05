@@ -324,7 +324,6 @@
     <Content Include="Views\Instruments\List.aspx" />
     <Content Include="Views\Instruments\Read.aspx" />
     <Content Include="Views\Instruments\ReviewTimeline.aspx" />
-    <Content Include="Views\Instruments\Submit.aspx" />
     <Content Include="Views\Shared\Awesome\AjaxCheckBoxList.ascx" />
     <Content Include="Views\Shared\Awesome\AjaxDropdown.ascx" />
     <Content Include="Views\Shared\Awesome\AjaxRadioList.ascx" />

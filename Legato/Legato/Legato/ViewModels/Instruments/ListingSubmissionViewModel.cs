@@ -72,6 +72,14 @@ namespace Legato.ViewModels
             get;
             set;
         }
+
+        public ListingSubmissionViewModel()
+        {
+            if(Equipment==null)
+            {
+                Equipment = new EquipmentViewModel();
+            }
+        }
         
     }
 }

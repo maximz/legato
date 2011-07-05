@@ -19,5 +19,16 @@ namespace Legato.ViewModels
             get;
             set;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReviewCreateViewModel"/> class.
+        /// </summary>
+        public ReviewCreateViewModel()
+        {
+            if(ReviewRevision == null)
+            {
+                ReviewRevision = new RevisionSubmissionViewModel();
+            }
+        }
     }
 }
