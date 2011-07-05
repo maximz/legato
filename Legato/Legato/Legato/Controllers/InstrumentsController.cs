@@ -260,7 +260,7 @@ namespace Legato.Controllers
         public virtual ActionResult Submit()
         {
             // Types are loaded into the View via AJAX.
-            return View(new SubmitViewModel()
+            var model = new SubmitViewModel()
             {
                 Listing = new ListingSubmissionViewModel()
                 {
@@ -274,7 +274,20 @@ namespace Legato.Controllers
             }, "Id", "Name")
                     }
                 }
-            });
+            };
+
+            for(int i = 0;i<7;i++)
+            {
+                var day = Enum.GetName(typeof(DayOfWeek),i);
+                var hourmodel = new VenueHourViewModel()
+                {
+                    DayOfWeekId = i,
+                    DayOfWeekName = day
+                };
+                model.Hours.Add(hourmodel);
+            }
+
+            return View(model);
         }
         [Url("Instrument/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
@@ -365,7 +378,7 @@ namespace Legato.Controllers
                     {
                         var submit = new InstrumentHour();
                         submit.Day = hour.DayOfWeekId;
-                        if(!hour.Closed.GetValueOrDefault(false))
+                        if(!hour.Closed)
                         {
                             submit.OpenTime = new TimeSpan(hour.StartTime.Hour,hour.StartTime.Minute,hour.StartTime.Second);
                             submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);
@@ -764,7 +777,7 @@ namespace Legato.Controllers
                 {
                     var submit = new InstrumentHour();
                     submit.Day = hour.DayOfWeekId;
-                    if (!hour.Closed.GetValueOrDefault(false))
+                    if (!hour.Closed)
                     {
                         submit.OpenTime = new TimeSpan(hour.StartTime.Hour, hour.StartTime.Minute, hour.StartTime.Second);
                         submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);

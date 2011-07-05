@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     /* Name: Demo
     Author: Demo King */
     /*demo namespace*/
@@ -34,5 +34,7 @@ $(function(){
         }
     }
 
-    $('input[title!=""]').hint();
+    $('input[title!=""]').hint(); // activates textbox hinting (see jquery.hint.js)
+
+    $('.dateinput').datepicker(); // activates jQuery UI datepicker control
 });

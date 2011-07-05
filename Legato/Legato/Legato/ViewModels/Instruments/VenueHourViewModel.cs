@@ -36,7 +36,7 @@ namespace Legato.ViewModels
         }
 
         [DisplayName("Closed")]
-        public bool? Closed
+        public bool Closed
         {
             get;
             set;

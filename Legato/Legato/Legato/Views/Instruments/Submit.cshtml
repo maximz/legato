@@ -1,18 +1,63 @@
 ﻿@model Legato.ViewModels.SubmitViewModel
 
 @{
-    ViewBag.Title = "Submit";
+	ViewBag.Title = "Submit";
 }
 
 @section ScriptContentAtEndOfBody {
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.raty.min.js")" type="text/javascript"></script>
+
+<!-- TODO: put a block here that checks whether Model already has the ratings set. If so, do raty.start(number) on each one that's set -->
+<!-- TODO: hints for each input item, as to what should be inputted -->
+<!-- TODO: wmd -->
+
+$('#rate-overall').raty({
+  cancel:     false
+  target:     '#RatingOverall'
+  targetKeep: true,
+  targetType: 'number'
+  path:       '/static/images/raty/'
+});
+
+$('#rate-tuning').raty({
+  cancel:     false
+  target:     '#RatingTuning'
+  targetKeep: true,
+  targetType: 'number'
+  path:       '/static/images/raty/'
+});
+
+$('#rate-tone').raty({
+  cancel:     false
+  target:     '#RatingToneQuality'
+  targetKeep: true,
+  targetType: 'number'
+  path:       '/static/images/raty/'
+});
+
+$('#rate-venue').raty({
+  cancel:     false
+  target:     '#RatingVenue'
+  targetKeep: true,
+  targetType: 'number'
+  path:       '/static/images/raty/'
+});
+
+$('#rate-playing').raty({
+  cancel:     false
+  target:     '#RatingPlayingCapability'
+  targetKeep: true,
+  targetType: 'number'
+  path:       '/static/images/raty/'
+});
 }
 
 <h2>Submit</h2>
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
 <fieldset>
 			<legend>Listing</legend>
 			
@@ -24,7 +69,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.StreetAddress)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.VenueName)
 			</div>
 			<div class="editor-field">
@@ -32,7 +77,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.VenueName)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Equipment.Brand)
 			</div>
 			<div class="editor-field">
@@ -40,7 +85,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.Brand)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Equipment.Model)
 			</div>
 			<div class="editor-field">
@@ -48,7 +93,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.Model)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedClass)
 			</div>
 			<div class="editor-field">
@@ -56,7 +101,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
 			</div>
 			<div class="editor-field">
@@ -72,7 +117,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.Price)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.TimeSpanOfPrice)
 			</div>
 			<div class="editor-field">
@@ -80,7 +125,7 @@
 				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			</div>
 
-            <div class="editor-label">
+			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			</div>
 			<div class="editor-field">
@@ -88,26 +133,103 @@
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
 			</div>
 			</fieldset>
-    <fieldset>
-    <legend>Hours of Availability</legend>
-    <p>Please list the hours of availability of this instrument.</p>
-            
-                <div class="editor-label">
-				    @Html.LabelFor(Model=>Model.Hours.
-			    </div>
-			    <div class="editor-field">
-				    @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice)
-				    @Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
-			    </div>
-    </fieldset>
-    <fieldset>
-    <legend>Review</legend>
+	<fieldset>
+	<legend>Hours of Availability</legend>
+	<p>Please list the hours of availability of this instrument.</p>
+			@foreach (var m in Model.Hours)
+			{
+				<div class="editor-label">
+					<b><label for="hours-@(m.DayOfWeekId)">@m.DayOfWeekName</label></b>
+				</div>
+				<div id="hours-@(m.DayOfWeekId)">
+					<div id="hours-@(m.DayOfWeekId)-open" class="editor-field">
+						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].StartTime, new { title="Opens at..."})
+						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].StartTime)
+					</div>
+					<div id="hours-@(m.DayOfWeekId)-close" class="editor-field">
+						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].EndTime, new { title = "Closes at..." })
+						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].EndTime)
+					</div>
+					<div id="hours-@(m.DayOfWeekId)-closed" class="editor-field">
+						@Html.CheckBoxFor(model => model.Hours[m.DayOfWeekId].Closed)
+						@Html.LabelFor(model => model.Hours[m.DayOfWeekId].Closed)
+						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].Closed)
+					</div>
+				</div>
+			}
+	</fieldset>
+	<fieldset>
+	<legend>Review</legend>
+	<div>
+		<p><b>Ratings</b></p>
+		@Html.HiddenFor(m=>m.ReviewRevision.RatingOverall)
+		@Html.HiddenFor(m=>m.ReviewRevision.RatingPlayingCapability)
+		@Html.HiddenFor(m=>m.ReviewRevision.RatingToneQuality)
+		@Html.HiddenFor(m=>m.ReviewRevision.RatingTuning)
+		@Html.HiddenFor(m=>m.ReviewRevision.RatingVenue)
+
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ReviewRevision.RatingOverall)
+		</div>
+		<div class="editor-field">
+			<div id="rate-overall"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
+		</div>
+
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ReviewRevision.RatingToneQuality)
+		</div>
+		<div class="editor-field">
+			<div id="rate-tone"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingToneQuality)
+		</div>
+
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ReviewRevision.RatingTuning)
+		</div>
+		<div class="editor-field">
+			<div id="rate-tuning"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingTuning)
+		</div>
+
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ReviewRevision.RatingVenue)
+		</div>
+		<div class="editor-field">
+			<div id="rate-venue"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingVenue)
+		</div>
+
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ReviewRevision.RatingPlayingCapability)
+		</div>
+		<div class="editor-field">
+			<div id="rate-playing"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingPlayingCapability)
+		</div>
+	</div>
+			<div class="editor-label">
+				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown)
+				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
+			</div>
+
+            <div class="editor-label">
+				@Html.LabelFor(model => model.ReviewRevision.DateOfLastUsage)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.ReviewRevision.DateOfLastUsage, new { @class="dateinput"})
+				@Html.ValidationMessageFor(model => model.ReviewRevision.DateOfLastUsage)
+			</div>
+            </fieldset>
 			<p>
 				<input type="submit" value="Create" />
 			</p>
-		</fieldset>
+		
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Back to List", "Index")
 </div>
