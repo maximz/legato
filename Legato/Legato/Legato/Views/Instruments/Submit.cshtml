@@ -11,7 +11,6 @@
 
 <!-- TODO: put a block here that checks whether Model already has the ratings set. If so, do raty.start(number) on each one that's set -->
 <!-- TODO: hints for each input item, as to what should be inputted -->
-<!-- TODO: wmd -->
 
 $('#rate-overall').raty({
   cancel:     false
@@ -129,7 +128,7 @@ $('#rate-playing').raty({
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown)
+				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class="wmd" })
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
 			</div>
 			</fieldset>
@@ -212,7 +211,7 @@ $('#rate-playing').raty({
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown)
+				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd" })
 				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
 			</div>
 
