@@ -77,5 +77,28 @@ namespace Legato.ViewModels
             get;
             set;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EquipmentViewModel"/> class.
+        /// </summary>
+        public EquipmentViewModel()
+        {
+            if (Classes == null)
+            {
+                    Classes = new SelectList(new[]
+                {
+                    new { Id = 1, Name = "Public" },
+                    new { Id = 2, Name = "Rent" },
+                    new { Id = 3, Name = "Sale" },
+                }, "Id", "Name");
+            }
+
+            if (Types == null)
+            {
+                var dbTypes = (from t in Current.DB.InstrumentTypes
+                               select new { Id = t.TypeID, Name = t.Name }).ToArray();
+                Types = new SelectList(dbTypes, "Id", "Name");
+            }
+        }
     }
 }

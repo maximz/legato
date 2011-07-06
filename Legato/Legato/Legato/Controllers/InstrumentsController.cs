@@ -259,22 +259,7 @@ namespace Legato.Controllers
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         public virtual ActionResult Submit()
         {
-            // Types are loaded into the View via AJAX.
-            var model = new SubmitViewModel()
-            {
-                Listing = new ListingSubmissionViewModel()
-                {
-                    Equipment = new EquipmentViewModel()
-                    {
-                        Classes = new SelectList(new[]
-            {
-                new { Id = 1, Name = "Public" },
-                new { Id = 2, Name = "Rent" },
-                new { Id = 3, Name = "Sale" },
-            }, "Id", "Name")
-                    }
-                }
-            };
+            var model = new SubmitViewModel();
 
             for(int i = 0;i<7;i++)
             {
@@ -299,9 +284,7 @@ namespace Legato.Controllers
             {
                 return View(model);
             }
-            //View info:
-            //http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx = pianovenuehours binding
-            //as there are multiple parameters, we'll just have to have multiple <form>s (one per parameter/object) in the View
+
             try
             {
                 var db = Current.DB;
@@ -683,13 +666,7 @@ namespace Legato.Controllers
                 listingmodel.Equipment = new EquipmentViewModel()
                 {
                     Brand=listing.Brand,
-                    Model=listing.Model,
-                    Classes = new SelectList(new[]
-            {
-                new { Id = 1, Name = "Public" },
-                new { Id = 2, Name = "Rent" },
-                new { Id = 3, Name = "Sale" },
-            }, "Id", "Name")
+                    Model=listing.Model
                 };
 
                 var model = new EditListingViewModel()

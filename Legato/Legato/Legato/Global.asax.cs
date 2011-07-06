@@ -114,8 +114,12 @@ namespace Legato
             {
                 byte[] results;
                 var conn = Current.DB;
-                    dynamic buffer = conn.MiniProfilerResults.Where(p => p.Id==id).SingleOrDefault();
-                    results = buffer.Results as byte[];
+                dynamic buffer = conn.MiniProfilerResults.Where(p => p.Id==id).SingleOrDefault();
+                if (buffer == null)
+                {
+                    return null;
+                }
+                results = buffer.Results as byte[];
 
                 if (results == null || results.Length == 0)
                     return null;

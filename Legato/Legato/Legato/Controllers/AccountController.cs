@@ -373,7 +373,7 @@ namespace Legato.Controllers
         }
         #endregion
 
-        #region Login and Logout
+        #region Logout
 
         /// <summary>
         /// Handles logoff.

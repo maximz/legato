@@ -39,7 +39,6 @@ namespace Legato.ViewModels
             if(Listing==null)
             {
                 Listing = new ListingSubmissionViewModel();
-                Listing.Equipment = new EquipmentViewModel();
             }
         }
     }
