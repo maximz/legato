@@ -50,12 +50,15 @@ namespace Legato.Helpers
             //Checking whether the user is in one of the allowed roles
             if(c.HttpContext.User.Identity.IsAuthenticated)
             {
-                foreach(var role in ExceptForRoles.Split(','))
+                if (ExceptForRoles != null)
                 {
-                    if(c.HttpContext.User.IsInRole(role))
+                    foreach (var role in ExceptForRoles.Split(','))
                     {
-                        isInRole = true;
-                        break;
+                        if (c.HttpContext.User.IsInRole(role))
+                        {
+                            isInRole = true;
+                            break;
+                        }
                     }
                 }
 

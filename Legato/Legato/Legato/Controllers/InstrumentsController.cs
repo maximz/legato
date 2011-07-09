@@ -294,11 +294,11 @@ namespace Legato.Controllers
                     var listing = new Instrument();
 
                     listing.StreetAddress = model.Listing.StreetAddress;
-                    listing.Lat = model.Listing.Lat;
-                    listing.Long = model.Listing.Long;
+                    listing.Lat = (decimal)model.Listing.Lat;
+                    listing.Long = (decimal)model.Listing.Long;
                     listing.Model = model.Listing.Equipment.Model.Trim();
                     listing.Brand = model.Listing.Equipment.Brand.Trim();
-                    listing.Price = model.Listing.Price;
+                    listing.Price = (decimal?)model.Listing.Price;
                     listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                     listing.VenueName = model.Listing.VenueName;
                     listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
@@ -341,7 +341,7 @@ namespace Legato.Controllers
 
                     //REVISION:
                     var r = new InstrumentReviewRevision();
-                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                     r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                     r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                     r.RatingGeneral = model.ReviewRevision.RatingOverall;
@@ -363,8 +363,8 @@ namespace Legato.Controllers
                         submit.Day = hour.DayOfWeekId;
                         if(!hour.Closed)
                         {
-                            submit.OpenTime = new TimeSpan(hour.StartTime.Hour,hour.StartTime.Minute,hour.StartTime.Second);
-                            submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);
+                            submit.OpenTime = new TimeSpan(hour.StartTime.Value.Hour, hour.StartTime.Value.Minute, hour.StartTime.Value.Second);
+                            submit.CloseTime = new TimeSpan(hour.EndTime.Value.Hour, hour.EndTime.Value.Minute, hour.EndTime.Value.Second);
                         }
                         else
                         {
@@ -463,7 +463,7 @@ namespace Legato.Controllers
                     {
                         // REVISION:
                         var r = new InstrumentReviewRevision();
-                        r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                        r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                         r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                         r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                         r.RatingGeneral = model.ReviewRevision.RatingOverall;
@@ -584,7 +584,7 @@ namespace Legato.Controllers
 
                     //REVISION:
                     var r = new InstrumentReviewRevision();
-                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage;
+                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                     r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                     r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                     r.RatingGeneral = model.ReviewRevision.RatingOverall;
@@ -655,9 +655,9 @@ namespace Legato.Controllers
                 var listingmodel = new ListingSubmissionViewModel()
                 {
                     GeneralInfoMarkdown = listing.GeneralInfoMarkdown,
-                    Lat = listing.Lat,
-                    Long = listing.Long,
-                    Price = listing.Price,
+                    Lat = (double)listing.Lat,
+                    Long = (double)listing.Long,
+                    Price = (double?)listing.Price,
                     TimeSpanOfPrice = listing.TimeSpanOfPrice,
                     StreetAddress = listing.StreetAddress,
                     VenueName = listing.VenueName,
@@ -712,11 +712,11 @@ namespace Legato.Controllers
 
                 //LISTING:
                 listing.StreetAddress = model.Listing.StreetAddress;
-                listing.Lat = model.Listing.Lat;
-                listing.Long = model.Listing.Long;
+                listing.Lat = (decimal)model.Listing.Lat;
+                listing.Long = (decimal)model.Listing.Long;
                 listing.Model = model.Listing.Equipment.Model.Trim();
                 listing.Brand = model.Listing.Equipment.Brand.Trim();
-                listing.Price = model.Listing.Price;
+                listing.Price = (decimal?)model.Listing.Price;
                 listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                 listing.VenueName = model.Listing.VenueName;
                 listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
@@ -756,8 +756,8 @@ namespace Legato.Controllers
                     submit.Day = hour.DayOfWeekId;
                     if (!hour.Closed)
                     {
-                        submit.OpenTime = new TimeSpan(hour.StartTime.Hour, hour.StartTime.Minute, hour.StartTime.Second);
-                        submit.CloseTime = new TimeSpan(hour.EndTime.Hour, hour.EndTime.Minute, hour.EndTime.Second);
+                        submit.OpenTime = new TimeSpan(hour.StartTime.Value.Hour, hour.StartTime.Value.Minute, hour.StartTime.Value.Second);
+                        submit.CloseTime = new TimeSpan(hour.EndTime.Value.Hour, hour.EndTime.Value.Minute, hour.EndTime.Value.Second);
                     }
                     else
                     {

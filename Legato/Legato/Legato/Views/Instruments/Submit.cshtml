@@ -12,66 +12,56 @@
 <script>
 
 $('#rate-overall').raty({
-  cancel:     false
-  target:     '#RatingOverall'
-  targetKeep: true,
-  targetType: 'number'
+  cancel:     false,
+  scoreName:  '#RatingOverall',
   path:       '/static/images/raty/'
 });
 
 $('#rate-tuning').raty({
-  cancel:     false
-  target:     '#RatingTuning'
-  targetKeep: true,
-  targetType: 'number'
+  cancel:     false,
+  scoreName:  '#RatingTuning',
   path:       '/static/images/raty/'
 });
 
 $('#rate-tone').raty({
-  cancel:     false
-  target:     '#RatingToneQuality'
-  targetKeep: true,
-  targetType: 'number'
+  cancel:     false,
+  scoreName:  '#RatingToneQuality',
   path:       '/static/images/raty/'
 });
 
 $('#rate-venue').raty({
-  cancel:     false
-  target:     '#RatingVenue'
-  targetKeep: true,
-  targetType: 'number'
+  cancel:     false,
+  scoreName:  '#RatingVenue',
   path:       '/static/images/raty/'
 });
 
 $('#rate-playing').raty({
-  cancel:     false
-  target:     '#RatingPlayingCapability'
-  targetKeep: true,
-  targetType: 'number'
+  cancel:     false,
+  scoreName:  '#RatingPlayingCapability',
   path:       '/static/images/raty/'
 });
 
-<!-- check whether Model already has the ratings set. If so, do raty.start(number) on each one that's set -->
+// check whether Model already has the ratings set. If so, do raty.start(number) on each one that's set
 
-@if(Model.ReviewRevision.RatingOverall==null || Model.ReviewRevision.RatingOverall == 0)
+@if(Model.ReviewRevision.RatingOverall!=null && Model.ReviewRevision.RatingOverall != 0)
 {
-	<text>$('#rate-overall').raty.start(@Model.ReviewRevision.RatingOverall);</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate-overall');</text>
 }
-@if (Model.ReviewRevision.RatingTuning == null || Model.ReviewRevision.RatingTuning == 0)
+@if (Model.ReviewRevision.RatingTuning != null && Model.ReviewRevision.RatingTuning != 0)
 {
-	<text>$('#rate-tuning').raty.start(@Model.ReviewRevision.RatingTuning);</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingTuning,'#rate-tuning');</text>
 }
-@if (Model.ReviewRevision.RatingToneQuality == null || Model.ReviewRevision.RatingToneQuality == 0)
+@if (Model.ReviewRevision.RatingToneQuality != null && Model.ReviewRevision.RatingToneQuality != 0)
 {
-	<text>$('#rate-tone').raty.start(@Model.ReviewRevision.RatingToneQuality);</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingToneQuality,'#rate-tone');</text>
 }
-@if (Model.ReviewRevision.RatingVenue == null || Model.ReviewRevision.RatingVenue == 0)
+@if (Model.ReviewRevision.RatingVenue != null && Model.ReviewRevision.RatingVenue != 0)
 {
-	<text>$('#rate-venue').raty.start(@Model.ReviewRevision.RatingVenue);</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingVenue,'#rate-venue');</text>
 }
-@if (Model.ReviewRevision.RatingPlayingCapability == null || Model.ReviewRevision.RatingPlayingCapability == 0)
+@if (Model.ReviewRevision.RatingPlayingCapability != null && Model.ReviewRevision.RatingPlayingCapability != 0)
 {
-	<text>$('#rate-playing').raty.start(@Model.ReviewRevision.RatingPlayingCapability);</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingPlayingCapability,'#rate-playing');</text>
 }
 </script>
 }
@@ -135,25 +125,19 @@ $('#rate-playing').raty({
 				@Html.LabelFor(model => model.Listing.Price)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Listing.Price)
+				@Html.TextBoxFor(model => model.Listing.Price, new { title = "price in local currency" }) per @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice, new { title = "year, month, day, hour, etc."})
 				@Html.ValidationMessageFor(model => model.Listing.Price)
+                @Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Listing.TimeSpanOfPrice)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice)
-				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
-			</div>
-
-			<div class="editor-label">
+			<!--<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class="wmd" })
+				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class="wmd", id="wmd-input" })
+                <div id="wmd-preview"></div>
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
-			</div>
+			</div> -->
 			</fieldset>
 	<fieldset>
 	<legend>Hours of Availability</legend>
@@ -163,21 +147,17 @@ $('#rate-playing').raty({
 				<div class="editor-label">
 					<b><label for="hours-@(m.DayOfWeekId)">@m.DayOfWeekName</label></b>
 				</div>
-				<div id="hours-@(m.DayOfWeekId)">
-					<div id="hours-@(m.DayOfWeekId)-open" class="editor-field">
+					<div id="hours-@(m.DayOfWeekId)" class="editor-field">
 						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].StartTime, new { title="Opens at..."})
 						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].StartTime)
-					</div>
-					<div id="hours-@(m.DayOfWeekId)-close" class="editor-field">
+
 						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].EndTime, new { title = "Closes at..." })
 						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].EndTime)
-					</div>
-					<div id="hours-@(m.DayOfWeekId)-closed" class="editor-field">
+
 						@Html.CheckBoxFor(model => model.Hours[m.DayOfWeekId].Closed)
 						@Html.LabelFor(model => model.Hours[m.DayOfWeekId].Closed)
 						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].Closed)
 					</div>
-				</div>
 			}
 	</fieldset>
 	<fieldset>
@@ -233,9 +213,11 @@ $('#rate-playing').raty({
 			<div class="editor-label">
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			</div>
-			<div class="editor-field">
-				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd" })
+			<div class="editor-field wmd-panel">
+				<div id="wmd-button-bar" class="wmd-panel"></div>
+				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-panel", id="wmd-input" })
 				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
+				<div id="wmd-preview" class="wmd-panel"></div>
 			</div>
 
 			<div class="editor-label">

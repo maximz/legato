@@ -65,7 +65,7 @@ namespace Legato.ViewModels
         [Required(ErrorMessage="The date you last used this instrument is required.")]
         [DisplayName("Date of Last Usage")]
         [CompareValue(ComparisonValue="DateTime.Now",LessThanAllowed=true,EqualToAllowed=true,GreaterThanAllowed=false,AllowNullValues=true,ErrorMessage="Date of last usage must be in the past.")]
-        public DateTime DateOfLastUsage
+        public DateTime? DateOfLastUsage
         {
             get;
             set;

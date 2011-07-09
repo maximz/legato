@@ -27,7 +27,7 @@ namespace Legato.ViewModels
             set;
         }
 
-        public decimal? Price
+        public double? Price
         {
             get;
             set;
@@ -40,13 +40,13 @@ namespace Legato.ViewModels
         }
 
         [Required]
-        public decimal Lat
+        public double Lat
         {
             get;
             set;
         }
         [Required]
-        public decimal Long
+        public double Long
         {
             get;
             set;
@@ -59,7 +59,7 @@ namespace Legato.ViewModels
             set;
         }
 
-        [Required]
+        //[Required]
         [AllowHtml]
         public string GeneralInfoMarkdown
         {

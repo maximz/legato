@@ -67,7 +67,11 @@ Attacklab.wmdBase = function(){
 		this.buttonBar = doc.getElementById("wmd-button-bar");
 		this.preview = doc.getElementById("wmd-preview");
 		this.output = doc.getElementById("wmd-output");
-		this.input = doc.getElementById("wmd-input");
+	    this.input = doc.getElementById("wmd-input");
+//	    this.buttonBar = $(".wmd-button-bar");
+//	    this.preview = $(".wmd-preview");
+//	    this.output = $(".wmd-output");
+//	    this.input = $(".wmd-input");
 	};
 	
 	// This PanelCollection object can't be filled until after the page
