@@ -4,11 +4,14 @@
     ViewBag.Title = Model.Instrument.Title;
 }
 
-<h2>@Model.Instrument.Brand @Model.Instrument.Model</h2>
-<h3><i>@Model.Instrument.StreetAddress</i></h3>
-
+<h2>@Model.Instrument.Brand @Model.Instrument.Model (@Model.Instrument.InstrumentType.Name)</h2>
+<h3><i>@Model.Instrument.StreetAddress</i> (@Model.Instrument.VenueName)</h3>
+@if (Model.Instrument.Price.HasValue)
+{
+<text><h4>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h4></text>
+}
+<div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
 <div id="info">
-
 </div>
 <div id="minimap"></div>
 <div id="description"></div>
@@ -16,13 +19,74 @@
 <div id="userdetails"></div>
 <hr />
 <div id="reviews">
+<h2>Reviews</h2>
+@if (Model.Reviews == null || Model.Reviews.Count() < 1)
+{
+    <h2 class="alt centered">No reviews yet. @Html.ActionLink("Add one now?", MVC.Instruments.Review(Model.Instrument.InstrumentID))</h2>
+}
+else
+{
+    @foreach (var r in Model.Reviews)
+     {
+
+     }
+     @if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
+     {
+        <p>Only one review currently being displayed. @Html.ActionLink("Show the rest?",MVC.Instruments.Individual(Model.Instrument.InstrumentID,Model.Instrument.UrlSlug))</p>
+     }
+     <p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID))</p>
+}
 
 </div>
 
-    <div class="display-label">IsFilteredToIndividualReview</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsFilteredToIndividualReview)
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@section ScriptContentAtEndOfBody {
+<script src="@Url.Content("~/static/js/jquery.raty.min.js")" type="text/javascript"></script>
+
+<script>
+
+$('#averageRating').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @Model.Instrument.AverageOverallRating,
+  size: 24,
+  path:       '/static/images/raty/'
+});
+
+// Star ratings in each review:
+
+@foreach(var r in Model.Reviews)
+{
+    <text>$('#rate-general-@r.ReviewID').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @r.Revisions.First().RatingGeneral,
+  path:       '/static/images/raty/'
+});
+$('#rate-playing-@r.ReviewID').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @r.Revisions.First().RatingPlayingCapability,
+  path:       '/static/images/raty/'
+});
+$('#rate-tone-@r.ReviewID').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @r.Revisions.First().RatingToneQuality,
+  path:       '/static/images/raty/'
+});
+$('#rate-tuning-@r.ReviewID').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @r.Revisions.First().RatingTuning,
+  path:       '/static/images/raty/'
+});
+$('#rate-venue-@r.ReviewID').raty({
+  cancel:     false,
+  readOnly:   true,
+  start:  @r.Revisions.First().RatingVenue,
+  path:       '/static/images/raty/'
+});</text>
+}
+
+</script>
+}
