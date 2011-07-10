@@ -266,4 +266,52 @@ namespace Legato.Models
             set;
         }
     }
+
+    public partial class InstrumentHour
+    {
+        public string FriendlyLabel()
+        {
+            return Enum.GetName(typeof(DayOfWeek), this.Day);
+        }
+
+        public string FriendlyOutput()
+        {
+            var output = "";
+            if(!this.OpenTime.HasValue) // Closed
+            {
+                output = "Closed";
+            }
+            else // Open
+            {
+                output += TimeSpanToFriendlyOutput(this.OpenTime.Value);
+                output += " - ";
+                output += TimeSpanToFriendlyOutput(this.CloseTime.Value);
+            }
+
+            return output;
+        }
+        private string TimeSpanToFriendlyOutput(TimeSpan t)
+        {
+            var output = "";
+            var am = true; // AM or PM
+            if(t.Hours > 12)
+            {
+                am = false; // PM
+                output += (t.Hours - 12).ToString();
+            }
+            else
+            {
+                output += t.Hours.ToString();
+            }
+
+            if(t.Minutes > 0)
+            {
+                output += (":" + t.Minutes);
+            }
+
+            output += (am ? "AM" : "PM");
+
+            return output;
+        }
+    }
 }

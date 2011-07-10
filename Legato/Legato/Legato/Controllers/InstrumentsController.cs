@@ -182,6 +182,9 @@ namespace Legato.Controllers
                     {
                         r.FillProperties();
                     }
+
+                    db.ExecuteCommand("UPDATE Instruments SET ListingViews=ListingViews+1 WHERE InstrumentID={0}", instrumentID);
+
                     var model = new ReadListingViewModel
                     {
                         Instrument = listing,

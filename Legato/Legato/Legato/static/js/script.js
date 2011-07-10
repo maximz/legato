@@ -38,5 +38,5 @@ $(function () {
 
     $('.dateinput').datepicker(); // activates jQuery UI datepicker control
 
-    $('textarea.wmd').wmd(); // activate markdown editors
+    $('span.timeago').timeago(); // activate timeago
 });
