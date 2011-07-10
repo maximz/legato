@@ -16,10 +16,15 @@
 <div id="minimap"></div>
 <div id="description"></div>
 <div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
-<div id="userdetails"></div>
+<div id="userdetails">
+<p class="userbox">
+    by @Model.Instrument.aspnet_User.UserName<br />
+    submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span>
+</p>
+</div>
 <hr />
 <div id="reviews">
-<h2>Reviews</h2>
+<h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
 @if (Model.Reviews == null || Model.Reviews.Count() < 1)
 {
     <h2 class="alt centered">No reviews yet. @Html.ActionLink("Add one now?", MVC.Instruments.Review(Model.Instrument.InstrumentID))</h2>
@@ -28,7 +33,26 @@ else
 {
     @foreach (var r in Model.Reviews)
      {
-
+        <div class="review" id="review-@r.ReviewID">
+            @r.Revisions.First()
+            <div class="ratings">
+            
+            </div>
+            <div class="message">
+            
+            </div>
+            <div class="details">
+                <p>Last used:</p>
+            </div>
+            <div class="links">
+            
+            </div>
+            <p class="userbox">
+                by @r.aspnet_User.UserName<br />
+                submitted <span class="timeago" title="@r.SubmitDate">@r.SubmitDate</span>
+                @if(r.Revisions.Count()>1) { <text><br />edited @r.Revisions.Count() times</text> }
+            </p>
+        </div>
      }
      @if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
      {
