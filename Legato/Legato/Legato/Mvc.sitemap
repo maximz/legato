@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0" enableLocalization="true">
   <mvcSiteMapNode title="Home" controller="Home" action="Index" changeFrequency="Always" updatePriority="Normal">
+    <mvcSiteMapNode title="About" controller="Home" action="About" changeFrequency="Always" updatePriority="Normal"/>  
     <mvcSiteMapNode title="Instruments" controller="Instruments" clickable="false">
         <mvcSiteMapNode title="Add Instrument" controller="Instruments" action="Submit" />
         <mvcSiteMapNode title="Details" action="Details" dynamicNodeProvider="Legato.Helpers.InstrumentDetailsDynamicNodeProvider, Legato" />

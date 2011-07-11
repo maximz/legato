@@ -20,6 +20,9 @@ namespace Legato
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //routes.IgnoreRoute("elmah.axd");
+            routes.IgnoreRoute("admin/elmah.axd");
+            routes.IgnoreRoute("admin/{resource}.axd/{*pathInfo}");
 
             routes.MapRoutes(); // Register Attribute Based Routes which the current assembly contains (RiaLibrary.Web = http://maproutes.codeplex.com)
 

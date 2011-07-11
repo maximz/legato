@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web;
 using System.Collections.Specialized;
 using System.IO;
+using System.Web.Hosting;
 
 
 namespace Legato.Helpers
@@ -54,7 +55,7 @@ namespace Legato.Helpers
             {
                 if(BlockedIPFileName == null)
                 {
-                    BlockedIPFileName = context.Server.MapPath(BLOCKEDIPSFILE);
+                    BlockedIPFileName = HostingEnvironment.MapPath("~/" + BLOCKEDIPSFILE);
                 }
             }
             return BlockedIPFileName;
