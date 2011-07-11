@@ -80,9 +80,9 @@ namespace Legato.Models
                 }
 
             // Process
-            AverageOverallRating = (int)Math.Round(OverallRatings.Average());
-            LatestReviewRevisionDate = RevisionDates.Max();
-            LatestUseDate = UseDates.Max();
+            AverageOverallRating = OverallRatings.Count > 0 ? ((int)Math.Round(OverallRatings.Average())) : 0;
+            LatestReviewRevisionDate = RevisionDates.Count > 0 ? RevisionDates.Max() : this.SubmissionDate;
+            LatestUseDate = UseDates.Count > 0 ? UseDates.Max() : this.SubmissionDate;
             NumberOfReviews = reviewCount;
 
             // Generate Title and UrlSlug
