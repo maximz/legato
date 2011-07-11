@@ -1,0 +1,34 @@
+﻿@model Legato.ViewModels.SearchResultsModel
+
+@{
+    ViewBag.Title = "\""+Html.Encode(Model.Query.Trim())+"\" - Search Results";
+}
+	<h2>Search Results: <i>@Html.Encode(Model.Query.Trim())</i></h2>
+	<div id="results">
+	@foreach (var item in Model.Results)
+	  {
+	  <div id="@item.ResultPost.PostID">
+		  <div class="title">@Html.ActionLink(Html.Encode(item.ResultPost.Title),"Read","Article",new{postID=item.ResultPost.PostID})</div>
+		  <div class="author">@Html.Encode(item.ResultPost.GetOnlyNameAndTagline())</div>
+		  <div class="datePublish">
+			  published on
+			  @item.ResultPost.DateOfPublish.GetValueOrDefault(DateTime.Now).ToString("{0:g}")</div>
+		  <div class="highlightedText"><%=item.HighlightedHTML %></div>
+		  <div class="tags">
+			  tags:
+			  <i>@foreach (var tag in item.ResultPost.PostTags.ToList())
+				{
+            @Html.Encode(tag.Tag.TagName.Trim())
+			  }</i></div>
+	  </div>
+
+	}
+	</div>
+	
+	<p>
+		<%= Html.ActionLink("Search Again", "Index") %>
+	</p>
+
+</asp:Content>
+
+<h2>Search</h2>

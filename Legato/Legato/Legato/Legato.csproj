@@ -42,6 +42,9 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.0.83\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
@@ -111,6 +114,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstrumentsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Current.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -187,9 +191,12 @@
     <Compile Include="ViewModels\Instruments\RevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Instruments\SubmitViewModel.cs" />
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchResultsModel.cs" />
+    <Compile Include="ViewModels\Search\TagResultsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
     <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
@@ -326,6 +333,10 @@
     <Content Include="Views\Instruments\List.aspx" />
     <Content Include="Views\Instruments\Read.aspx" />
     <Content Include="Views\Instruments\ReviewTimeline.aspx" />
+    <Content Include="Views\Search\Deactivated.aspx" />
+    <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Search\OptimizeIndex.aspx" />
+    <Content Include="Views\Search\RegenerateIndex.aspx" />
     <Content Include="Views\Shared\Awesome\AjaxCheckBoxList.ascx" />
     <Content Include="Views\Shared\Awesome\AjaxDropdown.ascx" />
     <Content Include="Views\Shared\Awesome\AjaxRadioList.ascx" />
@@ -399,6 +410,7 @@
     <Content Include="Views\Instruments\EditListing.cshtml" />
     <Content Include="Views\Instruments\UserLinksForListing.cshtml" />
     <Content Include="Views\Instruments\UserLinksForReview.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
