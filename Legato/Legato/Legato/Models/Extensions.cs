@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Legato.Helpers;
 using System.Web.Security;
+using System.Web.Routing;
+using System.Web.Mvc;
 
 namespace Legato.Models
 {
@@ -172,11 +174,17 @@ namespace Legato.Models
             get;
             internal set;
         }
+        public string Title
+        {
+            get;
+            internal set;
+        }
 
         public void FillProperties()
         {
             var db = Current.DB;
                 this.Revisions = db.InstrumentReviewRevisions.Where(rev => rev.ReviewID == this.ReviewID).OrderByDescending(rev => rev.RevisionDate).ToList();
+                this.Title = "Review on " + this.Instrument.Title;
         }
 
         public ReviewPermissionsModel Permissions()
@@ -312,6 +320,74 @@ namespace Legato.Models
             output += (am ? "AM" : "PM");
 
             return output;
+        }
+    }
+
+    /// <summary>
+    /// Global reference to a specific post in some category
+    /// </summary>
+    public partial class GlobalPostID
+    {
+        /// <summary>
+        /// Gets the underlying type.
+        /// </summary>
+        /// <value>
+        /// The underlying type.
+        /// </value>
+        public Type UnderlyingType
+        {
+            get;
+            internal set;
+        }
+        /// <summary>
+        /// Gets the underlying post.
+        /// </summary>
+        public dynamic UnderlyingPost
+        {
+            get;
+            internal set;
+        }
+
+        public string Title
+        {
+            get;
+            internal set;
+        }
+
+        public ActionResult DetailsRoute
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// Fills the properties UnderlyingType and UnderlyingPost.
+        /// </summary>
+        public void FillProperties()
+        {
+            var db = Current.DB;
+            switch(this.PostCategory)
+            {
+                case "Instrument":
+                    UnderlyingType = typeof(Instrument);
+                    UnderlyingPost = db.Instruments.Where(p => p.InstrumentID == this.SpecificPostID).SingleOrDefault();
+                    DetailsRoute = MVC.Instruments.Individual((UnderlyingPost as Instrument).InstrumentID, (UnderlyingPost as Instrument).UrlSlug);
+                    Title = UnderlyingPost.Title;
+                    break;
+                case "InstrumentReview":
+                    UnderlyingType = typeof(InstrumentReview);
+                    UnderlyingPost = db.InstrumentReviews.Where(r => r.ReviewID == this.SpecificPostID).SingleOrDefault();
+                    DetailsRoute = MVC.Instruments.IndividualReview((UnderlyingPost as InstrumentReview).ReviewID);
+                    Title = UnderlyingPost.Title;
+                    break;
+                case "InstrumentReviewRevision":
+                    UnderlyingType = typeof(InstrumentReviewRevision);
+                    UnderlyingPost = db.InstrumentReviewRevisions.Where(rev => rev.RevisionID == this.SpecificPostID).SingleOrDefault();
+                    DetailsRoute = MVC.Instruments.IndividualReview((UnderlyingPost as InstrumentReviewRevision).ReviewID);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }

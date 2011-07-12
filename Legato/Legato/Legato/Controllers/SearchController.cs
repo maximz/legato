@@ -184,9 +184,10 @@ namespace Legato.Controllers
                         highlighted = highlighted.Substring(0, 1000);
                     }
 
-                    var post = db.Posts.Where(p => p.PostID == int.Parse(result.doc.Get("PostID"))).SingleOrDefault();
+                    var post = db.GlobalPostIDs.Where(p => p.GlobalPostID1 == int.Parse(result.doc.Get("GlobalPostID"))).SingleOrDefault();
                     if (post == null) continue;
-                    if (!(post.DateOfPublish <= DateTime.Now) && !(User.Identity.IsAuthenticated && ((Guid)Membership.GetUser().ProviderUserKey == post.AuthorID || User.IsInRole("Moderator") || User.IsInRole("Administrator")))) continue; // if post is private, skip it
+                    // TODO: privacy checks?
+                    post.FillProperties();
 
                     finalResults.Add(new DisplayedResult()
                     {
@@ -226,98 +227,98 @@ namespace Legato.Controllers
             throw new NotImplementedException("Tags are currently disabled.");
             try
             {
-                InitWriter();
-                if (ConfigurationManager.AppSettings["IsSearchActivated"] == "false")
-                {
-                    return View("Deactivated");
-                }
-                var tagList = new List<string>();
+                //InitWriter();
+                //if (ConfigurationManager.AppSettings["IsSearchActivated"] == "false")
+                //{
+                //    return View("Deactivated");
+                //}
+                //var tagList = new List<string>();
 
-                if (tags.IsNullOrEmpty() && query.HasValue())
-                {
-                    return RedirectToAction("Search", new
-                    {
-                        query = query
-                    });
-                }
-                else if (query.IsNullOrEmpty() || tags.IsNullOrEmpty())
-                {
-                    return RedirectToAction("Index");
-                }
+                //if (tags.IsNullOrEmpty() && query.HasValue())
+                //{
+                //    return RedirectToAction("Search", new
+                //    {
+                //        query = query
+                //    });
+                //}
+                //else if (query.IsNullOrEmpty() || tags.IsNullOrEmpty())
+                //{
+                //    return RedirectToAction("Index");
+                //}
 
-                var reader = writer.GetReader(); // Get reader from writer
-                var searcher = new IndexSearcher(reader); // Build IndexSearcher
+                //var reader = writer.GetReader(); // Get reader from writer
+                //var searcher = new IndexSearcher(reader); // Build IndexSearcher
 
-                // Build query
-                var parser = new MultiFieldQueryParser(new string[] { "Text", "Title" }, analyzer);
-                var searchQuery = parser.Parse(query);
+                //// Build query
+                //var parser = new MultiFieldQueryParser(new string[] { "Text", "Title" }, analyzer);
+                //var searchQuery = parser.Parse(query);
 
-                var filterQuery = new BooleanQuery();
-                foreach (var tag in tags.Trim().Split('+'))
-                {
-                    filterQuery.Add(new TermQuery(new Term("RawTags", "<" + tag.Trim() + ">")), BooleanClause.Occur.MUST);
-                    tagList.Add(tag.Trim());
-                }
-                var filter = new QueryFilter(filterQuery);
+                //var filterQuery = new BooleanQuery();
+                //foreach (var tag in tags.Trim().Split('+'))
+                //{
+                //    filterQuery.Add(new TermQuery(new Term("RawTags", "<" + tag.Trim() + ">")), BooleanClause.Occur.MUST);
+                //    tagList.Add(tag.Trim());
+                //}
+                //var filter = new QueryFilter(filterQuery);
 
-                // Execute search
-                var hits = searcher.Search(searchQuery, filter);
+                //// Execute search
+                //var hits = searcher.Search(searchQuery, filter);
 
-                // Display results
-                var results = new List<Result>();
-                for (int i = 0; i < hits.Length(); i++)
-                {
-                    results.Add(new Result()
-                    {
-                        doc = hits.Doc(i),
-                        Score = hits.Score(i)
-                    });
-                }
+                //// Display results
+                //var results = new List<Result>();
+                //for (int i = 0; i < hits.Length(); i++)
+                //{
+                //    results.Add(new Result()
+                //    {
+                //        doc = hits.Doc(i),
+                //        Score = hits.Score(i)
+                //    });
+                //}
 
-                //Highlight the parts that are matched:
-                var formatter = new SimpleHTMLFormatter("<span style='background:yellow;font-weight:bold;'>", "</span>");
-                var fragmenter = new SimpleFragmenter(400);
-                var scorer = new QueryScorer(searchQuery);
-                var highlighter = new Highlighter(formatter, scorer);
-                highlighter.SetTextFragmenter(fragmenter);
-                var finalResults = new List<DisplayedResult>();
+                ////Highlight the parts that are matched:
+                //var formatter = new SimpleHTMLFormatter("<span style='background:yellow;font-weight:bold;'>", "</span>");
+                //var fragmenter = new SimpleFragmenter(400);
+                //var scorer = new QueryScorer(searchQuery);
+                //var highlighter = new Highlighter(formatter, scorer);
+                //highlighter.SetTextFragmenter(fragmenter);
+                //var finalResults = new List<DisplayedResult>();
 
-                var db = Current.DB;
-                foreach (var result in results)
-                {
-                    var stream = analyzer.TokenStream("", new StringReader(result.doc.Get("RawText")));
-                    var highlighted = highlighter.GetBestFragments(stream, result.doc.Get("RawText"), 1, "...").Replace("'", "''");
-                    if (highlighted == "") // sometimes the highlighter fails to emit text...
-                    {
-                        highlighted = result.doc.Get("RawText").Replace("'", "''");
-                    }
-                    if (highlighted.Length > 1000)
-                    {
-                        highlighted = highlighted.Substring(0, 1000);
-                    }
+                //var db = Current.DB;
+                //foreach (var result in results)
+                //{
+                //    var stream = analyzer.TokenStream("", new StringReader(result.doc.Get("RawText")));
+                //    var highlighted = highlighter.GetBestFragments(stream, result.doc.Get("RawText"), 1, "...").Replace("'", "''");
+                //    if (highlighted == "") // sometimes the highlighter fails to emit text...
+                //    {
+                //        highlighted = result.doc.Get("RawText").Replace("'", "''");
+                //    }
+                //    if (highlighted.Length > 1000)
+                //    {
+                //        highlighted = highlighted.Substring(0, 1000);
+                //    }
 
-                    var post = db.Posts.Where(p => p.PostID == int.Parse(result.doc.Get("PostID"))).SingleOrDefault();
-                    if (post == null) continue;
-                    if (!(post.DateOfPublish <= DateTime.Now) && !(User.Identity.IsAuthenticated && ((Guid)Membership.GetUser().ProviderUserKey == post.AuthorID || User.IsInRole("Moderator") || User.IsInRole("Administrator")))) continue; // if post is private, skip it
+                //    var post = db.Posts.Where(p => p.PostID == int.Parse(result.doc.Get("PostID"))).SingleOrDefault();
+                //    if (post == null) continue;
+                //    if (!(post.DateOfPublish <= DateTime.Now) && !(User.Identity.IsAuthenticated && ((Guid)Membership.GetUser().ProviderUserKey == post.AuthorID || User.IsInRole("Moderator") || User.IsInRole("Administrator")))) continue; // if post is private, skip it
 
-                    finalResults.Add(new DisplayedResult()
-                    {
-                        ResultPost = post,
-                        Score = result.Score,
-                        HighlightedHTML = highlighted
-                    });
-                }
-                // Dispose of objects
-                searcher = null;
-                reader.Close();
-                reader = null;
+                //    finalResults.Add(new DisplayedResult()
+                //    {
+                //        ResultPost = post,
+                //        Score = result.Score,
+                //        HighlightedHTML = highlighted
+                //    });
+                //}
+                //// Dispose of objects
+                //searcher = null;
+                //reader.Close();
+                //reader = null;
 
-                return View(new TagResultsModel()
-                {
-                    Results = finalResults.OrderByDescending(r => r.Score),
-                    Tags = tagList,
-                    Query = query.Trim()
-                });
+                //return View(new TagResultsModel()
+                //{
+                //    Results = finalResults.OrderByDescending(r => r.Score),
+                //    Tags = tagList,
+                //    Query = query.Trim()
+                //});
             }
             catch
             {
@@ -340,23 +341,23 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="toAdd">To add.</param>
         /// <param name="finalTransaction">If this is the final transaction, optimatization and closing methods are called.</param>
-        public void AddToIndex(object toAdd, bool finalTransaction)
+        public void AddToIndex(dynamic toAdd, bool finalTransaction)
         {
             InitWriter();
             
             var doc = new Document();
-            dynamic p;
             if (toAdd is Instrument)
             {
-                p = (Instrument)toAdd;
+                var p = (Instrument)toAdd;
                 p.FillProperties();
 
                 doc.Add(new Field("Title", new StringReader(p.Title)));
                 doc.Add(new Field("Text", new StringReader(p.Title)));
                 doc.Add(new Field("RawTitle", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
                 doc.Add(new Field("RawText", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("Type", new StringReader("Instrument")));
+                doc.Add(new Field("Type", new StringReader(MagicCategoryStrings.Instrument)));
                 doc.Add(new Field("PostID", Convert.ToString(p.InstrumentID), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("GlobalPostID", Convert.ToString(p.GlobalPostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
                 doc.Add(new Field("AuthorID", Convert.ToString(p.UserID), Field.Store.YES, Field.Index.UN_TOKENIZED));
 
                 //var sb = new StringBuilder();
@@ -368,23 +369,26 @@ namespace Legato.Controllers
             }
             else if (toAdd is InstrumentReview)
             {
-                p = (InstrumentReview)toAdd;
+                var p = (InstrumentReview)toAdd;
                 p.FillProperties();
+                var ins = p.Instrument;
+                ins.FillProperties();
 
                 doc.Add(new Field("Title", new StringReader(p.Title)));
-                doc.Add(new Field("Text", new StringReader(p.Revisions.First().HTML.ConvertHtmlIntoText())));
+                doc.Add(new Field("Text", new StringReader(p.Revisions.First().MessageHTML.ConvertHtmlIntoText())));
                 doc.Add(new Field("RawTitle", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("RawText", p.Revisions.First().HTML.ConvertHtmlIntoText(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("Type", new StringReader("Instrument")));
-                doc.Add(new Field("PostID", Convert.ToString(p.PostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("AuthorID", Convert.ToString(p.AuthorID), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("RawText", p.Revisions.First().MessageHTML.ConvertHtmlIntoText(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("Type", new StringReader(MagicCategoryStrings.InstrumentReview)));
+                doc.Add(new Field("PostID", Convert.ToString(p.ReviewID), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("GlobalPostID", Convert.ToString(p.GlobalPostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("AuthorID", Convert.ToString(p.UserID), Field.Store.YES, Field.Index.UN_TOKENIZED));
 
-                var sb = new StringBuilder();
-                foreach (var tag in p.PostTags)
-                {
-                    sb.Append("<" + tag.Tag.TagName + "> ");
-                }
-                doc.Add(new Field("RawTags", sb.ToString().Trim(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+                //var sb = new StringBuilder();
+                //foreach (var tag in p.PostTags)
+                //{
+                //    sb.Append("<" + tag.Tag.TagName + "> ");
+                //}
+                //doc.Add(new Field("RawTags", sb.ToString().Trim(), Field.Store.YES, Field.Index.UN_TOKENIZED));
             }
             writer.AddDocument(doc);
 
@@ -400,7 +404,7 @@ namespace Legato.Controllers
         /// Changes the index - removes the old version of the post from the index and adds the new version.
         /// </summary>
         /// <param name="toChange">To change.</param>
-        public void ChangeIndex(Post toChange)
+        public void ChangeIndex(dynamic toChange)
         {
             DeleteFromIndex(toChange, false);
             AddToIndex(toChange, true);
@@ -409,7 +413,7 @@ namespace Legato.Controllers
         /// Deletes from index.
         /// </summary>
         /// <param name="toDelete">To delete.</param>
-        public void DeleteFromIndex(Post toDelete)
+        public void DeleteFromIndex(dynamic toDelete)
         {
             DeleteFromIndex(toDelete, true);
         }
@@ -417,10 +421,17 @@ namespace Legato.Controllers
         /// Deletes from index.
         /// </summary>
         /// <param name="toDelete">To delete.</param>
-        public void DeleteFromIndex(Post toDelete, bool finalTransaction)
+        public void DeleteFromIndex(dynamic toDelete, bool finalTransaction)
         {
             InitWriter();
-            writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.PostID)));
+            if (toDelete is Instrument)
+            {
+                writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
+            }
+            else if (toDelete is InstrumentReview)
+            {
+                writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.ReviewID)));
+            }
 
             if (finalTransaction)
             {
@@ -435,7 +446,7 @@ namespace Legato.Controllers
 
         #region Administrative Methods
         [Url("Admin/Search/Regenerate")]
-        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = "Moderator,Administrator")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator+","+RoleNames.Administrator)]
         [HttpGet]
         public virtual ActionResult RegenerateIndex()
         {
@@ -445,7 +456,7 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [Url("Admin/Search/Regenerate")]
-        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = "Moderator,Administrator")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         public virtual ActionResult RegenerateIndex(bool captchaValid)
         {
             try
@@ -469,7 +480,11 @@ namespace Legato.Controllers
 
                     // Step 2: add everything into index!
                     var db = Current.DB;
-                    foreach (var p in db.Posts)
+                    foreach (var p in db.Instruments)
+                    {
+                        AddToIndex(p, false);
+                    }
+                    foreach (var p in db.InstrumentReviews)
                     {
                         AddToIndex(p, false);
                     }
@@ -495,7 +510,7 @@ namespace Legato.Controllers
             }
         }
         [Url("Admin/Search/Optimize")]
-        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = "Moderator,Administrator")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         [HttpGet]
         public virtual ActionResult OptimizeIndex()
         {
@@ -505,7 +520,7 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [Url("Admin/Search/Optimize")]
-        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = "Moderator,Administrator")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         public virtual ActionResult OptimizeIndex(bool captchaValid)
         {
             try
@@ -601,7 +616,7 @@ namespace Legato.Controllers
     /// </summary>
     public class DisplayedResult
     {
-        public Post ResultPost
+        public GlobalPostID ResultPost
         {
             get;
             set;

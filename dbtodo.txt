@@ -1,0 +1,8 @@
+db todo:
+1. instruments table:
+	- remove GeneralInfoMarkdown, GeneralInfoHTML
+	- add GlobalPostID (not PK-FK though)
+2. instrumentreviews table:
+	- add GlobalPostID (not PK-FK though)
+3. GlobalPostIDs table:
+	- add SubmissionDate
