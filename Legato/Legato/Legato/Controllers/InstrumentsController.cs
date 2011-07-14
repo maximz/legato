@@ -409,6 +409,14 @@ namespace Legato.Controllers
                         db.InstrumentHours.InsertOnSubmit(submit);
                     }
                     db.SubmitChanges();
+
+                    // Search
+                    // Add to Lucene index:
+                    var s = new SearchController();
+                    s.AddToIndex(listing);
+                    s.AddToIndex(review);
+                    s = null;
+
                     return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
             }
             catch
@@ -504,10 +512,11 @@ namespace Legato.Controllers
                         db.SubmitChanges();
                     }
 
+                    InstrumentReviewRevision r;
                     using (profiler.Step("Create Revision"))
                     {
                         // REVISION:
-                        var r = new InstrumentReviewRevision();
+                        r = new InstrumentReviewRevision();
                         r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                         r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                         r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
@@ -534,6 +543,12 @@ namespace Legato.Controllers
                         r.GlobalPostID = gpostrevis.GlobalPostID1;
                         db.SubmitChanges();
                     }
+
+                    // Search
+                    // Add to Lucene index:
+                    var s = new SearchController();
+                    s.AddToIndex(review);
+                    s = null;
 
                     // Done
                     return RedirectToAction("IndividualReview", new
@@ -665,6 +680,12 @@ namespace Legato.Controllers
                     db.SubmitChanges();
                     r.GlobalPostID = gpostrevis.GlobalPostID1;
                     db.SubmitChanges();
+
+                    // Search
+                    // Add to Lucene index:
+                    var s = new SearchController();
+                    s.ChangeIndex(review);
+                    s = null;
 
                     return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});
             }
@@ -833,6 +854,11 @@ namespace Legato.Controllers
                 }
                 db.SubmitChanges();
 
+                // Search
+                // Add to Lucene index:
+                var s = new SearchController();
+                s.ChangeIndex(listing);
+                s = null;
 
                 return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID });
             }
