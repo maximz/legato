@@ -304,9 +304,7 @@ namespace Legato.Controllers
                     listing.Price = (decimal?)model.Listing.Price;
                     listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                     listing.VenueName = model.Listing.VenueName;
-                    listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
-                    listing.GeneralInfoHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
-
+                    
                     /*Matching instrument and style:
                      * 1. take instrument name, find match in Instruments table
                      * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
@@ -338,7 +336,7 @@ namespace Legato.Controllers
                     var review = new InstrumentReview();
                     review.Instrument = listing;
                     review.UserID = userGuid;
-                    review.SubmitDate = time;
+                    review.SubmissionDate = time;
                     db.InstrumentReviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
@@ -456,7 +454,7 @@ namespace Legato.Controllers
                         review = new InstrumentReview();
                         review.Instrument = listing;
                         review.UserID = userGuid;
-                        review.SubmitDate = time;
+                        review.SubmissionDate = time;
 
                         db.InstrumentReviews.InsertOnSubmit(review); //An exception will be thrown here if there are invalid properties
                         db.SubmitChanges();
@@ -657,7 +655,6 @@ namespace Legato.Controllers
 
                 var listingmodel = new ListingSubmissionViewModel()
                 {
-                    GeneralInfoMarkdown = listing.GeneralInfoMarkdown,
                     Lat = (double)listing.Lat,
                     Long = (double)listing.Long,
                     Price = (double?)listing.Price,
@@ -722,9 +719,7 @@ namespace Legato.Controllers
                 listing.Price = (decimal?)model.Listing.Price;
                 listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                 listing.VenueName = model.Listing.VenueName;
-                listing.GeneralInfoMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown));
-                listing.GeneralInfoHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
-
+                
                 /*Matching instrument and style:
                  * 1. take instrument name, find match in Instruments table
                  * 2. apply SelectedIndex of type to dropdownlist, extract name from the list

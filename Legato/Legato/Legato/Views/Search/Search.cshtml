@@ -14,12 +14,6 @@
 			  published on
 			  @item.ResultPost.SubmissionDate.GetValueOrDefault(DateTime.Now).ToString("{0:g}")</div>
 		  <div class="highlightedText"><%=item.HighlightedHTML %></div>
-		  <!--<div class="tags">
-			  tags:
-			  <i>@foreach (var tag in item.ResultPost.PostTags.ToList())
-				{
-            @Html.Encode(tag.Tag.TagName.Trim())
-			  }</i></div>-->
 	  </div>
 
 	}

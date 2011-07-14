@@ -27,6 +27,7 @@ public static class MVC {
     public static Legato.Controllers.ErrorController Error = new Legato.Controllers.T4MVC_ErrorController();
     public static Legato.Controllers.HomeController Home = new Legato.Controllers.T4MVC_HomeController();
     public static Legato.Controllers.InstrumentsController Instruments = new Legato.Controllers.T4MVC_InstrumentsController();
+    public static Legato.Controllers.SearchController Search = new Legato.Controllers.T4MVC_SearchController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -294,14 +295,6 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
 
 
 namespace Links {
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Content {
-        private const string URLPATH = "~/Content";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string Awesome_css = Url("Awesome.css");
-    }
-
 }
 
 static class T4MVCHelpers {
