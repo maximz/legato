@@ -200,6 +200,7 @@
       <Column Name="LastUseDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="MessageMarkdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="MessageHTML" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="aspnet_User_InstrumentReviewRevision" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
       <Association Name="InstrumentReview_InstrumentReviewRevision" Member="InstrumentReview" ThisKey="ReviewID" OtherKey="ReviewID" Type="InstrumentReview" IsForeignKey="true" />
     </Type>
@@ -210,7 +211,7 @@
       <Column Name="InstrumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="SubmissionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="InstrumentReview_InstrumentReviewRevision" Member="InstrumentReviewRevisions" ThisKey="ReviewID" OtherKey="ReviewID" Type="InstrumentReviewRevision" />
       <Association Name="aspnet_User_InstrumentReview" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
       <Association Name="Instrument_InstrumentReview" Member="Instrument" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="Instrument" IsForeignKey="true" />
@@ -232,7 +233,7 @@
       <Column Name="ListingViews" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="TimeSpanOfPrice" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Instrument_InstrumentHour" Member="InstrumentHours" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentHour" />
       <Association Name="Instrument_InstrumentReview" Member="InstrumentReviews" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentReview" />
       <Association Name="aspnet_User_Instrument" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />

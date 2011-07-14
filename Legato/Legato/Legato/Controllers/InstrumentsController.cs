@@ -332,12 +332,34 @@ namespace Legato.Controllers
                     db.Instruments.InsertOnSubmit(listing);
                     db.SubmitChanges();
 
+                    // Global Post:
+                    var gpost = new GlobalPostID();
+                    gpost.UserID = userGuid;
+                    gpost.PostCategory = MagicCategoryStrings.Instrument;
+                    gpost.SubmissionDate = time;
+                    gpost.SpecificPostID = listing.InstrumentID;
+                    db.GlobalPostIDs.InsertOnSubmit(gpost);
+                    db.SubmitChanges();
+                    listing.GlobalPostID = gpost.GlobalPostID1;
+                    db.SubmitChanges();
+
                     //REVIEW:
                     var review = new InstrumentReview();
                     review.Instrument = listing;
                     review.UserID = userGuid;
                     review.SubmissionDate = time;
                     db.InstrumentReviews.InsertOnSubmit(review);
+                    db.SubmitChanges();
+
+                    // Global Post:
+                    var gpostrev = new GlobalPostID();
+                    gpostrev.UserID = userGuid;
+                    gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
+                    gpostrev.SubmissionDate = time;
+                    gpostrev.SpecificPostID = review.ReviewID;
+                    db.GlobalPostIDs.InsertOnSubmit(gpostrev);
+                    db.SubmitChanges();
+                    review.GlobalPostID = gpostrev.GlobalPostID1;
                     db.SubmitChanges();
 
                     //REVISION:
@@ -355,6 +377,17 @@ namespace Legato.Controllers
                     r.UserID = userGuid;
 
                     db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    db.SubmitChanges();
+
+                    // Global Post:
+                    var gpostrevis = new GlobalPostID();
+                    gpostrevis.UserID = userGuid;
+                    gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
+                    gpostrevis.SubmissionDate = time;
+                    gpostrevis.SpecificPostID = r.RevisionID;
+                    db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
+                    db.SubmitChanges();
+                    r.GlobalPostID = gpostrevis.GlobalPostID1;
                     db.SubmitChanges();
 
                     //VENUE HOURS:
@@ -458,6 +491,17 @@ namespace Legato.Controllers
 
                         db.InstrumentReviews.InsertOnSubmit(review); //An exception will be thrown here if there are invalid properties
                         db.SubmitChanges();
+
+                        // Global Post:
+                        var gpostrev = new GlobalPostID();
+                        gpostrev.UserID = userGuid;
+                        gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
+                        gpostrev.SubmissionDate = time;
+                        gpostrev.SpecificPostID = review.ReviewID;
+                        db.GlobalPostIDs.InsertOnSubmit(gpostrev);
+                        db.SubmitChanges();
+                        review.GlobalPostID = gpostrev.GlobalPostID1;
+                        db.SubmitChanges();
                     }
 
                     using (profiler.Step("Create Revision"))
@@ -477,6 +521,17 @@ namespace Legato.Controllers
                         r.UserID = userGuid;
 
                         db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                        db.SubmitChanges();
+
+                        // Global Post:
+                        var gpostrevis = new GlobalPostID();
+                        gpostrevis.UserID = userGuid;
+                        gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
+                        gpostrevis.SubmissionDate = time;
+                        gpostrevis.SpecificPostID = r.RevisionID;
+                        db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
+                        db.SubmitChanges();
+                        r.GlobalPostID = gpostrevis.GlobalPostID1;
                         db.SubmitChanges();
                     }
 
@@ -598,6 +653,17 @@ namespace Legato.Controllers
                     r.UserID = userGuid;
 
                     db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                    db.SubmitChanges();
+
+                    // Global Post:
+                    var gpostrevis = new GlobalPostID();
+                    gpostrevis.UserID = userGuid;
+                    gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
+                    gpostrevis.SubmissionDate = time;
+                    gpostrevis.SpecificPostID = r.RevisionID;
+                    db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
+                    db.SubmitChanges();
+                    r.GlobalPostID = gpostrevis.GlobalPostID1;
                     db.SubmitChanges();
 
                     return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});

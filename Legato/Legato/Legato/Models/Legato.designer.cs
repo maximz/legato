@@ -4315,6 +4315,8 @@ namespace Legato.Models
 		
 		private string _MessageHTML;
 		
+		private System.Nullable<int> _GlobalPostID;
+		
 		private EntityRef<aspnet_User> _aspnet_User;
 		
 		private EntityRef<InstrumentReview> _InstrumentReview;
@@ -4347,6 +4349,8 @@ namespace Legato.Models
     partial void OnMessageMarkdownChanged();
     partial void OnMessageHTMLChanging(string value);
     partial void OnMessageHTMLChanged();
+    partial void OnGlobalPostIDChanging(System.Nullable<int> value);
+    partial void OnGlobalPostIDChanged();
     #endregion
 		
 		public InstrumentReviewRevision()
@@ -4604,6 +4608,26 @@ namespace Legato.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int")]
+		public System.Nullable<int> GlobalPostID
+		{
+			get
+			{
+				return this._GlobalPostID;
+			}
+			set
+			{
+				if ((this._GlobalPostID != value))
+				{
+					this.OnGlobalPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._GlobalPostID = value;
+					this.SendPropertyChanged("GlobalPostID");
+					this.OnGlobalPostIDChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_InstrumentReviewRevision", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
 		public aspnet_User aspnet_User
 		{
@@ -4707,7 +4731,7 @@ namespace Legato.Models
 		
 		private System.DateTime _SubmissionDate;
 		
-		private int _GlobalPostID;
+		private System.Nullable<int> _GlobalPostID;
 		
 		private EntitySet<InstrumentReviewRevision> _InstrumentReviewRevisions;
 		
@@ -4727,7 +4751,7 @@ namespace Legato.Models
     partial void OnUserIDChanged();
     partial void OnSubmissionDateChanging(System.DateTime value);
     partial void OnSubmissionDateChanged();
-    partial void OnGlobalPostIDChanging(int value);
+    partial void OnGlobalPostIDChanging(System.Nullable<int> value);
     partial void OnGlobalPostIDChanged();
     #endregion
 		
@@ -4827,8 +4851,8 @@ namespace Legato.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int NOT NULL")]
-		public int GlobalPostID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int")]
+		public System.Nullable<int> GlobalPostID
 		{
 			get
 			{
@@ -4995,7 +5019,7 @@ namespace Legato.Models
 		
 		private string _TimeSpanOfPrice;
 		
-		private int _GlobalPostID;
+		private System.Nullable<int> _GlobalPostID;
 		
 		private EntitySet<InstrumentHour> _InstrumentHours;
 		
@@ -5037,7 +5061,7 @@ namespace Legato.Models
     partial void OnPriceChanged();
     partial void OnTimeSpanOfPriceChanging(string value);
     partial void OnTimeSpanOfPriceChanged();
-    partial void OnGlobalPostIDChanging(int value);
+    partial void OnGlobalPostIDChanging(System.Nullable<int> value);
     partial void OnGlobalPostIDChanged();
     #endregion
 		
@@ -5338,8 +5362,8 @@ namespace Legato.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int NOT NULL")]
-		public int GlobalPostID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int")]
+		public System.Nullable<int> GlobalPostID
 		{
 			get
 			{
