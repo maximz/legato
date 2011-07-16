@@ -17,51 +17,12 @@ $('#rate-overall').raty({
   path:       '/static/images/raty/'
 });
 
-$('#rate-tuning').raty({
-  cancel:     false,
-  scoreName:  '#ReviewRevision_RatingTuning',
-  path:       '/static/images/raty/'
-});
-
-$('#rate-tone').raty({
-  cancel:     false,
-  scoreName:  '#ReviewRevision_RatingToneQuality',
-  path:       '/static/images/raty/'
-});
-
-$('#rate-venue').raty({
-  cancel:     false,
-  scoreName:  '#ReviewRevision_RatingVenue',
-  path:       '/static/images/raty/'
-});
-
-$('#rate-playing').raty({
-  cancel:     false,
-  scoreName:  '#ReviewRevision_RatingPlayingCapability',
-  path:       '/static/images/raty/'
-});
 
 // check whether Model already has the ratings set. If so, do raty.start(number) on each one that's set
 
 @if(Model.ReviewRevision.RatingOverall!=null && Model.ReviewRevision.RatingOverall != 0)
 {
 	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate-overall');</text>
-}
-@if (Model.ReviewRevision.RatingTuning != null && Model.ReviewRevision.RatingTuning != 0)
-{
-	<text>$.fn.raty.start(@Model.ReviewRevision.RatingTuning,'#rate-tuning');</text>
-}
-@if (Model.ReviewRevision.RatingToneQuality != null && Model.ReviewRevision.RatingToneQuality != 0)
-{
-	<text>$.fn.raty.start(@Model.ReviewRevision.RatingToneQuality,'#rate-tone');</text>
-}
-@if (Model.ReviewRevision.RatingVenue != null && Model.ReviewRevision.RatingVenue != 0)
-{
-	<text>$.fn.raty.start(@Model.ReviewRevision.RatingVenue,'#rate-venue');</text>
-}
-@if (Model.ReviewRevision.RatingPlayingCapability != null && Model.ReviewRevision.RatingPlayingCapability != 0)
-{
-	<text>$.fn.raty.start(@Model.ReviewRevision.RatingPlayingCapability,'#rate-playing');</text>
 }
 </script>
 }
@@ -163,12 +124,7 @@ $('#rate-playing').raty({
 	<fieldset>
 	<legend>Review</legend>
 	<div>
-		<p><b>Ratings</b></p>
 		@Html.HiddenFor(m=>m.ReviewRevision.RatingOverall)
-		@Html.HiddenFor(m=>m.ReviewRevision.RatingPlayingCapability)
-		@Html.HiddenFor(m=>m.ReviewRevision.RatingToneQuality)
-		@Html.HiddenFor(m=>m.ReviewRevision.RatingTuning)
-		@Html.HiddenFor(m=>m.ReviewRevision.RatingVenue)
 
 		<div class="editor-label">
 			@Html.LabelFor(model => model.ReviewRevision.RatingOverall)
@@ -178,37 +134,6 @@ $('#rate-playing').raty({
 			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 		</div>
 
-		<div class="editor-label">
-			@Html.LabelFor(model => model.ReviewRevision.RatingToneQuality)
-		</div>
-		<div class="editor-field">
-			<div id="rate-tone"></div>
-			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingToneQuality)
-		</div>
-
-		<div class="editor-label">
-			@Html.LabelFor(model => model.ReviewRevision.RatingTuning)
-		</div>
-		<div class="editor-field">
-			<div id="rate-tuning"></div>
-			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingTuning)
-		</div>
-
-		<div class="editor-label">
-			@Html.LabelFor(model => model.ReviewRevision.RatingVenue)
-		</div>
-		<div class="editor-field">
-			<div id="rate-venue"></div>
-			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingVenue)
-		</div>
-
-		<div class="editor-label">
-			@Html.LabelFor(model => model.ReviewRevision.RatingPlayingCapability)
-		</div>
-		<div class="editor-field">
-			<div id="rate-playing"></div>
-			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingPlayingCapability)
-		</div>
 	</div>
 			<div class="editor-label">
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
