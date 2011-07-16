@@ -368,10 +368,6 @@ namespace Legato.Controllers
                     r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                     r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                     r.RatingGeneral = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.RatingVenue = model.ReviewRevision.RatingVenue;
                     r.RevisionDate = time;
                     r.InstrumentReview = review;
                     r.UserID = userGuid;
@@ -521,10 +517,6 @@ namespace Legato.Controllers
                         r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                         r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                         r.RatingGeneral = model.ReviewRevision.RatingOverall;
-                        r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                        r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                        r.RatingTuning = model.ReviewRevision.RatingTuning;
-                        r.RatingVenue = model.ReviewRevision.RatingVenue;
                         r.RevisionDate = time;
                         r.InstrumentReview = review;
                         r.UserID = userGuid;
@@ -600,10 +592,6 @@ namespace Legato.Controllers
                         DateOfLastUsage=revision.LastUseDate,
                         ReviewMarkdown=revision.MessageMarkdown,
                         RatingOverall=revision.RatingGeneral,
-                        RatingPlayingCapability=(int)revision.RatingPlayingCapability,
-                        RatingToneQuality=(int)revision.RatingToneQuality,
-                        RatingTuning=(int)revision.RatingTuning,
-                        RatingVenue=(int)revision.RatingVenue,
                         ReviewID=(int)revision.ReviewID
                     };
                     
@@ -659,10 +647,6 @@ namespace Legato.Controllers
                     r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                     r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                     r.RatingGeneral = model.ReviewRevision.RatingOverall;
-                    r.RatingPlayingCapability = model.ReviewRevision.RatingPlayingCapability;
-                    r.RatingToneQuality = model.ReviewRevision.RatingToneQuality;
-                    r.RatingTuning = model.ReviewRevision.RatingTuning;
-                    r.RatingVenue = model.ReviewRevision.RatingVenue;
                     r.RevisionDate = time;
                     r.ReviewID = model.ReviewRevision.ReviewID;
                     r.UserID = userGuid;

@@ -25,34 +25,6 @@ namespace Legato.ViewModels
             get;
             set;
         }
-        [Range(0, 5)]
-        [DisplayName("Tuning")]
-        public int RatingTuning
-        {
-            get;
-            set;
-        }
-        [Range(0, 5)]
-        [DisplayName("Tone Quality")]
-        public int RatingToneQuality
-        {
-            get;
-            set;
-        }
-        [Range(0, 5)]
-        [DisplayName("Venue")]
-        public int RatingVenue
-        {
-            get;
-            set;
-        }
-        [Range(0, 5)]
-        [DisplayName("Playing Capability")]
-        public int RatingPlayingCapability
-        {
-            get;
-            set;
-        }
         [DisplayName("Message")]
         [Required]
         [AllowHtml]
