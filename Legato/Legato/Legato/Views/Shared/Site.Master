@@ -11,9 +11,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
 	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
-	<meta name="description" content="Welcome to Legato Network - The Future of Music" />
+	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide" />
 	<meta name="author" content="Maxim Zaslavsky" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
+	<link rel="search" type="application/opensearchdescription+xml" title="Legato Network" href="/static/opensearch.xml" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -46,34 +47,48 @@
 </head>
 
 <body>
+	<noscript>
+		<div id="noscript-warning">The Legato Network website works best with JavaScript enabled.</div>
+	</noscript>
 	<div id="container" class="page">
-		<header>
-			<div id="title">
-				<h1>My MVC Application</h1>
+		<div id="wrapperHeader">
+			<div id="header" class="container" role="header">
+				<div class="span-4 prepend-20 last" id="searchBox">
+				<%using (Html.BeginForm("IndexPost", "Search")) 
+				  { %>
+				<input id="query" type="text" name="query" size="31" tabindex="1" title="search"
+					maxlength="80" />
+				<%} %>
+				</div>
+				<div class="span-12" id="logo"><a href="@Url.Content("~")"><img src="/static/images/logo.png" alt="Legato Network" title="Legato Network" width="500" height="95"/></a></div>
+				<div class="span-6 prepend-6 last" id="logindisplay"><% Html.RenderPartial("LogOnUserControl"); %></div>
+				<div class="span-14 prepend-12 last" id="menucontainer">
+					<ul id="menu">              
+						<li><%= Html.ActionLink("Home", "Index", "Home")%></li>
+						<li><%= Html.ActionLink("About", "Index", "About")%></li>
+						<li><%= Html.ActionLink("Submit Instrument", "Submit", "Instruments")%></li>
+					</ul>
+				</div>
 			</div>
-			  
-			<div id="logindisplay">
-				<% Html.RenderPartial("LogOnUserControl"); %>
-			</div> 
-			
-			<div id="menucontainer">
-			
-				<ul id="menu">              
-					<li><%= Html.ActionLink("Home", "Index", "Home")%></li>
-					<li><%= Html.ActionLink("About", "About", "Home")%></li>
-					<li><%= Html.ActionLink("Submit Instrument", "Submit", "Instruments")%></li>
-				</ul>
-			
+		</div>
+		
+		<div id="wrapperMain">
+			<div id="main" role="main" class="container">
+								<% if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
+	   {%>
+				<div id="system-message"><%= Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])%></div>
+				<% }%>
+				<asp:ContentPlaceHolder ID="MainContent" runat="server" />
 			</div>
-		</header>
-
-		<div id="main" role="main">
-			<asp:ContentPlaceHolder ID="MainContent" runat="server" />
 		</div>
 
-		<footer>
-		
-		</footer>
+		<div id="wrapperFooter">
+			<div id="footer" role="footer" class="container">
+				<div class="copyright">
+					<p>Copyright &copy; <%= DateTime.Now.Year%> Legato Network. All Rights Reserved. User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -86,7 +101,7 @@
 	<script src="/static/js/showdown.js" type="text/javascript"></script>
 	<script src="/static/js/wmd.js" type="text/javascript"></script>
 	<script src="/static/js/jquery.hint.js" type="text/javascript"></script>
-    <script src="/static/js/jquery.timeago.min.js" type="text/javascript"></script>
+	<script src="/static/js/jquery.timeago.min.js" type="text/javascript"></script>
 	
 	<script src="/static/js/plugins.js"></script>
 	<script src="/static/js/script.js"></script>
