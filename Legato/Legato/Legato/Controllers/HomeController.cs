@@ -19,6 +19,7 @@ namespace Legato.Controllers
             return View();
         }
 
+        [Url("About")]
         public virtual ActionResult About()
         {
             return View();

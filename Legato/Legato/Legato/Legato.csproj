@@ -220,6 +220,7 @@
     <Content Include="robots.txt" />
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
+    <Content Include="static\images\logo.png" />
     <Content Include="static\images\raty\background.gif" />
     <Content Include="static\images\raty\cancel-off-big.png" />
     <Content Include="static\images\raty\cancel-off.png" />
@@ -314,6 +315,7 @@
     <Content Include="static\openid\vidoop.ico" />
     <Content Include="static\openid\wordpress.ico" />
     <Content Include="static\openid\yahoo.gif" />
+    <Content Include="static\opensearch.xml" />
     <Content Include="Views\Account\ChangeEmail.aspx" />
     <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
     <Content Include="Views\Account\ForgotOpenID.aspx" />
