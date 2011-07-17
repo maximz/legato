@@ -280,11 +280,12 @@ namespace Legato.Controllers
         [Url("Instrument/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
-        [RateLimit(Name="InstrumentSubmitPOST", Seconds=600)]
+        //[RateLimit(Name="InstrumentSubmitPOST", Seconds=600)]
         public virtual ActionResult Submit(SubmitViewModel model)
         {
             if (!ModelState.IsValid)
             {
+                new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
                 return View(model);
             }
 
@@ -312,18 +313,23 @@ namespace Legato.Controllers
                      * 4. Apply ID of record in #3 to Listing
                      * 5. Same for Styles
                      * that's how we do it! */
-                    var instrument = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
-                    if(instrument==null)
+                    var type = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
+                    if(type==null)
                     {
-                        ModelState.AddModelError("Type", "No such instrument type exists.");
-                        return View();
+                        ModelState.AddModelError("SelectedType", "No such instrument type exists.");
+                        new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
+                        return View(model);
                     }
-                    var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Value;
+                    listing.TypeID = type.TypeID;
+
+                    var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Text.ToLowerInvariant();
                     if(style==null || (style != "public" && style != "rent" && style != "sale"))
                     {
-                        ModelState.AddModelError("Style", "No such style exists.");
-                        return View();
+                        ModelState.AddModelError("SelectedClass", "No such class exists.");
+                        new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
+                        return View(model);
                     }
+                    listing.ListingClass = style;
 
                     var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
                     listing.UserID = userGuid;
@@ -340,6 +346,7 @@ namespace Legato.Controllers
                     gpost.SpecificPostID = listing.InstrumentID;
                     db.GlobalPostIDs.InsertOnSubmit(gpost);
                     db.SubmitChanges();
+                    listing = db.Instruments.Where(i => i.InstrumentID == listing.InstrumentID).SingleOrDefault(); // Nasty SQL hack
                     listing.GlobalPostID = gpost.GlobalPostID1;
                     db.SubmitChanges();
 
@@ -415,8 +422,9 @@ namespace Legato.Controllers
 
                     return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
             }
-            catch
+            catch(Exception ex)
             {
+                new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
                 return RedirectToAction("InternalServerError", "Error");
             }
         }

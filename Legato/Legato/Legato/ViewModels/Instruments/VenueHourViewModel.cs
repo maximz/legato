@@ -17,7 +17,6 @@ namespace Legato.ViewModels
             get;
             set;
         }
-        [Required(ErrorMessage="Day of week name is required.")]
         public string DayOfWeekName
         {
             get;

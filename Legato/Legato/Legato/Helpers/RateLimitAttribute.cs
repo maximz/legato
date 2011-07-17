@@ -91,6 +91,19 @@ namespace Legato.Helpers
                 c.Result = new ContentResult { Content = Message.Replace("{n}", Seconds.ToString()) };
             }
         }
+
+        /// <summary>
+        /// Cancels the rate limit (if a request fails validation, for example)
+        /// </summary>
+        public void CancelRateLimit(string name)
+        {
+            Name = name;
+            var key = string.Concat(Name, "-", Current.Context.Request.UserHostAddress);
+            if (HttpRuntime.Cache[key] != null)
+            {
+                HttpRuntime.Cache.Remove(key);
+            }
+        }
     }
 
     /*TO USE:

@@ -11,10 +11,13 @@
 
 <script>
 
-$('#rate-overall').raty({
+$('#rate_overall').raty({
   cancel:     false,
   scoreName:  '#ReviewRevision_RatingOverall',
-  path:       '/static/images/raty/'
+  path:       '/static/images/raty/',
+  click: function(score, evt) {
+    $('#ReviewRevision_RatingOverall').val(score);
+  }
 });
 
 
@@ -22,7 +25,7 @@ $('#rate-overall').raty({
 
 @if(Model.ReviewRevision.RatingOverall!=null && Model.ReviewRevision.RatingOverall != 0)
 {
-	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate-overall');</text>
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate_overall');</text>
 }
 </script>
 }
@@ -130,7 +133,7 @@ $('#rate-overall').raty({
 			@Html.LabelFor(model => model.ReviewRevision.RatingOverall)
 		</div>
 		<div class="editor-field">
-			<div id="rate-overall"></div>
+			<div id="rate_overall"></div>
 			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 		</div>
 
