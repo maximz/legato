@@ -36,17 +36,13 @@
 }
 else
 {
-	@foreach (var r in Model.Reviews)
+	foreach (var r in Model.Reviews)
 	 {
 		<div class="review" id="review-@r.ReviewID">
 			@r.Revisions.First()
 			<div class="ratings">
 				<p><b>Ratings:</b></p>
 					<label for="rate-general-@r.ReviewID">General: </label><div id="rate-general-@r.ReviewID"></div>
-					<label for="rate-playing-@r.ReviewID">Playing Capability: </label><div id="rate-playing-@r.ReviewID"></div>
-					<label for="rate-tone-@r.ReviewID">Tone Quality: </label><div id="rate-tone-@r.ReviewID"></div>
-					<label for="rate-tuning-@r.ReviewID">Tuning: </label><div id="rate-tuning-@r.ReviewID"></div>
-					<label for="rate-venue-@r.ReviewID">Venue: </label><div id="rate-venue-@r.ReviewID"></div>
 			</div>
 			<div class="message">
 				@r.Revisions.First().MessageHTML
@@ -59,12 +55,12 @@ else
 			</div>
 			<p class="userbox">
 				by @r.aspnet_User.UserName<br />
-				submitted <span class="timeago" title="@r.SubmitDate">@r.SubmitDate</span>
+				submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span>
 				@if(r.Revisions.Count()>1) { <text><br />edited @r.Revisions.Count() times</text> }
 			</p>
 		</div>
 	 }
-	 @if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
+	 if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
 	 {
 		<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?",MVC.Instruments.Individual(Model.Instrument.InstrumentID,Model.Instrument.UrlSlug))</p>
 	 }
@@ -96,30 +92,7 @@ $('#averageRating').raty({
   start:  @r.Revisions.First().RatingGeneral,
   path:       '/static/images/raty/'
 });
-$('#rate-playing-@r.ReviewID').raty({
-  cancel:     false,
-  readOnly:   true,
-  start:  @r.Revisions.First().RatingPlayingCapability,
-  path:       '/static/images/raty/'
-});
-$('#rate-tone-@r.ReviewID').raty({
-  cancel:     false,
-  readOnly:   true,
-  start:  @r.Revisions.First().RatingToneQuality,
-  path:       '/static/images/raty/'
-});
-$('#rate-tuning-@r.ReviewID').raty({
-  cancel:     false,
-  readOnly:   true,
-  start:  @r.Revisions.First().RatingTuning,
-  path:       '/static/images/raty/'
-});
-$('#rate-venue-@r.ReviewID').raty({
-  cancel:     false,
-  readOnly:   true,
-  start:  @r.Revisions.First().RatingVenue,
-  path:       '/static/images/raty/'
-});</text>
+</text>
 }
 
 </script>

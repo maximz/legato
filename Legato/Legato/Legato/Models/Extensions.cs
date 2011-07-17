@@ -99,12 +99,11 @@ namespace Legato.Models
                 var model = new ListingPermissionsModel();
 
                 model.Listing = this;
-                var User = Current.Controller.User;
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
 
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                 var submitterGuid = this.UserID;
-                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+                if (userGuid != submitterGuid && !Roles.IsUserInRole(RoleNames.Administrator) && !Roles.IsUserInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
                 {
                     model.CanEdit = false;
                     model.CanDelete = false;
@@ -194,15 +193,14 @@ namespace Legato.Models
                 var model = new ReviewPermissionsModel();
 
                 model.Review = this;
-                var User = Current.Controller.User;
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey;
 
                 //verify that the logged in user making the request is the original author of the post or is an Admin or a Moderator
                 var query = this.InstrumentReviewRevisions.OrderByDescending(d=>d.RevisionDate);
                 var revision = query.First();
                 var submitterGuid = query.Last().UserID;
-                    
-                if (userGuid != submitterGuid && !User.IsInRole(RoleNames.Administrator) && !User.IsInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
+
+                if (userGuid != submitterGuid && !Roles.IsUserInRole(RoleNames.Administrator) && !Roles.IsUserInRole(RoleNames.Moderator)) // if user isn't submitter and doesn't have edit privileges, forbidden!
                 {
                     model.CanEdit = false;
                     model.CanDelete = false;

@@ -41,7 +41,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="classIns">Optional. The instrument class that is requested; e.g. "public", "rent", "sale"</param>
         /// <returns></returns>
-        //[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
         [Url("Instruments/Map/{classIns?}")]
         public virtual JsonResult Map(string classIns)
         {
