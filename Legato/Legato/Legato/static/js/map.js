@@ -77,25 +77,22 @@
 		}
 
 		this.newMarker = function(lat, lng) {
+        alert("in newMarker");
 			// Used for randomizing marker image
 			var offset = Math.floor(Math.random() * 3) * 16;
 			// Custom marker
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(lat, lng),
-				icon: new google.maps.MarkerImage(
-					'/static/img/map/dot.png',
-					new google.maps.Size(16, 16),
-					new google.maps.Point(0, offset),
-					new google.maps.Point(8, 8)
-				)
+				position: new google.maps.LatLng(lat, lng)				
 			});
 
 			return marker;
 		}
 
 		this.markLocations = function(locations) {
+        alert("in markLocations");
 			if(locations==null) {
                 // this is if no instruments exist in the DB
+                alert("no locations");
                 return;
             }
             var i = locations.length;

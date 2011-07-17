@@ -41,9 +41,9 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="classIns">Optional. The instrument class that is requested; e.g. "public", "rent", "sale"</param>
         /// <returns></returns>
-        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
+        //[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
         [Url("Instruments/Map/{classIns?}")]
-        public virtual ActionResult Map(string classIns)
+        public virtual JsonResult Map(string classIns)
         {
             // TODO: currently, users can view instruments in all classes or in one specific class. Ideally, we can have them select classes as checkboxes, so we can have them view 2 classes out of 3, for example. Should be improved, but later.
 
@@ -57,47 +57,11 @@ namespace Legato.Controllers
                              label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim(),
                              slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim()),
                              typename = ins.InstrumentType.Name,
-                             typeid = ins.InstrumentType.TypeID,
-                             type = ins.InstrumentType
+                             typeid = ins.InstrumentType.TypeID
                              //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
                          }).ToList();
-            if (classIns.HasValue()) // for example, if classIns="public", only instruments that are allowed in public mode are shown.
-            {
-                foreach (var p in points)
-                {
-                    bool forceBreak = false; // so we can break out of this foreach - see default case in switch block
-                    switch(classIns.Trim())
-                    {
-                        case "public":
-                            if(!p.type.AllowedInPublic.GetValueOrDefault(false))
-                            {
-                                points.Remove(p);
-                            }
-                            break;
-                        case "rent":
-                            if(!p.type.AllowedInRent.GetValueOrDefault(false))
-                            {
-                                points.Remove(p);
-                            }
-                            break;
-                        case "sale":
-                            if (!p.type.AllowedInSale.GetValueOrDefault(false))
-                            {
-                                points.Remove(p);
-                            }
-                            break;
-                        default:
-                            // some weird classIns value was given, so let's not waste time on the rest of the points
-                            forceBreak = true;
-                            break;
-                    }
-                    if(forceBreak)
-                    {
-                        break; // see default case of switch block ^^
-                    }
-                }
-            }
-            return Json(points,JsonRequestBehavior.AllowGet);
+            var x = Json(points,JsonRequestBehavior.AllowGet);
+            return x;
             if(ControllerContext.IsChildAction)
             {
                 //return PartialView(result);

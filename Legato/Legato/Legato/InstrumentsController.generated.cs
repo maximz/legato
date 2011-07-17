@@ -42,8 +42,8 @@ namespace Legato.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Map() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Map);
+        public System.Web.Mvc.JsonResult Map() {
+            return new T4MVC_JsonResult(Area, Name, ActionNames.Map);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -150,8 +150,8 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Map(string classIns) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Map);
+        public override System.Web.Mvc.JsonResult Map(string classIns) {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.Map);
             callInfo.RouteValueDictionary.Add("classIns", classIns);
             return callInfo;
         }
