@@ -88,7 +88,7 @@ namespace Legato.Models
             NumberOfReviews = reviewCount;
 
             // Generate Title and UrlSlug
-            Title = this.Brand.Trim() + " " + this.Model.Trim() + " (" + this.InstrumentType.Name + ") at" + this.StreetAddress.Trim();
+            Title = this.Brand.Trim() + " " + this.Model.Trim() + " (" + this.InstrumentType.Name + ") at " + this.StreetAddress.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
         }
 
