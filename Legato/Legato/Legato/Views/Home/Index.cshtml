@@ -26,36 +26,12 @@
 
 	$.getJSON("@Url.Action("Map","Instruments")",
 	  function (data) {
-	  //alert(data.Data[0].lat);
-		//$.each(data.Data, function(i){
-			//alert("i = "+i);
-			//alert("item = "+item);
-		//	Legato.map.markLocations(i);
-		//});
-		//  alert(data);
-		//  alert(data.items[0]);
 		  points = data;
-		  alert(points);
 	  });
 
 	Legato.map.init();
 
 	google.maps.event.addListenerOnce(Legato.map.map, 'tilesloaded', function () {
-		alert("about to marklocations")
-			//$.getJSON("@Url.Action("Map","Instruments")",
-	  //function (data) {
-		//alert(data[0]);
-		//alert(data[0].lat);
-		//$.each(data, function(i,item){
-		//	alert("i = "+i);
-		//	alert("item = "+item);
-		//	alert(item.lat);
-		//	Legato.map.markLocations(item);
-		//});
-		//  alert(data);
-		//  alert(data.items[0]);
-		//  points = data;
-	  //});
 		Legato.map.markLocations(points);
 	});
 	

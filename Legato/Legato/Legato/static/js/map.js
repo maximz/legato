@@ -77,7 +77,6 @@
 		}
 
 		this.newMarker = function(lat, lng) {
-        alert("in newMarker");
 			// Used for randomizing marker image
 			var offset = Math.floor(Math.random() * 3) * 16;
 			// Custom marker
@@ -89,10 +88,8 @@
 		}
 
 		this.markLocations = function(locations) {
-        alert("in markLocations");
 			if(locations==null) {
                 // this is if no instruments exist in the DB
-                alert("no locations");
                 return;
             }
             var i = locations.length;
@@ -149,67 +146,10 @@ var infowindow = new google.maps.InfoWindow({
 					position: results[0].geometry.location
 				});
 			  } else {
-				alert("We couldn't find that address: " + status);
+				alert("We couldn't find that address. Please try again."); // alert(status);
 			  }
 			});
 		}
-
-		/* This method is unneccessary
-		this.createOverlay = function(message, position) {
-			
-			var overlay = $("#messageTemplate").clone();
-			
-			overlay.attr("id", message.id);
-			overlay.attr("href", "/messages/"+ message.id +"")
-			
-			// Position it at the marker
-			overlay.css({
-				left: position.x - 52,
-				top: position.y - 52,
-			});
-			
-			// Use distance from center to decide when to hide
-			var radius = 50;
-			var radiusSq = radius * radius;
-			
-			var checkDistance = function(event) {
-				var dx = event.pageX - position.x;
-				var dy = event.pageY - position.y;
-				
-				if( dx*dx + dy*dy > radiusSq ) {
-					
-					$(window).unbind("mousemove", checkDistance);
-					overlay.data("MessageBubble").disappear(250);
-					setTimeout(function() {
-						overlay.remove();
-					}, 250);
-				}
-			}
-			
-			$(window).bind("mousemove", checkDistance);
-			
-			// Make it a message bubble
-			overlay.messageBubble();
-			
-			var dom = overlay.data("MessageBubble").dom;
-			dom.original.text( message.text );
-			dom.translated.text( message.text_ja );
-			dom.by.text( "By " + message.author );
-			dom.from.text( "From: " + message.location );
-			
-			if (dom.by.text() == "By " || dom.by.text() == "By Your name" || dom.by.text() == "By åå‰ï¼ˆãƒ­ãƒ¼ãƒžå­—)") {
-				dom.by.text("");
-			}
-			
-			if (dom.from.text() == "From: " || dom.from.text() == "From: Your location" || dom.from.text() == "From: åœ°åï¼ˆãƒ­ãƒ¼ãƒžå­—)") {
-				dom.from.text("");
-			}
-			
-			overlay.data("MessageBubble").disappear(0);
-			setTimeout(function(){overlay.data("MessageBubble").appear(250);}, 20);
-			
-			return overlay;
-		} */
 
 		this.latLngPixel = function(latLng) {
 			var projection = self.overlay.getProjection();
