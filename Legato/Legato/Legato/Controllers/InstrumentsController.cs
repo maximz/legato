@@ -331,8 +331,7 @@ namespace Legato.Controllers
                     gpost.SpecificPostID = listing.InstrumentID;
                     db.GlobalPostIDs.InsertOnSubmit(gpost);
                     db.SubmitChanges();
-                    listing = db.Instruments.Where(i => i.InstrumentID == listing.InstrumentID).SingleOrDefault(); // Nasty SQL hack
-                    listing.GlobalPostID = gpost.GlobalPostID1;
+                    db.Instruments.Where(i => i.InstrumentID == listing.InstrumentID).SingleOrDefault().GlobalPostID = gpost.GlobalPostID1; // Nasty SQL hack
                     db.SubmitChanges();
 
                     //REVIEW:

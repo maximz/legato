@@ -13,7 +13,7 @@ namespace Legato.Controllers
     public partial class HomeController : Controller
     {
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
-        [Url("~")]
+        [Url("")]
         public virtual ActionResult Index()
         {
             var dbTypes = (from t in Current.DB.InstrumentTypes
