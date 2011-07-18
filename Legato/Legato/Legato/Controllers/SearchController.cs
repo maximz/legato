@@ -40,13 +40,26 @@ namespace Legato.Controllers
 
         protected void InitWriter()
         {
+            // Nasty hack: remove write.lock file if it exists
             try
             {
+                if (System.IO.File.Exists(Path.Combine(IndexLocation, "write.lock")))
+                {
+                    System.IO.File.Delete(Path.Combine(IndexLocation, "write.lock"));
+                }
+            }
+            catch
+            {
+                // Our nasty little hack has failed.
+            }
+
+            try
+            {
+                writer.SetWriteLockTimeout(60000);
                 if (writer == null)
                 {
                     writer = new IndexWriter(IndexLocation, analyzer);
                 }
-                writer.SetWriteLockTimeout(60000);
             }
             catch
             {
