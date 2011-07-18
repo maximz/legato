@@ -60,7 +60,7 @@
 					maxlength="80" />
 				<%} %>
 				</div>
-				<div class="span-12" id="logo"><a href="@Url.Content("~")"><img src="/static/images/logo.png" alt="Legato Network" title="Legato Network" width="500" height="95"/></a></div>
+				<div class="span-12" id="logo"><a href="<%= Url.Content("~")%>"><img src="/static/images/logo.png" alt="Legato Network" title="Legato Network" width="500" height="95"/></a></div>
 				<div class="span-6 prepend-6 last" id="logindisplay"><% Html.RenderPartial("LogOnUserControl"); %></div>
 				<div class="span-14 prepend-12 last" id="menucontainer">
 					<ul id="menu">              
