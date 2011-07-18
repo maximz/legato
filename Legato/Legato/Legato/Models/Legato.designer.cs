@@ -4901,9 +4901,9 @@ namespace Legato.Models
 		
 		private int _TypeID;
 		
-		private decimal _Lat;
+		private double _Lat;
 		
-		private decimal _Long;
+		private double _Long;
 		
 		private string _StreetAddress;
 		
@@ -4943,9 +4943,9 @@ namespace Legato.Models
     partial void OnListingClassChanged();
     partial void OnTypeIDChanging(int value);
     partial void OnTypeIDChanged();
-    partial void OnLatChanging(decimal value);
+    partial void OnLatChanging(double value);
     partial void OnLatChanged();
-    partial void OnLongChanging(decimal value);
+    partial void OnLongChanging(double value);
     partial void OnLongChanged();
     partial void OnStreetAddressChanging(string value);
     partial void OnStreetAddressChanged();
@@ -5042,8 +5042,8 @@ namespace Legato.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Lat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lat", DbType="Float NOT NULL")]
+		public double Lat
 		{
 			get
 			{
@@ -5062,8 +5062,8 @@ namespace Legato.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Long
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Long", DbType="Float NOT NULL")]
+		public double Long
 		{
 			get
 			{
