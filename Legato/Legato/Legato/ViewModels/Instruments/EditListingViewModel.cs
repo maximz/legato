@@ -7,11 +7,7 @@ namespace Legato.ViewModels
 {
     public class EditListingViewModel
     {
-        public List<VenueHourViewModel> Hours
-        {
-            get;
-            set;
-        }
+
         public ListingSubmissionViewModel Listing
         {
             get;
@@ -23,10 +19,6 @@ namespace Legato.ViewModels
         /// </summary>
         public EditListingViewModel()
         {
-            if (Hours == null)
-            {
-                Hours = new List<VenueHourViewModel>();
-            }
             if(Listing==null)
             {
                 Listing = new ListingSubmissionViewModel();

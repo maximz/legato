@@ -12,11 +12,7 @@ namespace Legato.ViewModels
             get;
             set;
         }
-        public List<VenueHourViewModel> Hours
-        {
-            get;
-            set;
-        }
+
         public ListingSubmissionViewModel Listing
         {
             get;
@@ -32,10 +28,7 @@ namespace Legato.ViewModels
             {
                 ReviewRevision = new RevisionSubmissionViewModel();
             }
-            if (Hours == null)
-            {
-                Hours = new List<VenueHourViewModel>();
-            }
+
             if(Listing==null)
             {
                 Listing = new ListingSubmissionViewModel();

@@ -249,17 +249,6 @@ namespace Legato.Controllers
         {
             var model = new SubmitViewModel();
 
-            for(int i = 0;i<7;i++)
-            {
-                var day = Enum.GetName(typeof(DayOfWeek),i);
-                var hourmodel = new VenueHourViewModel()
-                {
-                    DayOfWeekId = i,
-                    DayOfWeekName = day
-                };
-                model.Hours.Add(hourmodel);
-            }
-
             return View(model);
         }
         [Url("Instrument/Submit")]
@@ -375,26 +364,6 @@ namespace Legato.Controllers
                     db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
                     db.SubmitChanges();
                     r.GlobalPostID = gpostrevis.GlobalPostID1;
-                    db.SubmitChanges();
-
-                    //VENUE HOURS:
-                    foreach (var hour in model.Hours)
-                    {
-                        var submit = new InstrumentHour();
-                        submit.Day = hour.DayOfWeekId;
-                        if(!hour.Closed)
-                        {
-                            submit.OpenTime = new TimeSpan(hour.StartTime.Value.Hour, hour.StartTime.Value.Minute, hour.StartTime.Value.Second);
-                            submit.CloseTime = new TimeSpan(hour.EndTime.Value.Hour, hour.EndTime.Value.Minute, hour.EndTime.Value.Second);
-                        }
-                        else
-                        {
-                            submit.OpenTime = null;
-                            submit.CloseTime = null;
-                        }
-                        submit.Instrument = listing;
-                        db.InstrumentHours.InsertOnSubmit(submit);
-                    }
                     db.SubmitChanges();
 
                     try
@@ -593,7 +562,6 @@ namespace Legato.Controllers
 
                     var revision = review.InstrumentReviewRevisions.OrderByDescending(rr => rr.RevisionDate).First();    
                     var listing = review.Instrument;
-                    var hours = listing.InstrumentHours;
 
                     var revisionmodel = new RevisionSubmissionViewModel()
                     {
@@ -719,26 +687,6 @@ namespace Legato.Controllers
                     return RedirectToAction("Forbidden", "Error");
                 }
 
-                var hours = listing.InstrumentHours;
-                var hourModel = new List<VenueHourViewModel>();
-                foreach (var hour in hours)
-                {
-                    var mhour = new VenueHourViewModel();
-                    mhour.DayOfWeekId = hour.Day;
-                    
-                    if(hour.CloseTime.GetValueOrDefault() == null && hour.OpenTime.GetValueOrDefault() == null)
-                    {
-                        mhour.Closed = true;
-                    }
-                    else
-                    {
-                        mhour.StartTime = new DateTime(2000,1,1,hour.OpenTime.Value.Hours,hour.OpenTime.Value.Minutes,hour.OpenTime.Value.Seconds);
-                        mhour.EndTime = new DateTime(2000,1,1,hour.CloseTime.Value.Hours,hour.CloseTime.Value.Minutes,hour.CloseTime.Value.Seconds);
-
-                    }
-                    hourModel.Add(mhour);
-                }
-
 
                 var listingmodel = new ListingSubmissionViewModel()
                 {
@@ -758,8 +706,7 @@ namespace Legato.Controllers
 
                 var model = new EditListingViewModel()
                 {
-                    Listing = listingmodel,
-                    Hours=hourModel
+                    Listing = listingmodel
                 };
                 return View(model);
             }
@@ -831,28 +778,6 @@ namespace Legato.Controllers
                 listing.SubmissionDate = time;
 
                 db.SubmitChanges(); // Listing is changed
-
-                //VENUE HOURS:
-                db.InstrumentHours.DeleteAllOnSubmit(listing.InstrumentHours); // remove all previous venue hours
-
-                foreach (var hour in model.Hours)
-                {
-                    var submit = new InstrumentHour();
-                    submit.Day = hour.DayOfWeekId;
-                    if (!hour.Closed)
-                    {
-                        submit.OpenTime = new TimeSpan(hour.StartTime.Value.Hour, hour.StartTime.Value.Minute, hour.StartTime.Value.Second);
-                        submit.CloseTime = new TimeSpan(hour.EndTime.Value.Hour, hour.EndTime.Value.Minute, hour.EndTime.Value.Second);
-                    }
-                    else
-                    {
-                        submit.OpenTime = null;
-                        submit.CloseTime = null;
-                    }
-                    submit.Instrument = listing;
-                    db.InstrumentHours.InsertOnSubmit(submit);
-                }
-                db.SubmitChanges();
 
                 try
                 {

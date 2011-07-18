@@ -12,13 +12,6 @@
 <text><h4>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h4></text>
 }
 <div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
-<div id="hours">
-	<p><b>Hours of Operation:</b></p>
-	@foreach (var h in Model.Instrument.InstrumentHours)
-	{
-		<label for="hour-@h.Day">@h.FriendlyLabel()</label><span id="hour-@h.Day">@h.FriendlyOutput()</span>
-	}
-</div>
 <p>Latest use: <span class="timeago" title="@Model.Instrument.LatestUseDate">@Model.Instrument.LatestUseDate</span></p>
 <p>Latest review: <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
 <div id="minimap"></div>

@@ -94,36 +94,7 @@ $('#rate_overall').raty({
                 @Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			</div>
 
-			<!--<div class="editor-label">
-				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
-			</div>
-			<div class="editor-field">
-				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class="wmd", id="wmd-input" })
-                <div id="wmd-preview"></div>
-				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
-			</div> -->
 			</fieldset>
-	<fieldset>
-	<legend>Hours of Availability</legend>
-	<p>Please list the hours of availability of this instrument.</p>
-			@foreach (var m in Model.Hours)
-			{
-				<div class="editor-label">
-					<b><label for="hours-@(m.DayOfWeekId)">@m.DayOfWeekName</label></b>
-				</div>
-					<div id="hours-@(m.DayOfWeekId)" class="editor-field">
-						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].StartTime, new { title="Opens at..."})
-						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].StartTime)
-
-						@Html.TextBoxFor(model => model.Hours[m.DayOfWeekId].EndTime, new { title = "Closes at..." })
-						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].EndTime)
-
-						@Html.CheckBoxFor(model => model.Hours[m.DayOfWeekId].Closed)
-						@Html.LabelFor(model => model.Hours[m.DayOfWeekId].Closed)
-						@Html.ValidationMessageFor(model => model.Hours[m.DayOfWeekId].Closed)
-					</div>
-			}
-	</fieldset>
 	<fieldset>
 	<legend>Review</legend>
 	<div>
