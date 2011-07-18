@@ -397,12 +397,20 @@ namespace Legato.Controllers
                     }
                     db.SubmitChanges();
 
-                    // Search
-                    // Add to Lucene index:
-                    var s = new SearchController();
-                    s.AddToIndex(listing);
-                    s.AddToIndex(review);
-                    s = null;
+                    try
+                    {
+                        // Search
+                        // Add to Lucene index:
+                        var s = new SearchController();
+                        s.AddToIndex(listing);
+                        s.AddToIndex(review);
+                        s = null;
+                    }
+                    catch
+                    {
+                        // This means that we got the write.lock error...
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.Submit()"), Current.Context);
+                    }
 
                     return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
             }
@@ -528,11 +536,19 @@ namespace Legato.Controllers
                         db.SubmitChanges();
                     }
 
-                    // Search
-                    // Add to Lucene index:
-                    var s = new SearchController();
-                    s.AddToIndex(review);
-                    s = null;
+                    try
+                    {
+                        // Search
+                        // Add to Lucene index:
+                        var s = new SearchController();
+                        s.AddToIndex(review);
+                        s = null;
+                    }
+                    catch
+                    {
+                        // This means that we got the write.lock error...
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.Review()"), Current.Context);
+                    }
 
                     // Done
                     return RedirectToAction("IndividualReview", new
@@ -657,11 +673,19 @@ namespace Legato.Controllers
                     r.GlobalPostID = gpostrevis.GlobalPostID1;
                     db.SubmitChanges();
 
-                    // Search
-                    // Add to Lucene index:
-                    var s = new SearchController();
-                    s.ChangeIndex(review);
-                    s = null;
+                    try
+                    {
+                        // Search
+                        // Add to Lucene index:
+                        var s = new SearchController();
+                        s.ChangeIndex(review);
+                        s = null;
+                    }
+                    catch
+                    {
+                        // This means that we got the write.lock error...
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.EditReview()"), Current.Context);
+                    }
 
                     return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});
             }
@@ -830,11 +854,19 @@ namespace Legato.Controllers
                 }
                 db.SubmitChanges();
 
-                // Search
-                // Add to Lucene index:
-                var s = new SearchController();
-                s.ChangeIndex(listing);
-                s = null;
+                try
+                {
+                    // Search
+                    // Add to Lucene index:
+                    var s = new SearchController();
+                    s.ChangeIndex(listing);
+                    s = null;
+                }
+                catch
+                {
+                    // This means that we got the write.lock error...
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.EditListing()"), Current.Context);
+                }
 
                 return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID });
             }
