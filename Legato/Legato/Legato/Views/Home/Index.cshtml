@@ -13,6 +13,11 @@
 	<input id="address" type="textbox" value="" title="find address" />
 	<input type="button" value="Zoom" id="zoomButton" />
 </div>
+<div>
+    <label for="ChosenType">Instruments to Show: </label>
+    @Html.DropDownList("ChosenType",(IEnumerable<SelectListItem>)ViewBag.Types)
+    <input type="button" value="Update Map" id="refreshButton" />
+</div>
 <!--<div id="mapCanvas" style="z-index:22; height:400px;width:930px;margin:10px;"></div>-->
 <div id="mapCanvas" style="z-index:22; height:400px;width:900px;margin:10px;" class="span-22 prepend-1 last"></div>
 </div>
@@ -46,6 +51,14 @@
 			//Do something
 			Legato.map.codeAddress();
 		}
+	});
+
+    $('#refreshButton').click(function() {
+        Legato.map.clearMarkers();
+	    $.getJSON('/Instruments/Map/'+$('#ChosenType').val(),
+	      function (data) {
+		      Legato.map.markLocations(data);
+	      });
 	});
 </script>
 }

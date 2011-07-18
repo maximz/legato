@@ -12,14 +12,20 @@ namespace Legato.Controllers
     [HandleError]
     public partial class HomeController : Controller
     {
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
+        [Url("~")]
         public virtual ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            var dbTypes = (from t in Current.DB.InstrumentTypes
+                           select new { Id = t.TypeID, Name = t.Name }).ToList();
+            dbTypes.Add(new { Id = 0, Name = "All Instruments" });
+            ViewBag.Types = new SelectList(dbTypes.ToArray(), "Id", "Name");
 
             return View();
         }
 
         [Url("About")]
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult About()
         {
             return View();

@@ -41,32 +41,53 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="classIns">Optional. The instrument class that is requested; e.g. "public", "rent", "sale"</param>
         /// <returns></returns>
-        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "classIns")]
-        [Url("Instruments/Map/{classIns?}")]
-        public virtual JsonResult Map(string classIns)
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "insType")]
+        [Url("Instruments/Map/{insType?}")]
+        public virtual JsonResult Map(int? insType)
         {
             // TODO: currently, users can view instruments in all classes or in one specific class. Ideally, we can have them select classes as checkboxes, so we can have them view 2 classes out of 3, for example. Should be improved, but later.
 
+            if(insType.GetValueOrDefault(1) == 0) // "All Instruments" value
+            {
+                insType = null; // don't filter by type.
+            }
+
             // Rough hack: put everything as JS array for now
             var db = Current.DB;
-            var points = (from ins in db.Instruments
-                         select new {
-                             id = ins.InstrumentID,
-                             lat = ins.Lat,
-                             lng = ins.Long,
-                             label = ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim(),
-                             slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " "+ ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at" + ins.StreetAddress.Trim()),
-                             typename = ins.InstrumentType.Name,
-                             typeid = ins.InstrumentType.TypeID
-                             //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
-                         }).ToList();
+            dynamic points;
+            if (!insType.HasValue)
+            {
+                points = (from ins in db.Instruments
+                          select new
+                          {
+                              id = ins.InstrumentID,
+                              lat = ins.Lat,
+                              lng = ins.Long,
+                              label = ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim(),
+                              slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
+                              typename = ins.InstrumentType.Name,
+                              typeid = ins.InstrumentType.TypeID
+                              //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
+                          }).ToList();
+            }
+            else
+            {
+                points = (from ins in db.Instruments
+                          where ins.TypeID==insType.Value
+                          select new
+                          {
+                              id = ins.InstrumentID,
+                              lat = ins.Lat,
+                              lng = ins.Long,
+                              label = ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim(),
+                              slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
+                              typename = ins.InstrumentType.Name,
+                              typeid = ins.InstrumentType.TypeID
+                              //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
+                          }).ToList();
+            }
             var x = Json(points,JsonRequestBehavior.AllowGet);
             return x;
-            if(ControllerContext.IsChildAction)
-            {
-                //return PartialView(result);
-            }
-            //return View(result);
         }
 
         #endregion
@@ -262,8 +283,8 @@ namespace Legato.Controllers
                     var listing = new Instrument();
 
                     listing.StreetAddress = model.Listing.StreetAddress;
-                    listing.Lat = (decimal)model.Listing.Lat;
-                    listing.Long = (decimal)model.Listing.Long;
+                    listing.Lat = model.Listing.Lat;
+                    listing.Long = model.Listing.Long;
                     listing.Model = model.Listing.Equipment.Model.Trim();
                     listing.Brand = model.Listing.Equipment.Brand.Trim();
                     listing.Price = (decimal?)model.Listing.Price;
@@ -755,8 +776,8 @@ namespace Legato.Controllers
 
                 //LISTING:
                 listing.StreetAddress = model.Listing.StreetAddress;
-                listing.Lat = (decimal)model.Listing.Lat;
-                listing.Long = (decimal)model.Listing.Long;
+                listing.Lat = model.Listing.Lat;
+                listing.Long = model.Listing.Long;
                 listing.Model = model.Listing.Equipment.Model.Trim();
                 listing.Brand = model.Listing.Equipment.Brand.Trim();
                 listing.Price = (decimal?)model.Listing.Price;

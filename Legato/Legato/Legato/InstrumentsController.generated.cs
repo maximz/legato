@@ -150,9 +150,9 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult Map(string classIns) {
+        public override System.Web.Mvc.JsonResult Map(int? insType) {
             var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.Map);
-            callInfo.RouteValueDictionary.Add("classIns", classIns);
+            callInfo.RouteValueDictionary.Add("insType", insType);
             return callInfo;
         }
 

@@ -134,6 +134,17 @@ var infowindow = new google.maps.InfoWindow({
 			}
 		}
 
+        // Removes markers from the map: see http://code.google.com/apis/maps/documentation/javascript/overlays.html#RemovingOverlays and http://stackoverflow.com/questions/1544739/google-maps-api-v3-how-to-remove-all-markers/1903905#1903905
+        this.clearMarkers = function() {
+            if (self.markers) {
+                for (var i = 0; i < self.markers.length; i++) {
+                    self.markers[i].setMap(null); // remove from map
+                    self.markers[i] = null; // set marker to null to delete it from memory
+                }
+                self.markers.length = 0; // trash the whole array, removing all references to the old markers
+            }
+        }
+
 		// For panning to an address
 		this.codeAddress = function() {
 			var address = $('#address').val();
@@ -141,10 +152,10 @@ var infowindow = new google.maps.InfoWindow({
 			  if (status == google.maps.GeocoderStatus.OK) {
 				self.map.setCenter(results[0].geometry.location);
                 self.map.fitBounds(results[0].geometry.viewport);
-				var marker = new google.maps.Marker({
-					map: self.map, 
-					position: results[0].geometry.location
-				});
+//				var marker = new google.maps.Marker({
+//					map: self.map, 
+//					position: results[0].geometry.location
+//				});
 			  } else {
 				alert("We couldn't find that address. Please try again."); // alert(status);
 			  }
