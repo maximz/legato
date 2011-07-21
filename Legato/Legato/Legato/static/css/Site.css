@@ -1251,16 +1251,6 @@ table.grid td
 
 /* map */
 #mapView #mainHeader #messagesPosted {display:block;}
-/*#mapView #navigation ul li#map a,
-#mapView #navigation ul li#map a:hover {
-    background-position: -96px -96px;
-}
-#mapView #mainFooter #disclaimer {display: block; bottom: 35px; padding: 0;}
-#mapView {
-    height: 100%;
-    background: none;
-    background-color: #e5e3df;
-}*/
 
 #mapCanvas {
     /*position: absolute;*/
