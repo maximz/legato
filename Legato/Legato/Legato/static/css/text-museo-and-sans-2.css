@@ -1,0 +1,62 @@
+ /*
+ * MyFonts Webfont Build ID 868398, 2011-07-20T19:42:21-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Museo 700
+ * URL: http://new.myfonts.com/fonts/exljbris/museo/700/
+ * Foundry: exljbris
+ * Copyright: Copyright (c) 2008 by Jos Buivenga/exljbris. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: Museo-700
+ * CSS font-weight: normal
+ * 
+ * Webfont: Museo 300
+ * URL: http://new.myfonts.com/fonts/exljbris/museo/300/
+ * Foundry: exljbris
+ * Copyright: Copyright (c) 2008 by Jos Buivenga/exljbris. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: Museo-300
+ * CSS font-weight: normal
+ * 
+ * Webfont: Museo 500
+ * URL: http://new.myfonts.com/fonts/exljbris/museo/500/
+ * Foundry: exljbris
+ * Copyright: Copyright (c) 2008 by Jos Buivenga/exljbris. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: Museo-500
+ * CSS font-weight: normal
+ * 
+ * Webfont: Museo Sans 500
+ * URL: http://new.myfonts.com/fonts/exljbris/museo-sans/500/
+ * Foundry: exljbris
+ * Copyright: Copyright (c) 2008 by Jos Buivenga. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: MuseoSans-500
+ * CSS font-weight: normal
+ * 
+ * Webfont: Museo Sans 500 Italic
+ * URL: http://new.myfonts.com/fonts/exljbris/museo-sans/500-italic/
+ * Foundry: exljbris
+ * Copyright: Copyright (c) 2008 by Jos Buivenga. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: unlimited/month
+ * CSS font-family: MuseoSans-500Italic
+ * CSS font-weight: normal
+ * 
+ * (c) 2011 Bitstream Inc
+*/
+ 
+ @font-face {font-family: 'Museo-700';src: url('webfonts/eot/style_154925.eot?#iefix') format('embedded-opentype'),url('webfonts/woff/style_154925.woff') format('woff'),url('webfonts/ttf/style_154925.ttf') format('truetype'),url('webfonts/svg/style_154925.svg#Museo-700') format('svg');}
+ @font-face {font-family: 'Museo-300';src: url('webfonts/eot/style_154926.eot?#iefix') format('embedded-opentype'),url('webfonts/woff/style_154926.woff') format('woff'),url('webfonts/ttf/style_154926.ttf') format('truetype'),url('webfonts/svg/style_154926.svg#Museo-300') format('svg');}
+ @font-face {font-family: 'Museo-500';src: url('webfonts/eot/style_154928.eot?#iefix') format('embedded-opentype'),url('webfonts/woff/style_154928.woff') format('woff'),url('webfonts/ttf/style_154928.ttf') format('truetype'),url('webfonts/svg/style_154928.svg#Museo-500') format('svg');}
+ @font-face {font-family: 'MuseoSans-500';src: url('webfonts/eot/style_159303.eot?#iefix') format('embedded-opentype'),url('webfonts/woff/style_159303.woff') format('woff'),url('webfonts/ttf/style_159303.ttf') format('truetype'),url('webfonts/svg/style_159303.svg#MuseoSans-500') format('svg');}
+ @font-face {font-family: 'MuseoSans-500Italic';src: url('webfonts/eot/style_159309.eot?#iefix') format('embedded-opentype'),url('webfonts/woff/style_159309.woff') format('woff'),url('webfonts/ttf/style_159309.ttf') format('truetype'),url('webfonts/svg/style_159309.svg#MuseoSans-500Italic') format('svg');}
