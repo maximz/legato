@@ -18,7 +18,7 @@
 	
  
 	 
-Cufon.replace('h1:not(.contentHeaderText)', {
+Cufon.replace('h1:not(.contentHeaderText,.notCufon)', {
     fontWeight: 'bold',
     hover: {
         fontWeight: 'bold'

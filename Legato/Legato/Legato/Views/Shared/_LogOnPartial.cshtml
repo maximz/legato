@@ -1,7 +1,15 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+﻿@if (Request.IsAuthenticated)
+{
+      <li><span class="lock"></span><i>@User.Identity.Name</i>
+       <ul class="LockOption">
+          <li class="first1"><span class="lock"></span><i>@User.Identity.Name</i></li>
+          <!--<li class="lastfld"><a href="profile" title="advertiser">profile</a></li>-->
+          <li class="lastfld"><a href="@Url.Action("LogOff","Account")" title="logout">logout</a></li>
+          <li class="last"></li>
+        </ul>
+      </li>
 }
-else {
-    @:[ @Html.ActionLink("Log On", "Login", "Account") ]
+else
+{
+    <li><span class="lock"></span><a href="@Url.Action("Login","Account")" title="login">login</a></li>
 }

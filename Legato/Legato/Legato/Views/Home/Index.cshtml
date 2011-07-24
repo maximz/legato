@@ -2,7 +2,7 @@
 	ViewBag.Title = "Home Page";
 }
 
-<div class="centered">
+<article class="centered">
 <h1>Find a place to play.</h1>
 <h2>Find an instrument for public use, for rent, or for sale.</h2>
 <p>
@@ -14,13 +14,38 @@
 	<input type="button" value="Zoom" id="zoomButton" />
 </div>
 <div>
-    <label for="ChosenType">Instruments to Show: </label>
-    @Html.DropDownList("ChosenType",(IEnumerable<SelectListItem>)ViewBag.Types)
-    <input type="button" value="Update Map" id="refreshButton" />
+	<label for="ChosenType">Instruments to Show: </label>
+	@Html.DropDownList("ChosenType",(IEnumerable<SelectListItem>)ViewBag.Types)
+	<input type="button" value="Update Map" id="refreshButton" />
 </div>
 <!--<div id="mapCanvas" style="z-index:22; height:400px;width:930px;margin:10px;"></div>-->
 <div id="mapCanvas" style="z-index:22; height:400px;width:900px;margin:10px;" class="span-22 prepend-1 last"></div>
-</div>
+</article>
+
+@section BetweenHeaderAndContent {
+
+<section>
+  <div id="Sliderbx">
+    <article class="span-8">
+	<h1 class="notCufon">Connecting Musicians Worldwide</h1>
+    <p class="Slidertxt"><span>Meriam-Webster defines "legato" as "in a manner that is smooth and connected..." <br>
+<br>
+That's why Legato Network is here - to connect musicians worldwide, enabling them to share information, experiences, and knowledge. Become a part of the future today!
+</span></p>
+    <p class="Find_mr"><a href="login" title="Join the Network">Join the Network</a></p>
+    <!--</li>-->
+    <!--<p class="How_it_work"><a href="javascript:MyPopUpWin();" title="SEE HOW IT WORK">SEE HOW IT WORK</a></p>-->
+	</article>
+    
+	<article class="howWorks span-8 prepend-8 warning" style="float:right;">
+    <h2 class="notCufon" style="text-align:center;font-family:MuseoSans-500;font-size:25px;line-height:20px;padding:15px 10px;"><a href="about/index.html" title="How It Works">How It Works</a></h2>
+    <p>Monetize your apps with offers that make sense. After all, a better experience for users means higher revenue for you. </p>
+    <p class="FindOut"><a href="social/developer.html" title="FIND OUT MORE">FIND OUT MORE ...</a></p>
+    </article>
+	
+    <!-- Slider --></div>
+  <!-- Slider section --></section>
+  }
 
 @section ScriptContentAtEndOfBody {
 
@@ -53,12 +78,12 @@
 		}
 	});
 
-    $('#refreshButton').click(function() {
-        Legato.map.clearMarkers();
-	    $.getJSON('/Instruments/Map/'+$('#ChosenType').val(),
-	      function (data) {
-		      Legato.map.markLocations(data);
-	      });
+	$('#refreshButton').click(function() {
+		Legato.map.clearMarkers();
+		$.getJSON('/Instruments/Map/'+$('#ChosenType').val(),
+		  function (data) {
+			  Legato.map.markLocations(data);
+		  });
 	});
 </script>
 }

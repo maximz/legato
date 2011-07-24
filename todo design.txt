@@ -1,0 +1,9 @@
+todo:
+
+div class="span-4 prepend-20 last" id="searchBox">
+				@using (Html.BeginForm("IndexPost", "Search"))
+				  { 
+				<input id="query" type="text" name="query" size="31" tabindex="1" title="search"
+					maxlength="80" />
+				}
+				</div>

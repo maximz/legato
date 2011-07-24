@@ -1,4 +1,5 @@
-﻿
+﻿@{bool isInner = true;
+  if (ViewBag.PageType != null && ViewBag.PageType == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */ }
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -8,34 +9,35 @@
 <head runat="server">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<title>@ViewBag.Title | Legato Network</title>
-	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide" />
+	<title>@ViewBag.Title | Legato Network - Connecting Musicians Worldwide</title>
+	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide. Join Legato to find fellow musicians, collaborate with them, and to find helpful resources, all rated by your fellows." />
 	<meta name="author" content="Maxim Zaslavsky" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Legato Network" href="/static/opensearch.xml" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" />
 
-	<link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" /> 
   <!--[if lt IE 8]>
 	<link rel="stylesheet" href="/static/css/ie.css" type="text/css" media="screen, projection" />
-  <![endif]-->
-  <link rel="stylesheet" href="/static/css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/plugins/buttons/screen.css" type="text/css" media="screen, projection" />
-  <!--<link rel="stylesheet" href="/static/css/plugins/link-icons/screen.css" type="text/css" media="screen, projection" />-->
+    <![endif]-->
 
+    <link rel="stylesheet" href="/static/css/index.css" type="text/css" media="all" />
+    @if (isInner)
+    {
+    <link rel="stylesheet" href="/static/css/navigation.css" type="text/css" media="all" />
+    }
+    <link rel="stylesheet" href="/static/css/extra.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/css/text-museo-and-sans-2.css" type="text/css" media="all" />
+  
   <link rel="Stylesheet" href="/static/css/wmd.css" />
 
-
-	<link rel="stylesheet" href="/static/css/style.css?v=2" />
-	<link rel="stylesheet" media="handheld" href="/static/css/handheld.css?v=2" />
 	<script src="/static/js/modernizr-1.7.min.js"></script>
-	<link href="/static/css/Site.css" rel="stylesheet" type="text/css" />
 
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/flick/jquery-ui.css" rel="stylesheet" type="text/css" />
 
@@ -47,63 +49,121 @@
 	@RenderSection("HeadContent",false)
 </head>
 
-<body>
+<body @if (isInner) { <text> class="Inner"</text>}>
 	<noscript>
 		<div id="noscript-warning">The Legato Network website works best with JavaScript enabled.</div>
 	</noscript>
-	<div id="container" class="page">
-		<div id="wrapperHeader">
-			<div id="header" class="container" role="header">
-				<div class="span-4 prepend-20 last" id="searchBox">
-				@using (Html.BeginForm("IndexPost", "Search"))
-				  { 
-				<input id="query" type="text" name="query" size="31" tabindex="1" title="search"
-					maxlength="80" />
-				}
-				</div>
-				<div class="span-12" id="logo"><a href="@Url.Content("~")"><img src="/static/images/logo.png" alt="Legato Network" title="Legato Network" width="500" height="95"/></a></div>
-				<div class="span-6 prepend-6 last" id="logindisplay">@Html.Partial("_LogOnPartial")</div>
-				<div class="span-14 prepend-12 last" id="menucontainer">
-					<ul id="menu">              
-						<li>@Html.ActionLink("Home", "Index", "Home")</li>
-						<li>@Html.ActionLink("About", "Index", "About")</li>
-						<li>@Html.ActionLink("Submit Instrument", "Submit", "Instruments")</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div id="wrapperMain">
-			<div id="main" role="main" class="container">
-								@if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
+    @if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
 	   {
 				<div id="system-message">@Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])</div>
 				}
-				@RenderBody()
-			</div>
-		</div>
+    <!--<div id="socialTab" style="background-attachment: initial; background-origin: initial; background-clip: initial; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-style: none; border-top-width: initial; border-top-left-radius: 0px 0px; border-top-right-radius: 0px 0px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; -webkit-box-shadow: rgba(255, 255, 255, 0.898438) 1px 1px 1px inset, rgba(0, 0, 0, 0.496094) 0px 1px 2px; box-shadow: rgba(255, 255, 255, 0.898438) 1px 1px 1px inset, rgba(0, 0, 0, 0.496094) 0px 1px 2px; font: normal normal bold 14px/1em Arial, sans-serif; right: 10px; top: 0px; z-index: 9999; position: fixed; margin-top: 0px; display: block; background-position: 0px 50%; background-repeat: no-repeat no-repeat; ">
 
-		<div id="wrapperFooter">
-			<div id="footer" role="footer" class="container">
-				<div class="copyright">
-					<p>Copyright &copy; @DateTime.Now.Year Legato Network. All Rights Reserved. User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
-				</div>
-			</div>
-		</div>
-	</div>
+<g:plusone href="http://legatonetwork.com"></g:plusone>
+
+<div class="Facebookcode"><iframe src="http://www.facebook.com/plugins/like.php?app_id=253769111299763&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FLegato-Network%2F246208475398000&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35;font=arial" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe></div>
+
+</div>-->
+<header>
+  <div class="logo"><a href="@Url.Content("~")" title="Legato Network - Connecting Musicians Worldwide">Legato Network - Connecting Musicians Worldwide</a><!-- logo --></div>
+  <nav class="nav"><!--nav-->
+    <!--classes: social < mobile < [no class] -->
+    <ul>
+      <li><a href="instruments" title="instruments">instruments</a>
+        <ul>
+          <li><a href="instruments" class="active" title="instruments">instruments</a></li>
+          <li><a href="instruments/public" title="for public use">for public use</a></li>
+		  <li><a href="instruments/rent" title="for rent">for rent</a></li>
+          <li><a href="instruments/buy" title="for sale">for sale</a></li>
+		  <li><a href="instruments/submit" title="submit">submit</a></li>
+          <li class="last"></li>
+        </ul>
+      </li>
+      <li><a href="services" title="services">services</a>
+        <ul>
+          <li class="first"><a href="services" class="active" title="services">services</a></li>
+          <li><a href="services/teachers" title="teachers">teachers</a></li>
+          <li><a href="services/stores" title="stores">stores</a></li>
+          <li><a href="services/maintenance" title="maintenance">maintenance</a></li> <!-- repair and tuners -->
+          <li class="last"></li>
+        </ul>
+      </li>
+      <li><a href="careers" title="careers">careers</a>
+        <ul>
+          <li class="first"><a href="careers" class="active" title="careers">careers</a></li>
+          <li><a href="careers/search" title="search">search musicians</a></li>
+          <li><a href="careers/post" title="post">post your CV</a></li>
+          <li class="last"></li>
+        </ul>
+      </li>
+	  <li><a href="events" title="events">events</a>
+        <ul>
+          <li class="mobilefirst"><a href="events" class="active" title="events">events</a></li>
+          <li class="mobilerpt"><a href="events/concerts" title="concerts">concerts</a></li>
+          <li class="mobilerpt"><a href="events/competitions" title="competitions">competitions</a></li>
+		  <li class="mobilerpt"><a href="events/jams" title="jams">jams</a></li>
+          <li class="mobilelast"></li>
+        </ul>
+      </li>
+      <li><a href="about/index.html" title="about">about</a>
+        <ul>
+          <li class="socialfirst"><a href="about/index.html" class="active" title="about">about</a></li>
+          <li><a href="about/index.html" title="the basics">the basics</a></li>
+          <li><a href="about/management.html" title="management">- management</a></li>
+          <!--<li><a href="about/board.html" title="board">- board</a></li>
+          <li><a href="about/advisors.html" title="advisors">- advisors</a></li>
+          <li><a href="about/investors.html" title="investors">- investors</a></li>-->
+          <li><a href="about/press.html" title="press">press</a></li>
+          <li><a href="about/faq.html" title="faq">faq</a></li>
+          <!--<li><a href="about/careers.html" title="careers">careers</a></li>-->
+          <li><a href="about/contact.html" title="contact us">contact us</a></li>
+          <!--<li><a href="about/locations.html" title="locations">- locations</a></li>-->
+          <li class="last"></li>
+        </ul>
+      </li>
+      <li><a href="http://blog.legatonetwork.com" target="_blank" title="blog">blog</a></li>
+      @Html.Partial("_LogOnPartial")
+    </ul>
+    <!--/nav--></nav>
+  <!-- Header --></header>
+
+  @RenderSection("BetweenHeaderAndContent",false)
+  
+  <section class="Content">
+  @RenderBody()
+  <!-- Content section --></section>
+  
+  <footer>
+      <section class="Footer">
+      <div class="Facebookcode">
+        <p class="copyright" style="font-size:.8em;">Copyright &copy; @DateTime.Now.Year Legato Network. All Rights Reserved. <br /> User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
+        <div class="Facebookcode"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRadiumOne%2F113084648745200%3Fv%3Dpage_getting_started&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe></div>
+        </div>
+        <ul>
+          <li><a href="about/contact" title="Contact Us">Contact Us</a></li>
+          <li>|</li>
+          <li><a href="http://blog.legatonetwork.com" title="Blog">Blog</a></li>
+        </ul>
+      </section>
+  <!-- Footer --></footer>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js" type="text/javascript"></script>
 
-	<script src="/static/js/jquery.form.min.js"></script>
+	<!--<script src="/static/js/jquery.form.min.js"></script>
 	<script src="/static/js/MicrosoftAjax.js" type="text/javascript"></script>
-	<script src="/static/js/MicrosoftMvcAjax.js" type="text/javascript"></script>
+	<script src="/static/js/MicrosoftMvcAjax.js" type="text/javascript"></script>-->
 	<script src="/static/js/showdown.js" type="text/javascript"></script>
 	<script src="/static/js/wmd.js" type="text/javascript"></script>
 	<script src="/static/js/jquery.hint.js" type="text/javascript"></script>
 	<script src="/static/js/jquery.timeago.min.js" type="text/javascript"></script>
 
-	<script src="/static/js/plugins.js"></script>
+	<script type="text/javascript" src="/static/js/cufon-yui.js"></script> 
+    <script type="text/javascript" src="/static/js/Gotham-Book_400.font.js"></script> 
+    <script type="text/javascript" src="/static/js/int.js"></script>
+    
+    <script src="/static/js/plugins.js"></script>
 	<script src="/static/js/script.js"></script>
 		
 	<!--[if lt IE 7 ]>
@@ -115,6 +175,16 @@
 	
 	@RenderSection("ScriptContentAtEndOfBody", false)
 	
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function () {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/Tm8eeDBnjIO3emUoyrh0lQ.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
 	<!-- Start GAnalytics -->
 	<script>
 		var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID

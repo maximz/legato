@@ -71,6 +71,11 @@ table th
 	clear: both;
 }
 
+.centered
+{
+    text-align:center;
+}
+
 .error
 {
 	color:Red;
