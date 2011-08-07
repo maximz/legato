@@ -379,10 +379,6 @@
     <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
     <Content Include="Views\Account\WhiteListBlock.aspx" />
-    <Content Include="Views\Error\BadRequest.aspx" />
-    <Content Include="Views\Error\Conflict.aspx" />
-    <Content Include="Views\Error\Forbidden.aspx" />
-    <Content Include="Views\Error\InternalServerError.aspx" />
     <Content Include="Views\Instruments\Edit.aspx" />
     <Content Include="Views\Instruments\IndividualReview.aspx" />
     <Content Include="Views\Instruments\List.aspx" />

@@ -11,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | <%=ViewData["Title"] %> | Legato Network</title>
+	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
 	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide. Join Legato to find fellow musicians, collaborate with them, and to find helpful resources, all rated by your fellows." />
 	<meta name="author" content="Maxim Zaslavsky" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
@@ -44,7 +44,7 @@
 
 	<%if (false)
 	   {%>
-		<text><script type="text/javascript" src="/static/js/jquery-1.6.1-vsdoc.js"></script></text>
+		<script type="text/javascript" src="/static/js/jquery-1.6.1-vsdoc.js"></script>
 	<%}%>
 
 	<asp:ContentPlaceHolder ID="HeadContent" runat="server" />
@@ -57,7 +57,7 @@
 	
 	<%if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
 	   {%>
-				<div id="system-message">@Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])</div>
+				<div id="system-message"><%= Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])%></div>
 				<%}%>
 	
 	<header>
@@ -132,7 +132,7 @@
   <footer>
 	  <section class="Footer">
 	  <div class="Facebookcode">
-		<p class="copyright" style="font-size:.8em;">Copyright &copy; @DateTime.Now.Year Legato Network. All Rights Reserved. <br /> User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
+		<p class="copyright" style="font-size:.8em;">Copyright &copy; <%= DateTime.Now.Year%> Legato Network. All Rights Reserved. <br /> User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
 		<div class="Facebookcode"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRadiumOne%2F113084648745200%3Fv%3Dpage_getting_started&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe></div>
 		</div>
 		<ul>
