@@ -85,9 +85,9 @@ nav ul li ul.LockOption li.last { background:url(../images/nav_btm_login.png) no
    
     #Sliderbx .Slidertxt{ width:960px; float:left; }
     .Slidertxt span{ font-size:13px; float:left; color:#fff; width:332px; line-height:20px; padding:0; }
-    #Sliderbx h1{ background:url(../images/header_hdg.png) left 10px no-repeat; color:#fff; float:left; color:#6a1115; font-size:65px; width:960px; height:150px; text-indent:-5000px; }
+    #Sliderbx h1{ background:url(../images/header_hdg.png) left 10px no-repeat; color:#fff; float:left; color:#6a1115; font-size:65px; width:960px; height:130px; text-indent:-5000px; }
     #Sliderbx h1 span{ font-size:20px; font-weight:normal; line-height:45px; float:left; }
-    .Find_mr{ background:url(../images/find_more.png) left top no-repeat; float:left; width:164px; height:45px; text-indent:-5000px; }
+    .Find_mr{ background:url(../images/find_more.png) left top no-repeat; float:left; width:164px; height:65px; text-indent:-5000px; }
     .Find_mr a{ float:left; width:164px; height:45px; }
      #Sliderbx .How_it_work{ background:url(../images/see_how_work.png) right top no-repeat; width:960px; height:18px; float:right;  text-indent:-5000px; margin:80px 0 0 0;}
      .How_it_work a{ width:155px; height:28px; float:right; }
