@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
-
+<% bool isInner = true;
+  if (ViewData["PageType"] != null && ViewData["PageType"].ToString() == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */  %>
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -10,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
+	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | <%=ViewData["Title"] %> | Legato Network</title>
 	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide" />
 	<meta name="author" content="Maxim Zaslavsky" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
