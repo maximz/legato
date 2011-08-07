@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-
+p { margin: 0; } /* rest of screen.css:53 */
 
 .LMidBlock .TopHdg{ background:url(../images/topnav.jpg) left top no-repeat; width:177px; height:59px; float:left; padding:0; font-size:24px; padding:0 0 0 20px; }
 
