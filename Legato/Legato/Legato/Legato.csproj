@@ -367,18 +367,6 @@
     <Content Include="static\openid\wordpress.ico" />
     <Content Include="static\openid\yahoo.gif" />
     <Content Include="static\opensearch.xml" />
-    <Content Include="Views\Account\ChangeEmail.aspx" />
-    <Content Include="Views\Account\ChangeEmailSuccess.aspx" />
-    <Content Include="Views\Account\ForgotOpenID.aspx" />
-    <Content Include="Views\Account\LogOff.aspx" />
-    <Content Include="Views\Account\MyProfile.aspx" />
-    <Content Include="Views\Account\OpenidLogin.aspx" />
-    <Content Include="Views\Account\OpenidRegister.aspx" />
-    <Content Include="Views\Account\SentForgotOpenidEmail.aspx" />
-    <Content Include="Views\Account\ShowSuspensionStatus.aspx" />
-    <Content Include="Views\Account\TimeToValidateYourEmailAddress.aspx" />
-    <Content Include="Views\Account\VerifyEmailAddressSuccess.aspx" />
-    <Content Include="Views\Account\WhiteListBlock.aspx" />
     <Content Include="Views\Instruments\Edit.aspx" />
     <Content Include="Views\Instruments\IndividualReview.aspx" />
     <Content Include="Views\Instruments\List.aspx" />
@@ -488,6 +476,18 @@
     <Content Include="Views\Error\Conflict.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Account\ChangeEmailSuccess.cshtml" />
+    <Content Include="Views\Account\LogOff.cshtml" />
+    <Content Include="Views\Account\ForgotOpenID.cshtml" />
+    <Content Include="Views\Account\ChangeEmail.cshtml" />
+    <Content Include="Views\Account\WhiteListBlock.cshtml" />
+    <Content Include="Views\Account\VerifyEmailAddressSuccess.cshtml" />
+    <Content Include="Views\Account\TimeToValidateYourEmailAddress.cshtml" />
+    <Content Include="Views\Account\ShowSuspensionStatus.cshtml" />
+    <Content Include="Views\Account\SentForgotOpenidEmail.cshtml" />
+    <Content Include="Views\Account\OpenidLogin.cshtml" />
+    <Content Include="Views\Account\OpenidRegister.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

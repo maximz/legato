@@ -1,28 +1,26 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" %>
-<%@ Import Namespace="Legato" %>
+﻿@using Legato.Helpers;
+@{
+	ViewBag.Title = "Log In or Register";
+}
 
-<asp:Content ID="loginTitle" ContentPlaceHolderID="TitleContent" runat="server">
-  Log In or Register
-</asp:Content>
-
-
-<asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-  <div class="page-description">
-  <h1>Log In or Register</h1>
-	<% if((ViewData["OneTimeSignupCode"] as string).HasValue())
-	{ %>
+<div style="margin-top:200px;">
+	<h1 class="contentHeaderText">Log In or Register</h1>
+	<article>
+		<section>
+			@if((ViewData["OneTimeSignupCode"] as string).HasValue())
+	{
 		<div class="one-time-signup-welcome">
-			<h2>Welcome <%if((ViewData["WelcomeName"] as string).HasValue()) { %> <%=Html.Encode(ViewData["WelcomeName"] as string)%><% } %>!</h2>
+			<h2>Welcome @if((ViewData["WelcomeName"] as string).HasValue()) { @Html.Encode(ViewData["WelcomeName"] as string) } !</h2>
 			<p>You've been invited to join Legato Network. To sign up, please click your OpenID account provider below.</p>
 		</div>
-	<% } %>
+	}
 	<div>
 		<p>To log in or register, select your <a href="http://openid.net/what/">OpenID account provider</a> below.</p>
 	</div>
 	<div class="form-error">
 	</div>
-	<form id="openid_form" action="<%=Url.Action("Authenticate","Account") %>" method="post">       
-			<% if((ViewData["OneTimeSignupCode"] as string).HasValue()) { %><%=Html.Hidden("OneTimeSignupCode",ViewData["OneTimeSignupCode"] as string) %><% } %>
+	<form id="openid_form" action="@Url.Action("Authenticate","Account")" method="post">       
+			@if((ViewData["OneTimeSignupCode"] as string).HasValue()) { @Html.Hidden("OneTimeSignupCode",ViewData["OneTimeSignupCode"] as string) }
 
 			<div id="openid_choice"> 
 				<div id="openid_btns"></div> 
@@ -55,21 +53,23 @@
 		   
 			
 		</form> 
-  </div>
+		</section>
+	</article>
+</div>
 
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
+@section HeadContent
+{
 	<link rel="stylesheet" href="/static/openid/openid.css"/>
-</asp:Content>
+}
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ScriptContentAtEndOfBody" runat="server">
+@section ScriptContentAtEndOfBody
+{
   <script src="/static/js/openid-jquery.js" type="text/javascript"></script>
 
   <script type="text/javascript">
-	$().ready(function () {
-	  openid.init('openid_identifier');
-	  $("#openid_identifier").focus();
-	});
-	</script> 
-</asp:Content>
+	  $().ready(function () {
+		  openid.init('openid_identifier');
+		  $("#openid_identifier").focus();
+	  });
+  </script> 
+}

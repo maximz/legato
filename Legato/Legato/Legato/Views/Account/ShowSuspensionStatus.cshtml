@@ -1,0 +1,50 @@
+﻿@model Legato.Models.UserSuspension
+
+@{
+    ViewBag.Title = "Suspension Status";
+}
+
+<section class="NavContent">
+    <div class="LMidBlock">
+      <p class="TopHdg"><span class="about">account</span></p>
+      <ul>
+      </ul>
+    </div>
+    
+    <!-- Left section --></section>
+
+
+<section class="ContentWrapper">
+    <div class="ContentRpt">
+      <div class="ContentTop">
+        <div class="ContentBtm">
+		  <h1 class="contentHeaderText">Account Suspended</h1>
+          <article class="networkBox">
+            <section class="contentMain">
+                <p>Your account is currently suspended.</p>
+                <fieldset>
+    <legend>Suspension Details</legend>
+
+    <div class="display-label">Reason</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Reason)
+    </div>
+
+    <div class="display-label">Suspension Start Date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SuspensionDate)
+    </div>
+
+    <div class="display-label">Suspension End Date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReinstateDate)
+    </div>
+</fieldset>
+	            <p>Have we made a mistake? Let us know.</p>
+            </section>
+            <!-- network article --></article>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right section --></section>
