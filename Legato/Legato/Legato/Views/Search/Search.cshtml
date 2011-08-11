@@ -3,7 +3,29 @@
 @{
     ViewBag.Title = "\""+Html.Encode(Model.Query.Trim())+"\" - Search Results";
 }
-	<h2>Search Results: <i>@Html.Encode(Model.Query.Trim())</i></h2>
+
+<section class="NavContent">
+    <div class="LMidBlock">
+      <p class="TopHdg"><span class="about">search</span></p>
+      <ul>
+        <li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
+            <ul>
+                <li>@Html.Encode(Model.Query.Trim())</li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Left section --></section>
+
+
+<section class="ContentWrapper">
+    <div class="ContentRpt">
+      <div class="ContentTop">
+        <div class="ContentBtm">
+		  <h1 class="contentHeaderText">Search Results: <i>@Html.Encode(Model.Query.Trim())</i></h1>
+          <article class="networkBox">
+            <section class="contentMain">
 	<div id="results">
 	@foreach (var item in Model.Results)
 	  {
@@ -13,12 +35,18 @@
 		  <div class="datePublish">
 			  published on
 			  @item.ResultPost.SubmissionDate.GetValueOrDefault(DateTime.Now).ToString("{0:g}")</div>
-		  <div class="highlightedText"><%=item.HighlightedHTML %></div>
+		  <div class="highlightedText">@item.HighlightedHTML</div>
 	  </div>
 
 	}
 	</div>
-	
-	<p>
+    <p>
 		@Html.ActionLink("Search Again", "Index")
 	</p>
+            </section>
+            <!-- network article --></article>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right section --></section>

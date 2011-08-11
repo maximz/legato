@@ -1,0 +1,52 @@
+﻿@using MvcReCaptcha.Helpers;
+@{
+	ViewBag.Title = "Optimize Search Index";
+}
+
+<section class="NavContent">
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">search</span></p>
+	  <ul>
+		<li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
+		</li>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
+
+
+<section class="ContentWrapper">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
+		  <h1 class="contentHeaderText">Optimize Search Index</h1>
+		  <article class="networkBox">
+			<section class="contentMain">
+	<p>To optimize the search index, fill out the form below. <b>Warning: this is a <i></i>non-reversible operation</i> and will deactivate searching while it processes.</b> This function should only be used when the index gets big, slow, and unwieldy.</p>
+	<p>If you don't know whether or not you should do this, ask an administrator.</p>
+	@using (Html.BeginForm())
+	{
+		@Html.ValidationSummary(true)
+
+		<fieldset>
+			<legend>Optimize Index</legend>
+			
+			<div class="editor-label">
+				CAPTCHA:
+			</div>
+			<div class="editor-field">
+				@Html.GenerateCaptcha()
+			</div>
+			<p>
+				<input type="submit" value="Optimize!" />
+			</p>
+		</fieldset>
+
+	}
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>
