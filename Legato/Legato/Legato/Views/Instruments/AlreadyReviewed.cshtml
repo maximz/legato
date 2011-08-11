@@ -4,5 +4,32 @@
     ViewBag.Title = "Already Reviewed";
 }
 
-<h2>Already Reviewed</h2>
-<p>Hey there. You've already reviewed @(Html.ActionLink("this instrument", "Individual", new { instrumentID = Model.InstrumentID })). If you would like to change your review, <b>@(Html.ActionLink("you can edit it here", "EditReview", new { reviewID = Model.ReviewID }))</b>.</p>
+<section class="NavContent">
+    <div class="LMidBlock">
+      <p class="TopHdg"><span class="about">instruments</span></p>
+      <ul>
+        <li><a href="@Url.Action("Index", "Instruments")" class="act" title="map">map</a></li>
+        <li><a href="@Url.Action("Submit", "Instruments")" class="act" title="submit">submit</a></li>
+      </ul>
+    </div>
+    
+    <!-- Left section --></section>
+
+
+<section class="ContentWrapper">
+    <div class="ContentRpt">
+      <div class="ContentTop">
+        <div class="ContentBtm">
+		  <h1 class="contentHeaderText">Already Reviewed</h1>
+          <article class="networkBox">
+            <section class="contentMain">
+              <p>Hey there. You've already reviewed @(Html.ActionLink("this instrument", "Individual", new { instrumentID = Model.InstrumentID })). If you would like to change your review, <b>@(Html.ActionLink("you can edit it here", "EditReview", new { reviewID = Model.ReviewID }))</b>.</p>
+            </section>
+            <!-- network article --></article>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right section --></section>
+  
+

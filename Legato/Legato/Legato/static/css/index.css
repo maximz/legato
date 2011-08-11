@@ -190,7 +190,8 @@ nav ul li ul.LockOption li.last { background:url(../images/nav_btm_login.png) no
 
     .ContentWrapper h1 span{ font-size:20px; font-weight:normal; line-height:45px; float:left; letter-spacing:0;}
     .ContentWrapper .FindHdg{ color:#666666; font-size:20px; float:left; font-family:"Lucida Sans", "Lucida Grande", sans-serif; padding:35px 0 15px 0; width:460px; }
-    .ContentWrapper h2{ color:#666666; font-size:14px; float:left; font-family:"Lucida Sans", "Lucida Grande", sans-serif;  width:460px; padding:0 0 15px 0; } 
+    .ContentWrapper h2{ color:#666666; font-size:20px; float:left; font-family:"Lucida Sans", "Lucida Grande", sans-serif;  width:460px; padding:0 0 15px 0; } 
+    .ContentWrapper h3{ color:#666666; font-size:14px; float:left; font-family:"Lucida Sans", "Lucida Grande", sans-serif;  width:460px; padding:0 0 15px 0; } 
     .ContentWrapper h2 a{ color:#E57176; text-decoration:none; }   
     .ContentWrapper p{ color:#666666; font-size:13px; float:left; width:460px; font-size:13px; padding:0 0 22px 0; line-height:20px; }
     .ContentWrapper p a{ color:#e57176; text-decoration:none; }
