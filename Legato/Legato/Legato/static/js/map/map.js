@@ -26,7 +26,6 @@ var Legato = Legato || {};
 			this.earth = null;
 			this.isEarthCurrentlyEnabled = false;
 			this.isEarthReady = false;
-			this.timeZonesLayer = null;
 			this.mapCanvas = null;
 			this.markers = [];
 			this.earthPlacemarks = [];
@@ -113,12 +112,6 @@ var Legato = Legato || {};
 					$(".infoBubble").not("#infoBubbleTemplate").remove();
 				});
 				
-				
-				// timezones
-				self.timeZonesLayer = new google.maps.KmlLayer("http://99.71.136.32/Features2.kmz");
-				self.timeZonesLayer.setMap(self.map);
-				self.panToWorld(); // KML might change current position
-				
 				// Google Earth
 				self.earth = new EarthMapType(self.map);
 				
@@ -131,7 +124,6 @@ var Legato = Legato || {};
 						*/
 						
 						// add overlays
-							self.timeZonesLayer.setMap(self.map);
 							$.each(self.markers, function(index, value) {
 								self.addMarkerToEarth(value);
 							});
