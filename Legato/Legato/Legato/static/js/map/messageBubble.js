@@ -297,7 +297,7 @@ var Legato = Legato || {};
 
 	Legato.MessageBubble.prototype.update = function ()
 	{
-		this.element.attr("href", "/instruments/" + this.id);
+		this.element.attr("href", "/Instruments/Listing/"+this.id);
 
 		this.dom.label.text(this.label);
 		this.dom.location.text(this.location);
