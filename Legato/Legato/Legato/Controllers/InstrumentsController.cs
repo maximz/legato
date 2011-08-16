@@ -94,7 +94,7 @@ namespace Legato.Controllers
 
         [Url("Instruments/AJAX/GetPoints")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 120, VaryByParam = "None")]
-        public JsonResult GetPoints()
+        public virtual JsonResult GetPoints()
         {
             var db = Current.DB;
             var result = (from ins in db.Instruments
@@ -115,7 +115,7 @@ namespace Legato.Controllers
 
         [Url("Instruments/AJAX/GetTypes")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "None")]
-        public JsonResult GetTypes()
+        public virtual JsonResult GetTypes()
         {
             var db = Current.DB;
             var result = (from type in db.InstrumentTypes
@@ -129,7 +129,7 @@ namespace Legato.Controllers
 
         [Url("Instruments/AJAX/SearchInsIds")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "strId")]
-        public JsonResult SearchInsIds(string strId)
+        public virtual JsonResult SearchInsIds(string strId)
         {
             try
             {

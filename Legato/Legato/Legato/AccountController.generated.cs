@@ -91,18 +91,18 @@ namespace Legato.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string ChangeEmail = "~/Views/Account/ChangeEmail.aspx";
-            public readonly string ChangeEmailSuccess = "~/Views/Account/ChangeEmailSuccess.aspx";
-            public readonly string ForgotOpenID = "~/Views/Account/ForgotOpenID.aspx";
-            public readonly string LogOff = "~/Views/Account/LogOff.aspx";
-            public readonly string MyProfile = "~/Views/Account/MyProfile.aspx";
-            public readonly string OpenidLogin = "~/Views/Account/OpenidLogin.aspx";
-            public readonly string OpenidRegister = "~/Views/Account/OpenidRegister.aspx";
-            public readonly string SentForgotOpenidEmail = "~/Views/Account/SentForgotOpenidEmail.aspx";
-            public readonly string ShowSuspensionStatus = "~/Views/Account/ShowSuspensionStatus.aspx";
-            public readonly string TimeToValidateYourEmailAddress = "~/Views/Account/TimeToValidateYourEmailAddress.aspx";
-            public readonly string VerifyEmailAddressSuccess = "~/Views/Account/VerifyEmailAddressSuccess.aspx";
-            public readonly string WhiteListBlock = "~/Views/Account/WhiteListBlock.aspx";
+            public readonly string ChangeEmail = "~/Views/Account/ChangeEmail.cshtml";
+            public readonly string ChangeEmailSuccess = "~/Views/Account/ChangeEmailSuccess.cshtml";
+            public readonly string ForgotOpenID = "~/Views/Account/ForgotOpenID.cshtml";
+            public readonly string LogOff = "~/Views/Account/LogOff.cshtml";
+            public readonly string MyProfile = "~/Views/Account/MyProfile.cshtml";
+            public readonly string OpenidLogin = "~/Views/Account/OpenidLogin.cshtml";
+            public readonly string OpenidRegister = "~/Views/Account/OpenidRegister.cshtml";
+            public readonly string SentForgotOpenidEmail = "~/Views/Account/SentForgotOpenidEmail.cshtml";
+            public readonly string ShowSuspensionStatus = "~/Views/Account/ShowSuspensionStatus.cshtml";
+            public readonly string TimeToValidateYourEmailAddress = "~/Views/Account/TimeToValidateYourEmailAddress.cshtml";
+            public readonly string VerifyEmailAddressSuccess = "~/Views/Account/VerifyEmailAddressSuccess.cshtml";
+            public readonly string WhiteListBlock = "~/Views/Account/WhiteListBlock.cshtml";
         }
     }
 

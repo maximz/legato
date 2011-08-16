@@ -68,11 +68,11 @@ namespace Legato.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string BadRequest = "~/Views/Error/BadRequest.aspx";
-            public readonly string Conflict = "~/Views/Error/Conflict.aspx";
-            public readonly string Forbidden = "~/Views/Error/Forbidden.aspx";
-            public readonly string InternalServerError = "~/Views/Error/InternalServerError.aspx";
-            public readonly string NotFound = "~/Views/Error/NotFound.aspx";
+            public readonly string BadRequest = "~/Views/Error/BadRequest.cshtml";
+            public readonly string Conflict = "~/Views/Error/Conflict.cshtml";
+            public readonly string Forbidden = "~/Views/Error/Forbidden.cshtml";
+            public readonly string InternalServerError = "~/Views/Error/InternalServerError.cshtml";
+            public readonly string NotFound = "~/Views/Error/NotFound.cshtml";
         }
     }
 

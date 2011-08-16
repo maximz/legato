@@ -82,10 +82,10 @@ namespace Legato.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string Deactivated = "~/Views/Search/Deactivated.aspx";
-            public readonly string Index = "~/Views/Search/Index.aspx";
-            public readonly string OptimizeIndex = "~/Views/Search/OptimizeIndex.aspx";
-            public readonly string RegenerateIndex = "~/Views/Search/RegenerateIndex.aspx";
+            public readonly string Deactivated = "~/Views/Search/Deactivated.cshtml";
+            public readonly string Index = "~/Views/Search/Index.cshtml";
+            public readonly string OptimizeIndex = "~/Views/Search/OptimizeIndex.cshtml";
+            public readonly string RegenerateIndex = "~/Views/Search/RegenerateIndex.cshtml";
             public readonly string Search = "~/Views/Search/Search.cshtml";
         }
     }

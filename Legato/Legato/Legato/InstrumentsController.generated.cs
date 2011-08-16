@@ -42,8 +42,8 @@ namespace Legato.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.JsonResult Map() {
-            return new T4MVC_JsonResult(Area, Name, ActionNames.Map);
+        public System.Web.Mvc.JsonResult SearchInsIds() {
+            return new T4MVC_JsonResult(Area, Name, ActionNames.SearchInsIds);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -103,8 +103,10 @@ namespace Legato.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string Index = "Index";
             public readonly string Map = "Map";
+            public readonly string GetPoints = "GetPoints";
+            public readonly string GetTypes = "GetTypes";
+            public readonly string SearchInsIds = "SearchInsIds";
             public readonly string PossibleInstrumentTypes = "PossibleInstrumentTypes";
             public readonly string Individual = "Individual";
             public readonly string IndividualReview = "IndividualReview";
@@ -145,14 +147,24 @@ namespace Legato.Controllers {
     public class T4MVC_InstrumentsController: Legato.Controllers.InstrumentsController {
         public T4MVC_InstrumentsController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        public override System.Web.Mvc.ActionResult Map() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Map);
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult Map(int? insType) {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.Map);
-            callInfo.RouteValueDictionary.Add("insType", insType);
+        public override System.Web.Mvc.JsonResult GetPoints() {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.GetPoints);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.JsonResult GetTypes() {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.GetTypes);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.JsonResult SearchInsIds(string strId) {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.SearchInsIds);
+            callInfo.RouteValueDictionary.Add("strId", strId);
             return callInfo;
         }
 
