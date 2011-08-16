@@ -75,10 +75,10 @@
 			</span> 
 			</span> 
 		</a>
-		<div class="modal apple_overlay" id="inputForm">
+		<div class="modal apple_overlay" id="helpOverlay">
 			<div class="modalContentWrap" style="text-align: center;"></div>
 		</div>
-		<div class="modal apple_overlay" id="pathOverlay">
+		<div class="modal apple_overlay" id="typeOverlay">
 			<div class="modalContentWrap" style="text-align: center;">
 				<div id="chooseType">
 					<form id="chooseTypeForm" action="#">
@@ -100,15 +100,15 @@
 		<div id="left">
 			<a id="footerLogo" href="http://legatonetwork.com/"><img src="/static/images/logo_mini.png"></a>
 			<ul>
-				<li><a href="addPoints.html" id="addPoints" rel="#inputForm">ADD</a></li>
-				<li><a href="http://legatonetwork.com/about/">ABOUT</a></li>
-				<li><a href="http://legatonetwork.com/contact/">CONTACT</a></li>
+				<li><a href="help.html" id="helpText" rel="#helpOverlay">HELP</a></li>
+				<li><a href="addPoints.html" id="addPoints">ADD</a></li>
+				<li><a href="http://legatonetwork.com/">HOME</a></li>
 			</ul>
 			<ul>
 				<li class="footerLeftSectionStart">Display Mode:</li>
 				<li><a href="javascript:Legato.map.goToTwoD()">2D</a></li>
 				<li><a href="javascript:Legato.map.goToThreeD()">3D</a></li>
-				<li>Pathologies: <a href="#" id="pathologyOverlayTrigger" rel="#pathOverlay">Filters Disabled</a></li>
+				<li>Instruments: <a href="#" id="typeOverlayTrigger" rel="#typeOverlay">Filters Disabled</a></li>
 			</ul>
 			<ul>
 				<li class="footerLeftSectionStart">Zoom to:</li>

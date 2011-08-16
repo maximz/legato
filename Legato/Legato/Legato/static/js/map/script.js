@@ -3,12 +3,12 @@
 */
 
 // Map functions
-	Moon.map.init();
+	Legato.map.init();
 	
 	// omnibox is initialized after all markers are added, not here
 
-	google.maps.event.addListenerOnce(Moon.map.map, 'tilesloaded', function () {
-		Moon.map.loadMarkerData();
+	google.maps.event.addListenerOnce(Legato.map.map, 'tilesloaded', function () {
+		Legato.map.loadMarkerData();
 	});
 
 /* Global stuff */
@@ -16,7 +16,7 @@
 $(document).ready(function() {
 
 // configure modal dialog
-$("#addPoints").overlay({
+$("#helpText").overlay({
  
 	// some mask tweaks suitable for modal dialogs
 	mask: 'gray',
@@ -32,7 +32,7 @@ $("#addPoints").overlay({
 });
 
 // configure modal dialog
-$("#pathologyOverlayTrigger").overlay({
+$("#typeOverlayTrigger").overlay({
  
 	// some mask tweaks suitable for modal dialogs
 	mask: 'gray',
@@ -41,12 +41,12 @@ $("#pathologyOverlayTrigger").overlay({
 	onBeforeLoad: function() {
 		// todo: load pathologies via AJAX, add as radio buttons
 		
-		$.getJSON('PHP/getpathologies.php',
+		$.getJSON('/Instruments/AJAX/GetTypes',
 		function (data) {
 			$.each(data, function(i, n){
-				$('<input type="radio" name="selectedPathology" />').val(n.id).attr('id','path-'+n.id).appendTo('#choosePathInputs'); 
-				$('<label></label>').html(n.name).attr('for', 'path-'+n.id).appendTo('#choosePathInputs');
-				$('<br/>').appendTo('#choosePathInputs');
+				$('<input type="radio" name="selectedType" />').val(n.id).attr('id','type-'+n.id).appendTo('#chooseTypeInputs'); 
+				$('<label></label>').html(n.name).attr('for', 'type-'+n.id).appendTo('#chooseTypeInputs');
+				$('<br/>').appendTo('#chooseTypeInputs');
 			});
 		});
 		
@@ -59,26 +59,26 @@ $("#pathologyOverlayTrigger").overlay({
 });
 
 // handle button click in modal dialog
-	$('#choosePathologyForm #submitButton').click(function(e) {
+	$('#chooseTypeForm #submitButton').click(function(e) {
 	
 		//debugAlert('handling click');
 		e.preventDefault(); // don't submit the form
 		
-		var selected = $('input[name=selectedPathology]:checked', '#choosePathologyForm');
+		var selected = $('input[name=selectedType]:checked', '#chooseTypeForm');
 		
 		if(selected == null || parseInt(selected.val()) == -1)
 		{
 			// if All is checked or none of them are checked, unfilter
-			Moon.map.unfilterMarkers();
-			$('#pathologyOverlayTrigger').text('Filters Disabled');
+			Legato.map.unfilterMarkers();
+			$('#typeOverlayTrigger').text('Filters Disabled');
 		}
 		else
 		{
 			// else if one of them is checked, filter to its id
-			Moon.map.filterMarkers(parseInt(selected.val()));
-			$('#pathologyOverlayTrigger').text('Filters Enabled');
+			Legato.map.filterMarkers(parseInt(selected.val()));
+			$('#typeOverlayTrigger').text('Filters Enabled');
 		}
-		$('#pathologyOverlayTrigger').data('overlay').close(); // close the overlay window
+		$('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
 		
 		return false; // so the form isn't submitted
 		
