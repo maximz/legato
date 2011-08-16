@@ -220,6 +220,9 @@
     <Content Include="robots.txt" />
     <Content Include="static\css\extra.css" />
     <Content Include="static\css\index.css" />
+    <Content Include="static\css\map\home.css" />
+    <Content Include="static\css\map\messageBubble.css" />
+    <Content Include="static\css\map\style.css" />
     <Content Include="static\css\navigation.css" />
     <Content Include="static\css\text-museo-and-sans-2.css" />
     <Content Include="static\css\webfonts\svg\index.html" />
@@ -251,6 +254,22 @@
     <Content Include="static\images\logo.png" />
     <Content Include="static\images\main_body_bg.jpg" />
     <Content Include="static\images\main_body_bg2.jpg" />
+    <Content Include="static\images\map\allInstruments.png" />
+    <Content Include="static\images\map\allInstrumentsArrow.png" />
+    <Content Include="static\images\map\close.png" />
+    <Content Include="static\images\map\dashed.png" />
+    <Content Include="static\images\map\dot.png" />
+    <Content Include="static\images\map\footerbg.png" />
+    <Content Include="static\images\map\InsCount.png" />
+    <Content Include="static\images\map\markers.png" />
+    <Content Include="static\images\map\markers2.png" />
+    <Content Include="static\images\map\spinner-large.gif" />
+    <Content Include="static\images\map\spinner.gif" />
+    <Content Include="static\images\map\spinner1.gif" />
+    <Content Include="static\images\map\spinner2.gif" />
+    <Content Include="static\images\map\title.png" />
+    <Content Include="static\images\map\transparent.png" />
+    <Content Include="static\images\map\white.png" />
     <Content Include="static\images\mobile_icon.png" />
     <Content Include="static\images\nav_btm.png" />
     <Content Include="static\images\nav_btm_login.png" />
@@ -339,6 +358,28 @@
     <Content Include="static\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="static\js\jquery.wmd.min.js" />
     <Content Include="static\js\map.js" />
+    <Content Include="static\js\map\libs\jquery-1.6.2.js" />
+    <Content Include="static\js\map\libs\jquery-1.6.2.min.js" />
+    <Content Include="static\js\map\libs\modernizr-2.0.min.js" />
+    <Content Include="static\js\map\libs\respond.js" />
+    <Content Include="static\js\map\libs\respond.min.js" />
+    <Content Include="static\js\map\map.js" />
+    <Content Include="static\js\map\messageBubble.js" />
+    <Content Include="static\js\map\mylibs\earth_map_type.js" />
+    <Content Include="static\js\map\mylibs\gearth.js" />
+    <Content Include="static\js\map\mylibs\graticule.3.js" />
+    <Content Include="static\js\map\mylibs\jquery.form.js" />
+    <Content Include="static\js\map\mylibs\jquery.form.min.js" />
+    <Content Include="static\js\map\mylibs\jquery.hint.js" />
+    <Content Include="static\js\map\mylibs\jquery.placeholder.js" />
+    <Content Include="static\js\map\mylibs\jquery.spinner.js" />
+    <Content Include="static\js\map\mylibs\jquery.tools.min.js" />
+    <Content Include="static\js\map\mylibs\jquery.typewatch.js" />
+    <Content Include="static\js\map\mylibs\jquery.validate.min.js" />
+    <Content Include="static\js\map\omnibox.js" />
+    <Content Include="static\js\map\plugins.js" />
+    <Content Include="static\js\map\script.js" />
+    <Content Include="static\js\map\spinner.js" />
     <Content Include="static\js\modernizr-1.7.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
@@ -452,12 +493,17 @@
     <None Include="static\css\webfonts\woff\style_154928.woff" />
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
+    <None Include="static\images\map\allInstruments.psd" />
+    <None Include="static\images\map\allInstrumentsArrow.psd" />
+    <None Include="static\images\map\dot.psd" />
+    <None Include="static\images\map\InsDeployed.psd" />
+    <None Include="static\images\map\title.psd" />
+    <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.t4" />
-    <Content Include="Views\Instruments\Map.cshtml" />
     <Content Include="Views\Instruments\Listing.cshtml" />
     <Content Include="Views\Instruments\Timeline.cshtml" />
     <Content Include="Views\Instruments\Submit.cshtml" />
@@ -488,6 +534,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\RegenerateIndex.cshtml" />
     <Content Include="Views\Search\OptimizeIndex.cshtml" />
+    <Content Include="Views\Instruments\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

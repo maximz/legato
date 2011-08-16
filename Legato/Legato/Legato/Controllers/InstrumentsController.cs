@@ -27,15 +27,9 @@ namespace Legato.Controllers
             }
         }
 
-        [CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "None")]
-        [Url("Instruments")]
-        public virtual ActionResult Index()
-        {
-            return View(); // In the view, we give options of navigating to public/rent/sale pages or of viewing them all together on a map
-        }
-
         #region Map
 
+        /*
         /// <summary>
         /// Displays a map of instruments.
         /// </summary>
@@ -88,6 +82,78 @@ namespace Legato.Controllers
             }
             var x = Json(points,JsonRequestBehavior.AllowGet);
             return x;
+        }
+         * */
+
+        [Url("Instruments")]
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
+        public virtual ActionResult Map()
+        {
+            return View();
+        }
+
+        [Url("Instruments/AJAX/GetPoints")]
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 120, VaryByParam = "None")]
+        public JsonResult GetPoints()
+        {
+            var db = Current.DB;
+            var result = (from ins in db.Instruments
+                                   select new
+                                   {
+                                       id = ins.InstrumentID,
+                                       lat = ins.Lat,
+                                       lng = ins.Long,
+                                       label = ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim(),
+                                       slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
+                                       typename = ins.InstrumentType.Name,
+                                       typeid = ins.InstrumentType.TypeID,
+                                       @class = ins.ListingClass
+                                       //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
+                                   }).ToList();
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
+
+        [Url("Instruments/AJAX/GetTypes")]
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "None")]
+        public JsonResult GetTypes()
+        {
+            var db = Current.DB;
+            var result = (from type in db.InstrumentTypes
+                          select new
+                          {
+                              id = type.TypeID,
+                              name = type.Name
+                          }).ToList();
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
+
+        [Url("Instruments/AJAX/SearchInsIds")]
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "strId")]
+        public JsonResult SearchInsIds(string strId)
+        {
+            try
+            {
+                var id = int.Parse(strId);
+                var db = Current.DB;
+                var ins = db.Instruments.Where(i => i.InstrumentID == id).SingleOrDefault();
+                if(ins == null)
+                {
+                    throw new ApplicationException("ID not found"); // go into the catch block to return error when strId isn't found
+                }
+                var result = new
+                {
+                    lat = ins.Lat,
+                    lng = ins.Long
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                Current.Context.Response.Clear();
+                Current.Context.Response.ClearHeaders();
+                Current.Context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return null;
+            }
         }
 
         #endregion

@@ -1,0 +1,460 @@
+/* General CSS */
+
+html {
+    height: 100%;
+}
+body {
+    width: 100%;
+}
+header {
+    min-width: 960px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    left: 0;
+}
+header #logo-wrap {
+	position: relative;
+	left: 50%;
+	margin: 0px 0 9px -131px;
+	height: 112px;
+	width: 262px;
+}
+header #logo {
+    background: url("/static/images/map/title.png") no-repeat scroll center center transparent;
+	display: block;
+    height: 112px;
+	width: 262px;
+}
+header #insShown {
+    left: 38px;
+    overflow: hidden;
+    position: absolute;
+    top: 33px;
+}
+header #insShown p {
+    color: #262626;
+    float: left;
+    font-size: 28px;
+    margin-right: 5px;
+    vertical-align: top;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+header #insShown img {
+    float: left;
+    margin-top: 2px;
+}
+header #q {
+	position: relative;
+	margin: 0 auto;
+	margin-top: -25px;
+	margin-left: 45px;
+    overflow: hidden;
+    width: 160px;
+    float:left;
+}
+footer {
+    background: url("/static/images/map/footerbg.png") repeat-x scroll center top transparent;
+    bottom: 0;
+    clear: both;
+    font-family: 'Droid Sans',arial,serif;
+    font-size: 11px;
+    height: 25px;
+    min-width: 1040px;
+    padding-top: 5px;
+    position: fixed;
+    width: 100%;
+    z-index: 4;
+}
+footer #center {
+    text-align: center;
+    margin-top: 2px;
+}
+footer #left {
+    float: left;
+    margin-top: 2px;
+}
+footer #left #footerLogo {
+    width: 103px;
+    height: 18px;
+    margin: 0 20px;
+    vertical-align: top;
+    float: left;
+}
+footer #left ul {
+    display: block;
+    float: left;
+    text-transform: uppercase;
+    margin-top: 3px;
+}
+footer #left .normalText {
+    text-transform: none;
+}
+footer #left ul li {
+    display: inline;
+    letter-spacing: 0;
+    margin-right: 26px;
+    word-spacing: 1px;
+}
+footer #left ul li.footerLeftSectionStart{
+    padding-left: 30px;
+    border-left: 1px dashed #c5c5c5;
+    color: #999999;
+}
+footer #left ul li a {
+    color: #262626;
+    text-decoration: none;
+}
+footer #left ul li a:hover {
+    text-decoration: underline;
+}
+footer #right {
+    float: right;
+    margin-right: 8px;
+}
+footer #right p {
+    color: #999999;
+    display: inline-block;
+    margin: 4px 6px 0;
+    vertical-align: top;
+    float: left;
+}
+footer #disclaimer {
+    color: #999999;
+    font-size: 11px;
+    font-style: italic;
+    height: 20px;
+    padding-top: 7px;
+    text-align: center;
+    width: 100%;
+    display: none;
+    margin-top: -30px;
+}
+
+/** fonts*/
+*.oswald {
+    font-family: 'Oswald',arial,serif;
+    text-transform: uppercase;
+}
+
+*.arial {
+    font-family: arial, sans-serif;
+    text-transform: none;
+}
+
+/* Map css styles */
+
+#insShown {display:block;}
+
+footer #disclaimer {display: block; bottom: 35px; padding: 0;}
+body {
+    height: 100%;
+    background: none;
+    background-color: #e5e3df;
+}
+
+#mapCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: rgb(229, 227, 223);
+}
+
+
+/* Misc */
+
+/* styling placeholder text - have to use multiple rules (see http://bit.ly/qbPH75) */
+input.blur, textarea.blur, input[placeholder], [placeholder], *[placeholder]
+{
+	color: #999;
+	font-weight: bold;
+}
+::-webkit-input-placeholder
+{
+	color: #999;
+	font-weight: bold;
+}
+:-moz-placeholder
+{
+	color: #999;
+	font-weight: bold;
+}
+input
+{
+	font-family: Verdana, sans-serif;
+	font-size:0.9em;
+	padding: 5px;
+	border: 2px solid #666;
+}
+
+/* jquery UI autocomplete styling */
+.ui-autocomplete {
+		max-height: 100px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+	}
+	/* IE 6 doesn't support max-height
+	 * we use height instead, but this forces the menu to always be this tall
+	 */
+* html .ui-autocomplete {
+		height: 100px;
+	}
+	
+	
+/* individual device page styles */
+
+header #allDevices {
+    display: block;
+	left: 9px;
+    position: absolute;
+    top: 10px;
+}
+header #allDevices #allDevicesArrow {
+    position: absolute;
+    top: 8px;
+    left: 9px;
+}
+
+/*#individualDevicePage {
+    background: url("/static/images/map/singlebg.png") no-repeat scroll center center #B97786;
+    position: absolute;
+}*/
+
+#singleDevice {
+    margin: 191px auto 0;
+    width: 940px;
+	margin-top: 167px;
+	color: #000;
+}
+#singleDevice #deviceMetadata {
+    float: left;
+    margin-top: 13px;
+}
+#singleDevice #deviceMetadata #count {
+    float: left;
+    font-size: 32px;
+    height: auto;
+    margin: 9px 5px 0 0;
+}
+#singleDevice #deviceMetadata #version, #singleDevice #deviceMetadata #model {
+    font-size: 14px;
+    height: 16px;
+}
+#singleDevice #deviceMetadata #version {
+    margin-top: 9px;
+	margin-bottom: -5px;
+}
+#singleDevice #deviceMetadata #leftInfo {
+	color: #000;
+    font-size: 14px;
+	font-style: italic;
+	font-family: Droid Sans, Verdana, sans-serif;
+    margin-top: 21px;
+    width: 182px;
+    line-height: 20px;
+}
+#singleDevice #companyName {
+    float: right;
+    margin-bottom: 42px;
+    width: 700px;
+}
+#singleDevice #companyName p {
+    background-image: url("/static/images/map/dashed.png");
+    color: #000;
+    font-size: 36px;
+    line-height: 80px;
+    padding-bottom: 6px;
+    overflow: hidden;
+    word-wrap: break-word;
+	font-family: Oswald, Droid Sans, Verdana, sans-serif;
+}
+#singleDevice #companyName span {
+    color: #7B555E;
+    font-size: 11px;
+    font-style: italic;
+}
+#singleDevice #companyDetails {
+    clear: both;
+}
+#singleDevice #companyDetails span {
+    color: #000;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    width: 242px;
+    word-wrap: break-word;
+	font-family: Droid Sans, Verdana, sans-serif;
+}
+#singleDevice #companyDetails p {
+    color: #000;
+    float: left;
+    font-size: 16px;
+    height: 100%;
+    width: 690px;
+    word-wrap: break-word;
+    line-height: 30px;
+    margin: -3px 0 38px 0;
+	font-family: Droid Sans, Verdana, sans-serif;
+}
+#singleDevice #companyDetails a {
+    float: right;
+    margin: -8px 27px 0;
+}
+
+/* end individual device page styles */
+
+/* modal window styles */
+
+	/* container for modal content. uses vertical scrollbar, if needed */
+	div.modalContentWrap {
+		height:500px;
+		overflow-y:auto;
+	}
+	.modal {
+		background-image:url(/static/images/map/transparent.png);
+		/*color:#efefef;*/
+		color: #000;
+		height:450px;
+	}
+	/* the overlayed element */
+.apple_overlay {
+	
+	/* initially overlay is hidden */
+	display:none;
+	
+	/* growing background image */
+	background-image:url(/static/images/map/white.png);
+	
+	/* 
+		width after the growing animation finishes
+		height is automatically calculated
+	*/
+	width:640px;		
+	
+	/* some padding to layout nested elements nicely  */
+	padding:35px;
+
+	/* a little styling */	
+	font-size:11px;
+}
+
+/* default close button positioned on upper right corner */
+.apple_overlay .close {
+	background-image:url(/static/images/map/close.png);
+	position:absolute; right:5px; top:5px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+
+/* end modal window styles */
+
+/* input form styles */
+
+div#formWrap {
+		background: #666;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-khtml-border-radius: 5px;
+		border-radius: 5px;
+		padding: 20px;
+		width: 400px;
+		margin: auto;
+		text-align: center;
+		}
+		
+		.formWrapText
+		{
+			color: #DDD;
+			text-transform: none;
+			font-family: Droid Sans, Verdana, sans-serif;
+		}
+		
+		h1.formWrapText
+		{
+			color: #87CEEB;
+			font-family: Oswald, Droid Sans, Verdana, sans-serif;
+		}
+		
+		form#inputPoints ol {
+			padding: 10px;
+		}
+form#inputPoints ol li {
+				background: #b9cf6a;
+				background: rgba(255,255,255,.3);
+				border-color: #e3ebc3;
+				border-color: rgba(255,255,255,.6);
+				border-style: solid;
+				border-width: 2px;
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				-khtml-border-radius: 5px;
+				border-radius: 5px;
+				line-height: 30px;
+				list-style: none;
+				padding: 5px 10px;
+				margin-bottom: 2px;
+				}
+							
+			
+			form#inputPoints label {
+				float: left;
+				font-size: 13px;
+				font-family: Droid Sans;
+				width: 110px;
+				background:none no-repeat left 50%;
+				line-height: 20px;
+				padding: 5px 10px 10px 10px;
+				width: auto;
+				}
+				
+		form#inputPoints input:not([type=radio]),
+			form#inputPoints textarea {
+				background: #ffffff;
+				border: none;
+				-moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+				-khtml-border-radius: 3px;
+				border-radius: 3px;
+				font: italic 13px Georgia, "Times New Roman", Times, serif;
+				outline: none;
+				padding: 5px;
+				width: 200px;
+				}
+					
+				form#inputPoints input:not([type=submit]):focus,
+				form#inputPoints textarea:focus {
+					background: #eaeaea;
+					}
+					form#inputPoints button {
+				background: #384313;
+				border: none;
+				-moz-border-radius: 20px;
+				-webkit-border-radius: 20px;
+				-khtml-border-radius: 20px;
+				border-radius: 20px;
+				color: #ffffff;
+				display: block;
+				font: 18px Georgia, "Times New Roman", Times, serif;
+				letter-spacing: 1px;
+				margin: auto;
+				padding: 7px 25px;
+				text-shadow: 0 1px 1px #000000;
+				text-transform: uppercase;
+				}
+					
+				form#inputPoints button:hover {
+					background: #1e2506;
+					cursor: pointer;
+					}
+		
+/* end input form styles */
