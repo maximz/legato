@@ -557,13 +557,13 @@ var Legato = Legato || {};
 				});
 			}
 			
-			this.filterMarkers = function(pathID)
+			this.filterMarkers = function(typeID)
 			{
 				self.unfilterMarkers(); // reset any current filters
 			
 				for (var i = 0; i < self.markers.length; i++)
 				{
-					if(parseInt(self.markers[i].pathid) != parseInt(pathID))
+					if(parseInt(self.markers[i].typeid) != parseInt(typeID))
 					{
 						self.markers[i].setMap(null); // remove from map
 						self.removePlacemarkFromEarth(self.earthPlacemarks[i]); // remove from earth
