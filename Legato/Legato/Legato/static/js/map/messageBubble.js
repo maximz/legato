@@ -1,9 +1,9 @@
-var Moon = Moon || {};
+var Legato = Legato || {};
 
 (function ($)
 {
 
-	Moon.MessageBubble = function (element)
+	Legato.MessageBubble = function (element)
 	{
 
 		var self = this;
@@ -86,7 +86,7 @@ var Moon = Moon || {};
 	}
 
 	// Plays the message appear effect
-	Moon.MessageBubble.prototype.appear = function (time)
+	Legato.MessageBubble.prototype.appear = function (time)
 	{
 
 		var self = this;
@@ -132,7 +132,7 @@ var Moon = Moon || {};
 	};
 
 	// Plays the message disappear effect
-	Moon.MessageBubble.prototype.disappear = function (time)
+	Legato.MessageBubble.prototype.disappear = function (time)
 	{
 
 		var self = this;
@@ -177,7 +177,7 @@ var Moon = Moon || {};
 	};
 
 	// Expands the message and reveals text / author
-	Moon.MessageBubble.prototype.open = function ()
+	Legato.MessageBubble.prototype.open = function ()
 	{
 
 		if (this.csstransitions !== true)
@@ -190,7 +190,7 @@ var Moon = Moon || {};
 	};
 
 	// Contracts the message and hides text / author
-	Moon.MessageBubble.prototype.close = function ()
+	Legato.MessageBubble.prototype.close = function ()
 	{
 
 		if (this.csstransitions !== true)
@@ -203,7 +203,7 @@ var Moon = Moon || {};
 	};
 
 	// Gets new content from service using ajax
-	Moon.MessageBubble.prototype.refresh = function (data)
+	Legato.MessageBubble.prototype.refresh = function (data)
 	{
 
 		if (typeof (data) === "undefined")
@@ -225,7 +225,7 @@ var Moon = Moon || {};
 		this.delay.show = setTimeout(this._appear, 1200);
 	};
 
-	Moon.MessageBubble.prototype.initContentSlide = function ()
+	Legato.MessageBubble.prototype.initContentSlide = function ()
 	{
 
 		var self = this;
@@ -295,9 +295,9 @@ var Moon = Moon || {};
 		});
 	};
 
-	Moon.MessageBubble.prototype.update = function ()
+	Legato.MessageBubble.prototype.update = function ()
 	{
-		this.element.attr("href", "/devices/" + this.id);
+		this.element.attr("href", "/instruments/" + this.id);
 
 		this.dom.label.text(this.label);
 		this.dom.location.text(this.location);
@@ -305,7 +305,7 @@ var Moon = Moon || {};
 
 	};
 
-	Moon.MessageBubble.prototype.truncate = function (text, container, numLines)
+	Legato.MessageBubble.prototype.truncate = function (text, container, numLines)
 	{
 
 		// Check the cache so we don't recompute
@@ -354,7 +354,7 @@ var Moon = Moon || {};
 		this.empty.remove();
 	};
 
-	Moon.MessageBubble.prototype.setTransition = function (element, prop, time, ease)
+	Legato.MessageBubble.prototype.setTransition = function (element, prop, time, ease)
 	{
 
 		prop = prop || "all";
@@ -374,7 +374,7 @@ var Moon = Moon || {};
 		});
 	};
 
-	Moon.MessageBubble.prototype.setScale = function (element, scale)
+	Legato.MessageBubble.prototype.setScale = function (element, scale)
 	{
 
 		var trans = "scale(" + scale + ")";
@@ -390,12 +390,12 @@ var Moon = Moon || {};
 
 	// Handle events
 
-	Moon.MessageBubble.prototype.onMouseClick = function (event)
+	Legato.MessageBubble.prototype.onMouseClick = function (event)
 	{
 		//this.refresh();
 	};
 
-	Moon.MessageBubble.prototype.onMouseOver = function (event)
+	Legato.MessageBubble.prototype.onMouseOver = function (event)
 	{
 
 		if (this.element.hasClass("enabled") !== true)
@@ -407,7 +407,7 @@ var Moon = Moon || {};
 		this.open();
 	};
 
-	Moon.MessageBubble.prototype.onMouseOut = function (event)
+	Legato.MessageBubble.prototype.onMouseOut = function (event)
 	{
 
 		if (this.element.hasClass("enabled") !== true)
@@ -425,7 +425,7 @@ var Moon = Moon || {};
 	{
 		return this.each(function ()
 		{
-			(new Moon.MessageBubble(this));
+			(new Legato.MessageBubble(this));
 		});
 	}
 

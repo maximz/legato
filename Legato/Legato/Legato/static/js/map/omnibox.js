@@ -2,7 +2,7 @@
  * @author Maxim
  * Configures the omnibox.
  */
-var Moon = Moon || {};
+var Legato = Legato || {};
 
 (function ()
 {
@@ -10,6 +10,11 @@ var Moon = Moon || {};
 		{
 			var self = this;
 			this.omni = null;
+			
+			this.getSearchUrl = function()
+			{
+				return "/Instruments/AJAX/SearchInsIds";
+			}
 
 			this.init = function ()
 			{
@@ -24,22 +29,22 @@ var Moon = Moon || {};
 						
 						if(self.omni.val()!=null && self.omni.val().indexOf("ID:")==0)
 						{
-							// We're dealing with a device ID
-							$.getJSON("searchdeviceids.php?id="+self.omni.val().substr(3),
+							// We're dealing with a instrument ID
+							$.getJSON(this.getSearchUrl+"?strId="+self.omni.val().substr(3),
 								function (data) {
 									if(locations == null)
 									{
-										alert('Invalid device ID.');
+										alert('Invalid instrument ID.');
 										return;
 									}
 									
-									Moon.map.smartPanTo(new google.maps.LatLng(data[0].lat, data[0].lng));
+									Legato.map.smartPanTo(new google.maps.LatLng(data[0].lat, data[0].lng));
 									return;
 							});
 						}
 						
 						// Pan to address
-						Moon.map.geocodeAddress(self.omni.val());
+						Legato.map.geocodeAddress(self.omni.val());
 					}
 				});
 
@@ -47,10 +52,10 @@ var Moon = Moon || {};
 
 				self.omni.autocomplete(
 				{
-					source: Moon.map.markers,
+					source: Legato.map.markers,
 					select: function (event, ui)
 					{
-						Moon.map.panToMarker(ui.item);
+						Legato.map.panToMarker(ui.item);
 					}
 				})
 
@@ -62,7 +67,7 @@ var Moon = Moon || {};
 				var results = [];
 				var text = self.omni.val();
 
-				$.each(Moon.map.markers, function (key, value) // loop through map markers
+				$.each(Legato.map.markers, function (key, value) // loop through map markers
 				{
 					// if marker.label contains current omnibox text, add it to the result array
 					if (value.label.contains(text))
@@ -74,5 +79,5 @@ var Moon = Moon || {};
 
 			} // end doSearch()
 		} // end Omnibox()
-		Moon.omnibox = new Omnibox();
+		Legato.omnibox = new Omnibox();
 })();

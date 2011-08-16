@@ -210,50 +210,50 @@ input
 	}
 	
 	
-/* individual device page styles */
+/* individual instrument page styles */
 
-header #allDevices {
+header #allinstruments {
     display: block;
 	left: 9px;
     position: absolute;
     top: 10px;
 }
-header #allDevices #allDevicesArrow {
+header #allinstruments #allinstrumentsArrow {
     position: absolute;
     top: 8px;
     left: 9px;
 }
 
-/*#individualDevicePage {
+/*#individualinstrumentPage {
     background: url("/static/images/map/singlebg.png") no-repeat scroll center center #B97786;
     position: absolute;
 }*/
 
-#singleDevice {
+#singleinstrument {
     margin: 191px auto 0;
     width: 940px;
 	margin-top: 167px;
 	color: #000;
 }
-#singleDevice #deviceMetadata {
+#singleinstrument #instrumentMetadata {
     float: left;
     margin-top: 13px;
 }
-#singleDevice #deviceMetadata #count {
+#singleinstrument #instrumentMetadata #count {
     float: left;
     font-size: 32px;
     height: auto;
     margin: 9px 5px 0 0;
 }
-#singleDevice #deviceMetadata #version, #singleDevice #deviceMetadata #model {
+#singleinstrument #instrumentMetadata #version, #singleinstrument #instrumentMetadata #model {
     font-size: 14px;
     height: 16px;
 }
-#singleDevice #deviceMetadata #version {
+#singleinstrument #instrumentMetadata #version {
     margin-top: 9px;
 	margin-bottom: -5px;
 }
-#singleDevice #deviceMetadata #leftInfo {
+#singleinstrument #instrumentMetadata #leftInfo {
 	color: #000;
     font-size: 14px;
 	font-style: italic;
@@ -262,12 +262,12 @@ header #allDevices #allDevicesArrow {
     width: 182px;
     line-height: 20px;
 }
-#singleDevice #companyName {
+#singleinstrument #companyName {
     float: right;
     margin-bottom: 42px;
     width: 700px;
 }
-#singleDevice #companyName p {
+#singleinstrument #companyName p {
     background-image: url("/static/images/map/dashed.png");
     color: #000;
     font-size: 36px;
@@ -277,15 +277,15 @@ header #allDevices #allDevicesArrow {
     word-wrap: break-word;
 	font-family: Oswald, Droid Sans, Verdana, sans-serif;
 }
-#singleDevice #companyName span {
+#singleinstrument #companyName span {
     color: #7B555E;
     font-size: 11px;
     font-style: italic;
 }
-#singleDevice #companyDetails {
+#singleinstrument #companyDetails {
     clear: both;
 }
-#singleDevice #companyDetails span {
+#singleinstrument #companyDetails span {
     color: #000;
     float: left;
     font-size: 16px;
@@ -294,7 +294,7 @@ header #allDevices #allDevicesArrow {
     word-wrap: break-word;
 	font-family: Droid Sans, Verdana, sans-serif;
 }
-#singleDevice #companyDetails p {
+#singleinstrument #companyDetails p {
     color: #000;
     float: left;
     font-size: 16px;
@@ -305,12 +305,12 @@ header #allDevices #allDevicesArrow {
     margin: -3px 0 38px 0;
 	font-family: Droid Sans, Verdana, sans-serif;
 }
-#singleDevice #companyDetails a {
+#singleinstrument #companyDetails a {
     float: right;
     margin: -8px 27px 0;
 }
 
-/* end individual device page styles */
+/* end individual instrument page styles */
 
 /* modal window styles */
 
