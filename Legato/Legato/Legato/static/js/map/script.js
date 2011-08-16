@@ -106,7 +106,7 @@ if ($.browser.msie && $.browser.version <= 8) {
      * Animate message count
      */
     
-    var messageCounter = $("#ibrainsShown");
+    var messageCounter = $("#insShown");
     messageCounter.delay(200).animate({
     	opacity: 1.0
     }, 650);
@@ -170,15 +170,3 @@ setTimeout(function() {
 //$('input[title!=""]').hint(); // activates textbox hinting (see jquery.hint.js)
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
