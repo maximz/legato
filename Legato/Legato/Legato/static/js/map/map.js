@@ -11,9 +11,10 @@ var Legato = Legato || {};
 			var self = this;
 			
 			
-			this.getIndividualPageLink = function(id)
+			this.getIndividualPageLink = function(id, slug)
 			{
-				return "PHP/individual.php?id="+id;
+				// Instruments/Listing/{instrumentID}/{slug?}
+				return "/Instruments/Listing/"+id+"/"+slug;
 			}
 			this.getMarkerJSONLink = function()
 			{
@@ -22,7 +23,6 @@ var Legato = Legato || {};
 			}
 
 			this.map = null;
-			//this.googleEarth = null;
 			this.earth = null;
 			this.isEarthCurrentlyEnabled = false;
 			this.isEarthReady = false;
@@ -185,7 +185,10 @@ var Legato = Legato || {};
 					// Tack on some extra data
 					marker.id = loc.id;
 					marker.label = loc.label;
-					marker.pathid = loc.pathid;
+					marker.typeid = loc.typeid;
+					marker.typename = loc.typename;
+					marker.lClass = loc.lClass;
+					marker.slug = loc.slug;
 
 					// Handle mouseover event
 					google.maps.event.addListener(marker, 'mouseover', function ()
@@ -259,7 +262,7 @@ var Legato = Legato || {};
 				placemark.setStyleSelector(style);
 				
 				// For the balloon
-				placemark.setDescription('<a href="'+self.getIndividualPageLink(marker.id)+'">'+marker.label+'</a>')
+				placemark.setDescription('<a href="'+self.getIndividualPageLink(marker.id, marker.slug)+'">'+marker.label+'</a>')
 
 				// Add the placemark to Earth.
 				ge.getFeatures().appendChild(placemark);
@@ -296,7 +299,7 @@ var Legato = Legato || {};
 				var overlay = $("#messageTemplate").clone();
 
 				overlay.attr("id", marker.id);
-				overlay.attr("href", self.getIndividualPageLink(marker.id))
+				overlay.attr("href", self.getIndividualPageLink(marker.id, marker.slug))
 
 				// Position it at the marker
 				overlay.css(

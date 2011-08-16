@@ -107,7 +107,7 @@ namespace Legato.Controllers
                                        slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
                                        typename = ins.InstrumentType.Name,
                                        typeid = ins.InstrumentType.TypeID,
-                                       @class = ins.ListingClass
+                                       lClass = ins.ListingClass
                                        //icon = ins.InstrumentReviews.Average(r=>r.InstrumentReviewRevisions.OrderByDescending(rr=>rr.RevisionDate).Take(1).ToList()[0].RatingGeneral) + "-" + ins.ListingClass
                                    }).ToList();
             return Json(result,JsonRequestBehavior.AllowGet);
