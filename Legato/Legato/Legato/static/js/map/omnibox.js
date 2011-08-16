@@ -29,7 +29,7 @@ var Legato = Legato || {};
 						
 						if(self.omni.val()!=null && self.omni.val().indexOf("ID:")==0)
 						{
-							// We're dealing with a instrument ID
+							// We're dealing with an instrument ID
 							$.getJSON(this.getSearchUrl+"?strId="+self.omni.val().substr(3),
 								function (data) {
 									if(locations == null)
