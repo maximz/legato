@@ -26,15 +26,18 @@ var Legato = Legato || {};
 					var code = (e.keyCode ? e.keyCode : e.which);
 					if (code == 13)
 					{ //Keycode for ENTER key
-						
-						if(self.omni.val()!=null && self.omni.val().indexOf("ID:")==0)
+
+                        if(self.isDeviceId(self.omni.val()))
 						{
-							// We're dealing with an instrument ID
-							$.getJSON(this.getSearchUrl+"?strId="+self.omni.val().substr(3),
+							// We're dealing with a device ID
+							spinner(true); // activate spinner
+							$.getJSON(this.getSearchUrl() + "?strId=" + self.isDeviceId(self.omni.val()),
 								function (data) {
-									if(locations == null)
+									spinner(false); // deactivate spinner
+									
+									if(data == null)
 									{
-										alert('Invalid instrument ID.');
+										alert('Invalid device ID.');
 										return;
 									}
 									
@@ -42,26 +45,49 @@ var Legato = Legato || {};
 									return;
 							});
 						}
+						else
+						{
+							// if we ever modify omnibox code so that this if-else block doesn't work with the AJAX stuff, here's how to make sure nothing unnecessary gets called: call an event when getJson finishes if data == null. event handler executes the geocode:
 						
-						// Pan to address
-						Legato.map.geocodeAddress(self.omni.val());
+							// Pan to address
+							Legato.map.geocodeAddress(self.omni.val());
+						}
 					}
 				});
 
-				/* TODO: */
-
 				self.omni.autocomplete(
 				{
-					source: Legato.map.markers,
+					source: Legato.map.markers.concat(Legato.instypes),
 					select: function (event, ui)
 					{
-						Legato.map.panToMarker(ui.item);
+						if(ui.item && ui.item.omniType)
+						{
+							if(ui.item.omniType == 'type')
+							{
+								// handle instrument type filtering
+								
+								if(ui.item.id == -1) // if it's "All"
+								{
+									Legato.map.unfilterMarkers();
+								}
+								else
+								{
+									// filter markers
+									Legato.map.filterMarkers(ui.item.id);
+								}
+							}
+							else if(ui.item.omniType == 'marker')
+							{
+								// handle marker
+								Legato.map.panToMarker(ui.item);
+								Legato.map.unfilterMarkers(); // in case the marker was filtered out.
+							}
+						}
 					}
 				})
 
-
-
 			} // end init()
+
 			this.doSearch = function ()
 			{
 				var results = [];
@@ -76,8 +102,27 @@ var Legato = Legato || {};
 					}
 				});
 
-
 			} // end doSearch()
+
+            this.isDeviceId = function (input)
+			{
+				var r = /(([a-zA-Z][0-9]{2}){2})[0-9]{3}/; // regexp that matches device IDs - it looks for 2 groups of a letter and 2 numbers, followed by 3 numbers.
+				
+				if(input == null)
+				{
+					return null; // just so we don't get an exception when we try to match
+				}
+				
+				if(input.match(r))
+				{
+					return input.match(r)[0]; // returns first match
+				}
+				else
+				{
+					return null;
+				}
+			}
+
 		} // end Omnibox()
 		Legato.omnibox = new Omnibox();
 })();
