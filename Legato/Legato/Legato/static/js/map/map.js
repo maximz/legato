@@ -24,8 +24,11 @@ var Legato = Legato || {};
 
 			this.map = null;
 			this.earth = null;
+			this.markerSize = 1;
+			this.spriteWidth = 64;
 			this.isEarthCurrentlyEnabled = false;
 			this.isEarthReady = false;
+			//this.timeZonesLayer = null;
 			this.mapCanvas = null;
 			this.markers = [];
 			this.earthPlacemarks = [];
@@ -111,6 +114,12 @@ var Legato = Legato || {};
 				{
 					$(".infoBubble").not("#infoBubbleTemplate").remove();
 				});
+
+				/*
+				// timezones
+				self.timeZonesLayer = new google.maps.KmlLayer("http://99.71.136.32/Features2.kmz");
+				self.timeZonesLayer.setMap(self.map);
+				self.panToWorld(); // KML might change current position */
 				
 				// Google Earth
 				self.earth = new EarthMapType(self.map);
@@ -124,6 +133,7 @@ var Legato = Legato || {};
 						*/
 						
 						// add overlays
+							// self.timeZonesLayer.setMap(self.map);
 							$.each(self.markers, function(index, value) {
 								self.addMarkerToEarth(value);
 							});
@@ -135,36 +145,88 @@ var Legato = Legato || {};
 				
 			}
 
+			/*// Toggles KML layer visibility
+			this.toggleTimeZoneLayer = function(on)
+			{
+				if(self.map && self.timeZonesLayer)
+				{
+					if(on)
+					{
+						// get information about current position
+						var curPosition = self.map.getCenter();
+						var curZoom = self.map.getZoom();
+						
+						// enable the time zone layer
+						self.timeZonesLayer.setMap(self.map);
+						
+						// enabling the timezone layer usually pans the map automatically, so we want to go back to the previous position
+						self.smartPanTo(curPosition);
+						self.map.setZoom(curZoom);
+					}
+					else
+					{
+						self.timeZonesLayer.setMap(null);
+					}
+				}
+			}*/
+			
+			this.calculateMarkerSize = function(count) // count is currently not used
+			{
+				// this method calculates marker size and scale factor for our marker sprites (see makeMarkerImage() and newMarker()). 
+			
+				/* Used for calculating marker size based on device count - which we are not doing right now
+				if(count > 10)
+				{
+					count = 10;
+				}
+				var size = Math.floor(4*(count-1) + 8); // * spriteWidth/16; */
+
+				var markerSize = (self.markerSize > 0 && self.markerSize <= 5) ? 16 * self.markerSize : 16;
+				var markerScale = markerSize / self.spriteWidth;
+				
+				var result = {
+					size : markerSize,
+					scaleFactor : markerScale 
+				};
+				return result;
+			}
+			
+			this.makeMarkerImage = function(size, scaleFactor, offset)
+			{
+				// returns a google.maps.MarkerImage() with the appropriate values for our marker creation procedure.
+				var spriteWidth = self.spriteWidth;
+				
+				return new google.maps.MarkerImage('/static/images/map/markers2.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
+			}
+
 			this.newMarker = function (lat, lng, count)
 			{
 
-				var spriteWidth = 64;
+				// this method is in charge of creating individual markers
+				
+				var spriteWidth = self.spriteWidth;
 
 				// Used for randomizing marker image
 				var offset = Math.floor(Math.random() * 3) * spriteWidth;
-
-/* Used for calculating marker size
-			if(count > 10)
-			{
-				count = 10;
-			}
-			var size = Math.floor(4*(count-1) + 8); // * spriteWidth/16; */
-
-				var size = 16;
-				var scaleFactor = size / spriteWidth;
+				
+				var markerSize = self.calculateMarkerSize(count);
 
 				// Custom marker
 				var marker = new google.maps.Marker(
 				{
 					position: new google.maps.LatLng(lat, lng),
-					icon: new google.maps.MarkerImage('img/markers2.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor))
+					icon: self.makeMarkerImage(markerSize.size, markerSize.scaleFactor, offset)
 				});
+				
+				marker.offset = offset; // in case we have to refresh this marker or change its size
 
 				return marker;
 			}
 
 			this.markLocations = function (locations)
 			{
+				// this method takes our JSON of points and converts it into map markers
+
 				console.log("marking our locations");
 				if (locations == null)
 				{
@@ -189,6 +251,7 @@ var Legato = Legato || {};
 					marker.typename = loc.typename;
 					marker.lClass = loc.lClass;
 					marker.slug = loc.slug;
+					marker.omniType = 'marker'; // for omnibox autocomplete logic
 
 					// Handle mouseover event
 					google.maps.event.addListener(marker, 'mouseover', function ()
@@ -375,25 +438,25 @@ var Legato = Legato || {};
 			this.geocodeAddress = function (address)
 			{
 				geocoder.geocode(
-                                {
-                                        'address': address
-                                }, function (results, status)
-                                {
-                                        if (status == google.maps.GeocoderStatus.OK)
-                                        {
-                                                self.smartPanTo(results[0].geometry.location);
-                                                //self.map.setCenter(results[0].geometry.location);
-                                                self.map.fitBounds(results[0].geometry.viewport);
-                                                //                              var marker = new google.maps.Marker({
-                                                //                                      map: self.map, 
-                                                //                                      position: results[0].geometry.location
-                                                //                              });
-                                        }
-                                        else
-                                        {
-                                                alert("We couldn't find that address. Please try again."); // alert(status);
-                                        }
-                                });
+								{
+										'address': address
+								}, function (results, status)
+								{
+										if (status == google.maps.GeocoderStatus.OK)
+										{
+												self.smartPanTo(results[0].geometry.location);
+												//self.map.setCenter(results[0].geometry.location);
+												self.map.fitBounds(results[0].geometry.viewport);
+												//                              var marker = new google.maps.Marker({
+												//                                      map: self.map, 
+												//                                      position: results[0].geometry.location
+												//                              });
+										}
+										else
+										{
+												alert("We couldn't find that address. Please try again."); // alert(status);
+										}
+								});
 			}
 			
 			this.doGeoCode = function (address)
@@ -429,9 +492,9 @@ var Legato = Legato || {};
 				var lookAt = self.earth.get('earth_plugin').getView().copyAsLookAt(self.earth.get('earth_plugin').ALTITUDE_RELATIVE_TO_GROUND);
 					lookAt.setLatitude(lat);
 					lookAt.setLongitude(lng);
-				    lookAt.setHeading(0.0); 
-                    lookAt.setTilt(0.0); 
-                    lookAt.setRange(range);
+					lookAt.setHeading(0.0); 
+					lookAt.setTilt(0.0); 
+					lookAt.setRange(range);
 					self.earth.get('earth_plugin').getView().setAbstractView(lookAt);
 				}
 			}
@@ -577,6 +640,19 @@ var Legato = Legato || {};
 				{
 					self.markers[i].setMap(self.map); // add to map
 					self.addPlacemarkToEarth(self.earthPlacemarks[i]);
+				}
+			}
+
+			this.updateMarkerSize = function()
+			{
+				for (var i = 0; i < self.markers.length; i++)
+				{
+					var marker = self.markers[i];
+					
+					var markerSize = self.calculateMarkerSize(marker.count);
+					marker.icon = self.makeMarkerImage(markerSize.size, markerSize.scaleFactor, marker.offset); // change marker icon
+					
+					marker.setMap(self.map); // refresh marker by readding it to the map
 				}
 			}
 

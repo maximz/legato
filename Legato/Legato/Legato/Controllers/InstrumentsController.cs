@@ -89,6 +89,8 @@ namespace Legato.Controllers
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
         public virtual ActionResult Map()
         {
+            var db = Current.DB;
+            ViewBag.countInstruments = db.Instruments.Count();
             return View();
         }
 
@@ -103,7 +105,7 @@ namespace Legato.Controllers
                                        id = ins.InstrumentID,
                                        lat = ins.Lat,
                                        lng = ins.Long,
-                                       label = ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim(),
+                                       label = ins.InstrumentType.Name,
                                        slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
                                        typename = ins.InstrumentType.Name,
                                        typeid = ins.InstrumentType.TypeID,
@@ -129,7 +131,7 @@ namespace Legato.Controllers
 
         [Url("Instruments/AJAX/SearchInsIds")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "strId")]
-        public virtual JsonResult SearchInsIds(string strId)
+        public virtual ActionResult SearchInsIds(string strId)
         {
             try
             {
@@ -152,7 +154,7 @@ namespace Legato.Controllers
                 Current.Context.Response.Clear();
                 Current.Context.Response.ClearHeaders();
                 Current.Context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return null;
+                return Content("500 Error");
             }
         }
 
