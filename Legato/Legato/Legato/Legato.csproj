@@ -252,6 +252,7 @@
     <Content Include="static\images\lock.png" />
     <Content Include="static\images\lock_hover.gif" />
     <Content Include="static\images\logo.png" />
+    <Content Include="static\images\logo_stretched.png" />
     <Content Include="static\images\main_body_bg.jpg" />
     <Content Include="static\images\main_body_bg2.jpg" />
     <Content Include="static\images\map\allInstruments.png" />

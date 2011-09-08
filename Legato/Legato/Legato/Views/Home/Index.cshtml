@@ -3,23 +3,10 @@
 }
 
 <article class="centered">
-<h1>Find a place to play.</h1>
-<h2>Find an instrument for public use, for rent, or for sale.</h2>
-<p>
-	Since 2011, Legato Network has connected musicians around the world to create a network for information exchange &mdash; a connected network.
-</p>
-
-<div>
-	<input id="address" type="textbox" value="" title="find address" />
-	<input type="button" value="Zoom" id="zoomButton" />
-</div>
-<div>
-	<label for="ChosenType">Instruments to Show: </label>
-	@Html.DropDownList("ChosenType",(IEnumerable<SelectListItem>)ViewBag.Types)
-	<input type="button" value="Update Map" id="refreshButton" />
-</div>
-<!--<div id="mapCanvas" style="z-index:22; height:400px;width:930px;margin:10px;"></div>-->
-<div id="mapCanvas" style="z-index:22; height:400px;width:900px;margin:10px;" class="span-22 prepend-1 last"></div>
+    <h1>Welcome to Legato Network.</h1>
+    <h2>How it works</h2>
+    <p>Blah blah blah</p>
+    <p>Lorem ipsum!</p>
 </article>
 
 @section BetweenHeaderAndContent {
@@ -37,11 +24,13 @@ That's why Legato Network is here - to connect musicians worldwide, enabling the
     <!--<p class="How_it_work"><a href="javascript:MyPopUpWin();" title="SEE HOW IT WORK">SEE HOW IT WORK</a></p>-->
 	</article>
     
-	<article class="howWorks span-8 prepend-8 warning" style="float:right;">
+	<!--<article class="howWorks span-8 prepend-8 warning" style="float:right;">
     <h2 class="notCufon" style="text-align:center;font-family:MuseoSans-500;font-size:25px;line-height:20px;padding:15px 10px;"><a href="about/index.html" title="How It Works">How It Works</a></h2>
     <p>Monetize your apps with offers that make sense. After all, a better experience for users means higher revenue for you. </p>
     <p class="FindOut"><a href="social/developer.html" title="FIND OUT MORE">FIND OUT MORE ...</a></p>
-    </article>
+    </article>-->
+    <!-- todo: music note here? -->
+    <img src="@Url.Content("~/static/images/logo_stretched.png")" style="margin-left: 120px; margin-top: 150px;" alt="Legato Network" />
 	
     <!-- Slider --></div>
   <!-- Slider section --></section>
@@ -51,7 +40,7 @@ That's why Legato Network is here - to connect musicians worldwide, enabling the
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="/static/js/map.js"></script>
-<script>
+<!--<script>
 	var points = [];
 
 	$.getJSON("@Url.Action("Map","Instruments")",
@@ -85,5 +74,5 @@ That's why Legato Network is here - to connect musicians worldwide, enabling the
 			  Legato.map.markLocations(data);
 		  });
 	});
-</script>
+</script>-->
 }
