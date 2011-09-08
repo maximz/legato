@@ -5,6 +5,10 @@
 	position: absolute;
 	color: #fff;
 }
+a.message:visited
+{
+	color: #fff; /* override style.css a:visited */
+}
 
 .message:hover {
 	z-index: 9999;
