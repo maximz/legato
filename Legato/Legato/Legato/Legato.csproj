@@ -235,6 +235,7 @@
     <Content Include="static\images\content_top.jpg" />
     <Content Include="static\images\display_red.jpg" />
     <Content Include="static\images\DownloadIcn.png" />
+    <Content Include="static\images\find_instrument-button.png" />
     <Content Include="static\images\find_more.png" />
     <Content Include="static\images\formTboxBg01.jpg" />
     <Content Include="static\images\header_hdg-2.png" />

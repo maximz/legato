@@ -3,76 +3,40 @@
 }
 
 <article class="centered">
-    <h1>Welcome to Legato Network.</h1>
-    <h2>How it works</h2>
-    <p>Blah blah blah</p>
-    <p>Lorem ipsum!</p>
+	<h1>Welcome to Legato Network.</h1>
+	<h2>How it works</h2>
+	<p>Blah blah blah</p>
+	<p>Lorem ipsum!</p>
+	<a href="/map"><img src="@Url.Content("~/static/images/find_instrument-button.png")" alt="Find an Instrument" style="width:437px; height: 69px;" /></a>
 </article>
 
 @section BetweenHeaderAndContent {
 
 <section>
   <div id="Sliderbx">
-    <article class="span-8">
+	<article class="span-8">
 	<h1 class="notCufon">Connecting Musicians Worldwide</h1>
-    <p class="Slidertxt"><span>Meriam-Webster defines "legato" as "in a manner that is smooth and connected..." <br>
+	<p class="Slidertxt"><span>Meriam-Webster defines "legato" as "in a manner that is smooth and connected..." <br>
 <br>
 That's why Legato Network is here - to connect musicians worldwide, enabling them to share information, experiences, and knowledge. Become a part of the future today!
 </span></p>
-    <p class="Find_mr"><a href="login" title="Join the Network">Join the Network</a></p>
-    <!--</li>-->
-    <!--<p class="How_it_work"><a href="javascript:MyPopUpWin();" title="SEE HOW IT WORK">SEE HOW IT WORK</a></p>-->
+	<p class="Find_mr"><a href="login" title="Join the Network">Join the Network</a></p>
+	<!--</li>-->
+	<!--<p class="How_it_work"><a href="javascript:MyPopUpWin();" title="SEE HOW IT WORK">SEE HOW IT WORK</a></p>-->
 	</article>
-    
-	<!--<article class="howWorks span-8 prepend-8 warning" style="float:right;">
-    <h2 class="notCufon" style="text-align:center;font-family:MuseoSans-500;font-size:25px;line-height:20px;padding:15px 10px;"><a href="about/index.html" title="How It Works">How It Works</a></h2>
-    <p>Monetize your apps with offers that make sense. After all, a better experience for users means higher revenue for you. </p>
-    <p class="FindOut"><a href="social/developer.html" title="FIND OUT MORE">FIND OUT MORE ...</a></p>
-    </article>-->
-    <!-- todo: music note here? -->
-    <img src="@Url.Content("~/static/images/logo_stretched.png")" style="margin-left: 120px; margin-top: 150px;" alt="Legato Network" />
 	
-    <!-- Slider --></div>
+	<!--<article class="howWorks span-8 prepend-8 warning" style="float:right;">
+	<h2 class="notCufon" style="text-align:center;font-family:MuseoSans-500;font-size:25px;line-height:20px;padding:15px 10px;"><a href="about/index.html" title="How It Works">How It Works</a></h2>
+	<p>Monetize your apps with offers that make sense. After all, a better experience for users means higher revenue for you. </p>
+	<p class="FindOut"><a href="social/developer.html" title="FIND OUT MORE">FIND OUT MORE ...</a></p>
+	</article>-->
+	<!-- todo: music note here? -->
+	<img src="@Url.Content("~/static/images/logo_stretched.png")" style="margin-left: 120px; margin-top: 150px;" alt="Legato Network" />
+	
+	<!-- Slider --></div>
   <!-- Slider section --></section>
   }
 
 @section ScriptContentAtEndOfBody {
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="/static/js/map.js"></script>
-<!--<script>
-	var points = [];
-
-	$.getJSON("@Url.Action("Map","Instruments")",
-	  function (data) {
-		  points = data;
-	  });
-
-	Legato.map.init();
-
-	google.maps.event.addListenerOnce(Legato.map.map, 'tilesloaded', function () {
-		Legato.map.markLocations(points);
-	});
-	
-	$('#zoomButton').click(function() {
-		Legato.map.codeAddress();
-	});
-
-	// Handle ENTER keypress
-	$('#address').keypress(function(e) {
-		var code = (e.keyCode ? e.keyCode : e.which);
-		if(code == 13) { //Keycode for ENTER key
-			//Do something
-			Legato.map.codeAddress();
-		}
-	});
-
-	$('#refreshButton').click(function() {
-		Legato.map.clearMarkers();
-		$.getJSON('/Instruments/Map/'+$('#ChosenType').val(),
-		  function (data) {
-			  Legato.map.markLocations(data);
-		  });
-	});
-</script>-->
 }
