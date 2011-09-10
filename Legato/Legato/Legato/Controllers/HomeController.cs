@@ -44,6 +44,10 @@ namespace Legato.Controllers
             return View();
         }
 
+        /// <summary>
+        /// "Contact us" form.
+        /// </summary>
+        /// <returns></returns>
         [Url("About/Contact")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         [HttpGet]
@@ -53,6 +57,12 @@ namespace Legato.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Handles input from "contact us" form.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="captchaValid">if set to <c>true</c> [captcha valid].</param>
+        /// <returns></returns>
         [CaptchaValidator]
         [HttpPost]
         [Url("About/Contact")]

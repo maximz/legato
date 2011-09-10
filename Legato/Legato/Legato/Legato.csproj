@@ -224,8 +224,11 @@
     <Content Include="static\css\extra.css" />
     <Content Include="static\css\index.css" />
     <Content Include="static\css\map\home.css" />
+    <Content Include="static\css\map\home.min.css" />
     <Content Include="static\css\map\messageBubble.css" />
+    <Content Include="static\css\map\messageBubble.min.css" />
     <Content Include="static\css\map\style.css" />
+    <Content Include="static\css\map\style.min.css" />
     <Content Include="static\css\navigation.css" />
     <Content Include="static\css\text-museo-and-sans-2.css" />
     <Content Include="static\css\webfonts\svg\index.html" />
@@ -370,22 +373,34 @@
     <Content Include="static\js\map\libs\respond.js" />
     <Content Include="static\js\map\libs\respond.min.js" />
     <Content Include="static\js\map\map.js" />
+    <Content Include="static\js\map\map.min.js" />
     <Content Include="static\js\map\messageBubble.js" />
+    <Content Include="static\js\map\messageBubble.min.js" />
     <Content Include="static\js\map\mylibs\earth_map_type.js" />
+    <Content Include="static\js\map\mylibs\earth_map_type.min.js" />
     <Content Include="static\js\map\mylibs\gearth.js" />
     <Content Include="static\js\map\mylibs\graticule.3.js" />
+    <Content Include="static\js\map\mylibs\graticule.3.min.js" />
     <Content Include="static\js\map\mylibs\jquery.form.js" />
     <Content Include="static\js\map\mylibs\jquery.form.min.js" />
     <Content Include="static\js\map\mylibs\jquery.hint.js" />
+    <Content Include="static\js\map\mylibs\jquery.hint.min.js" />
     <Content Include="static\js\map\mylibs\jquery.placeholder.js" />
+    <Content Include="static\js\map\mylibs\jquery.placeholder.min.js" />
     <Content Include="static\js\map\mylibs\jquery.spinner.js" />
+    <Content Include="static\js\map\mylibs\jquery.spinner.min.js" />
     <Content Include="static\js\map\mylibs\jquery.tools.min.js" />
     <Content Include="static\js\map\mylibs\jquery.typewatch.js" />
+    <Content Include="static\js\map\mylibs\jquery.typewatch.min.js" />
     <Content Include="static\js\map\mylibs\jquery.validate.min.js" />
     <Content Include="static\js\map\omnibox.js" />
+    <Content Include="static\js\map\omnibox.min.js" />
     <Content Include="static\js\map\plugins.js" />
+    <Content Include="static\js\map\plugins.min.js" />
     <Content Include="static\js\map\script.js" />
+    <Content Include="static\js\map\script.min.js" />
     <Content Include="static\js\map\spinner.js" />
+    <Content Include="static\js\map\spinner.min.js" />
     <Content Include="static\js\modernizr-1.7.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
@@ -500,11 +515,6 @@
     <None Include="static\css\webfonts\woff\style_154928.woff" />
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
-    <None Include="static\images\map\allInstruments.psd" />
-    <None Include="static\images\map\allInstrumentsArrow.psd" />
-    <None Include="static\images\map\dot.psd" />
-    <None Include="static\images\map\InsDeployed.psd" />
-    <None Include="static\images\map\title.psd" />
     <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -543,6 +553,7 @@
     <Content Include="Views\Search\OptimizeIndex.cshtml" />
     <Content Include="Views\Instruments\Map.cshtml" />
     <Content Include="Views\Home\ComingSoon.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -578,7 +589,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
