@@ -1,58 +1,58 @@
 ﻿@{
-    ViewBag.Title = "Change Email";
+	ViewBag.Title = "Change Email";
 }
 
 <section class="NavContent">
-    <div class="LMidBlock">
-      <p class="TopHdg"><span class="about">account</span></p>
-      <ul>
-      </ul>
-    </div>
-    
-    <!-- Left section --></section>
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">account</span></p>
+	  <ul>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
 
 
 <section class="ContentWrapper">
-    <div class="ContentRpt">
-      <div class="ContentTop">
-        <div class="ContentBtm">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">Change Your Email</h1>
-          <article class="networkBox">
-            <section class="contentMain">
+		  <article class="networkBox">
+			<section class="contentMain">
 	<p>
-        Use the form below to change your email address.
-    </p>
-    @Html.ValidationSummary("Email address change was unsuccessful. Please correct the errors and try again.")
-    @using (Html.BeginForm())
-       {
-    <div>
-        <fieldset>
-            <legend>Account Information</legend>
-            <p>Current email address: <b>@ViewData["current"]</b></p>
-            <p>
-                <label for="NewEmail">
-                    New email:</label>
-                @Html.TextBox("NewEmail")
-                @Html.ValidationMessage("NewEmail")
-            </p>
-            <p>
-                <label for="ConfirmEmail">
-                    Confirm new email:</label>
-                @Html.TextBox("ConfirmEmail")
-                @Html.ValidationMessage("ConfirmEmail")
-            </p>
-            <p>
-                <input type="submit" value="Change Email" />
-            </p>
-        </fieldset>
-    </div>
-    }
-            </section>
-            <!-- network article --></article>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Right section --></section>
+		Use the form below to change your email address.
+	</p>
+	@Html.ValidationSummary("Email address change was unsuccessful. Please correct the errors and try again.")
+	@using (Html.BeginForm())
+	   {
+	<div>
+		<fieldset>
+			<legend>Account Information</legend>
+			<p>Current email address: <b>@ViewData["current"]</b></p>
+			<p>
+				<label for="NewEmail">
+					New email:</label>
+				@Html.TextBox("NewEmail")
+				@Html.ValidationMessage("NewEmail")
+			</p>
+			<p>
+				<label for="ConfirmEmail">
+					Confirm new email:</label>
+				@Html.TextBox("ConfirmEmail")
+				@Html.ValidationMessage("ConfirmEmail")
+			</p>
+			<p>
+				<input type="submit" value="Change Email" />
+			</p>
+		</fieldset>
+	</div>
+	}
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>
   
 

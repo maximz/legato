@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Profile";
+	ViewBag.Title = "Profile";
 }
 
 <div style="margin-top:200px;">
@@ -23,7 +23,7 @@
 			@if ((bool)ViewData["IsEmailNotConfirmed"])
 			   {
 			   <text><b>email not verified</b> - @Html.ActionLink("resend verification email", "ResendVerificationEmail", "Account")</text>
-               }
+			   }
 		</div>
 
 		<div class="display-label">
@@ -41,8 +41,8 @@
 				In Good Standing</p>
 			}
 		</div>
-        </fieldset>
-        <fieldset>
+		</fieldset>
+		<fieldset>
 		<legend>Account Activity (Creation date, last activity date)</legend>
 
 		<div class="display-label">Account was created</div>
@@ -58,6 +58,6 @@
 		<div class="display-field timeago">@Html.Encode(((MembershipUser)ViewData["MainInfo"]).LastPasswordChangedDate.ToString("o"))</div>
 
 	</fieldset>
-    </section>
-    </article>
-    </div>
+	</section>
+	</article>
+	</div>
