@@ -265,6 +265,7 @@
     <Content Include="static\images\map\InsCount.png" />
     <Content Include="static\images\map\markers.png" />
     <Content Include="static\images\map\markers2.png" />
+    <Content Include="static\images\map\mini-logo.png" />
     <Content Include="static\images\map\spinner-large.gif" />
     <Content Include="static\images\map\spinner.gif" />
     <Content Include="static\images\map\spinner1.gif" />
@@ -572,6 +573,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

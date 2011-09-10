@@ -42,8 +42,8 @@ namespace Legato.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.JsonResult SearchInsIds() {
-            return new T4MVC_JsonResult(Area, Name, ActionNames.SearchInsIds);
+        public System.Web.Mvc.ActionResult SearchInsIds() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.SearchInsIds);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -162,8 +162,8 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult SearchInsIds(string strId) {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.SearchInsIds);
+        public override System.Web.Mvc.ActionResult SearchInsIds(string strId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SearchInsIds);
             callInfo.RouteValueDictionary.Add("strId", strId);
             return callInfo;
         }

@@ -61,6 +61,7 @@ namespace Legato.Controllers {
             public readonly string Index = "Index";
             public readonly string About = "About";
             public readonly string PostRedirect = "PostRedirect";
+            public readonly string BuildNum = "BuildNum";
         }
 
 
@@ -91,6 +92,11 @@ namespace Legato.Controllers {
         public override System.Web.Mvc.ActionResult PostRedirect(int pid) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PostRedirect);
             callInfo.RouteValueDictionary.Add("pid", pid);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult BuildNum() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.BuildNum);
             return callInfo;
         }
 

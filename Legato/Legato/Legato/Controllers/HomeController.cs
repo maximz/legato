@@ -64,5 +64,11 @@ namespace Legato.Controllers
 
             return RedirectToAction("NotFound","Error");
         }
+
+        [Url("BuildNum")]
+        public virtual ActionResult BuildNum()
+        {
+            return Content(Current.RevNumber());
+        }
     }
 }
