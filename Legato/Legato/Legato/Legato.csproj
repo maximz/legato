@@ -201,6 +201,7 @@
     <Content Include="404.html" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
+    <Content Include="search\lucene\ForcePublish.txt" />
     <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
@@ -457,7 +458,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="search\lucene\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -476,6 +476,8 @@
     <Content Include="Views\Instruments\AlreadyReviewed.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="search\lucene\segments.gen" />
+    <Content Include="search\lucene\segments_1" />
     <None Include="static\css\webfonts\eot\style_154925.eot" />
     <None Include="static\css\webfonts\eot\style_154926.eot" />
     <None Include="static\css\webfonts\eot\style_154928.eot" />
