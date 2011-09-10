@@ -149,6 +149,7 @@
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
+    <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\UniqueStringIDGenerator.cs" />
     <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\Validation\CompareValueAttribute.cs" />
@@ -185,6 +186,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Home\ContactViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EditListingViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EditReviewViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EquipmentViewModel.cs" />

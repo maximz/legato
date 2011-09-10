@@ -688,7 +688,6 @@ namespace Legato.Controllers
         internal void SendPasswordResetEmail(string emailAddress, Guid id)
         {
             const string subject = "Reset your password - Legato Network";
-            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
@@ -697,7 +696,7 @@ namespace Legato.Controllers
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("Click this link to reset your password: ");
-            sb.Append("http://dailyurinal.com/Account/Options/ResetPassword/");
+            sb.Append("http://legatonetwork.com/Account/Options/ResetPassword/");
             sb.Append(id.ToString());
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
@@ -709,17 +708,8 @@ namespace Legato.Controllers
 
             string body = sb.ToString();
 
-            var emailmessage = new System.Web.Mail.MailMessage()
-            {
-                Subject = subject,
-                Body = body,
-                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
-                To = emailAddress,
-                BodyFormat = MailFormat.Text,
-                Priority = MailPriority.Normal
-            };
-
-            SmtpEmailSendOut(emailmessage);
+            var netmessage = SendEmail.StandardNoReply(emailAddress, subject, body, false);
+            SendEmail.Send(netmessage);
         }
         /// <summary>
         /// Sends email verification email.
@@ -729,7 +719,6 @@ namespace Legato.Controllers
         internal void SendEmailVerificationEmail(string emailAddress, Guid id)
         {
             const string subject = "Verify your email address - Legato Network";
-            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
@@ -748,17 +737,8 @@ namespace Legato.Controllers
 
             string body = sb.ToString();
 
-            var emailmessage = new System.Web.Mail.MailMessage()
-            {
-                Subject = subject,
-                Body = body,
-                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
-                To = emailAddress,
-                BodyFormat = MailFormat.Text,
-                Priority = MailPriority.Normal
-            };
-
-            SmtpEmailSendOut(emailmessage);
+            var netmessage = SendEmail.StandardNoReply(emailAddress, subject, body, false);
+            SendEmail.Send(netmessage);
         }
         /// <summary>
         /// Sends email verification email.
@@ -768,7 +748,6 @@ namespace Legato.Controllers
         internal void SendForgotOpenIDEmail(string emailAddress, string openID)
         {
             const string subject = "OpenID retrieval - Legato Network";
-            const string fromName = "Legato Network";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
@@ -788,37 +767,11 @@ namespace Legato.Controllers
 
             string body = sb.ToString();
 
-            var emailmessage = new System.Web.Mail.MailMessage()
-            {
-                Subject = subject,
-                Body = body,
-                From = "\"" + fromName + "\" <no-reply@legatonetwork.com>",
-                To = emailAddress,
-                BodyFormat = MailFormat.Text,
-                Priority = MailPriority.Normal
-            };
+            var netmessage = SendEmail.StandardNoReply(emailAddress, subject, body, false);
+            SendEmail.Send(netmessage);
 
-            SmtpEmailSendOut(emailmessage);
         }
 
-        /// <summary>
-        /// Handles all email sending. Centralized place for specifying SMTP server and authentication information.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        internal void SmtpEmailSendOut(System.Web.Mail.MailMessage message)
-        {
-            var smtp = new System.Net.Mail.SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("maximz.mailer@gmail.com", "MailMarvin")
-            };
-
-            smtp.Send(message.From, message.To, message.Subject, message.Body); // nasty conversion from System.Web.Mail.MailMessage to System.Net.Mail.MailMessage
-        }
         #endregion
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
