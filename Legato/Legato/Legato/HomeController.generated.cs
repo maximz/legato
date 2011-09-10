@@ -42,6 +42,11 @@ namespace Legato.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult ComingSoon() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ComingSoon);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult PostRedirect() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.PostRedirect);
         }
@@ -60,6 +65,7 @@ namespace Legato.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string About = "About";
+            public readonly string ComingSoon = "ComingSoon";
             public readonly string PostRedirect = "PostRedirect";
             public readonly string BuildNum = "BuildNum";
         }
@@ -71,6 +77,7 @@ namespace Legato.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string About = "~/Views/Home/About.cshtml";
+            public readonly string ComingSoon = "~/Views/Home/ComingSoon.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
     }
@@ -86,6 +93,12 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult About() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.About);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult ComingSoon(string slug) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ComingSoon);
+            callInfo.RouteValueDictionary.Add("slug", slug);
             return callInfo;
         }
 

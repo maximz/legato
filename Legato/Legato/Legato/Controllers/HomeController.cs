@@ -33,6 +33,18 @@ namespace Legato.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Displays a "coming soon" page. The slug may contain the requested URL.
+        /// </summary>
+        /// <param name="slug">The slug.</param>
+        /// <returns></returns>
+        [Url("Coming/Soon/{slug?}")]
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
+        public virtual ActionResult ComingSoon(string slug)
+        {
+            return View();
+        }
+
         [Url("p/{pid}")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200 * 40, VaryByParam = "pid")]
         public virtual ActionResult PostRedirect(int pid)

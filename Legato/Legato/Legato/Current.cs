@@ -247,5 +247,26 @@ namespace Legato
             return HtmlUtilities.URLFriendly(lastTwoPartsOfVersion);
         }
 
+        /// <summary>
+        /// Gets the current Google Analytics key.
+        /// </summary>
+        /// <returns></returns>
+        public static string GAnalyticsKey()
+        {
+            var cacheKey = "GAnalyticsKey";
+            var cacheContents = Current.GetCachedString(cacheKey);
+
+            if (cacheContents == null)
+            {
+                var x = System.Configuration.ConfigurationManager.AppSettings["GAnalyticsKey"];
+                Current.SetCachedObjectPermanent(cacheKey, x); // add to cache
+                return x;
+            }
+            else
+            {
+                return cacheContents;
+            }
+        }
+
     }
 }

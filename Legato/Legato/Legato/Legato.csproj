@@ -538,6 +538,7 @@
     <Content Include="Views\Search\RegenerateIndex.cshtml" />
     <Content Include="Views\Search\OptimizeIndex.cshtml" />
     <Content Include="Views\Instruments\Map.cshtml" />
+    <Content Include="Views\Home\ComingSoon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
