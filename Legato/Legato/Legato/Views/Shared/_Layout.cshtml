@@ -1,5 +1,8 @@
-﻿@{bool isInner = true;
-  if (ViewBag.PageType != null && ViewBag.PageType == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */ }
+﻿@{
+    bool isInner = true;
+  if (ViewBag.PageType != null && ViewBag.PageType == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */
+  var revNum = Legato.Current.RevNumber();
+  }
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -21,13 +24,13 @@
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" />
 
-  <link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" /> 
+  <link rel="stylesheet" href="/static/css/screen.css?@revNum" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="/static/css/print.css?@revNum" type="text/css" media="print" /> 
   <!--[if lt IE 8]>
 	<link rel="stylesheet" href="/static/css/ie.css" type="text/css" media="screen, projection" />
     <![endif]-->
 
-    <link rel="stylesheet" href="/static/css/index.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/css/index.css?@revNum" type="text/css" media="all" />
     @if (isInner)
     {
     <link rel="stylesheet" href="/static/css/navigation.css" type="text/css" media="all" />
