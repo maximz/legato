@@ -124,7 +124,9 @@ var Legato = Legato || {};
 				// Google Earth
 				self.earth = new EarthMapType(self.map);
 				
-				google.maps.event.addListener(self.earth, 'initialized', function () {
+				google.maps.event.addListener(self.earth, 'initialized', function (ok) {
+					if(ok)
+					{
 					if (self.earth) {
 						console.log("earth is ready!");
 						self.isEarthReady = true;
@@ -138,6 +140,15 @@ var Legato = Legato || {};
 								self.addMarkerToEarth(value);
 							});
 						
+						self.panToWorld(); // KML might change current position
+					}
+					}
+					else // if not OK
+					{
+						// KML overlay
+						// self.timeZonesLayer.setMap(self.map);
+						
+						// pan to world
 						self.panToWorld(); // KML might change current position
 					}
 				});
@@ -196,7 +207,7 @@ var Legato = Legato || {};
 				// returns a google.maps.MarkerImage() with the appropriate values for our marker creation procedure.
 				var spriteWidth = self.spriteWidth;
 				
-				return new google.maps.MarkerImage('/static/images/map/markers2.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
+				return new google.maps.MarkerImage('/static/images/map/markers.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
 			}
 
 			this.newMarker = function (lat, lng, count)
