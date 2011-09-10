@@ -2,6 +2,7 @@
     bool isInner = true;
   if (ViewBag.PageType != null && ViewBag.PageType == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */
   var revNum = Legato.Current.RevNumber();
+  ViewBag.revNum = revNum;
   }
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
