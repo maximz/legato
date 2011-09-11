@@ -43,7 +43,7 @@
 						</p>
 						<p>
 							<label for="CAPTCHA">Verification word(s):</label>
-							@Html.GenerateCaptcha()
+							@(new HtmlString(Html.GenerateCaptcha())) <!-- html encoding bugfix http://stackoverflow.com/questions/3665982/decoding-html-in-asp-net-mvc-3/3668620#3668620 -->
 						</p>
 						@Html.HiddenFor(m=>m.OpenIdClaim)
 						@Html.AntiForgeryToken()

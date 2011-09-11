@@ -1,4 +1,5 @@
 ﻿@model Legato.ViewModels.ContactViewModel
+@using MvcReCaptcha.Helpers;
 
 @{
 	ViewBag.Title = "Contact";
@@ -34,7 +35,7 @@
 		  <article class="networkBox">
 			<section class="contentMain">
 				<p>Please fill out this form to contact Legato Network.</p>
-			  @using (Html.BeginForm()) {
+			  @using (Html.BeginForm("ContactSubmit","Home")) {
 	@Html.ValidationSummary(true)
 	<fieldset>
 		<legend>Contact Us</legend>
@@ -43,7 +44,7 @@
 			@Html.LabelFor(model => model.Name)
 		</div>
 		<div class="editor-field">
-			@Html.EditorFor(model => model.Name)
+			@Html.TextBoxFor(model => model.Name)
 			@Html.ValidationMessageFor(model => model.Name)
 		</div>
 
@@ -51,7 +52,7 @@
 			@Html.LabelFor(model => model.Email)
 		</div>
 		<div class="editor-field">
-			@Html.EditorFor(model => model.Email)
+			@Html.TextBoxFor(model => model.Email)
 			@Html.ValidationMessageFor(model => model.Email)
 		</div>
 
@@ -62,6 +63,12 @@
 			@Html.TextAreaFor(model => model.Message)
 			@Html.ValidationMessageFor(model => model.Message)
 		</div>
+
+		<p>
+			<label for="CAPTCHA">Verification word(s):</label>
+			@(new HtmlString(Html.GenerateCaptcha())) <!-- html encoding bugfix http://stackoverflow.com/questions/3665982/decoding-html-in-asp-net-mvc-3/3668620#3668620 -->
+			@Html.ValidationMessage("CAPTCHA")
+		</p>
 
 		<p>
 			<input type="submit" value="Send" />

@@ -1,6 +1,6 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
-<% bool isInner = true;
-  if (ViewData["PageType"] != null && ViewData["PageType"].ToString() == "PresentationPage") { isInner = false; } /* if not PresentationPage, we default to the inner page style */  %>
+<% ViewBag.isInner = true;
+  if (ViewData["PageType"] != null && ViewData["PageType"].ToString() == "PresentationPage") { ViewBag.isInner = false; } /* if not PresentationPage, we default to the inner page style */  %>
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -29,7 +29,7 @@
   <![endif]-->
   
   <link rel="stylesheet" href="/static/css/index.css" type="text/css" media="all" />
-	<%if (isInner)
+	<%if (ViewBag.isInner)
 	{%>
 	<link rel="stylesheet" href="/static/css/navigation.css" type="text/css" media="all" />
 	<%}%>
@@ -50,7 +50,7 @@
 	<asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 
-<body <%if (isInner) {%>class="Inner"<%}%> >
+<body <%if (ViewBag.isInner) {%>class="Inner"<%}%> >
 	<noscript>
 		<div id="noscript-warning">The Legato Network website works best with JavaScript enabled.</div>
 	</noscript>

@@ -24,10 +24,10 @@ namespace Legato.Helpers
                 Host = "smtp.gmail.com",
                 Port = 587,
                 EnableSsl = true,
-                DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
                 //Credentials = new NetworkCredential("maximz.mailer@gmail.com", "MailMarvin")
-                Credentials = new NetworkCredential("mailer@legatonetwork.com", "4Mb>Y9Mm")
+                Credentials = new NetworkCredential("mailer@legatonetwork.com", "gHds178l")
             };
 
             smtp.Send(m);

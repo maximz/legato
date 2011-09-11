@@ -65,18 +65,18 @@ namespace Legato.Controllers
         /// <returns></returns>
         [CaptchaValidator]
         [HttpPost]
-        [Url("About/Contact")]
-        public ActionResult Contact(ContactViewModel model, bool captchaValid)
+        [Url("About/ContactSubmit")]
+        public ActionResult ContactSubmit(ContactViewModel model, bool captchaValid)
         {
             if(!ModelState.IsValid)
             {
-                return View(model);
+                return View("Contact", model);
             }
 
             if (!captchaValid)
             {
                 ModelState.AddModelError("CAPTCHA", "You did not type the verification word (CAPTCHA) correctly.");
-                return View(model);
+                return View("Contact", model);
             }
 
             try
@@ -87,7 +87,7 @@ namespace Legato.Controllers
             catch
             {
                 ModelState.AddModelError("Email", "There was a problem sending your email. Please try again.");
-                return View(model);
+                return View("Contact", model);
             }
         }
 
@@ -95,33 +95,34 @@ namespace Legato.Controllers
         {
             const string subject = "New contact message";
             const string fromName = "Legato Network";
+            const string newLine = "<br />";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Hello!");
-            sb.Append(Environment.NewLine);
-            sb.Append("A user has submitted a new contact message through the Contact page.");
-            sb.Append(Environment.NewLine);
-            sb.Append(Environment.NewLine);
+            sb.Append(newLine);
+            sb.Append("A user has submitted a new contact message through the Contact page." + newLine);
+            sb.Append(newLine);
+            sb.Append(newLine);
 
             sb.Append("<b>Name:</b> ");
             sb.Append(name);
-            sb.Append(Environment.NewLine);
+            sb.Append(newLine);
             
             sb.Append("<b>Email:</b> ");
             sb.Append(email);
-            sb.Append(Environment.NewLine);
+            sb.Append(newLine);
             
             sb.AppendLine("<b>Message:</b>");
             sb.AppendLine("<blockquote>"+message+"</blockquote>");
-            sb.Append(Environment.NewLine);
-            sb.Append(Environment.NewLine);
+            sb.Append(newLine);
+            sb.Append(newLine);
             
             sb.Append("<b>Submitted:</b> ");
-            sb.AppendLine(DateTime.Now.ToLongDateString());
+            sb.AppendLine(DateTime.Now.ToLongDateString() + newLine);
             sb.AppendLine(DateTime.Now.ToLongTimeString());
-            sb.Append(Environment.NewLine);
-            
-            sb.Append(Environment.NewLine);
+            sb.Append(newLine);
+
+            sb.Append(newLine);
             sb.Append("- Legato Network :)");
 
             string body = sb.ToString();
