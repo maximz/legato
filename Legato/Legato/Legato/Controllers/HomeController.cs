@@ -22,11 +22,6 @@ namespace Legato.Controllers
         {
             ViewBag.PageType = "PresentationPage"; // see top of master layout page
 
-            var dbTypes = (from t in Current.DB.InstrumentTypes
-                           select new { Id = t.TypeID, Name = t.Name }).ToList();
-            dbTypes.Add(new { Id = 0, Name = "All Instruments" });
-            ViewBag.Types = new SelectList(dbTypes.ToArray(), "Id", "Name");
-
             return View();
         }
 
