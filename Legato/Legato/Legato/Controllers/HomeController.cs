@@ -39,6 +39,12 @@ namespace Legato.Controllers
             return View();
         }
 
+        [Url("UserContext")]
+        public virtual ActionResult UserContext()
+        {
+            return Content(Current.Context.User.Identity.IsAuthenticated.ToString() + ";" + Current.Context.User.Identity.Name + ";" + Current.Context.User.Identity.AuthenticationType);
+        }
+
         /// <summary>
         /// "Contact us" form.
         /// </summary>

@@ -160,7 +160,6 @@ namespace Legato.Controllers
 
                             UserOpenId openId = null;
                             openId = db.UserOpenIds.Where(o => o.OpenIdClaim == response.ClaimedIdentifier.OriginalString).FirstOrDefault();
-
                             object signupcode = null;
                             if (Request.Form["OneTimeSignupCode"].HasValue())
                             {
@@ -239,6 +238,7 @@ namespace Legato.Controllers
                             {
                                 //check whether user is suspended and whether suspension has already ended
                                 var userName = openId.aspnet_User.UserName;
+                                
                                 if (!Roles.IsUserInRole(userName, RoleNames.ActiveUser))
                                 {
                                     var currentProfile = AccountProfile.GetProfileOfUser(userName);
@@ -249,8 +249,8 @@ namespace Legato.Controllers
                                         currentProfile.Save();
                                     }
                                 }
-                                FormsAuthentication.RedirectFromLoginPage(userName, true);
-                                return new EmptyResult();
+                                FormsAuthentication.SetAuthCookie(userName, true);
+                                return RedirectToAction("Index", "Home");
                             }
 
                         case AuthenticationStatus.Canceled:
@@ -263,6 +263,7 @@ namespace Legato.Controllers
                 }
                 return new EmptyResult();
             }
+
         /// <summary>
         /// Handles OpenID registration form submission.
         /// </summary>
