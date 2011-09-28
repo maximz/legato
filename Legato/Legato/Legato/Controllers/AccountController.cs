@@ -318,7 +318,7 @@ namespace Legato.Controllers
                     AccountProfile.NewUser.Initialize(model.Nickname, true);
                     AccountProfile.NewUser.ReinstateDate = DateTime.MinValue;
                     AccountProfile.NewUser.FullName = model.FullName.Trim();
-                    AccountProfile.NewUser.AboutMe = HtmlUtilities.Safe(HtmlUtilities.Sanitize(model.AboutMe.Trim()));
+                    AccountProfile.NewUser.AboutMe = (model.AboutMe.IsNullOrEmpty() ? null : HtmlUtilities.Safe(HtmlUtilities.Sanitize(model.AboutMe.Trim())));
                     AccountProfile.NewUser.Save();
                     try
                     {
