@@ -67,7 +67,7 @@ namespace Legato.Controllers
         [CaptchaValidator]
         [HttpPost]
         [Url("About/ContactSubmit")]
-        public ActionResult ContactSubmit(ContactViewModel model, bool captchaValid)
+        public virtual ActionResult ContactSubmit(ContactViewModel model, bool captchaValid)
         {
             if(!ModelState.IsValid)
             {

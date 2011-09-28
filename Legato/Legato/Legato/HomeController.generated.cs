@@ -42,6 +42,11 @@ namespace Legato.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult ContactSubmit() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ContactSubmit);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult ComingSoon() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.ComingSoon);
         }
@@ -65,6 +70,10 @@ namespace Legato.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string About = "About";
+            public readonly string FAQ = "FAQ";
+            public readonly string UserContext = "UserContext";
+            public readonly string Contact = "Contact";
+            public readonly string ContactSubmit = "ContactSubmit";
             public readonly string ComingSoon = "ComingSoon";
             public readonly string PostRedirect = "PostRedirect";
             public readonly string BuildNum = "BuildNum";
@@ -78,6 +87,7 @@ namespace Legato.Controllers {
         public class ViewNames {
             public readonly string About = "~/Views/Home/About.cshtml";
             public readonly string ComingSoon = "~/Views/Home/ComingSoon.cshtml";
+            public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
     }
@@ -93,6 +103,28 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult About() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.About);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult FAQ() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.FAQ);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult UserContext() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UserContext);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Contact() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Contact);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult ContactSubmit(Legato.ViewModels.ContactViewModel model, bool captchaValid) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ContactSubmit);
+            callInfo.RouteValueDictionary.Add("model", model);
+            callInfo.RouteValueDictionary.Add("captchaValid", captchaValid);
             return callInfo;
         }
 
