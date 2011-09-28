@@ -8,7 +8,7 @@
 	<h2>How it works</h2>
 	<p>Blah blah blah</p>
 	<p>Lorem ipsum!</p>
-	<a href="@Url.Action(MVC.Instruments.Map())"><img src="@Url.Content("~/static/images/find_instrument-button.png")?@ViewBag.revNum" alt="Find an Instrument" style="width:437px; height: 69px;" /></a>
+	<a href="@Url.Action("Map", "Instruments")"><img src="@Url.Content("~/static/images/find_instrument-button.png")?@ViewBag.revNum" alt="Find an Instrument" style="width:437px; height: 69px;" /></a>
 </article>
 
 @section BetweenHeaderAndContent {
@@ -21,7 +21,7 @@
 <br>
 That's why Legato Network is here - to connect musicians worldwide, enabling them to share information, experiences, and knowledge. Become a part of the future today!
 </span></p>
-	<p class="Find_mr"><a href="@Url.Action(MVC.Account.Login())" title="Join the Network">Join the Network</a></p>
+	<p class="Find_mr"><a href="@Url.Action("Login","Account")" title="Join the Network">Join the Network</a></p>
 	</article>
 	
 	<!-- todo: music note here? -->
