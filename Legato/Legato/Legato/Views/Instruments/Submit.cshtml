@@ -40,6 +40,14 @@ $('#rate_overall').raty({
 			<legend>Listing</legend>
 			
 			<div class="editor-label">
+				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
+			</div>
+            
+            <div class="editor-label">
 				@Html.LabelFor(model => model.Listing.StreetAddress)
 			</div>
 			<div class="editor-field">
@@ -56,22 +64,6 @@ $('#rate_overall').raty({
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(model => model.Listing.Equipment.Brand)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Listing.Equipment.Brand)
-				@Html.ValidationMessageFor(model => model.Listing.Equipment.Brand)
-			</div>
-
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Listing.Equipment.Model)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Listing.Equipment.Model)
-				@Html.ValidationMessageFor(model => model.Listing.Equipment.Model)
-			</div>
-
-			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedClass)
 			</div>
 			<div class="editor-field">
@@ -79,13 +71,7 @@ $('#rate_overall').raty({
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
 			</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
-			</div>
-			<div class="editor-field">
-				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
-				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
-			</div>
+
 
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Listing.Price)
@@ -121,13 +107,6 @@ $('#rate_overall').raty({
 				<div id="wmd-preview" class="wmd-panel"></div>
 			</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(model => model.ReviewRevision.DateOfLastUsage)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.ReviewRevision.DateOfLastUsage, new { @class = "dateinput" })
-				@Html.ValidationMessageFor(model => model.ReviewRevision.DateOfLastUsage)
-			</div>
 			</fieldset>
 			<p>
 				<input type="submit" value="Create" />

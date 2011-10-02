@@ -342,8 +342,8 @@ namespace Legato.Controllers
                     listing.StreetAddress = model.Listing.StreetAddress;
                     listing.Lat = model.Listing.Lat;
                     listing.Long = model.Listing.Long;
-                    listing.Model = model.Listing.Equipment.Model.Trim();
-                    listing.Brand = model.Listing.Equipment.Brand.Trim();
+                    //listing.Model = model.Listing.Equipment.Model.Trim();
+                    //listing.Brand = model.Listing.Equipment.Brand.Trim();
                     listing.Price = (decimal?)model.Listing.Price;
                     listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                     listing.VenueName = model.Listing.VenueName;
@@ -412,7 +412,7 @@ namespace Legato.Controllers
 
                     //REVISION:
                     var r = new InstrumentReviewRevision();
-                    r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
+                    //r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                     r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                     r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                     r.RatingGeneral = model.ReviewRevision.RatingOverall;
@@ -453,6 +453,7 @@ namespace Legato.Controllers
             }
             catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                 new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
                 return RedirectToAction("InternalServerError", "Error");
             }

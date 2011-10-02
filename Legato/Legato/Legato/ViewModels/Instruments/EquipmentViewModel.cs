@@ -14,8 +14,8 @@ namespace Legato.ViewModels
         /// Gets or sets the brand of the instrument.
         /// </summary>
         /// <value>The brand.</value>
-        [Required(ErrorMessage="Brand name is required.")]
-        [DisplayName("Instrument brand")]
+        //[Required(ErrorMessage="Brand name is required.")]
+        [DisplayName("Brand")]
         [StringLength(50,ErrorMessage="The brand name is too long. It must be under 50 characters in length.")]
         public string Brand
         {
@@ -26,7 +26,7 @@ namespace Legato.ViewModels
         /// Gets or sets the model of the instrument.
         /// </summary>
         /// <value>The model.</value>
-        [DisplayName("Instrument model")]
+        [DisplayName("Model")]
         [StringLength(50, ErrorMessage = "The model name is too long. It must be under 50 characters in length.")]
         public string Model
         {
@@ -38,7 +38,7 @@ namespace Legato.ViewModels
         /// </summary>
         /// <value>The selected instrument type.</value>
         [Required(ErrorMessage="You must select a type.")]
-        [DisplayName("Selected instrument type")]
+        [DisplayName("Type")]
         public int SelectedType
         {
             get;
@@ -60,7 +60,7 @@ namespace Legato.ViewModels
         /// </summary>
         /// <value>The selected instrument class.</value>
         [Required(ErrorMessage="You must select an instrument class.")]
-        [DisplayName("Selected instrument class")]
+        [DisplayName("Availability")]
         public int SelectedClass
         {
             get;
@@ -89,7 +89,7 @@ namespace Legato.ViewModels
                 {
                     new { Id = 1, Name = "Public" },
                     new { Id = 2, Name = "Rent" },
-                    new { Id = 3, Name = "Sale" },
+                    //new { Id = 3, Name = "Sale" },
                 }, "Id", "Name");
             }
 
