@@ -31,7 +31,7 @@
 			<text><h3>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h3></text>
 		  }
 		  <div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
-<p>Latest use: <span class="timeago" title="@Model.Instrument.LatestUseDate">@Model.Instrument.LatestUseDate</span></p>
+@(/*<p>Latest use: <span class="timeago" title="@Model.Instrument.LatestUseDate">@Model.Instrument.LatestUseDate</span></p>*/)
 <p>Latest review: <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
 <div id="minimap"></div>
 <div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>

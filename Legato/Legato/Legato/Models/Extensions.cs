@@ -30,11 +30,11 @@ namespace Legato.Models
         /// <summary>
         /// The latest time a reviewer for this Instrument used the instrument. This property is filled only when the Instrument.FillProperties() method is called.
         /// </summary>
-        public DateTime LatestUseDate
-        {
-            get;
-            internal set;
-        }
+        //public DateTime LatestUseDate
+        //{
+        //    get;
+        //    internal set;
+        //}
         /// <summary>
         /// The number of reviews that have been written for this Instrument. This property is filled only when the Instrument.FillProperties() method is called.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Legato.Models
             // Arrange
             var OverallRatings = new List<int>();
             var RevisionDates = new List<DateTime>();
-            var UseDates = new List<DateTime>();
+            //var UseDates = new List<DateTime>();
             var reviewCount = 0;
 
             // Get data
@@ -77,14 +77,14 @@ namespace Legato.Models
                     var LatestRevision = db.InstrumentReviewRevisions.Where(revision => revision.ReviewID == review.ReviewID).OrderByDescending(revision => revision.RevisionDate).Take(1).ToList()[0];
                     OverallRatings.Add(LatestRevision.RatingGeneral);
                     RevisionDates.Add(LatestRevision.RevisionDate);
-                    UseDates.Add(LatestRevision.LastUseDate);
+                    //UseDates.Add(LatestRevision.LastUseDate);
                     reviewCount++;
                 }
 
             // Process
             AverageOverallRating = OverallRatings.Count > 0 ? ((int)Math.Round(OverallRatings.Average())) : 0;
             LatestReviewRevisionDate = RevisionDates.Count > 0 ? RevisionDates.Max() : this.SubmissionDate;
-            LatestUseDate = UseDates.Count > 0 ? UseDates.Max() : this.SubmissionDate;
+            //LatestUseDate = UseDates.Count > 0 ? UseDates.Max() : this.SubmissionDate;
             NumberOfReviews = reviewCount;
 
             // Generate Title and UrlSlug

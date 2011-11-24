@@ -333,7 +333,9 @@ namespace Legato.Controllers
 
             try
             {
-                var db = Current.DB;
+                try
+                {
+                    var db = Current.DB;
                     var time = DateTime.Now;
 
                     //LISTING:
@@ -347,7 +349,7 @@ namespace Legato.Controllers
                     listing.Price = (decimal?)model.Listing.Price;
                     listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                     listing.VenueName = model.Listing.VenueName;
-                    
+
                     /*Matching instrument and style:
                      * 1. take instrument name, find match in Instruments table
                      * 2. apply SelectedIndex of type to dropdownlist, extract name from the list
@@ -356,7 +358,7 @@ namespace Legato.Controllers
                      * 5. Same for Styles
                      * that's how we do it! */
                     var type = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
-                    if(type==null)
+                    if (type == null)
                     {
                         ModelState.AddModelError("SelectedType", "No such instrument type exists.");
                         new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
@@ -365,7 +367,7 @@ namespace Legato.Controllers
                     listing.TypeID = type.TypeID;
 
                     var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Text.ToLowerInvariant();
-                    if(style==null || (style != "public" && style != "rent" && style != "sale"))
+                    if (style == null || (style != "public" && style != "rent" && style != "sale"))
                     {
                         ModelState.AddModelError("SelectedClass", "No such class exists.");
                         new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
@@ -450,6 +452,11 @@ namespace Legato.Controllers
                     }
 
                     return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID }); //shows details for that submission thread, with only one revision!
+                }
+                catch(Exception ex)
+                {
+                    return Content(ex.Message);
+                }
             }
             catch(Exception ex)
             {
