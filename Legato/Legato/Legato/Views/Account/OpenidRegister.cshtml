@@ -8,8 +8,7 @@
 	<h1 class="contentHeaderText">Create an Account</h1>
 	<article>
 		<section>
-			<p>We haven't seen that OpenID before. To create a new account, please fill out the form below.</p>
-			<p>If you have registered on this site before, please @Html.ActionLink("return to the login page","OpenidLogin","Account") and enter the OpenID you used before. If you don't remember the OpenID you used, @Html.ActionLink("click here","RecoverOpenID","Account").</p>
+			<p>We haven't seen that OpenID before. To create a new account, please fill out the form below. But if you have registered on this site before, please @Html.ActionLink("return to the login page","OpenidLogin","Account") and enter the OpenID you used before. If you don't remember the OpenID you used, @Html.ActionLink("click here","RecoverOpenID","Account").</p>
 			@Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.")
 			@using (Html.BeginForm("OpenidRegisterFormSubmit", "Account", FormMethod.Post))
 			{
