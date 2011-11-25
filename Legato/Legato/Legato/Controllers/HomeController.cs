@@ -14,7 +14,7 @@ using System.Web.Mail;
 namespace Legato.Controllers
 {
     [HandleError]
-    public partial class HomeController : Controller
+    public partial class HomeController : CustomControllerBase
     {
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         [Url("")]
