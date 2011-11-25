@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Admin</title>
+</head>
+<body>
+    <div>
+        <h1>Admin Menu</h1>
+        <h2>Welcome message</h2>
+        <p>Currently enabled: @ViewBag.isMessageEnabled</p>
+        @Html.ActionLink("Toggle", "ToggleMessage")
+        @using (Html.BeginForm("SetMessage"))
+        {
+            <p>Set message</p>
+        @Html.TextBox("message", (string)ViewBag.currentMessage)
+        }
+
+        <hr />
+
+        <h2>OpenID Whitelist</h2>
+        <p>Currently enabled: @ViewBag.isWhiteListEnabled</p>
+        @Html.ActionLink("Toggle", "ToggleWhitelist")
+        @Html.ActionLink("Get Whitelist", "GetWhitelist")
+
+
+        <hr />
+
+        <h2>Delete post</h2>
+        @using (Html.BeginForm("DeletePost"))
+        {
+            <p>Global Post ID</p>
+        @Html.TextBox("id", "")
+        }
+
+        <hr />
+
+        <h2>Search</h2>
+        @Html.ActionLink("Regenerate Index", "RegenerateIndex", "Search")
+
+        <hr />
+
+        <h2>Users</h2>
+
+        @using (Html.BeginForm("UserSearchByName"))
+        {
+            <p>Find by name! Name contains:</p>
+            @Html.TextBox("nameContains", "")
+        }
+
+        @using (Html.BeginForm("GetUserById"))
+        {
+            <p>Get info by GUID:</p>
+            @Html.TextBox("UserId", "")
+        }
+
+        @Html.ActionLink("Suspend user", "SuspendUser")
+        
+        @using (Html.BeginForm("GetEmailList"))
+        {
+            <p>Get email list with delimiter:</p>
+            @Html.TextBox("delimiter", "")
+        }
+
+        <hr />
+
+    </div>
+</body>
+</html>

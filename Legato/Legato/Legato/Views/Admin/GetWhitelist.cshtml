@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Whitelist Contents</title>
+</head>
+<body>
+    <div>
+    <p>Whitelist:</p>
+
+    @using(Html.BeginForm("SetWhitelist"))
+    {
+        @Html.TextBox("list", (string)ViewBag.list)
+    }
+    </div>
+</body>
+</html>

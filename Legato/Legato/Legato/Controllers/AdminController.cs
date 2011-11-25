@@ -40,16 +40,15 @@ namespace Legato.Controllers
             return View();
         }
 
-
+        #region Site Welcome Message
 
         [Url("Admin/Message/Toggle")]
-        [HttpPost]
-        [VerifyReferrer]
+        [HttpGet]
         public ActionResult ToggleMessage()
         {
             var key = WCKeys.messageEnabled;
             var messageEnabled = ConfigurationManager.AppSettings[key];
-            if(messageEnabled == "true")
+            if (messageEnabled == "true")
             {
                 messageEnabled = "false";
             }
@@ -72,13 +71,16 @@ namespace Legato.Controllers
             return RedirectToAction("Index");
         }
 
+        #endregion
+
+        #region Whitelist
+
         [Url("Admin/Whitelist/Toggle")]
-        [HttpPost]
-        [VerifyReferrer]
+        [HttpGet]
         public ActionResult ToggleWhitelist()
         {
             var current = CustomControllerBase.WhiteListEnabled;
-            if(current)
+            if (current)
             {
                 CustomControllerBase.WhiteListEnabled = false;
             }
@@ -105,13 +107,13 @@ namespace Legato.Controllers
         public ActionResult SetWhitelist(string list)
         {
             var openids = list.Split(';');
-            foreach(var i in Current.DB.OpenIDWhiteLists)
+            foreach (var i in Current.DB.OpenIDWhiteLists)
             {
                 i.IsEnabled = false;
             }
             Current.DB.SubmitChanges();
 
-            foreach(var j in openids)
+            foreach (var j in openids)
             {
                 var openid = new OpenIDWhiteList();
                 openid.OpenID = j;
@@ -122,6 +124,10 @@ namespace Legato.Controllers
 
             return View("Index");
         }
+
+        #endregion
+
+        #region Posts
 
         [Url("Admin/DeletePost")]
         [HttpPost]
@@ -140,7 +146,7 @@ namespace Legato.Controllers
             string serializedXml = sw.ToString();
             sw.Close();
 
-            switch(gpost.UnderlyingType.Name)
+            switch (gpost.UnderlyingType.Name)
             {
                 case "Instrument":
                     Current.DB.Instruments.DeleteOnSubmit(post);
@@ -165,7 +171,7 @@ namespace Legato.Controllers
              * */
         }
 
-        // Search stuff is at SearchController.RegenerateIndex();
+        #endregion
 
 
         #region Users
@@ -204,11 +210,11 @@ namespace Legato.Controllers
             return View(model);
         }
 
-        [Url("Admin/SuspendUser/{UserId}")]
+        [Url("Admin/Users/Suspend")]
         [HttpGet]
-        public virtual ActionResult SuspendUser(Guid UserId)
+        public virtual ActionResult SuspendUser()
         {
-            return View(new SuspendUserViewModel() { UserID = UserId });
+            return View(new SuspendUserViewModel());
         }
         [Url("Admin/SuspendUser")]
         [HttpPost]
@@ -216,23 +222,23 @@ namespace Legato.Controllers
         public virtual ActionResult SuspendUser(SuspendUserViewModel model)
         {
             var sus = new UserSuspension();
-                var db = Current.DB;
-                var username = Membership.GetUser(model.UserID, false).UserName;
-                sus = new UserSuspension()
-                {
-                    SuspensionDate = DateTime.Now,
-                    Reason = model.Reason,
-                    UserID = model.UserID
-                };
-                if (model.ReinstateDate == null)
-                {
-                    sus.ReinstateDate = DateTime.MaxValue;
-                }
-                db.UserSuspensions.InsertOnSubmit(sus);
-                db.SubmitChanges();
-                AccountProfile.GetProfileOfUser(username).ReinstateDate = sus.ReinstateDate;
-                AccountProfile.GetProfileOfUser(username).Save();
-                return RedirectToAction("Index");
+            var db = Current.DB;
+            var username = Membership.GetUser(model.UserID, false).UserName;
+            sus = new UserSuspension()
+            {
+                SuspensionDate = DateTime.Now,
+                Reason = model.Reason,
+                UserID = model.UserID
+            };
+            if (model.ReinstateDate == null)
+            {
+                sus.ReinstateDate = DateTime.MaxValue;
+            }
+            db.UserSuspensions.InsertOnSubmit(sus);
+            db.SubmitChanges();
+            AccountProfile.GetProfileOfUser(username).ReinstateDate = sus.ReinstateDate;
+            AccountProfile.GetProfileOfUser(username).Save();
+            return RedirectToAction("Index");
         }
 
         public class SuspendUserViewModel
@@ -264,11 +270,11 @@ namespace Legato.Controllers
             [DisplayName("User")]
             public MembershipUser User
             { get; set; }
-            
+
             [DisplayName("Suspensions")]
             public List<UserSuspension> Suspensions
             { get; set; }
-            
+
             [DisplayName("Reinstate date")]
             public DateTime ReinstateDate
             { get; set; }
@@ -276,7 +282,8 @@ namespace Legato.Controllers
         }
 
         [Url("Admin/Users/Emails/{delimiter}")]
-        [HttpGet]
+        [HttpPost]
+        [VerifyReferrer]
         public ActionResult GetEmailList(string delimiter)
         {
             return Content(string.Join(delimiter, Current.DB.aspnet_Memberships.Select(m => m.Email).ToArray()));
@@ -285,83 +292,5 @@ namespace Legato.Controllers
         #endregion
 
 
-
-        //
-        // GET: /Admin/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
-        // POST: /Admin/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        
-        //
-        // GET: /Admin/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Admin/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Admin/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
