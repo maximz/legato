@@ -32,9 +32,9 @@ namespace Legato.Controllers
             return View();
         }
 
-        [Url("About/FAQ")]
+        [Url("About/faq")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
-        public virtual ActionResult FAQ()
+        public virtual ActionResult Faq()
         {
             return View();
         }

@@ -70,7 +70,7 @@ namespace Legato.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string About = "About";
-            public readonly string FAQ = "FAQ";
+            public readonly string Faq = "Faq";
             public readonly string UserContext = "UserContext";
             public readonly string Contact = "Contact";
             public readonly string ContactSubmit = "ContactSubmit";
@@ -88,6 +88,7 @@ namespace Legato.Controllers {
             public readonly string About = "~/Views/Home/About.cshtml";
             public readonly string ComingSoon = "~/Views/Home/ComingSoon.cshtml";
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
+            public readonly string Faq = "~/Views/Home/Faq.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
     }
@@ -106,8 +107,8 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult FAQ() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.FAQ);
+        public override System.Web.Mvc.ActionResult Faq() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Faq);
             return callInfo;
         }
 
