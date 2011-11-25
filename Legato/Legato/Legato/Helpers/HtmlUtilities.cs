@@ -846,5 +846,10 @@ namespace Legato.Helpers
             return Regex.Replace(html, @"&amp;([^; ]+);", @"&$1;");
         }
 
+        public static HtmlString RenderHtmlInRazor(string html)
+        {
+            return new HtmlString(html);
+        }
+
     }
 }

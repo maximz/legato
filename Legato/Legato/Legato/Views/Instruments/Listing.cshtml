@@ -65,7 +65,7 @@ else
 			    <div id="rate-general-@r.ReviewID"></div>
 			</div>
 			<div class="message">
-				@(new HtmlString(r.Revisions.First().MessageHTML))
+				@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))
 			</div>
 			<div class="details">
 			</div>
