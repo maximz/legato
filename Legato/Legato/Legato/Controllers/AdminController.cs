@@ -15,7 +15,7 @@ using System.Web.Security;
 
 namespace Legato.Controllers
 {
-    [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false, AuthorizedRoles = RoleNames.Administrator)]
+    [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false, AuthorizedRoles = RoleNames.Administrator+","+RoleNames.Moderator)]
     public partial class AdminController : CustomControllerBase
     {
         public static class WCKeys
@@ -97,7 +97,7 @@ namespace Legato.Controllers
         {
             var list = string.Join(";", (IEnumerable<OpenIDWhiteList>)Current.DB.OpenIDWhiteLists.Where(w => w.IsEnabled).ToArray());
             ViewBag.list = list;
-            return View("WhitelistForm");
+            return View();
         }
 
         [Url("Admin/Whitelist/Set")]

@@ -14,10 +14,11 @@
         <h2>Welcome message</h2>
         <p>Currently enabled: @ViewBag.isMessageEnabled</p>
         @Html.ActionLink("Toggle", "ToggleMessage")
-        @using (Html.BeginForm("SetMessage"))
+        @using (Html.BeginForm("SetMessage", "Admin"))
         {
             <p>Set message</p>
         @Html.TextBox("message", (string)ViewBag.currentMessage)
+        <p><input type="submit" value="Submit" /></p>
         }
 
         <hr />
@@ -31,10 +32,11 @@
         <hr />
 
         <h2>Delete post</h2>
-        @using (Html.BeginForm("DeletePost"))
+        @using (Html.BeginForm("DeletePost", "Admin"))
         {
             <p>Global Post ID</p>
         @Html.TextBox("id", "")
+        <p><input type="submit" value="Submit" /></p>
         }
 
         <hr />
@@ -46,30 +48,34 @@
 
         <h2>Users</h2>
 
-        @using (Html.BeginForm("UserSearchByName"))
+        @using (Html.BeginForm("UserSearchByName", "Admin"))
         {
             <p>Find by name! Name contains:</p>
             @Html.TextBox("nameContains", "")
+        <p><input type="submit" value="Submit" /></p>
         }
 
-        @using (Html.BeginForm("GetGuidFromUsername"))
+        @using (Html.BeginForm("GetGuidFromUsername", "Admin"))
         {
             <p>Get GUID from username:</p>
             @Html.TextBox("username", "")
+        <p><input type="submit" value="Submit" /></p>
         }
 
-        @using (Html.BeginForm("GetUserById"))
+        @using (Html.BeginForm("GetUserById", "Admin"))
         {
             <p>Get info by GUID:</p>
             @Html.TextBox("UserId", "")
+        <p><input type="submit" value="Submit" /></p>
         }
 
         @Html.ActionLink("Suspend user", "SuspendUser")
         
-        @using (Html.BeginForm("GetEmailList"))
+        @using (Html.BeginForm("GetEmailList", "Admin"))
         {
             <p>Get email list with delimiter:</p>
             @Html.TextBox("delimiter", "")
+        <p><input type="submit" value="Submit" /></p>
         }
 
         <hr />

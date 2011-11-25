@@ -563,6 +563,7 @@
     <Content Include="Views\Admin\GetWhitelist.cshtml" />
     <Content Include="Views\Admin\UserSearchByName.cshtml" />
     <Content Include="Views\Admin\SuspendUser.cshtml" />
+    <Content Include="Views\Admin\GetUserById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
