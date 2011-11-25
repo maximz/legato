@@ -24,7 +24,7 @@
 	  <div class="ContentTop">
 		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">@Model.Instrument.InstrumentType.Name</h1>
-		  <h2><i>@Model.Instrument.StreetAddress</i> (@Model.Instrument.VenueName)</h2>
+		  <h2><em>@Model.Instrument.VenueName</em> <span class="small">(@Model.Instrument.StreetAddress)</span></h2>
 		  <h3>For @Model.Instrument.ListingClass</h3>
 		  @if (Model.Instrument.Price.HasValue)
 		  {
@@ -53,14 +53,12 @@ else
 	 {
 		<div class="review" id="review-@r.ReviewID">
 			<div class="ratings">
-				<p><b>Ratings:</b></p>
-					<label for="rate-general-@r.ReviewID">General: </label><div id="rate-general-@r.ReviewID"></div>
+			    <div id="rate-general-@r.ReviewID"></div>
 			</div>
 			<div class="message">
 				@(new HtmlString(r.Revisions.First().MessageHTML))
 			</div>
 			<div class="details">
-				<p>Last used: <span class="timeago" title="@r.Revisions.First().LastUseDate">@r.Revisions.First().LastUseDate</span></p>
 			</div>
 			<div class="actions">
 				@Html.Action(MVC.Instruments.UserLinksForReview(r.ReviewID))
