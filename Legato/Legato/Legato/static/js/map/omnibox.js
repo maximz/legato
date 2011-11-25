@@ -57,7 +57,7 @@ var Legato = Legato || {};
 
 				self.omni.autocomplete(
 				{
-					source: Legato.map.markers.concat(Legato.instypes),
+					source: Legato.instypes, // if we want to include markers: source: Legato.map.markers.concat(Legato.instypes),
 					select: function (event, ui)
 					{
 						if(ui.item && ui.item.omniType)
