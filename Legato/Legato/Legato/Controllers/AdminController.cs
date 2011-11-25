@@ -16,7 +16,7 @@ using System.Web.Security;
 namespace Legato.Controllers
 {
     [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false, AuthorizedRoles = RoleNames.Administrator)]
-    public class AdminController : CustomControllerBase
+    public partial class AdminController : CustomControllerBase
     {
         public static class WCKeys
         {
@@ -29,7 +29,7 @@ namespace Legato.Controllers
         // GET: /Admin/
         [Url("Admin")]
         [HttpGet]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             ViewBag.isMessageEnabled = (ConfigurationManager.AppSettings[WCKeys.messageEnabled] == "true");
             ViewBag.currentMessage = Server.HtmlDecode(ConfigurationManager.AppSettings[WCKeys.messageText]);
@@ -44,7 +44,7 @@ namespace Legato.Controllers
 
         [Url("Admin/Message/Toggle")]
         [HttpGet]
-        public ActionResult ToggleMessage()
+        public virtual ActionResult ToggleMessage()
         {
             var key = WCKeys.messageEnabled;
             var messageEnabled = ConfigurationManager.AppSettings[key];
@@ -64,7 +64,7 @@ namespace Legato.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [VerifyReferrer]
-        public ActionResult SetMessage(string message)
+        public virtual ActionResult SetMessage(string message)
         {
             var key = WCKeys.messageText;
             ConfigurationManager.AppSettings.Set(key, Server.HtmlEncode(message));
@@ -77,7 +77,7 @@ namespace Legato.Controllers
 
         [Url("Admin/Whitelist/Toggle")]
         [HttpGet]
-        public ActionResult ToggleWhitelist()
+        public virtual ActionResult ToggleWhitelist()
         {
             var current = CustomControllerBase.WhiteListEnabled;
             if (current)
@@ -93,7 +93,7 @@ namespace Legato.Controllers
 
         [Url("Admin/Whitelist/Get")]
         [HttpGet]
-        public ActionResult GetWhitelist()
+        public virtual ActionResult GetWhitelist()
         {
             var list = string.Join(";", (IEnumerable<OpenIDWhiteList>)Current.DB.OpenIDWhiteLists.Where(w => w.IsEnabled).ToArray());
             ViewBag.list = list;
@@ -104,7 +104,7 @@ namespace Legato.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [VerifyReferrer]
-        public ActionResult SetWhitelist(string list)
+        public virtual ActionResult SetWhitelist(string list)
         {
             var openids = list.Split(';');
             foreach (var i in Current.DB.OpenIDWhiteLists)
@@ -132,7 +132,7 @@ namespace Legato.Controllers
         [Url("Admin/DeletePost")]
         [HttpPost]
         [VerifyReferrer]
-        public ActionResult DeletePost(int id)
+        public virtual ActionResult DeletePost(int id)
         {
             var gpost = Current.DB.GlobalPostIDs.Where(p => p.GlobalPostID1 == id).SingleOrDefault();
             gpost.FillProperties();
@@ -301,7 +301,7 @@ namespace Legato.Controllers
         [Url("Admin/Users/Emails/{delimiter}")]
         [HttpPost]
         [VerifyReferrer]
-        public ActionResult GetEmailList(string delimiter)
+        public virtual ActionResult GetEmailList(string delimiter)
         {
             return Content(string.Join(delimiter, Current.DB.aspnet_Memberships.Select(m => m.Email).ToArray()));
         }

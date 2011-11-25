@@ -24,6 +24,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC {
     public static Legato.Controllers.AccountController Account = new Legato.Controllers.T4MVC_AccountController();
+    public static Legato.Controllers.AdminController Admin = new Legato.Controllers.T4MVC_AdminController();
     public static Legato.Controllers.ErrorController Error = new Legato.Controllers.T4MVC_ErrorController();
     public static Legato.Controllers.HomeController Home = new Legato.Controllers.T4MVC_HomeController();
     public static Legato.Controllers.InstrumentsController Instruments = new Legato.Controllers.T4MVC_InstrumentsController();
