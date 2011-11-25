@@ -29,8 +29,8 @@ namespace Legato.ViewModels
             get;
             set;
         }
-        [Display(Name="Nickname",Description="Enter your nickname for the site here.")]
-        [Required(ErrorMessage="You must choose a Nickname.")]
+        [Display(Name="Username",Description="Enter your username for the site here.")]
+        [Required(ErrorMessage="You must choose a username.")]
         public string Nickname
         {
             get;
