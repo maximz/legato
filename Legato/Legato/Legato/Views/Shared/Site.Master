@@ -102,7 +102,7 @@
 	  <section class="Footer">
 	  <div class="Facebookcode">
 		<p class="copyright" style="font-size:.8em;">Copyright &copy; <%= DateTime.Now.Year%> Legato Network. All Rights Reserved. <br /> User contributions licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license">cc-by-nc-sa</a>.</p>
-		<div class="Facebookcode"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRadiumOne%2F113084648745200%3Fv%3Dpage_getting_started&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe></div>
+		<!--<div class="Facebookcode"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FLegatoNetwork&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe></div>-->
 		</div>
 		<ul>
 		  <li><a href="/about/contact" title="Contact Us">Contact Us</a></li>
