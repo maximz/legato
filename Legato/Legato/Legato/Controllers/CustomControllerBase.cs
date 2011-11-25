@@ -39,6 +39,10 @@ namespace Legato.Controllers
                 }
                 return whiteListEnabled.Value;
             }
+            internal set
+            {
+                whiteListEnabled = value;
+            }
         }
 
         #region From SEDE

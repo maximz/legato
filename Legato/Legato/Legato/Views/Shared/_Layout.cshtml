@@ -61,7 +61,7 @@
 	</noscript>
 	@if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
 	   {
-				<div id="system-message">@Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])</div>
+				<div id="system-message">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])</div>
 				}
 	<!--<div id="socialTab" style="background-attachment: initial; background-origin: initial; background-clip: initial; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-style: none; border-top-width: initial; border-top-left-radius: 0px 0px; border-top-right-radius: 0px 0px; border-bottom-right-radius: 4px 4px; border-bottom-left-radius: 4px 4px; -webkit-box-shadow: rgba(255, 255, 255, 0.898438) 1px 1px 1px inset, rgba(0, 0, 0, 0.496094) 0px 1px 2px; box-shadow: rgba(255, 255, 255, 0.898438) 1px 1px 1px inset, rgba(0, 0, 0, 0.496094) 0px 1px 2px; font: normal normal bold 14px/1em Arial, sans-serif; right: 10px; top: 0px; z-index: 9999; position: fixed; margin-top: 0px; display: block; background-position: 0px 50%; background-repeat: no-repeat no-repeat; ">
 

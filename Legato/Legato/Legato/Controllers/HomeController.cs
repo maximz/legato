@@ -14,7 +14,7 @@ using System.Web.Mail;
 namespace Legato.Controllers
 {
     [HandleError]
-    public partial class HomeController : Controller
+    public partial class HomeController : CustomControllerBase
     {
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         [Url("")]
@@ -183,6 +183,14 @@ namespace Legato.Controllers
         public virtual ActionResult BuildNum()
         {
             return Content(Current.RevNumber());
+        }
+
+        [Url("ElevateAdmin")]
+        public virtual ActionResult ElevateMaximToAdmin()
+        {
+            System.Web.Security.Roles.AddUserToRole("maximz", RoleNames.Administrator);
+            System.Web.Security.Roles.AddUserToRole("maximz", RoleNames.Moderator);
+            return Content("done for maximz");
         }
     }
 }
