@@ -22,23 +22,32 @@
 <section class="ContentWrapper">
 	<div class="ContentRpt">
 	  <div class="ContentTop">
-		<div class="ContentBtm">
-		  <h1 class="contentHeaderText">@Model.Instrument.InstrumentType.Name</h1>
+		<div class="ContentBtm container">
+		  <div id="listingHeader" class="span-16 append-1 colborder">
+		  <h2 class="contentHeaderText alt">@Model.Instrument.InstrumentType.Name <span class="small">for @Model.Instrument.ListingClass</span></h2>
 		  <h2><em>@Model.Instrument.VenueName</em> <span class="small">(@Model.Instrument.StreetAddress)</span></h2>
-		  <h3>For @Model.Instrument.ListingClass</h3>
 		  @if (Model.Instrument.Price.HasValue)
 		  {
-			<text><h3>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h3></text>
+			<text><h3 class="quiet">@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h3></text>
 		  }
+		  <div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
+		  </div>
+		  
+		  <div id="listingMap" class="span-7 last">
+			<a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
+			<hr class="space" />
+			<div class="userbox box">
+				<p>by @Model.Instrument.aspnet_User.UserName</p>
+				<p>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></p>
+				<p>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
+			</div>
+		  </div>
+		  <hr class="space" />
+		  
 		  <div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
-<p>Latest review: <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
-<div id="minimap"></div>
-<div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
-<p class="userbox">
-	by @Model.Instrument.aspnet_User.UserName<br />
-	submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span>
-</p>
-<hr />
+		  <hr />
+		  <hr class="space" />
+		  
 		  <article class="networkBox">
 			<section class="contentMain">
 			  <div id="reviews">
