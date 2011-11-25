@@ -118,6 +118,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstrumentsController.cs" />
+    <Compile Include="Controllers\LegalController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Current.cs" />
     <Compile Include="Default.aspx.cs">
@@ -564,6 +565,10 @@
     <Content Include="Views\Admin\UserSearchByName.cshtml" />
     <Content Include="Views\Admin\SuspendUser.cshtml" />
     <Content Include="Views\Admin\GetUserById.cshtml" />
+    <Content Include="Views\Legal\Content.cshtml" />
+    <Content Include="Views\Legal\Index.cshtml" />
+    <Content Include="Views\Legal\Privacy.cshtml" />
+    <Content Include="Views\Legal\TermsOfService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -599,7 +604,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
