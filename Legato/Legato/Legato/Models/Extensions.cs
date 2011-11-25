@@ -88,7 +88,24 @@ namespace Legato.Models
             NumberOfReviews = reviewCount;
 
             // Generate Title and UrlSlug
-            Title = this.Brand.Trim() + " " + this.Model.Trim() + " (" + this.InstrumentType.Name + ") at " + this.StreetAddress.Trim();
+            Title = "";
+            if(this.Brand.HasValue())
+            {
+                Title += this.Brand.Trim() + " ";
+            }
+            if (this.Model.HasValue())
+            {
+                Title += this.Model.Trim() + " ";
+            }
+            if (this.InstrumentType != null && this.InstrumentType.Name.HasValue())
+            {
+                Title += this.InstrumentType.Name.Trim() + " ";
+            }
+            if (this.StreetAddress.HasValue())
+            {
+                Title += this.StreetAddress.Trim() + " ";
+            }
+            Title = Title.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
         }
 

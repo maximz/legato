@@ -96,6 +96,7 @@ namespace Legato.ViewModels
             if (Types == null)
             {
                 var dbTypes = (from t in Current.DB.InstrumentTypes
+                               orderby t.TypeID ascending
                                select new { Id = t.TypeID, Name = t.Name }).ToArray();
                 Types = new SelectList(dbTypes, "Id", "Name");
             }
