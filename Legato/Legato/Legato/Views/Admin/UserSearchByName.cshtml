@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Legato.Models.aspnet_User>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>UserSearchByName</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table>
+        <tr>
+            <th>
+                ApplicationId
+            </th>
+            <th>
+                UserName
+            </th>
+            <th>
+                LoweredUserName
+            </th>
+            <th>
+                MobileAlias
+            </th>
+            <th>
+                IsAnonymous
+            </th>
+            <th>
+                LastActivityDate
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoweredUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileAlias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAnonymous)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastActivityDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

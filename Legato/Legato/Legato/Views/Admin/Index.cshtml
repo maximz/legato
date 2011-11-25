@@ -52,6 +52,12 @@
             @Html.TextBox("nameContains", "")
         }
 
+        @using (Html.BeginForm("GetGuidFromUsername"))
+        {
+            <p>Get GUID from username:</p>
+            @Html.TextBox("username", "")
+        }
+
         @using (Html.BeginForm("GetUserById"))
         {
             <p>Get info by GUID:</p>

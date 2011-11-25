@@ -184,14 +184,31 @@ namespace Legato.Controllers
             try
             {
                 var db = Current.DB;
-                var results = db.aspnet_Users.Where(u => u.UserName.Contains(nameContains)).Take(50).ToList();
-                return View("UserSearchByNamePOST", results);
+                var results = db.aspnet_Users.Where(u => u.UserName.Contains(nameContains)).Take(500).ToList();
+                return View(results);
             }
             catch
             {
                 return RedirectToAction("InternalServerError", "Error");
             }
 
+        }
+
+        [Url("Admin/Users/GetGuid")]
+        [HttpPost]
+        [VerifyReferrer]
+        public virtual ActionResult GetGuidFromUsername(string username)
+        {
+            try
+            {
+                var db = Current.DB;
+                var result = db.aspnet_Users.Where(u => u.UserName == username).SingleOrDefault().aspnet_Membership.UserId;
+                return Content(result.ToString());
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
         }
 
         [Url("Admin/Users/View/{UserId}")]
