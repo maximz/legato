@@ -23,7 +23,7 @@
 	<div class="ContentRpt">
 	  <div class="ContentTop">
 		<div class="ContentBtm">
-		  <h1 class="contentHeaderText">@Model.Instrument.Brand @Model.Instrument.Model (@Model.Instrument.InstrumentType.Name)</h1>
+		  <h1 class="contentHeaderText">@Model.Instrument.InstrumentType.Name</h1>
 		  <h2><i>@Model.Instrument.StreetAddress</i> (@Model.Instrument.VenueName)</h2>
 		  <h3>For @Model.Instrument.ListingClass</h3>
 		  @if (Model.Instrument.Price.HasValue)
@@ -31,7 +31,6 @@
 			<text><h3>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h3></text>
 		  }
 		  <div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
-@(/*<p>Latest use: <span class="timeago" title="@Model.Instrument.LatestUseDate">@Model.Instrument.LatestUseDate</span></p>*/)
 <p>Latest review: <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
 <div id="minimap"></div>
 <div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
@@ -53,13 +52,12 @@ else
 	foreach (var r in Model.Reviews)
 	 {
 		<div class="review" id="review-@r.ReviewID">
-			@r.Revisions.First()
 			<div class="ratings">
 				<p><b>Ratings:</b></p>
 					<label for="rate-general-@r.ReviewID">General: </label><div id="rate-general-@r.ReviewID"></div>
 			</div>
 			<div class="message">
-				@r.Revisions.First().MessageHTML
+				@(new HtmlString(r.Revisions.First().MessageHTML))
 			</div>
 			<div class="details">
 				<p>Last used: <span class="timeago" title="@r.Revisions.First().LastUseDate">@r.Revisions.First().LastUseDate</span></p>
@@ -76,7 +74,7 @@ else
 	 }
 	 if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
 	 {
-		<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?",MVC.Instruments.Individual(Model.Instrument.InstrumentID,Model.Instrument.UrlSlug))</p>
+		<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?","Individual", new {instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
 	 }
 	 <p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID))</p>
 }
@@ -98,7 +96,7 @@ else
 $('#averageRating').raty({
   cancel:     false,
   readOnly:   true,
-  start:  @Model.Instrument.AverageOverallRating,
+  start:  @(Model.Instrument.AverageOverallRating),
   size: 24,
   path:       '/static/images/raty/'
 });
@@ -110,7 +108,7 @@ $('#averageRating').raty({
 	<text>$('#rate-general-@r.ReviewID').raty({
   cancel:     false,
   readOnly:   true,
-  start:  @r.Revisions.First().RatingGeneral,
+  start:  @(r.Revisions.First().RatingGeneral),
   path:       '/static/images/raty/'
 });
 </text>
