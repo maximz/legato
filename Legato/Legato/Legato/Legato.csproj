@@ -149,6 +149,7 @@
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
+    <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\UniqueStringIDGenerator.cs" />
     <Compile Include="Helpers\Validation\ComparePropertiesAttribute.cs" />
     <Compile Include="Helpers\Validation\CompareValueAttribute.cs" />
@@ -185,6 +186,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Account\OpenIdRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Home\ContactViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EditListingViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EditReviewViewModel.cs" />
     <Compile Include="ViewModels\Instruments\EquipmentViewModel.cs" />
@@ -201,6 +203,7 @@
     <Content Include="404.html" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
+    <Content Include="search\lucene\ForcePublish.txt" />
     <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
@@ -221,8 +224,11 @@
     <Content Include="static\css\extra.css" />
     <Content Include="static\css\index.css" />
     <Content Include="static\css\map\home.css" />
+    <Content Include="static\css\map\home.min.css" />
     <Content Include="static\css\map\messageBubble.css" />
+    <Content Include="static\css\map\messageBubble.min.css" />
     <Content Include="static\css\map\style.css" />
+    <Content Include="static\css\map\style.min.css" />
     <Content Include="static\css\navigation.css" />
     <Content Include="static\css\text-museo-and-sans-2.css" />
     <Content Include="static\css\webfonts\svg\index.html" />
@@ -235,6 +241,7 @@
     <Content Include="static\images\content_top.jpg" />
     <Content Include="static\images\display_red.jpg" />
     <Content Include="static\images\DownloadIcn.png" />
+    <Content Include="static\images\find_instrument-button.png" />
     <Content Include="static\images\find_more.png" />
     <Content Include="static\images\formTboxBg01.jpg" />
     <Content Include="static\images\header_hdg-2.png" />
@@ -252,6 +259,7 @@
     <Content Include="static\images\lock.png" />
     <Content Include="static\images\lock_hover.gif" />
     <Content Include="static\images\logo.png" />
+    <Content Include="static\images\logo_stretched.png" />
     <Content Include="static\images\main_body_bg.jpg" />
     <Content Include="static\images\main_body_bg2.jpg" />
     <Content Include="static\images\map\allInstruments.png" />
@@ -263,6 +271,7 @@
     <Content Include="static\images\map\InsCount.png" />
     <Content Include="static\images\map\markers.png" />
     <Content Include="static\images\map\markers2.png" />
+    <Content Include="static\images\map\mini-logo.png" />
     <Content Include="static\images\map\spinner-large.gif" />
     <Content Include="static\images\map\spinner.gif" />
     <Content Include="static\images\map\spinner1.gif" />
@@ -364,22 +373,34 @@
     <Content Include="static\js\map\libs\respond.js" />
     <Content Include="static\js\map\libs\respond.min.js" />
     <Content Include="static\js\map\map.js" />
+    <Content Include="static\js\map\map.min.js" />
     <Content Include="static\js\map\messageBubble.js" />
+    <Content Include="static\js\map\messageBubble.min.js" />
     <Content Include="static\js\map\mylibs\earth_map_type.js" />
+    <Content Include="static\js\map\mylibs\earth_map_type.min.js" />
     <Content Include="static\js\map\mylibs\gearth.js" />
     <Content Include="static\js\map\mylibs\graticule.3.js" />
+    <Content Include="static\js\map\mylibs\graticule.3.min.js" />
     <Content Include="static\js\map\mylibs\jquery.form.js" />
     <Content Include="static\js\map\mylibs\jquery.form.min.js" />
     <Content Include="static\js\map\mylibs\jquery.hint.js" />
+    <Content Include="static\js\map\mylibs\jquery.hint.min.js" />
     <Content Include="static\js\map\mylibs\jquery.placeholder.js" />
+    <Content Include="static\js\map\mylibs\jquery.placeholder.min.js" />
     <Content Include="static\js\map\mylibs\jquery.spinner.js" />
+    <Content Include="static\js\map\mylibs\jquery.spinner.min.js" />
     <Content Include="static\js\map\mylibs\jquery.tools.min.js" />
     <Content Include="static\js\map\mylibs\jquery.typewatch.js" />
+    <Content Include="static\js\map\mylibs\jquery.typewatch.min.js" />
     <Content Include="static\js\map\mylibs\jquery.validate.min.js" />
     <Content Include="static\js\map\omnibox.js" />
+    <Content Include="static\js\map\omnibox.min.js" />
     <Content Include="static\js\map\plugins.js" />
+    <Content Include="static\js\map\plugins.min.js" />
     <Content Include="static\js\map\script.js" />
+    <Content Include="static\js\map\script.min.js" />
     <Content Include="static\js\map\spinner.js" />
+    <Content Include="static\js\map\spinner.min.js" />
     <Content Include="static\js\modernizr-1.7.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
@@ -454,7 +475,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="search\lucene\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -473,6 +493,8 @@
     <Content Include="Views\Instruments\AlreadyReviewed.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="search\lucene\segments.gen" />
+    <Content Include="search\lucene\segments_1" />
     <None Include="static\css\webfonts\eot\style_154925.eot" />
     <None Include="static\css\webfonts\eot\style_154926.eot" />
     <None Include="static\css\webfonts\eot\style_154928.eot" />
@@ -493,11 +515,6 @@
     <None Include="static\css\webfonts\woff\style_154928.woff" />
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
-    <None Include="static\images\map\allInstruments.psd" />
-    <None Include="static\images\map\allInstrumentsArrow.psd" />
-    <None Include="static\images\map\dot.psd" />
-    <None Include="static\images\map\InsDeployed.psd" />
-    <None Include="static\images\map\title.psd" />
     <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -535,6 +552,9 @@
     <Content Include="Views\Search\RegenerateIndex.cshtml" />
     <Content Include="Views\Search\OptimizeIndex.cshtml" />
     <Content Include="Views\Instruments\Map.cshtml" />
+    <Content Include="Views\Home\ComingSoon.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -570,6 +590,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -1,6 +1,7 @@
 ﻿@using Legato.Helpers;
 @{
 	ViewBag.Title = "Log In or Register";
+	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
 <div style="margin-top:200px;">
@@ -59,12 +60,12 @@
 
 @section HeadContent
 {
-	<link rel="stylesheet" href="/static/openid/openid.css"/>
+	<link rel="stylesheet" href="/static/openid/openid.css?@ViewBag.revNum"/>
 }
 
 @section ScriptContentAtEndOfBody
 {
-  <script src="/static/js/openid-jquery.js" type="text/javascript"></script>
+  <script src="/static/js/openid-jquery.js?@ViewBag.revNum" type="text/javascript"></script>
 
   <script type="text/javascript">
 	  $().ready(function () {

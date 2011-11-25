@@ -14,6 +14,8 @@ using System.Runtime.Remoting.Messaging;
 using System.Web.Caching;
 using MvcMiniProfiler;
 using MvcMiniProfiler.Data;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Legato
 {
@@ -228,6 +230,42 @@ namespace Legato
                 TimeSpan.FromSeconds(durationSecs),
                 CacheItemPriority.High,
                 null);
+        }
+
+
+        /// <summary>
+        /// Gets the current "revision number" slug (for busting our caching when we update files).
+        /// </summary>
+        /// <returns></returns>
+        public static string RevNumber()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.ProductVersion; // gets file version info
+
+            var lastTwoPartsOfVersion = version.Substring(version.IndexOf(".", version.IndexOf(".") + 1) + 1); // gets substring of version, starting at index of second dot (first dot's index is used as startIndex in indexOf)
+            return HtmlUtilities.URLFriendly(lastTwoPartsOfVersion);
+        }
+
+        /// <summary>
+        /// Gets the current Google Analytics key.
+        /// </summary>
+        /// <returns></returns>
+        public static string GAnalyticsKey()
+        {
+            var cacheKey = "GAnalyticsKey";
+            var cacheContents = Current.GetCachedString(cacheKey);
+
+            if (cacheContents == null)
+            {
+                var x = System.Configuration.ConfigurationManager.AppSettings["GAnalyticsKey"];
+                Current.SetCachedObjectPermanent(cacheKey, x); // add to cache
+                return x;
+            }
+            else
+            {
+                return cacheContents;
+            }
         }
 
     }

@@ -43,6 +43,9 @@ namespace Legato
             RegisterRoutes(RouteTable.Routes);
 
             InitProfilerSettings();
+
+            // Route Debugger: to use, uncomment this line:
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
         }
 
 

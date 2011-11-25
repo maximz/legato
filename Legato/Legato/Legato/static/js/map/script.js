@@ -13,7 +13,27 @@
 
 /* Global stuff */
 
-$(document).ready(function() {
+$(document).ready(function () {
+
+    // load all instype information
+    Legato.instypes = [];
+    $.getJSON('/Instruments/AJAX/GetTypes', function (data) {
+        $.each(data, function (i, n) {
+            n.omniType = 'type'; // for omnibox autocomplete logic
+            n.label = n.name; // for jQuery UI autocomplete
+            Legato.instypes.push(n);
+            $('<input type="radio" name="selectedType" />').val(n.id).attr('id', 'type-' + n.id).appendTo('#chooseTypeInputs');
+            $('<label></label>').html(n.name).attr('for', 'type-' + n.id).appendTo('#chooseTypeInputs');
+            $('<br/>').appendTo('#chooseTypeInputs');
+        });
+    });
+    // add allType to omnibox
+    var allType = {};
+    allType.label = 'All';
+    allType.name = 'All';
+    allType.id = -1;
+    allType.omniType = "type";
+    Legato.instypes.push(allType);
 
 // configure modal dialog
 $("#helpText").overlay({
@@ -33,56 +53,61 @@ $("#helpText").overlay({
 
 // configure modal dialog
 $("#typeOverlayTrigger").overlay({
- 
-	// some mask tweaks suitable for modal dialogs
-	mask: 'gray',
-	effect: 'apple',
-	closeOnClick: true,
-	onBeforeLoad: function() {
-		// todo: load pathologies via AJAX, add as radio buttons
-		
-		$.getJSON('/Instruments/AJAX/GetTypes',
-		function (data) {
-			$.each(data, function(i, n){
-				$('<input type="radio" name="selectedType" />').val(n.id).attr('id','type-'+n.id).appendTo('#chooseTypeInputs'); 
-				$('<label></label>').html(n.name).attr('for', 'type-'+n.id).appendTo('#chooseTypeInputs');
-				$('<br/>').appendTo('#chooseTypeInputs');
-			});
-		});
-		
-		/* // grab wrapper element inside content
-		var wrap = this.getOverlay().find('.modalContentWrap');
-		
-		// load the page specified in the overlay trigger
-		wrap.load(this.getTrigger().attr('href')); */
-	}
+
+    // some mask tweaks suitable for modal dialogs
+    mask: 'gray',
+    effect: 'apple',
+    closeOnClick: true
 });
 
+// Configure slider choosing marker size
+$("#chooseMarkerSize #markerSizeSelect").slider({
+    value: 1,
+    min: 1,
+    max: 3,
+    step: .5,
+    slide: function (event, ui) {
+        $("#chooseMarkerSize #amount").val(ui.value);
+    }
+});
+$("#chooseMarkerSize #amount").val($("#chooseMarkerSize #markerSizeSelect").slider("value"));
+
+$('#chooseMarkerSize .submitButton').click(function (e) {
+    e.preventDefault(); // don't submit the form
+    Legato.map.markerSize = parseInt($('#chooseMarkerSize #amount').val());
+    Legato.map.updateMarkerSize(); // changes marker sizes
+    $('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
+    return false; // so the form isn't submitted
+});
+
+/*$('#chooseKmlVisible .submitButton').click(function (e) {
+    e.preventDefault(); // don't submit the form
+
+    var isOn = $('input[name=kmlVisible]', '#chooseKmlVisible').is(':checked');
+    Legato.map.toggleTimeZoneLayer(isOn);
+
+    $('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
+    return false; // so the form isn't submitted
+});*/
+
 // handle button click in modal dialog
-	$('#chooseTypeForm #submitButton').click(function(e) {
-	
-		//debugAlert('handling click');
-		e.preventDefault(); // don't submit the form
-		
-		var selected = $('input[name=selectedType]:checked', '#chooseTypeForm');
-		
-		if(selected == null || parseInt(selected.val()) == -1)
-		{
-			// if All is checked or none of them are checked, unfilter
-			Legato.map.unfilterMarkers();
-			$('#typeOverlayTrigger').text('Filters Disabled');
-		}
-		else
-		{
-			// else if one of them is checked, filter to its id
-			Legato.map.filterMarkers(parseInt(selected.val()));
-			$('#typeOverlayTrigger').text('Filters Enabled');
-		}
-		$('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
-		
-		return false; // so the form isn't submitted
-		
-	});
+$('#chooseTypeForm #submitButton').click(function (e) {
+
+    //debugAlert('handling click');
+    e.preventDefault(); // don't submit the form
+    var selected = $('input[name=selectedType]:checked', '#chooseTypeForm');
+
+    if (selected == null || parseInt(selected.val()) == -1) {
+        // if All is checked or none of them are checked, unfilter
+        Legato.map.unfilterMarkers();
+    }
+    else {
+        // else if one of them is checked, filter to its id
+        Legato.map.filterMarkers(parseInt(selected.val()));
+    }
+    $('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
+    return false; // so the form isn't submitted
+});
 
 
 if ($.browser.msie && $.browser.version <= 8) {

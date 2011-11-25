@@ -1,37 +1,37 @@
 ﻿@{
-    ViewBag.Title = "Log Out";
+	ViewBag.Title = "Log Out";
 }
 
 <section class="NavContent">
-    <div class="LMidBlock">
-      <p class="TopHdg"><span class="about">account</span></p>
-      <ul>
-      </ul>
-    </div>
-    
-    <!-- Left section --></section>
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">account</span></p>
+	  <ul>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
 
 
 <section class="ContentWrapper">
-    <div class="ContentRpt">
-      <div class="ContentTop">
-        <div class="ContentBtm">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">Log Out</h1>
-          <article class="networkBox">
-            <section class="contentMain">
-              <p>If you wish to log out, click the button below.</p>
+		  <article class="networkBox">
+			<section class="contentMain">
+			  <p>If you wish to log out, click the button below.</p>
 	@using(Html.BeginForm("LogOut","Account",FormMethod.Post))
  {          
 		<p>
 			<input type="submit" value="Log Out" />
 		</p>
 	}
-            </section>
-            <!-- network article --></article>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Right section --></section>
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>
   
 

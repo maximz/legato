@@ -1,31 +1,31 @@
 ﻿@model Legato.ViewModels.SearchResultsModel
 
 @{
-    ViewBag.Title = "\""+Html.Encode(Model.Query.Trim())+"\" - Search Results";
+	ViewBag.Title = "\""+Html.Encode(Model.Query.Trim())+"\" - Search Results";
 }
 
 <section class="NavContent">
-    <div class="LMidBlock">
-      <p class="TopHdg"><span class="about">search</span></p>
-      <ul>
-        <li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
-            <ul>
-                <li>@Html.Encode(Model.Query.Trim())</li>
-            </ul>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Left section --></section>
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">search</span></p>
+	  <ul>
+		<li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
+			<ul>
+				<li>@Html.Encode(Model.Query.Trim())</li>
+			</ul>
+		</li>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
 
 
 <section class="ContentWrapper">
-    <div class="ContentRpt">
-      <div class="ContentTop">
-        <div class="ContentBtm">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">Search Results: <i>@Html.Encode(Model.Query.Trim())</i></h1>
-          <article class="networkBox">
-            <section class="contentMain">
+		  <article class="networkBox">
+			<section class="contentMain">
 	<div id="results">
 	@foreach (var item in Model.Results)
 	  {
@@ -40,13 +40,13 @@
 
 	}
 	</div>
-    <p>
+	<p>
 		@Html.ActionLink("Search Again", "Index")
 	</p>
-            </section>
-            <!-- network article --></article>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Right section --></section>
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>

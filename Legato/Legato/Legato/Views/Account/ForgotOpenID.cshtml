@@ -1,24 +1,24 @@
 ﻿@{
-    ViewBag.Title = "Recover OpenID";
+	ViewBag.Title = "Recover OpenID";
 }
 
 <section class="NavContent">
-    <div class="LMidBlock">
-      <p class="TopHdg"><span class="about">account</span></p>
-      <ul>
-      </ul>
-    </div>
-    
-    <!-- Left section --></section>
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">account</span></p>
+	  <ul>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
 
 
 <section class="ContentWrapper">
-    <div class="ContentRpt">
-      <div class="ContentTop">
-        <div class="ContentBtm">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">Recover OpenID</h1>
-          <article class="networkBox">
-            <section class="contentMain">
+		  <article class="networkBox">
+			<section class="contentMain">
 	<p>If you don't recall what OpenID your account uses, you can find out by entering your email address below. We will then send you the OpenID information for the account belonging to that email address.</p>
 	@using (Html.BeginForm("ForgotOpenID","Account",FormMethod.Post)) {
 		@Html.ValidationSummary(true)
@@ -40,12 +40,12 @@
 		</fieldset>
 
 	}
-            </section>
-            <!-- network article --></article>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Right section --></section>
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>
   
 

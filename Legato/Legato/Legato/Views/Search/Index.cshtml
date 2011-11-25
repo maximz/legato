@@ -1,38 +1,38 @@
 ﻿@{
-    ViewBag.Title = "Search";
+	ViewBag.Title = "Search";
 }
 
 <section class="NavContent">
-    <div class="LMidBlock">
-      <p class="TopHdg"><span class="about">search</span></p>
-      <ul>
-        <li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
-        </li>
-      </ul>
-    </div>
-    
-    <!-- Left section --></section>
+	<div class="LMidBlock">
+	  <p class="TopHdg"><span class="about">search</span></p>
+	  <ul>
+		<li><a href="@Url.Action("Index", "Search")" class="act" title="start search">start search</a>
+		</li>
+	  </ul>
+	</div>
+	
+	<!-- Left section --></section>
 
 
 <section class="ContentWrapper">
-    <div class="ContentRpt">
-      <div class="ContentTop">
-        <div class="ContentBtm">
+	<div class="ContentRpt">
+	  <div class="ContentTop">
+		<div class="ContentBtm">
 		  <h1 class="contentHeaderText">Search</h1>
-          <article class="networkBox">
-            <section class="contentMain">
-              @using(Html.BeginForm("IndexPost","Search"))
-              {
-		        <p>Search for...</p>
-		        <input id="query" type="text" name="query" size="31" title="search query/term"/> 
-		        <!--<input id="tags" type="text" name="tags" size="31" title="in these tags (optional)" />-->
-		        <p><input type="submit" value="Search" /></p>
-	          }
-            </section>
-            <!-- network article --></article>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Right section --></section>
+		  <article class="networkBox">
+			<section class="contentMain">
+			  @using(Html.BeginForm("IndexPost","Search"))
+			  {
+				<p>Search for...</p>
+				<input id="query" type="text" name="query" size="31" title="search query/term"/> 
+				<!--<input id="tags" type="text" name="tags" size="31" title="in these tags (optional)" />-->
+				<p><input type="submit" value="Search" /></p>
+			  }
+			</section>
+			<!-- network article --></article>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Right section --></section>
   
