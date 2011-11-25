@@ -310,7 +310,7 @@ namespace Legato.Controllers
         #endregion
 
         #region Listing and Review Creation Methods
-        [Url("Instrument/Submit")]
+        [Url("Instruments/Submit")]
         [HttpGet]
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         public virtual ActionResult Submit()
@@ -319,7 +319,7 @@ namespace Legato.Controllers
 
             return View(model);
         }
-        [Url("Instrument/Submit")]
+        [Url("Instruments/Submit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
         [HttpPost][VerifyReferrer]
         [ValidateInput(false)]
