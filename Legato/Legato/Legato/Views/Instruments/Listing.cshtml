@@ -5,56 +5,85 @@
 	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
-<section class="NavContent">
-	<div class="LMidBlock">
-	  <p class="TopHdg"><span class="about">instruments</span></p>
-	  <ul>
-		<li><a href="@Url.Action("Index", "Instruments")" class="act" title="map">map</a></li>
-		<li><a href="@Url.Action("Submit", "Instruments")" class="act" title="submit">submit</a></li>
-		<li><a href="@Url.Action("Individual",new { instrumentID = Model.Instrument.InstrumentID})" class="act" title="listing">listing</a>
-		</li>
-	  </ul>
-	</div>
-	
-	<!-- Left section --></section>
+@section HeadContent {
 
+<style type="text/css">
+      /* Override some defaults */
+      html, body {
+        background-color: #eee;
+      }
+      body {
+        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+      }
+      .container > footer p {
+        text-align: center; /* center align it with the container */
+      }
+      .container {
+        width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+      }
 
-<section class="ContentWrapper">
-	<div class="ContentRpt">
-	  <div class="ContentTop">
-		<div class="ContentBtm container">
-		  <div id="listingHeader" class="span-16 append-1 colborder">
-		  <h2 class="contentHeaderText alt">@Model.Instrument.InstrumentType.Name <span class="small">for @Model.Instrument.ListingClass</span></h2>
-		  <h2><em>@Model.Instrument.VenueName</em> <span class="small">(@Model.Instrument.StreetAddress)</span></h2>
-		  @if (Model.Instrument.Price.HasValue)
+      /* The white background content wrapper */
+      .container > .content {
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+        -webkit-border-radius: 0 0 6px 6px;
+           -moz-border-radius: 0 0 6px 6px;
+                border-radius: 0 0 6px 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+
+      /* Page header tweaks */
+      .page-header {
+        background-color: #f5f5f5;
+        padding: 20px 20px 10px;
+        margin: -20px -20px 20px;
+      }
+
+      /* Give a quick and non-cross-browser friendly divider */
+      .content .s4divider {
+        margin-left: 0;
+        padding-left: 19px;
+        border-left: 1px solid #eee;
+      }
+
+      .topbar .btn {
+        border: 0;
+      }
+
+    </style>
+
+}
+
+<div class="content">
+        <div class="page-header">
+          <h1>@Model.Instrument.InstrumentType.Name <small>for @Model.Instrument.ListingClass at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
+		  <div class="row">
+			<div class="span10">
+			@if (Model.Instrument.Price.HasValue)
 		  {
-			<text><h3 class="quiet">@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</h3></text>
+			<text><p>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
 		  }
-		  <div id="actions">@Html.Action(MVC.Instruments.UserLinksForListing(Model.Instrument.InstrumentID))</div>
+		  <div id="actions">@Html.Action("UserLinksForListing",new { instrumentID = Model.Instrument.InstrumentID })</div>
 		  </div>
-		  
-		  <div id="listingMap" class="span-7 last">
-			<a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
-			<hr class="space" />
-			<div class="userbox box">
+			<div class="span4 pull-right">
+				<p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID), new { @class="btn primary large" })</p>
+				<div class="userbox box">
 				<p>by @Model.Instrument.aspnet_User.UserName</p>
 				<p>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></p>
 				<p>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
+				</div>
 			</div>
-		  </div>
-		  <hr class="space" />
-		  
-		  <div id="averageRating">Average Rating: @Model.Instrument.AverageOverallRating</div>
-		  <hr />
-		  <hr class="space" />
-		  
-		  <article class="networkBox">
-			<section class="contentMain">
-			  <div id="reviews">
-<h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
-@if (Model.Reviews == null || Model.Reviews.Count() < 1)
+		  </div> <!--- //row -->
+        </div> <!--- /header -->
+		<div class="row">
+          <div class="span10">
+            <h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
+			@if (Model.Reviews == null || Model.Reviews.Count() < 1)
 {
-	<h2 class="alt centered">No reviews yet. @Html.ActionLink("Add one now?", MVC.Instruments.Review(Model.Instrument.InstrumentID))</h2>
+	<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new {instrumentID = Model.Instrument.InstrumentID})</p>
 }
 else
 {
@@ -65,19 +94,26 @@ else
 			    <div id="rate-general-@r.ReviewID"></div>
 			</div>
 			<div class="message">
-				@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))
+				<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
 			</div>
+			<div class="row">
+			<div class="span10">
 			<div class="details">
 			</div>
-			<div class="actions">
+			<div class="actionLinks">
 				@Html.Action(MVC.Instruments.UserLinksForReview(r.ReviewID))
 			</div>
-			<p class="userbox">
-				by @r.aspnet_User.UserName<br />
-				submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span>
-				@if(r.Revisions.Count()>1) { <text><br />edited @r.Revisions.Count() times</text> }
-			</p>
+			</div>
+			<div class="span4 s4divider">
+			<div class="userbox box">
+				<p>by @r.aspnet_User.UserName</p>
+				<p>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></p>
+				@if(r.Revisions.Count()>1) { <text><p>edited @r.Revisions.Count() times</p></text> }
+			</div>
+			</div>
+			</div>
 		</div>
+		<hr/>
 	 }
 	 if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
 	 {
@@ -85,15 +121,13 @@ else
 	 }
 	 <p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID))</p>
 }
+          </div>
+          <div class="span4 s4divider">
+			<a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
 
-</div>
-			</section>
-			<!-- network article --></article>
-		</div>
-	  </div>
-	</div>
-	
-	<!-- Right section --></section>
+          </div>
+        </div>
+      </div>
 
 @section ScriptContentAtEndOfBody {
 <script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>

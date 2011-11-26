@@ -294,7 +294,7 @@ kbd {
 }
 
 /* tags and menu */
-.post-menu{padding-top:2px;}.post-menu>a,.edit-tags-wrapper>span>a{padding:0 3px 2px 3px;color:#888;}.post-menu>a:hover,.edit-tags-wrapper>span>a:hover{background-color:#777;color:#fff;text-decoration:none;}.edit-tags-wrapper{padding-right:40px;}.edit-tags-wrapper>a.post-tag{margin-right:6px;}.post-menu .lsep{margin:0;padding:0;}
+.post-menu{padding-top:2px;display:inline;}.post-menu>a,.edit-tags-wrapper>span>a{padding:0 3px 2px 3px;color:#888;}.post-menu>a:hover,.edit-tags-wrapper>span>a:hover{background-color:#777;color:#fff;text-decoration:none;}.edit-tags-wrapper{padding-right:40px;}.edit-tags-wrapper>a.post-tag{margin-right:6px;}.post-menu .lsep{margin:0;padding:0;display:inline;}
 
 /* map */
 #mapView #mainHeader #messagesPosted {display:block;}
