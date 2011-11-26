@@ -1,27 +1,73 @@
 ﻿@model Legato.ViewModels.EditListingViewModel
 
 @{
-    ViewBag.Title = "EditListing";
+    ViewBag.Title = "Edit Listing";
     ViewBag.revNum = Legato.Current.RevNumber();
 }
 
-<h2>EditListing</h2>
-
+@section ScriptContentAtEndOfBody {
 <script src="@Url.Content("~/static/js/jquery.validate.min.js")?@ViewBag.revNum" type="text/javascript"></script>
 <script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+}
+
+<section id="edit-listing">
+  <div class="page-header">
+	<h1>Edit Listing</h1>
+  </div>
+	  <!-- Example row of columns -->
+	  <div class="row">
+		<div class="span16">
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>EditListingViewModel</legend>
+	@Html.ValidationSummary(true)
+	<fieldset>
+			<legend>Instrument details</legend>
+			
+			<div class="clearfix">
+				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
+			<div class="input">
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
+			</div></div>
+			
+			<div class="clearfix">
+				@Html.LabelFor(model => model.Listing.StreetAddress)
+			<div class="input">
+				@Html.TextBoxFor(model => model.Listing.StreetAddress)
+				@Html.ValidationMessageFor(model => model.Listing.StreetAddress)
+			</div></div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+			<div class="clearfix">
+				@Html.LabelFor(model => model.Listing.VenueName)
+			<div class="input">
+				@Html.TextBoxFor(model => model.Listing.VenueName)
+				@Html.ValidationMessageFor(model => model.Listing.VenueName)
+			</div></div>
+
+			<div class="clearfix">
+				@Html.LabelFor(model => model.Listing.Equipment.SelectedClass)
+			<div class="input">
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedClass, Model.Listing.Equipment.Classes)
+				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
+			</div></div>
+
+
+
+			<div class="clearfix">
+				@Html.LabelFor(model => model.Listing.Price)
+			<div class="input">
+				@Html.TextBoxFor(model => model.Listing.Price, new { title = "price in local currency" }) per @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice, new { title = "year, month, day, hour, etc." })
+				@Html.ValidationMessageFor(model => model.Listing.Price)
+				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
+			</div></div>
+	</fieldset>
+	<div class="actions well">
+			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" class="btn">Cancel</button>
+		  </div>
+		
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+</div>
+</section>
