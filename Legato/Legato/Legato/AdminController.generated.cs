@@ -108,6 +108,7 @@ namespace Legato.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string GetUserById = "~/Views/Admin/GetUserById.cshtml";
             public readonly string GetWhitelist = "~/Views/Admin/GetWhitelist.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
             public readonly string SuspendUser = "~/Views/Admin/SuspendUser.cshtml";

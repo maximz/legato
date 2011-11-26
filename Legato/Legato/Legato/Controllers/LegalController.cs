@@ -8,7 +8,7 @@ using Legato.Helpers;
 
 namespace Legato.Controllers
 {
-    public class LegalController : CustomControllerBase
+    public partial class LegalController : CustomControllerBase
     {
         //
         // GET: /Legal/

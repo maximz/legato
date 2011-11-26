@@ -171,6 +171,9 @@
     <Compile Include="InstrumentsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="LegalController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Legato.designer.cs">
       <AutoGen>True</AutoGen>
@@ -556,7 +559,6 @@
     <Content Include="Views\Error\InternalServerError.cshtml" />
     <Content Include="Views\Account\ChangeEmailSuccess.cshtml" />
     <Content Include="Views\Account\LogOff.cshtml" />
-    <Content Include="Views\Account\ForgotOpenID.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Account\WhiteListBlock.cshtml" />
     <Content Include="Views\Account\VerifyEmailAddressSuccess.cshtml" />
@@ -583,6 +585,7 @@
     <Content Include="Views\Legal\Index.cshtml" />
     <Content Include="Views\Legal\Privacy.cshtml" />
     <Content Include="Views\Legal\TermsOfService.cshtml" />
+    <Content Include="Views\Account\RecoverOpenID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

@@ -315,6 +315,7 @@ namespace Legato.Controllers
         [CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
         public virtual ActionResult Submit()
         {
+            ViewBag.curPage = "Submit";
             var model = new SubmitViewModel();
 
             return View(model);
@@ -326,6 +327,7 @@ namespace Legato.Controllers
         //[RateLimit(Name="InstrumentSubmitPOST", Seconds=600)]
         public virtual ActionResult Submit(SubmitViewModel model)
         {
+            ViewBag.curPage = "Submit";
             if (!ModelState.IsValid)
             {
                 new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");

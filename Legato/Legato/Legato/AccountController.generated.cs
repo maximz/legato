@@ -93,11 +93,11 @@ namespace Legato.Controllers {
         public class ViewNames {
             public readonly string ChangeEmail = "~/Views/Account/ChangeEmail.cshtml";
             public readonly string ChangeEmailSuccess = "~/Views/Account/ChangeEmailSuccess.cshtml";
-            public readonly string ForgotOpenID = "~/Views/Account/ForgotOpenID.cshtml";
             public readonly string LogOff = "~/Views/Account/LogOff.cshtml";
             public readonly string MyProfile = "~/Views/Account/MyProfile.cshtml";
             public readonly string OpenidLogin = "~/Views/Account/OpenidLogin.cshtml";
             public readonly string OpenidRegister = "~/Views/Account/OpenidRegister.cshtml";
+            public readonly string RecoverOpenID = "~/Views/Account/RecoverOpenID.cshtml";
             public readonly string SentForgotOpenidEmail = "~/Views/Account/SentForgotOpenidEmail.cshtml";
             public readonly string ShowSuspensionStatus = "~/Views/Account/ShowSuspensionStatus.cshtml";
             public readonly string TimeToValidateYourEmailAddress = "~/Views/Account/TimeToValidateYourEmailAddress.cshtml";
