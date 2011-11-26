@@ -4,54 +4,63 @@
 	ViewBag.Title = "Register";
 }
 
-<div style="margin-top:200px;">
-	<h1 class="contentHeaderText">Create an Account</h1>
+<section id="content">
+<div class="page-header">
+		<h1>Create an Account</h1>
+	</div>
 	<article>
 		<section>
-			<p>We haven't seen that OpenID before. To create a new account, please fill out the form below. But if you have registered on this site before, please @Html.ActionLink("return to the login page","OpenidLogin","Account") and enter the OpenID you used before. If you don't remember the OpenID you used, @Html.ActionLink("click here","RecoverOpenID","Account").</p>
+			<p>We haven't seen that OpenID before. To create a new account, please fill out the form below.</p>
+			<p>But if you have registered on this site before, please @Html.ActionLink("return to the login page","OpenidLogin","Account") and enter the OpenID you used before. If you don't remember the OpenID you used, @Html.ActionLink("click here","RecoverOpenID","Account").</p>
 			@Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.")
 			@using (Html.BeginForm("OpenidRegisterFormSubmit", "Account", FormMethod.Post))
 			{
 				<div>
 					<fieldset>
 						<legend>Account Information</legend>
-						<p>
+						<div class="clearfix">
 							@Html.LabelFor(m=>m.Nickname)
+							<div class="input">
 							@Html.TextBoxFor(m=>m.Nickname)
 							@Html.ValidationMessageFor(m=>m.Nickname)
-						</p>
-						<p>
+						</div></div>
+						<div class="clearfix">
 							@Html.LabelFor(m=>m.FullName)
+							<div class="input">
 							@Html.TextBoxFor(m=>m.FullName)
 							@Html.ValidationMessageFor(m=>m.FullName)
-						</p>
-						<p>
+						</div></div>
+						<div class="clearfix">
 							@Html.LabelFor(m=>m.EmailAddress)
+							<div class="input">
 							@Html.TextBoxFor(m=>m.EmailAddress)
 							@Html.ValidationMessageFor(m=>m.EmailAddress)
-						</p>
-						<p>
+						</div></div>
+						<div class="clearfix">
 							@Html.LabelFor(m=>m.ConfirmEmailAddress)
+							<div class="input">
 							@Html.TextBoxFor(m => m.ConfirmEmailAddress)
 							@Html.ValidationMessageFor(m => m.ConfirmEmailAddress)
-						</p>
-						<p>
+						</div></div>
+						<div class="clearfix">
 							@Html.LabelFor(m=>m.AboutMe)
+							<div class="input">
 							@Html.TextAreaFor(m=>m.AboutMe)
 							@Html.ValidationMessageFor(m => m.AboutMe)
-						</p>
-						<p>
+						</div></div>
+						<div class="clearfix">
 							<label for="CAPTCHA">Verification word(s):</label>
+							<div class="input">
 							@(new HtmlString(Html.GenerateCaptcha())) <!-- html encoding bugfix http://stackoverflow.com/questions/3665982/decoding-html-in-asp-net-mvc-3/3668620#3668620 -->
-						</p>
+						</div></div>
 						@Html.HiddenFor(m=>m.OpenIdClaim)
 						@Html.AntiForgeryToken()
-						<p>
-							<input type="submit" value="Register" />
-						</p>
+						<div class="clearfix">
+							<input type="submit" class="btn primary large" value="Register" />
+						</div>
 					</fieldset>
 				</div>
 			}
 		</section>
 	</article>
-</div>
+</section>
