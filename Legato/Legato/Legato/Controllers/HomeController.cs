@@ -20,7 +20,7 @@ namespace Legato.Controllers
         [Url("")]
         public virtual ActionResult Index()
         {
-            ViewBag.PageType = "PresentationPage"; // see top of master layout page
+            ViewBag.curPage = "Home";
 
             return View();
         }
@@ -29,6 +29,7 @@ namespace Legato.Controllers
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult About()
         {
+            ViewBag.curPage = "About";
             return View();
         }
 
@@ -36,7 +37,7 @@ namespace Legato.Controllers
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult Faq()
         {
-            return View();
+            return RedirectToAction("About");
         }
 
         [Url("UserContext")]
@@ -54,6 +55,7 @@ namespace Legato.Controllers
         [HttpGet]
         public virtual ActionResult Contact()
         {
+            ViewBag.curPage = "About";
             var model = new ContactViewModel();
             return View(model);
         }
@@ -69,6 +71,7 @@ namespace Legato.Controllers
         [Url("About/ContactSubmit")]
         public virtual ActionResult ContactSubmit(ContactViewModel model, bool captchaValid)
         {
+            ViewBag.curPage = "About";
             if(!ModelState.IsValid)
             {
                 return View("Contact", model);
