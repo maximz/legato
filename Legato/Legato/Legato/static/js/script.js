@@ -1,4 +1,11 @@
 $(function () {
+
+	
+	// Activate UI
+	$('#topbar').dropdown();
+	$('#topbar').scrollSpy();
+	
+	
     /* Name: Demo
     Author: Demo King */
     /*demo namespace*/

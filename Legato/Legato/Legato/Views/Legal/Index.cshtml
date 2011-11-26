@@ -2,40 +2,20 @@
 	ViewBag.Title = "Legal";
 }
 
-<section class="NavContent">
-	<div class="LMidBlock">
-	  <p class="TopHdg"><span class="legal">legal</span></p>
-	  <ul>
-		<li><a href="/legal" class="IconBasics" title="docs">DOCS</a>
-		<ul>
-			<li><a href="/legal/terms" title="terms">TERMS</a></li>
-			<li><a href="/legal/privacy" title="privacy">PRIVACY</a></li>
-			<li><a href="/legal/content" title="content">CONTENT</a></li>
-		</ul>
-		</li>
-	  </ul>
+<section id="legal">
+	<div class="page-header">
+		<h1>Legal <small>Legato Network legal information</small></h1>
 	</div>
-	
-	<!-- Left section --></section>
-  <section class="ContentWrapper">
-	<div class="ContentRpt">
-	  <div class="ContentTop">
-		<div class="ContentBtm">
-		  <h1 class="contentHeaderText">Legato Network Legal Information</h1>
-		  <article class="networkBox">
-			<section class="contentMain">
-
-	<p>The following legal documents are available:</p>
+	<div class="row">
+	<div class="span16">
+		<p>The following legal documents are available:</p>
 	<ul>
 		<li>@Html.ActionLink("Terms of Service","TermsOfService")</li>
 		<li>@Html.ActionLink("Privacy Policy","Privacy")</li>
 		<li>@Html.ActionLink("Content Policy","Content")</li>
 	</ul>
+	</div>
+	</div>
+
 
 </section>
-			<!-- network article --></article>
-		</div>
-	  </div>
-	</div>
-	
-	<!-- Right section --></section>
