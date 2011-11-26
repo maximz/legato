@@ -2,13 +2,20 @@
 <%
     if (Request.IsAuthenticated) {
 %>
-        Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b>!
-        [ <%= Html.ActionLink("Log Off", "LogOff", "Account") %> ]
+	<li class="dropdown" data-dropdown="dropdown">
+    <a href="#" class="dropdown-toggle"><%= Html.Encode(Page.User.Identity.Name) %></a>
+        <ul class="dropdown-menu">
+            <!--<li><a href="#">Secondary link</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>-->
+            <li><a href="<%=Url.Action("LogOff","Account") %>">Logout</a></li>
+        </ul>
+</li>
 <%
     }
     else {
 %> 
-        [ <%= Html.ActionLink("Log On", "Login", "Account") %> ]
+        <li><a href="@Url.Action("Login","Account")">Login</a></li>
 <%
     }
 %>
