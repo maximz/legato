@@ -25,5 +25,38 @@ namespace Legato.Helpers
         {
             return System.Web.Mvc.Html.LinkExtensions.ActionLink(htmlHelper, linkText, actionName, controllerName, routeValues, new object { }).ToHtmlString();
         }
+
+        /// <summary>
+        /// Gets the application root.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetApplicationRoot()
+        {
+            return GetBaseUrl().AbsoluteUri;
+        }
+
+        // See http://blog.veggerby.dk/2009/01/13/getting-an-absolute-url-from-aspnet-mvc/
+
+        /// <summary>
+        /// Builds the URL from root.
+        /// </summary>
+        /// <param name="relativePath">The relative path.</param>
+        /// <returns></returns>
+        public static string BuildURLFromRoot(string relativePath)
+        {
+            //return new Uri(GetBaseUrl(url), url.Action(actionName, controllerName)).AbsoluteUri; // URLHelper
+            return new Uri(GetBaseUrl(), relativePath).AbsoluteUri;
+        }
+
+        /// <summary>
+        /// Gets the application root URI.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetBaseUrl()
+        {
+            Uri contextUri = new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Request.RawUrl);
+            UriBuilder realmUri = new UriBuilder(contextUri) { Path = HttpContext.Current.Request.ApplicationPath, Query = null, Fragment = null };
+            return realmUri.Uri;
+        }
     }
 }

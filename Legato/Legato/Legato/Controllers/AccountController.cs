@@ -719,7 +719,7 @@ namespace Legato.Controllers
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("Click this link to reset your password: ");
-            sb.Append("http://legatonetwork.com/Account/Options/ResetPassword/");
+            sb.Append(ActionLinkExtensions.BuildURLFromRoot("/Account/Options/ResetPassword/"));
             sb.Append(id.ToString());
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
@@ -750,8 +750,7 @@ namespace Legato.Controllers
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("Click this link to verify: ");
-            sb.Append("http://legatonetwork.com/Account/Verify/");
-            sb.Append(id.ToString());
+            sb.Append(ActionLinkExtensions.BuildURLFromRoot("/Account/Verify/" + id.ToString()));
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
@@ -781,7 +780,7 @@ namespace Legato.Controllers
             sb.Append("The OpenID belonging to the user with this email address is: ");
             sb.Append(openID);
             sb.Append(Environment.NewLine);
-            sb.Append("To log in, go to: http://legatonetwork.com/Account/Login");
+            sb.Append("To log in, go to: "+ActionLinkExtensions.BuildURLFromRoot("/Account/Login"));
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
