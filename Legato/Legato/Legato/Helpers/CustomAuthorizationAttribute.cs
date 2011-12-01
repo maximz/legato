@@ -107,7 +107,7 @@ namespace Legato.Helpers
                     filterContext.HttpContext.Response.Redirect(u.Action("ShowSuspensionStatus", "Account"), true);
                     return;
                 }
-                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole(RoleNames.EmailNotConfirmed) && ConfigurationManager.AppSettings["RequireEmailConfirmation"] == "false")
+                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole(RoleNames.EmailNotConfirmed) && ConfigurationManager.AppSettings["RequireEmailConfirmation"] == "true")
                 {
                     //Email hasn't been confirmed
                     filterContext.HttpContext.Response.Clear();
