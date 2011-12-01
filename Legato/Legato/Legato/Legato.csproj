@@ -588,6 +588,8 @@
     <Content Include="Views\Legal\Privacy.cshtml" />
     <Content Include="Views\Legal\TermsOfService.cshtml" />
     <Content Include="Views\Account\RecoverOpenID.cshtml" />
+    <Content Include="Views\Shared\NavFull.cshtml" />
+    <Content Include="Views\Shared\NavPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -623,7 +625,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
