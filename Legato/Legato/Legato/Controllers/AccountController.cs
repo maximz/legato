@@ -65,7 +65,7 @@ namespace Legato.Controllers
 
         [Url("Account/Login/{OneTimeSignupCode?}")]
         [CustomAuthorization(OnlyAllowUnauthenticatedUsers = true)]
-        public virtual ActionResult Login(Guid? OneTimeSignupCode)
+        public virtual ActionResult Login(Guid? OneTimeSignupCode, string ReturnUrl)
         {
             if (OneTimeSignupCode.HasValue)
             {
@@ -80,6 +80,10 @@ namespace Legato.Controllers
                 {
                     ViewData["WelcomeName"] = record.CustomWelcomeName.Trim();
                 }
+            }
+            if(ReturnUrl.HasValue() && Url.IsLocalUrl(ReturnUrl))
+            {
+                Session["ReturnURL"] = ReturnUrl;
             }
             return View("OpenidLogin");
         }
@@ -230,7 +234,8 @@ namespace Legato.Controllers
                                 {
                                     EmailAddress = email,
                                     Nickname = login,
-                                    OpenIdClaim = Crypto.EncryptStringAES(response.ClaimedIdentifier.OriginalString, "OpenIDRegistrationFrenzy")
+                                    OpenIdClaim = Crypto.EncryptStringAES(response.ClaimedIdentifier.OriginalString, "OpenIDRegistrationFrenzy"),
+                                    ReturnURL = Session["ReturnURL"] as string
                                 };
                                 return View("OpenidRegister", model);
                             }
@@ -250,7 +255,12 @@ namespace Legato.Controllers
                                     }
                                 }
                                 FormsAuthentication.SetAuthCookie(userName, true);
-                                return RedirectToAction("Index", "Home");
+                                var URLreturn = Session["ReturnURL"];
+                                if (URLreturn == null || !(URLreturn as string).HasValue())
+                                {
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                return Redirect(URLreturn as string);
                             }
 
                         case AuthenticationStatus.Canceled:
@@ -351,8 +361,20 @@ namespace Legato.Controllers
 
 
                         FormsAuth.SignIn(model.Nickname, true /* createPersistentCookie */);
-                        ViewData["email"] = model.EmailAddress;
-                        return View("TimeToValidateYourEmailAddress");
+
+                        if (ConfigurationManager.AppSettings["PromptEmailConfirmation"] == "true")
+                        {
+                            ViewData["email"] = model.EmailAddress;
+                            return View("TimeToValidateYourEmailAddress");
+                        }
+                        else
+                        {
+                            if(model.ReturnURL.HasValue())
+                            {
+                                return Redirect(model.ReturnURL);
+                            }
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
 
                     catch

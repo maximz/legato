@@ -78,6 +78,7 @@ namespace Legato.Controllers {
             public readonly string PostRedirect = "PostRedirect";
             public readonly string BuildNum = "BuildNum";
             public readonly string ElevateMaximToAdmin = "ElevateMaximToAdmin";
+            public readonly string GetNav = "GetNav";
         }
 
 
@@ -149,6 +150,11 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult ElevateMaximToAdmin() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ElevateMaximToAdmin);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult GetNav() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetNav);
             return callInfo;
         }
 

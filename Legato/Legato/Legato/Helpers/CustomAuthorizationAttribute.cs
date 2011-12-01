@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Legato.Controllers;
 using System.Web.Security;
 using System.Web.Routing;
+using System.Configuration;
 
 namespace Legato.Helpers
 {
@@ -106,7 +107,7 @@ namespace Legato.Helpers
                     filterContext.HttpContext.Response.Redirect(u.Action("ShowSuspensionStatus", "Account"), true);
                     return;
                 }
-                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole(RoleNames.EmailNotConfirmed))
+                if(!AuthorizeEmailNotConfirmed && filterContext.HttpContext.User.IsInRole(RoleNames.EmailNotConfirmed) && ConfigurationManager.AppSettings["RequireEmailConfirmation"] == "false")
                 {
                     //Email hasn't been confirmed
                     filterContext.HttpContext.Response.Clear();

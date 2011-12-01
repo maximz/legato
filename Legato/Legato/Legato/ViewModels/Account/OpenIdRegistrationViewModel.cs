@@ -55,5 +55,17 @@ namespace Legato.ViewModels
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the return URL.
+        /// </summary>
+        /// <value>
+        /// The return URL.
+        /// </value>
+        public string ReturnURL
+        {
+            get;
+            set;
+        }
+
     }
 }

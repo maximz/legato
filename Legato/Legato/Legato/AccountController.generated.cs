@@ -110,9 +110,10 @@ namespace Legato.Controllers {
     public class T4MVC_AccountController: Legato.Controllers.AccountController {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Login(System.Guid? OneTimeSignupCode) {
+        public override System.Web.Mvc.ActionResult Login(System.Guid? OneTimeSignupCode, string ReturnUrl) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
             callInfo.RouteValueDictionary.Add("OneTimeSignupCode", OneTimeSignupCode);
+            callInfo.RouteValueDictionary.Add("ReturnUrl", ReturnUrl);
             return callInfo;
         }
 
