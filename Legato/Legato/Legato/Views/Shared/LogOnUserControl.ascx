@@ -15,7 +15,7 @@
     }
     else {
 %> 
-        <li><a href="@Url.Action("Login","Account")">Login</a></li>
+        <li><a href="<%= Url.Action("Login","Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })%>">Login</a></li>
 <%
     }
 %>
