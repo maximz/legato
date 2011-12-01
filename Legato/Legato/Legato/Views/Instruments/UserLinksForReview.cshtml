@@ -2,12 +2,12 @@
 
 <div class="thread-post-functions post-menu" style="display: inline;">
 	<div class="thread-post-functions-link post-menu">
-		@Html.ActionLink("permalink",MVC.Instruments.IndividualReview(Model.Review.ReviewID))
+		@Html.ActionLink("permalink","IndividualReview", new { reviewID = Model.Review.ReviewID})
 	</div>
 		
 	@if(Model.CanEdit) {
 	<div class="lsep">|</div>
 	<div class="thread-post-functions-link post-menu">
-		@Html.ActionLink("edit",MVC.Instruments.EditReview(Model.Review.ReviewID))</div>
+		@Html.ActionLink("edit", "EditReview", new { reviewID = Model.Review.ReviewID })</div>
 	}
 </div>

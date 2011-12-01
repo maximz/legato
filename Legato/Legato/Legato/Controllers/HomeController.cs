@@ -195,5 +195,11 @@ namespace Legato.Controllers
             System.Web.Security.Roles.AddUserToRole("maximz", RoleNames.Moderator);
             return Content("done for maximz");
         }
+
+        [Url("Nav")]
+        public virtual ActionResult GetNav()
+        {
+            return View("NavFull");
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿<div class="topbar" data-scrollspy="scrollspy">
+	  <div class="fill">
+		<div class="container">
+		  <a class="brand" href="@Url.Content("~")">Legato Network</a>
+		  <ul class="nav">
+			<li @if(ViewBag.curPage == "Home"){<text>class="active"</text>}><a href="@Url.Content("~")">Home</a></li>
+
+			<li @if(ViewBag.curPage == "Map"){<text>class="active"</text>}><a href="/instruments">Map</a></li>
+			<li @if(ViewBag.curPage == "Submit"){<text>class="active"</text>}><a href="/instruments/submit">Submit</a></li>
+			<li class="dropdown @if(ViewBag.curPage == "About"){<text>active</text>}" data-dropdown="dropdown">
+				<a href="/about" class="dropdown-toggle">About</a>
+				<ul class="dropdown-menu">
+					<li><a href="/about">About Legato</a></li>
+					<li><a href="/about#faq">FAQ</a></li>
+					<li class="divider"></li>
+					<li><a href="/about/contact">Contact</a></li>
+					<li><a href="http://blog.legatonetwork.com">Blog</a></li>
+					<li><a href="/legal">Legal</a></li>
+				</ul>
+			</li>
+		  </ul>
+		  <ul class="nav secondary-nav">
+			@Html.Partial("_LogOnPartial")
+		  </ul>
+		  @using(Html.BeginForm("IndexPost","Search",new { @class = "pull-right" }))
+		  {
+			<input type="text" id="query" name="query" placeholder="Search" />
+		  }
+		</div>
+	  </div>
+	</div>
