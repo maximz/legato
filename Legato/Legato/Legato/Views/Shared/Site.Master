@@ -55,35 +55,7 @@
 				<div id="system-message"><%= Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])%></div>
 				<%}%>
 	
-	<div class="topbar" data-scrollspy="scrollspy">
-	  <div class="fill">
-		<div class="container">
-		  <a class="brand" href="<%=Url.Content("~") %>">Legato Network</a>
-		  <ul class="nav">
-			<li><a href="@Url.Content("~")">Home</a></li>
-			<li><a href="/instruments">Map</a></li>
-			<li><a href="/instruments/submit">Submit</a></li>
-			<li class="dropdown" data-dropdown="dropdown">
-				<a href="/about" class="dropdown-toggle">About</a>
-				<ul class="dropdown-menu">
-					<li><a href="/about">About Legato</a></li>
-					<li><a href="/about#faq">FAQ</a></li>
-					<li class="divider"></li>
-					<li><a href="/about/contact">Contact</a></li>
-					<li><a href="http://blog.legatonetwork.com">Blog</a></li>
-					<li><a href="/legal">Legal</a></li>
-				</ul>
-			</li>
-		  </ul>
-		  <ul class="nav secondary-nav">
-			<% Html.RenderPartial("LogOnUserControl"); %>
-		  </ul>
-		  <form class="pull-right" action="">
-			<input type="text" placeholder="Search" />
-		  </form>
-		</div>
-	  </div>
-	</div>
+<% Html.RenderPartial("NavPartial"); %>
   
   <asp:ContentPlaceHolder ID="BetweenHeaderAndContent" runat="server" />
   
@@ -101,14 +73,14 @@
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.1.min.js"%3E%3C/script%3E'))</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js" type="text/javascript"></script>
 	
-	<script src="/static/js/bootstrap-alerts.js?@revNum"></script>
-	<script src="/static/js/bootstrap-buttons.js?@revNum"></script>
-	<script src="/static/js/bootstrap-modal.js?@revNum"></script>
-	<script src="/static/js/bootstrap-tabs.js?@revNum"></script>
-	<script src="/static/js/bootstrap-dropdown.js?@revNum"></script>
-	<script src="/static/js/bootstrap-twipsy.js?@revNum"></script>
-	<script src="/static/js/bootstrap-popover.js?@revNum"></script>
-	<script src="/static/js/bootstrap-scrollspy.js?@revNum"></script>
+	<script src="/static/js/bootstrap-alerts.js"></script>
+	<script src="/static/js/bootstrap-buttons.js"></script>
+	<script src="/static/js/bootstrap-modal.js"></script>
+	<script src="/static/js/bootstrap-tabs.js"></script>
+	<script src="/static/js/bootstrap-dropdown.js"></script>
+	<script src="/static/js/bootstrap-twipsy.js"></script>
+	<script src="/static/js/bootstrap-popover.js"></script>
+	<script src="/static/js/bootstrap-scrollspy.js"></script>
 
 	<!--<script src="/static/js/jquery.form.min.js"></script>
 	<script src="/static/js/MicrosoftAjax.js" type="text/javascript"></script>
