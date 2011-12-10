@@ -8,58 +8,58 @@
 @section HeadContent {
 
 <style type="text/css">
-      /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-      }
-      .container > footer p {
-        text-align: center; /* center align it with the container */
-      }
-      .container {
-        width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
-      }
+	  /* Override some defaults */
+	  html, body {
+		background-color: #eee;
+	  }
+	  body {
+		padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+	  }
+	  .container > footer p {
+		text-align: center; /* center align it with the container */
+	  }
+	  .container {
+		width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+	  }
 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
-        -webkit-border-radius: 0 0 6px 6px;
-           -moz-border-radius: 0 0 6px 6px;
-                border-radius: 0 0 6px 6px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
+	  /* The white background content wrapper */
+	  .container > .content {
+		background-color: #fff;
+		padding: 20px;
+		margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+		-webkit-border-radius: 0 0 6px 6px;
+		   -moz-border-radius: 0 0 6px 6px;
+				border-radius: 0 0 6px 6px;
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+				box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	  }
 
-      /* Page header tweaks */
-      .page-header {
-        background-color: #f5f5f5;
-        padding: 20px 20px 10px;
-        margin: -20px -20px 20px;
-      }
+	  /* Page header tweaks */
+	  .page-header {
+		background-color: #f5f5f5;
+		padding: 20px 20px 10px;
+		margin: -20px -20px 20px;
+	  }
 
-      /* Give a quick and non-cross-browser friendly divider */
-      .content .s4divider {
-        margin-left: 0;
-        padding-left: 19px;
-        border-left: 1px solid #eee;
-      }
+	  /* Give a quick and non-cross-browser friendly divider */
+	  .content .s4divider {
+		margin-left: 0;
+		padding-left: 19px;
+		border-left: 1px solid #eee;
+	  }
 
-      .topbar .btn {
-        border: 0;
-      }
+	  .topbar .btn {
+		border: 0;
+	  }
 
-    </style>
+	</style>
 
 }
 
 <div class="content">
-        <div class="page-header">
-          <h1>@Model.Instrument.InstrumentType.Name <small>for @Model.Instrument.ListingClass at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
+		<div class="page-header">
+		  <h1>@Model.Instrument.InstrumentType.Name <small>for @Model.Instrument.ListingClass at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
 		  <div class="row">
 			<div class="span10">
 			@if (Model.Instrument.Price.HasValue)
@@ -69,7 +69,7 @@
 		  <div id="actions">@Html.Action("UserLinksForListing",new { instrumentID = Model.Instrument.InstrumentID })</div>
 		  </div>
 			<div class="span4 pull-right">
-				<p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID), new { @class="btn primary large" })</p>
+				<p>@Html.ActionLink("Add a Review","Review", new {instrumentID = Model.Instrument.InstrumentID}, new { @class="btn primary large" })</p>
 				<div class="userbox box">
 				<p>by @Model.Instrument.aspnet_User.UserName</p>
 				<p>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></p>
@@ -77,10 +77,10 @@
 				</div>
 			</div>
 		  </div> <!--- //row -->
-        </div> <!--- /header -->
+		</div> <!--- /header -->
 		<div class="row">
-          <div class="span10">
-            <h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
+		  <div class="span10">
+			<h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
 			@if (Model.Reviews == null || Model.Reviews.Count() < 1)
 {
 	<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new {instrumentID = Model.Instrument.InstrumentID})</p>
@@ -91,7 +91,7 @@ else
 	 {
 		<div class="review" id="review-@r.ReviewID">
 			<div class="ratings">
-			    <div id="rate-general-@r.ReviewID"></div>
+				<div id="rate-general-@r.ReviewID"></div>
 			</div>
 			<div class="message">
 				<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
@@ -101,7 +101,7 @@ else
 			<div class="details">
 			</div>
 			<div class="actionLinks">
-				@Html.Action(MVC.Instruments.UserLinksForReview(r.ReviewID))
+				@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID})
 			</div>
 			</div>
 			<div class="span4 s4divider">
@@ -119,15 +119,15 @@ else
 	 {
 		<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?","Individual", new {instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
 	 }
-	 <p>@Html.ActionLink("Add a Review",MVC.Instruments.Review(Model.Instrument.InstrumentID))</p>
+	 <p>@Html.ActionLink("Add a Review","Review", new { instrumentID = Model.Instrument.InstrumentID})</p>
 }
-          </div>
-          <div class="span4 s4divider">
+		  </div>
+		  <div class="span4 s4divider">
 			<a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
 
-          </div>
-        </div>
-      </div>
+		  </div>
+		</div>
+	  </div>
 
 @section ScriptContentAtEndOfBody {
 <script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
