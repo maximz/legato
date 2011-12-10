@@ -174,12 +174,16 @@
     <Compile Include="LegalController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExceptionBase.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Legato.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Legato.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Search\Search.cs" />
+    <Compile Include="Models\Search\SearchDocument.cs" />
+    <Compile Include="Models\Search\SearchException.cs" />
     <Compile Include="Models\SqlProfiling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchController.generated.cs">
@@ -625,7 +629,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

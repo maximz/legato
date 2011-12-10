@@ -1,4 +1,5 @@
 ﻿@model Legato.ViewModels.SearchResultsModel
+           @using Legato.Helpers;
 
 @{
 	ViewBag.Title = "\""+Html.Encode(Model.Query.Trim())+"\" - Search Results";
@@ -15,15 +16,17 @@
 	@foreach (var item in Model.Results)
 	  {
 	  <div id="@item.ResultPost.GlobalPostID1">
-		  <div class="title">@Html.ActionLink(Html.Encode(item.ResultPost.Title),item.ResultPost.DetailsRoute)</div>
-		  <div class="author">@Html.Encode(item.ResultPost.aspnet_User.UserName)</div>
-		  <div class="datePublish">
-			  published on
-			  @item.ResultPost.SubmissionDate.GetValueOrDefault(DateTime.Now).ToString("{0:g}")</div>
-		  <div class="highlightedText">@item.HighlightedHTML</div>
+		  <h3 class="title">@Html.ActionLink(string.IsNullOrWhiteSpace(item.ResultPost.Title) ? "Instrument" : Html.Encode(item.ResultPost.Title), item.ResultPost.DetailsRoute) <small class="author">by @item.ResultPost.aspnet_User.UserName</small></h3>
+	      <p class="datePublish">published: <span class="timeago" title="@item.ResultPost.SubmissionDate.GetValueOrDefault(DateTime.Now)">@item.ResultPost.SubmissionDate.GetValueOrDefault(DateTime.Now)</span></p>
+		  <blockquote>@HtmlUtilities.RenderHtmlInRazor(item.HighlightedHTML)</blockquote>
 	  </div>
+     <hr />
 
 	}
+    @if (Model.Results.Count() == 0)
+    {
+        <h3>No results. <small>Try again!</small></h3>
+    }
 	</div>
 		</div>
 	  </div>

@@ -445,10 +445,8 @@ namespace Legato.Controllers
                     {
                         // Search
                         // Add to Lucene index:
-                        var s = new SearchController();
-                        s.AddToIndex(listing);
-                        s.AddToIndex(review);
-                        s = null;
+                        Legato.Models.Search.SearchManager.Current.Add(listing);
+                        Legato.Models.Search.SearchManager.Current.Add(review);
                     }
                     catch(Exception ex)
                     {
@@ -528,7 +526,8 @@ namespace Legato.Controllers
         [HttpPost][VerifyReferrer]
         [Url("Instrument/Review/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
-        [RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
+        [ValidateInput(false)]
+        //[RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
         public virtual ActionResult Review(ReviewCreateViewModel model)
         {
             var profiler = Current.MiniProfiler;
@@ -605,9 +604,7 @@ namespace Legato.Controllers
                     {
                         // Search
                         // Add to Lucene index:
-                        var s = new SearchController();
-                        s.AddToIndex(review);
-                        s = null;
+                        Legato.Models.Search.SearchManager.Current.Add(review);
                     }
                     catch
                     {
@@ -741,9 +738,7 @@ namespace Legato.Controllers
                     {
                         // Search
                         // Add to Lucene index:
-                        var s = new SearchController();
-                        s.ChangeIndex(review);
-                        s = null;
+                        Legato.Models.Search.SearchManager.Current.Update(review);
                     }
                     catch
                     {
@@ -879,9 +874,7 @@ namespace Legato.Controllers
                 {
                     // Search
                     // Add to Lucene index:
-                    var s = new SearchController();
-                    s.ChangeIndex(listing);
-                    s = null;
+                    Legato.Models.Search.SearchManager.Current.Update(listing);
                 }
                 catch
                 {

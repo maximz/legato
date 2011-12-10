@@ -20,6 +20,7 @@ using System.Web.Security;
 using MvcReCaptcha;
 using System.Configuration;
 using System.Web.Routing;
+using Legato.Models.Search;
 
 namespace Legato.Controllers
 {
@@ -35,37 +36,8 @@ namespace Legato.Controllers
             {
                 ViewData["CurrentMenuItem"] = "Search";
             }
-            InitWriter();
         }
 
-        protected void InitWriter()
-        {
-            // Nasty hack: remove write.lock file if it exists
-            try
-            {
-                if (System.IO.File.Exists(Path.Combine(IndexLocation, "write.lock")))
-                {
-                    System.IO.File.Delete(Path.Combine(IndexLocation, "write.lock"));
-                }
-            }
-            catch
-            {
-                // Our nasty little hack has failed.
-            }
-
-            try
-            {
-                writer.SetWriteLockTimeout(60000);
-                if (writer == null)
-                {
-                    writer = new IndexWriter(IndexLocation, analyzer);
-                }
-            }
-            catch
-            {
-
-            }
-        }
         // TODO: PAGINATION!
         /// <summary>
         /// Displays a search form.
@@ -112,18 +84,7 @@ namespace Legato.Controllers
                 return View();
             }
         }
-        /// <summary>
-        /// The location of the index.
-        /// </summary>
-        public static string IndexLocation = HostingEnvironment.MapPath("~/search/lucene");
-        /// <summary>
-        /// The analyzer for the query.
-        /// </summary>
-        public static Lucene.Net.Analysis.Standard.StandardAnalyzer analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer();
-        /// <summary>
-        /// The IndexWriter.
-        /// </summary>
-        public static IndexWriter writer = new IndexWriter(IndexLocation, analyzer);
+
         /// <summary>
         /// Searches the specified query.
         /// </summary>
@@ -135,7 +96,6 @@ namespace Legato.Controllers
         {
             try
             {
-                InitWriter();
                 if (ConfigurationManager.AppSettings["IsSearchActivated"] == "false")
                 {
                     return View("Deactivated");
@@ -154,70 +114,7 @@ namespace Legato.Controllers
                 //    return View(cachedObject as SearchResultsModel);
                 //}
 
-                var reader = writer.GetReader(); // Get reader from writer
-                var searcher = new IndexSearcher(reader); // Build IndexSearch
-
-                // Build query
-                var parser = new MultiFieldQueryParser(new string[] { "Text", "Title" }, analyzer);
-                var searchQuery = parser.Parse(query);
-
-                // Execute search
-                var hits = searcher.Search(searchQuery);
-
-                // Display results
-                var results = new List<Result>();
-                for (int i = 0; i < hits.Length(); i++)
-                {
-                    results.Add(new Result()
-                    {
-                        doc = hits.Doc(i),
-                        Score = hits.Score(i)
-                    });
-                }
-
-                //Highlight the parts that are matched:
-                var formatter = new SimpleHTMLFormatter("<span style='background:yellow;font-weight:bold;'>", "</span>");
-                var fragmenter = new SimpleFragmenter(400);
-                var scorer = new QueryScorer(searchQuery);
-                var highlighter = new Highlighter(formatter, scorer);
-                highlighter.SetTextFragmenter(fragmenter);
-                var finalResults = new List<DisplayedResult>();
-
-                var db = Current.DB;
-                foreach (var result in results)
-                {
-                    var stream = analyzer.TokenStream("", new StringReader(result.doc.Get("RawText")));
-                    var highlighted = highlighter.GetBestFragments(stream, result.doc.Get("RawText"), 1, "...").Replace("'", "''");
-                    if (highlighted == "") // sometimes the highlighter fails to emit text...
-                    {
-                        highlighted = result.doc.Get("RawText").Replace("'", "''");
-                    }
-                    if (highlighted.Length > 1000)
-                    {
-                        highlighted = highlighted.Substring(0, 1000);
-                    }
-
-                    var post = db.GlobalPostIDs.Where(p => p.GlobalPostID1 == int.Parse(result.doc.Get("GlobalPostID"))).SingleOrDefault();
-                    if (post == null) continue;
-                    // TODO: privacy checks?
-                    post.FillProperties();
-
-                    finalResults.Add(new DisplayedResult()
-                    {
-                        ResultPost = post,
-                        Score = result.Score,
-                        HighlightedHTML = highlighted
-                    });
-                }
-                // Dispose of objects
-                searcher = null;
-                reader = null;
-
-                var model = new SearchResultsModel()
-                {
-                    Results = finalResults.OrderByDescending(r => r.Score),
-                    Query = query.Trim()
-                };
+                var model = SearchManager.Current.SearchIndex(query);
 
                 //Current.SetCachedObject("Search.Regular." + query.Trim(), model, 7200);
                 return View(model);
@@ -339,124 +236,6 @@ namespace Legato.Controllers
             }
         }
 
-        #region Index Methods
-
-        /// <summary>
-        /// Adds to index.
-        /// </summary>
-        /// <param name="toAdd">To add.</param>
-        public void AddToIndex(object toAdd)
-        {
-            AddToIndex(toAdd, true);
-        }
-        /// <summary>
-        /// Adds to index.
-        /// </summary>
-        /// <param name="toAdd">To add.</param>
-        /// <param name="finalTransaction">If this is the final transaction, optimatization and closing methods are called.</param>
-        public void AddToIndex(dynamic toAdd, bool finalTransaction)
-        {
-            InitWriter();
-            
-            var doc = new Document();
-            if (toAdd is Instrument)
-            {
-                var p = (Instrument)toAdd;
-                p.FillProperties();
-
-                doc.Add(new Field("Title", new StringReader(p.Title)));
-                doc.Add(new Field("Text", new StringReader(p.Title)));
-                doc.Add(new Field("RawTitle", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("RawText", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("Type", new StringReader(MagicCategoryStrings.Instrument)));
-                doc.Add(new Field("PostID", Convert.ToString(p.InstrumentID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("GlobalPostID", Convert.ToString(p.GlobalPostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("AuthorID", Convert.ToString(p.UserID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-
-                //var sb = new StringBuilder();
-                //foreach (var tag in p.PostTags)
-                //{
-                //    sb.Append("<" + tag.Tag.TagName + "> ");
-                //}
-                //doc.Add(new Field("RawTags", sb.ToString().Trim(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            }
-            else if (toAdd is InstrumentReview)
-            {
-                var p = (InstrumentReview)toAdd;
-                p.FillProperties();
-                var ins = p.Instrument;
-                ins.FillProperties();
-
-                doc.Add(new Field("Title", new StringReader(p.Title)));
-                doc.Add(new Field("Text", new StringReader(p.Revisions.First().MessageHTML.ConvertHtmlIntoText())));
-                doc.Add(new Field("RawTitle", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("RawText", p.Revisions.First().MessageHTML.ConvertHtmlIntoText(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("Type", new StringReader(MagicCategoryStrings.InstrumentReview)));
-                doc.Add(new Field("PostID", Convert.ToString(p.ReviewID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("GlobalPostID", Convert.ToString(p.GlobalPostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("AuthorID", Convert.ToString(p.UserID), Field.Store.YES, Field.Index.UN_TOKENIZED));
-
-                //var sb = new StringBuilder();
-                //foreach (var tag in p.PostTags)
-                //{
-                //    sb.Append("<" + tag.Tag.TagName + "> ");
-                //}
-                //doc.Add(new Field("RawTags", sb.ToString().Trim(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-            }
-            writer.AddDocument(doc);
-
-            if (finalTransaction)
-            {
-                writer.Commit();
-                writer.Flush();
-                //writer.Optimize();
-                //writer.Close();
-            }
-        }
-        /// <summary>
-        /// Changes the index - removes the old version of the post from the index and adds the new version.
-        /// </summary>
-        /// <param name="toChange">To change.</param>
-        public void ChangeIndex(dynamic toChange)
-        {
-            DeleteFromIndex(toChange, false);
-            AddToIndex(toChange, true);
-        }
-        /// <summary>
-        /// Deletes from index.
-        /// </summary>
-        /// <param name="toDelete">To delete.</param>
-        public void DeleteFromIndex(dynamic toDelete)
-        {
-            DeleteFromIndex(toDelete, true);
-        }
-        /// <summary>
-        /// Deletes from index.
-        /// </summary>
-        /// <param name="toDelete">To delete.</param>
-        public void DeleteFromIndex(dynamic toDelete, bool finalTransaction)
-        {
-            InitWriter();
-            if (toDelete is Instrument)
-            {
-                writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
-            }
-            else if (toDelete is InstrumentReview)
-            {
-                writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.ReviewID)));
-            }
-
-            if (finalTransaction)
-            {
-                writer.Commit();
-                writer.Flush();
-                //writer.Optimize();
-                //writer.Close();
-            }
-        }
-
-        #endregion
-
         #region Administrative Methods
         [Url("Admin/Search/Regenerate")]
         [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator+","+RoleNames.Administrator)]
@@ -479,33 +258,7 @@ namespace Legato.Controllers
                     // lock searching
                     ConfigurationManager.AppSettings["IsSearchActivated"] = "false";
 
-                    InitWriter();
-
-                    // Step 1: delete everything from index!
-                    try
-                    {
-                        writer.DeleteAll();
-                    }
-                    catch
-                    {
-                        // if the index doesn't exist yet, this will probably fail
-                    }
-
-                    // Step 2: add everything into index!
-                    var db = Current.DB;
-                    foreach (var p in db.Instruments)
-                    {
-                        AddToIndex(p, false);
-                    }
-                    foreach (var p in db.InstrumentReviews)
-                    {
-                        AddToIndex(p, false);
-                    }
-                    writer.Commit();
-                    writer.Flush();
-                    writer.Optimize();
-                    writer.Close();
-                    writer = new IndexWriter(IndexLocation, analyzer); //reopen
+                    SearchManager.Current.CreateIndex();
 
                     // unlock searching
                     ConfigurationManager.AppSettings["IsSearchActivated"] = "true";
@@ -543,19 +296,7 @@ namespace Legato.Controllers
                     // lock searching
                     ConfigurationManager.AppSettings["IsSearchActivated"] = "false";
 
-                    InitWriter();
-
-                    try
-                    {
-                        writer.Optimize();
-                    }
-                    catch
-                    {
-
-                    }
-
-                    writer.Close();
-                    writer = new IndexWriter(IndexLocation, analyzer); //reopen
+                    SearchManager.Current.OptimizeIndex();
 
                     // unlock searching
                     ConfigurationManager.AppSettings["IsSearchActivated"] = "true";
@@ -579,7 +320,7 @@ namespace Legato.Controllers
 
 
         // this should only happen when the application's exiting, because according to http://stackoverflow.com/questions/3865183/lucene-open-a-closed-indexwriter/3865564#3865564, we should only close rarely.
-        private bool disposed = false;
+        /*private bool disposed = false;
 
         protected override void Dispose(bool disposing)
         {
@@ -604,45 +345,9 @@ namespace Legato.Controllers
                 disposed = true;
             }
             base.Dispose(disposing);
-        }
+        } */
 
 
     }
-    /// <summary>
-    /// A result.
-    /// </summary>
-    public class Result
-    {
-        public Document doc
-        {
-            get;
-            set;
-        }
-        public double Score
-        {
-            get;
-            set;
-        }
-    }
-    /// <summary>
-    /// A displayed result.
-    /// </summary>
-    public class DisplayedResult
-    {
-        public GlobalPostID ResultPost
-        {
-            get;
-            set;
-        }
-        public double Score
-        {
-            get;
-            set;
-        }
-        public string HighlightedHTML
-        {
-            get;
-            set;
-        }
-    }
+
 }
