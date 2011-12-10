@@ -144,7 +144,10 @@ namespace Legato.Models
 
                 return model;
             }
-            return null;
+            else // Anonymous user
+            {
+                return new ListingPermissionsModel() { CanComment = false, CanEdit = false, CanDelete = false, CanFlag = false, HasAlreadyReviewed = false, Listing = this };
+            }
         }
 
         public class ListingPermissionsModel
@@ -230,7 +233,10 @@ namespace Legato.Models
 
                 return model;
             }
-            return null;
+            else // Anonymous user
+            {
+                return new ReviewPermissionsModel() {CanComment = false, CanDelete = false, CanEdit = false, CanFlag = false, Review = this};
+            }
         }
 
         public class ReviewPermissionsModel
