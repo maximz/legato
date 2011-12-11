@@ -119,8 +119,9 @@ namespace Legato.Controllers
                 //Current.SetCachedObject("Search.Regular." + query.Trim(), model, 7200);
                 return View(model);
             }
-            catch
+            catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
@@ -270,8 +271,9 @@ namespace Legato.Controllers
                 }
                 return Content("Index successfully regenerated!");
             }
-            catch
+            catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
@@ -308,8 +310,9 @@ namespace Legato.Controllers
                 }
                 return Content("Index successfully optimized!");
             }
-            catch
+            catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
