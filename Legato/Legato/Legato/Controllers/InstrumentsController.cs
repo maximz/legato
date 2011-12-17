@@ -608,7 +608,7 @@ namespace Legato.Controllers
                         // Add to Lucene index:
                         Legato.Models.Search.SearchManager.Current.Add(review);
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         // This means that we got the write.lock error...
                         Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.Review()"), Current.Context);
@@ -629,10 +629,7 @@ catch(Exception ex)
                     // Get the line number from the stack frame
                     var line = frame.GetFileLineNumber();
 
-                    var a = model.Listing.Equipment.Types == null;
-                    var b = model.Listing.Equipment.SelectedType;
-
-                    var logMessage = ex.Message + ";" + ex.StackTrace + ";" + ex.TargetSite + ";" + ex.Source + ";" + line + ";" + a + ";" + b;
+                    var logMessage = ex.Message + ";" + ex.StackTrace + ";" + ex.TargetSite + ";" + ex.Source + ";" + line;
                     Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(logMessage), Current.Context);
                     Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                     new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
@@ -904,7 +901,7 @@ catch(Exception ex)
                     // Add to Lucene index:
                     Legato.Models.Search.SearchManager.Current.Update(listing);
                 }
-                catch
+                catch(Exception ex)
                 {
                     // This means that we got the write.lock error...
                     Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.EditListing()"), Current.Context);
