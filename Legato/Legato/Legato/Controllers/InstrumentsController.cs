@@ -524,7 +524,7 @@ namespace Legato.Controllers
         }
         
         [HttpPost][VerifyReferrer]
-        [Url("Instrument/Review/Create")]
+        [Url("Instruments/Review/Create")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [ValidateInput(false)]
         //[RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
@@ -534,9 +534,12 @@ namespace Legato.Controllers
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("InternalServerError", "Error");
+                new RateLimitAttribute().CancelRateLimit("InstrumentReviewSubmitPOST");
+                return View(model);
             }
             try
+            {
+			try
             {
                 var db = Current.DB;
                     var time = DateTime.Now;
@@ -577,7 +580,6 @@ namespace Legato.Controllers
                     {
                         // REVISION:
                         r = new InstrumentReviewRevision();
-                        r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
                         r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
                         r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
                         r.RatingGeneral = model.ReviewRevision.RatingOverall;
@@ -610,6 +612,7 @@ namespace Legato.Controllers
                     {
                         // This means that we got the write.lock error...
                         Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.Review()"), Current.Context);
+						Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                     }
 
                     // Done
@@ -618,8 +621,28 @@ namespace Legato.Controllers
                         reviewID = review.ReviewID
                     });
             }
-            catch
+catch(Exception ex)
+                {
+                    var st = new System.Diagnostics.StackTrace(ex, true);
+                    // Get the top stack frame
+                    var frame = st.GetFrame(0);
+                    // Get the line number from the stack frame
+                    var line = frame.GetFileLineNumber();
+
+                    var a = model.Listing.Equipment.Types == null;
+                    var b = model.Listing.Equipment.SelectedType;
+
+                    var logMessage = ex.Message + ";" + ex.StackTrace + ";" + ex.TargetSite + ";" + ex.Source + ";" + line + ";" + a + ";" + b;
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(logMessage), Current.Context);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                    new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
+                    return RedirectToAction("InternalServerError", "Error");
+                }
+            }
+            catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
@@ -806,7 +829,7 @@ namespace Legato.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
         }
-        [Url("Instrument/Listing/Edit")]
+        [Url("Instruments/Listing/Edit")]
         [CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
         [HttpPost]
         [VerifyReferrer]
@@ -815,9 +838,12 @@ namespace Legato.Controllers
         {
             if (!ModelState.IsValid)
             {
+				new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
                 return View(model);
             }
             try
+            {
+			try
             {
                 var db = Current.DB;
                 var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
@@ -827,6 +853,7 @@ namespace Legato.Controllers
                     return RedirectToAction("NotFound", "Error");
                 }
                 var submitterGuid = listing.UserID;
+				listing.FillProperties();
 
                 if (!listing.Permissions().CanEdit) // if user isn't submitter and doesn't have edit privileges, forbidden!
                 {
@@ -839,8 +866,6 @@ namespace Legato.Controllers
                 listing.StreetAddress = model.Listing.StreetAddress;
                 listing.Lat = model.Listing.Lat;
                 listing.Long = model.Listing.Long;
-                listing.Model = model.Listing.Equipment.Model.Trim();
-                listing.Brand = model.Listing.Equipment.Brand.Trim();
                 listing.Price = (decimal?)model.Listing.Price;
                 listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
                 listing.VenueName = model.Listing.VenueName;
@@ -852,22 +877,25 @@ namespace Legato.Controllers
                  * 4. Apply ID of record in #3 to Listing
                  * 5. Same for Styles
                  * that's how we do it! */
-                var instrument = db.InstrumentTypes.Where(i => i.Name == model.Listing.Equipment.Types.ElementAtOrDefault(model.Listing.Equipment.SelectedType).Text).SingleOrDefault();
-                if (instrument == null)
-                {
-                    ModelState.AddModelError("Type", "No such instrument type exists.");
-                    return View();
-                }
-                var style = model.Listing.Equipment.Classes.ElementAtOrDefault(model.Listing.Equipment.SelectedClass).Value;
-                if (style == null || (style != "public" && style != "rent" && style != "sale"))
-                {
-                    ModelState.AddModelError("Style", "No such style exists.");
-                    return View();
-                }
+                    var a = model.Listing.Equipment.SelectedType;
+                    var type = db.InstrumentTypes.Where(it => it.TypeID == model.Listing.Equipment.SelectedType).FirstOrDefault();
+                    
+                    if (type == null)
+                    {
+                        ModelState.AddModelError("SelectedType", "No such instrument type exists.");
+                        new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
+                        return View(model);
+                    }
+                    listing.TypeID = type.TypeID;
 
-                listing.UserID = userGuid;
-                listing.SubmissionDate = time;
-
+                    var style = model.Listing.Equipment.Classes.Where(c=>c.Value == model.Listing.Equipment.SelectedClass.ToString()).FirstOrDefault().Text.ToLowerInvariant();
+                    if (style == null || (style != "public" && style != "rent" && style != "sale"))
+                    {
+                        ModelState.AddModelError("SelectedClass", "No such class exists.");
+                        new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
+                        return View(model);
+                    }
+                    listing.ListingClass = style;
                 db.SubmitChanges(); // Listing is changed
 
                 try
@@ -880,12 +908,33 @@ namespace Legato.Controllers
                 {
                     // This means that we got the write.lock error...
                     Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.EditListing()"), Current.Context);
+					Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
                 }
 
                 return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID });
             }
-            catch
+catch(Exception ex)
+                {
+                    var st = new System.Diagnostics.StackTrace(ex, true);
+                    // Get the top stack frame
+                    var frame = st.GetFrame(0);
+                    // Get the line number from the stack frame
+                    var line = frame.GetFileLineNumber();
+
+                    var a = model.Listing.Equipment.Types == null;
+                    var b = model.Listing.Equipment.SelectedType;
+
+                    var logMessage = ex.Message + ";" + ex.StackTrace + ";" + ex.TargetSite + ";" + ex.Source + ";" + line + ";" + a + ";" + b;
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(logMessage), Current.Context);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                    new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
+                    return RedirectToAction("InternalServerError", "Error");
+                }
+            }
+            catch(Exception ex)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
