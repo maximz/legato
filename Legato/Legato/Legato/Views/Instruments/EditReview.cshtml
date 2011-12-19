@@ -45,7 +45,7 @@ $('#rate_overall').raty({
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Review</legend>
-		@Html.HiddenFor(model => model.InstrumentID)
+		@Html.HiddenFor(model => model.ReviewRevision.ReviewID)
 		
 	<div>
 		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)

@@ -24,6 +24,7 @@
 	@Html.ValidationSummary(true)
 	<fieldset>
 			<legend>Instrument details</legend>
+            @Html.HiddenFor(model => model.Listing.InstrumentID)
 			
 			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)

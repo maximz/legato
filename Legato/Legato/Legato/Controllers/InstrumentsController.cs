@@ -703,6 +703,7 @@ catch(Exception ex)
 		{
 			if (!ModelState.IsValid)
 			{
+                new RateLimitAttribute().CancelRateLimit("InstrumentReviewEditPOST");
 				return View(model);
 			}
 			try
@@ -760,16 +761,18 @@ catch(Exception ex)
 						// Add to Lucene index:
 						Legato.Models.Search.SearchManager.Current.Update(review);
 					}
-					catch
+					catch(Exception ex)
 					{
 						// This means that we got the write.lock error...
 						Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Write.Lock error in Instruments.EditReview()"), Current.Context);
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
 					}
 
 					return RedirectToAction("IndividualReview", new { reviewID = model.ReviewRevision.ReviewID});
 			}
-			catch
+            catch (Exception ex)
 			{
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
 				return RedirectToAction("InternalServerError", "Error");
 			}
 		}
@@ -883,7 +886,7 @@ catch(Exception ex)
 						new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
 						return View(model);
 					}
-					listing.TypeID = type.TypeID;
+                    listing.InstrumentType = type; // have to assign entity
 
 					var style = model.Listing.Equipment.Classes.Where(c=>c.Value == model.Listing.Equipment.SelectedClass.ToString()).FirstOrDefault().Text.ToLowerInvariant();
 					if (style == null || (style != "public" && style != "rent" && style != "sale"))
