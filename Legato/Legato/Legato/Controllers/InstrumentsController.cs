@@ -734,7 +734,6 @@ catch(Exception ex)
 
 					//REVISION:
 					var r = new InstrumentReviewRevision();
-					r.LastUseDate = model.ReviewRevision.DateOfLastUsage.Value;
 					r.MessageMarkdown = Microsoft.Web.Mvc.AjaxExtensions.JavaScriptStringEncode(HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown));
 					r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
 					r.RatingGeneral = model.ReviewRevision.RatingOverall;
