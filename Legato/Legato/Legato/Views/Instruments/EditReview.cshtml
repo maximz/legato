@@ -12,6 +12,12 @@
 
 <script>
 
+(function () {
+                var converter1 = Markdown.getSanitizingConverter();
+                var editor1 = new Markdown.Editor(converter1);
+                editor1.run();
+})();
+
 $('#rate_overall').raty({
   cancel:     false,
   scoreName:  '#ReviewRevision_RatingOverall',
@@ -62,9 +68,9 @@ $('#rate_overall').raty({
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			<div class="input wmd-panel">
 				<div id="wmd-button-bar" class="wmd-panel"></div>
-				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-panel", id = "wmd-input" })
+				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input" })
+                <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
-				<div id="wmd-preview" class="wmd-panel"></div>
 			</div></div>
 
 			</fieldset>

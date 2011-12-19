@@ -426,6 +426,9 @@
     <Content Include="static\js\map\script.min.js" />
     <Content Include="static\js\map\spinner.js" />
     <Content Include="static\js\map\spinner.min.js" />
+    <Content Include="static\js\Markdown.Converter.js" />
+    <Content Include="static\js\Markdown.Editor.js" />
+    <Content Include="static\js\Markdown.Sanitizer.js" />
     <Content Include="static\js\modernizr-1.7.js" />
     <Content Include="static\js\modernizr-1.7.min.js" />
     <Content Include="static\js\openid-jquery.js" />
@@ -626,7 +629,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
