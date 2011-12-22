@@ -1,11 +1,13 @@
 ﻿@if (Request.IsAuthenticated)
 {
 <li class="dropdown" data-dropdown="dropdown">
-    <a href="#" class="dropdown-toggle">@User.Identity.Name</a>
+    <a href="#" class="dropdown-toggle">@User.Identity.Name @if (new Legato.Controllers.NotificationsController().GetState()) { <span class="label important">New!</span> }</a>
         <ul class="dropdown-menu">
+            <li><a href="@Url.Action("List", "Notifications")">Notifcations</a></li>
             <!--<li><a href="#">Secondary link</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>-->
+            <li class="divider"></li>
             <li><a href="@Url.Action("LogOff","Account")">Logout</a></li>
         </ul>
 </li>
