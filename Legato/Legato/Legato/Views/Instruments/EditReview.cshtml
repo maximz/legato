@@ -67,15 +67,15 @@ $('#rate_overall').raty({
 			<div class="clearfix">
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			<div class="input wmd-panel">
+				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
 				<div id="wmd-button-bar" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input" })
                 <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
 			</div></div>
 
 			</fieldset>
 		  <div class="actions well">
-			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" class="btn">Cancel</button>
+			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
 		  </div>
 }
 
