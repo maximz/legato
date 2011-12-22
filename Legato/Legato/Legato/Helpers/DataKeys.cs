@@ -44,5 +44,7 @@ namespace Legato.Helpers
         public const string Instrument = "Instrument";
         public const string InstrumentReview = "InstrumentReview";
         public const string InstrumentReviewRevision = "InstrumentReviewRevision";
+        public const string Message = "Message";
+        public const string Conversation = "Conversation";
     }
 }
