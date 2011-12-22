@@ -16,6 +16,7 @@ using MvcMiniProfiler;
 using MvcMiniProfiler.Data;
 using System.Reflection;
 using System.Diagnostics;
+using System.Web.Security;
 
 namespace Legato
 {
@@ -40,6 +41,42 @@ namespace Legato
         public static HttpRequest Request
         {
             get { return Context.Request; }
+        }
+
+        public static Guid? UserID
+        {
+            get
+            {
+                if(!Request.IsAuthenticated)
+                {
+                    return null;
+                }
+                return (Guid)Membership.GetUser().ProviderUserKey;
+            }
+        }
+
+        public static string UserName
+        {
+            get
+            {
+                if (!Request.IsAuthenticated)
+                {
+                    return null;
+                }
+                return Membership.GetUser().UserName;
+            }
+        }
+
+        public static MembershipUser User
+        {
+            get
+            {
+                if (!Request.IsAuthenticated)
+                {
+                    return null;
+                }
+                return Membership.GetUser();
+            }
         }
 
         /// <summary>
