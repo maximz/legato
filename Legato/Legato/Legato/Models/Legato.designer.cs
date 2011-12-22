@@ -69,6 +69,9 @@ namespace Legato.Models
     partial void InsertConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void UpdateConfirmEmailAddress(ConfirmEmailAddress instance);
     partial void DeleteConfirmEmailAddress(ConfirmEmailAddress instance);
+    partial void InsertConversation(Conversation instance);
+    partial void UpdateConversation(Conversation instance);
+    partial void DeleteConversation(Conversation instance);
     partial void InsertGlobalPostID(GlobalPostID instance);
     partial void UpdateGlobalPostID(GlobalPostID instance);
     partial void DeleteGlobalPostID(GlobalPostID instance);
@@ -87,9 +90,18 @@ namespace Legato.Models
     partial void InsertInstrumentType(InstrumentType instance);
     partial void UpdateInstrumentType(InstrumentType instance);
     partial void DeleteInstrumentType(InstrumentType instance);
+    partial void InsertMessageFlag(MessageFlag instance);
+    partial void UpdateMessageFlag(MessageFlag instance);
+    partial void DeleteMessageFlag(MessageFlag instance);
+    partial void InsertMessage(Message instance);
+    partial void UpdateMessage(Message instance);
+    partial void DeleteMessage(Message instance);
     partial void InsertMiniProfilerResult(MiniProfilerResult instance);
     partial void UpdateMiniProfilerResult(MiniProfilerResult instance);
     partial void DeleteMiniProfilerResult(MiniProfilerResult instance);
+    partial void InsertNotification(Notification instance);
+    partial void UpdateNotification(Notification instance);
+    partial void DeleteNotification(Notification instance);
     partial void InsertOneTimeRegistrationCode(OneTimeRegistrationCode instance);
     partial void UpdateOneTimeRegistrationCode(OneTimeRegistrationCode instance);
     partial void DeleteOneTimeRegistrationCode(OneTimeRegistrationCode instance);
@@ -244,6 +256,14 @@ namespace Legato.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<Conversation> Conversations
+		{
+			get
+			{
+				return this.GetTable<Conversation>();
+			}
+		}
+		
 		public System.Data.Linq.Table<GlobalPostID> GlobalPostIDs
 		{
 			get
@@ -292,11 +312,35 @@ namespace Legato.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<MessageFlag> MessageFlags
+		{
+			get
+			{
+				return this.GetTable<MessageFlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Message> Messages
+		{
+			get
+			{
+				return this.GetTable<Message>();
+			}
+		}
+		
 		public System.Data.Linq.Table<MiniProfilerResult> MiniProfilerResults
 		{
 			get
 			{
 				return this.GetTable<MiniProfilerResult>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Notification> Notifications
+		{
+			get
+			{
+				return this.GetTable<Notification>();
 			}
 		}
 		
@@ -2603,6 +2647,10 @@ namespace Legato.Models
 		
 		private EntitySet<aspnet_UsersInRole> _aspnet_UsersInRoles;
 		
+		private EntitySet<Conversation> _Conversations;
+		
+		private EntitySet<Conversation> _Conversations1;
+		
 		private EntitySet<GlobalPostID> _GlobalPostIDs;
 		
 		private EntitySet<InstrumentReviewRevision> _InstrumentReviewRevisions;
@@ -2610,6 +2658,14 @@ namespace Legato.Models
 		private EntitySet<InstrumentReview> _InstrumentReviews;
 		
 		private EntitySet<Instrument> _Instruments;
+		
+		private EntitySet<MessageFlag> _MessageFlags;
+		
+		private EntitySet<Message> _Messages;
+		
+		private EntitySet<Message> _Messages1;
+		
+		private EntitySet<Notification> _Notifications;
 		
 		private EntitySet<UserOpenId> _UserOpenIds;
 		
@@ -2647,10 +2703,16 @@ namespace Legato.Models
 			this._aspnet_PersonalizationPerUsers = new EntitySet<aspnet_PersonalizationPerUser>(new Action<aspnet_PersonalizationPerUser>(this.attach_aspnet_PersonalizationPerUsers), new Action<aspnet_PersonalizationPerUser>(this.detach_aspnet_PersonalizationPerUsers));
 			this._aspnet_Profile = default(EntityRef<aspnet_Profile>);
 			this._aspnet_UsersInRoles = new EntitySet<aspnet_UsersInRole>(new Action<aspnet_UsersInRole>(this.attach_aspnet_UsersInRoles), new Action<aspnet_UsersInRole>(this.detach_aspnet_UsersInRoles));
+			this._Conversations = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations), new Action<Conversation>(this.detach_Conversations));
+			this._Conversations1 = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations1), new Action<Conversation>(this.detach_Conversations1));
 			this._GlobalPostIDs = new EntitySet<GlobalPostID>(new Action<GlobalPostID>(this.attach_GlobalPostIDs), new Action<GlobalPostID>(this.detach_GlobalPostIDs));
 			this._InstrumentReviewRevisions = new EntitySet<InstrumentReviewRevision>(new Action<InstrumentReviewRevision>(this.attach_InstrumentReviewRevisions), new Action<InstrumentReviewRevision>(this.detach_InstrumentReviewRevisions));
 			this._InstrumentReviews = new EntitySet<InstrumentReview>(new Action<InstrumentReview>(this.attach_InstrumentReviews), new Action<InstrumentReview>(this.detach_InstrumentReviews));
 			this._Instruments = new EntitySet<Instrument>(new Action<Instrument>(this.attach_Instruments), new Action<Instrument>(this.detach_Instruments));
+			this._MessageFlags = new EntitySet<MessageFlag>(new Action<MessageFlag>(this.attach_MessageFlags), new Action<MessageFlag>(this.detach_MessageFlags));
+			this._Messages = new EntitySet<Message>(new Action<Message>(this.attach_Messages), new Action<Message>(this.detach_Messages));
+			this._Messages1 = new EntitySet<Message>(new Action<Message>(this.attach_Messages1), new Action<Message>(this.detach_Messages1));
+			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
 			this._UserOpenIds = new EntitySet<UserOpenId>(new Action<UserOpenId>(this.attach_UserOpenIds), new Action<UserOpenId>(this.detach_UserOpenIds));
 			this._UserSuspensions = new EntitySet<UserSuspension>(new Action<UserSuspension>(this.attach_UserSuspensions), new Action<UserSuspension>(this.detach_UserSuspensions));
 			this._Votes = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes), new Action<Vote>(this.detach_Votes));
@@ -2887,6 +2949,32 @@ namespace Legato.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Conversation", Storage="_Conversations", ThisKey="UserId", OtherKey="User1")]
+		public EntitySet<Conversation> Conversations
+		{
+			get
+			{
+				return this._Conversations;
+			}
+			set
+			{
+				this._Conversations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Conversation1", Storage="_Conversations1", ThisKey="UserId", OtherKey="User2")]
+		public EntitySet<Conversation> Conversations1
+		{
+			get
+			{
+				return this._Conversations1;
+			}
+			set
+			{
+				this._Conversations1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_GlobalPostID", Storage="_GlobalPostIDs", ThisKey="UserId", OtherKey="UserID")]
 		public EntitySet<GlobalPostID> GlobalPostIDs
 		{
@@ -2936,6 +3024,58 @@ namespace Legato.Models
 			set
 			{
 				this._Instruments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_MessageFlag", Storage="_MessageFlags", ThisKey="UserId", OtherKey="FlaggerID")]
+		public EntitySet<MessageFlag> MessageFlags
+		{
+			get
+			{
+				return this._MessageFlags;
+			}
+			set
+			{
+				this._MessageFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Message", Storage="_Messages", ThisKey="UserId", OtherKey="SenderID")]
+		public EntitySet<Message> Messages
+		{
+			get
+			{
+				return this._Messages;
+			}
+			set
+			{
+				this._Messages.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Message1", Storage="_Messages1", ThisKey="UserId", OtherKey="ReceipientID")]
+		public EntitySet<Message> Messages1
+		{
+			get
+			{
+				return this._Messages1;
+			}
+			set
+			{
+				this._Messages1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Notification", Storage="_Notifications", ThisKey="UserId", OtherKey="UserID")]
+		public EntitySet<Notification> Notifications
+		{
+			get
+			{
+				return this._Notifications;
+			}
+			set
+			{
+				this._Notifications.Assign(value);
 			}
 		}
 		
@@ -3069,6 +3209,30 @@ namespace Legato.Models
 			entity.aspnet_User = null;
 		}
 		
+		private void attach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Conversations1(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = this;
+		}
+		
+		private void detach_Conversations1(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = null;
+		}
+		
 		private void attach_GlobalPostIDs(GlobalPostID entity)
 		{
 			this.SendPropertyChanging();
@@ -3112,6 +3276,54 @@ namespace Legato.Models
 		}
 		
 		private void detach_Instruments(Instrument entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_MessageFlags(MessageFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_MessageFlags(MessageFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = null;
+		}
+		
+		private void attach_Messages1(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = this;
+		}
+		
+		private void detach_Messages1(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User1 = null;
+		}
+		
+		private void attach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.aspnet_User = this;
+		}
+		
+		private void detach_Notifications(Notification entity)
 		{
 			this.SendPropertyChanging();
 			entity.aspnet_User = null;
@@ -3859,6 +4071,363 @@ namespace Legato.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Conversations")]
+	public partial class Conversation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ConversationID;
+		
+		private System.Guid _User1;
+		
+		private System.Guid _User2;
+		
+		private System.DateTime _StartDate;
+		
+		private System.Nullable<System.DateTime> _LastMessageDate;
+		
+		private string _Subject;
+		
+		private System.Nullable<int> _GlobalPostID;
+		
+		private EntitySet<Message> _Messages;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<aspnet_User> _aspnet_User1;
+		
+		private EntityRef<GlobalPostID> _GlobalPostID1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnConversationIDChanging(int value);
+    partial void OnConversationIDChanged();
+    partial void OnUser1Changing(System.Guid value);
+    partial void OnUser1Changed();
+    partial void OnUser2Changing(System.Guid value);
+    partial void OnUser2Changed();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnLastMessageDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastMessageDateChanged();
+    partial void OnSubjectChanging(string value);
+    partial void OnSubjectChanged();
+    partial void OnGlobalPostIDChanging(System.Nullable<int> value);
+    partial void OnGlobalPostIDChanged();
+    #endregion
+		
+		public Conversation()
+		{
+			this._Messages = new EntitySet<Message>(new Action<Message>(this.attach_Messages), new Action<Message>(this.detach_Messages));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._aspnet_User1 = default(EntityRef<aspnet_User>);
+			this._GlobalPostID1 = default(EntityRef<GlobalPostID>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConversationID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ConversationID
+		{
+			get
+			{
+				return this._ConversationID;
+			}
+			set
+			{
+				if ((this._ConversationID != value))
+				{
+					this.OnConversationIDChanging(value);
+					this.SendPropertyChanging();
+					this._ConversationID = value;
+					this.SendPropertyChanged("ConversationID");
+					this.OnConversationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User1", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid User1
+		{
+			get
+			{
+				return this._User1;
+			}
+			set
+			{
+				if ((this._User1 != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUser1Changing(value);
+					this.SendPropertyChanging();
+					this._User1 = value;
+					this.SendPropertyChanged("User1");
+					this.OnUser1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User2", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid User2
+		{
+			get
+			{
+				return this._User2;
+			}
+			set
+			{
+				if ((this._User2 != value))
+				{
+					if (this._aspnet_User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUser2Changing(value);
+					this.SendPropertyChanging();
+					this._User2 = value;
+					this.SendPropertyChanged("User2");
+					this.OnUser2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime NOT NULL")]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastMessageDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> LastMessageDate
+		{
+			get
+			{
+				return this._LastMessageDate;
+			}
+			set
+			{
+				if ((this._LastMessageDate != value))
+				{
+					this.OnLastMessageDateChanging(value);
+					this.SendPropertyChanging();
+					this._LastMessageDate = value;
+					this.SendPropertyChanged("LastMessageDate");
+					this.OnLastMessageDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Subject
+		{
+			get
+			{
+				return this._Subject;
+			}
+			set
+			{
+				if ((this._Subject != value))
+				{
+					this.OnSubjectChanging(value);
+					this.SendPropertyChanging();
+					this._Subject = value;
+					this.SendPropertyChanged("Subject");
+					this.OnSubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int")]
+		public System.Nullable<int> GlobalPostID
+		{
+			get
+			{
+				return this._GlobalPostID;
+			}
+			set
+			{
+				if ((this._GlobalPostID != value))
+				{
+					if (this._GlobalPostID1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGlobalPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._GlobalPostID = value;
+					this.SendPropertyChanged("GlobalPostID");
+					this.OnGlobalPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Conversation_Message", Storage="_Messages", ThisKey="ConversationID", OtherKey="ConversationID")]
+		public EntitySet<Message> Messages
+		{
+			get
+			{
+				return this._Messages;
+			}
+			set
+			{
+				this._Messages.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Conversation", Storage="_aspnet_User", ThisKey="User1", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Conversations.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Conversations.Add(this);
+						this._User1 = value.UserId;
+					}
+					else
+					{
+						this._User1 = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Conversation1", Storage="_aspnet_User1", ThisKey="User2", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User1
+		{
+			get
+			{
+				return this._aspnet_User1.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User1.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User1.Entity = null;
+						previousValue.Conversations1.Remove(this);
+					}
+					this._aspnet_User1.Entity = value;
+					if ((value != null))
+					{
+						value.Conversations1.Add(this);
+						this._User2 = value.UserId;
+					}
+					else
+					{
+						this._User2 = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Conversation", Storage="_GlobalPostID1", ThisKey="GlobalPostID", OtherKey="GlobalPostID1", IsForeignKey=true)]
+		public GlobalPostID GlobalPostID1
+		{
+			get
+			{
+				return this._GlobalPostID1.Entity;
+			}
+			set
+			{
+				GlobalPostID previousValue = this._GlobalPostID1.Entity;
+				if (((previousValue != value) 
+							|| (this._GlobalPostID1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GlobalPostID1.Entity = null;
+						previousValue.Conversations.Remove(this);
+					}
+					this._GlobalPostID1.Entity = value;
+					if ((value != null))
+					{
+						value.Conversations.Add(this);
+						this._GlobalPostID = value.GlobalPostID1;
+					}
+					else
+					{
+						this._GlobalPostID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("GlobalPostID1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.Conversation = this;
+		}
+		
+		private void detach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.Conversation = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GlobalPostIDs")]
 	public partial class GlobalPostID : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3874,6 +4443,12 @@ namespace Legato.Models
 		private string _PostCategory;
 		
 		private System.Nullable<System.DateTime> _SubmissionDate;
+		
+		private EntitySet<Conversation> _Conversations;
+		
+		private EntitySet<Message> _Messages;
+		
+		private EntitySet<Notification> _Notifications;
 		
 		private EntitySet<Vote> _Votes;
 		
@@ -3897,6 +4472,9 @@ namespace Legato.Models
 		
 		public GlobalPostID()
 		{
+			this._Conversations = new EntitySet<Conversation>(new Action<Conversation>(this.attach_Conversations), new Action<Conversation>(this.detach_Conversations));
+			this._Messages = new EntitySet<Message>(new Action<Message>(this.attach_Messages), new Action<Message>(this.detach_Messages));
+			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
 			this._Votes = new EntitySet<Vote>(new Action<Vote>(this.attach_Votes), new Action<Vote>(this.detach_Votes));
 			this._aspnet_User = default(EntityRef<aspnet_User>);
 			OnCreated();
@@ -4006,6 +4584,45 @@ namespace Legato.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Conversation", Storage="_Conversations", ThisKey="GlobalPostID1", OtherKey="GlobalPostID")]
+		public EntitySet<Conversation> Conversations
+		{
+			get
+			{
+				return this._Conversations;
+			}
+			set
+			{
+				this._Conversations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Message", Storage="_Messages", ThisKey="GlobalPostID1", OtherKey="GlobalPostID")]
+		public EntitySet<Message> Messages
+		{
+			get
+			{
+				return this._Messages;
+			}
+			set
+			{
+				this._Messages.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Notification", Storage="_Notifications", ThisKey="GlobalPostID1", OtherKey="GlobalPostID")]
+		public EntitySet<Notification> Notifications
+		{
+			get
+			{
+				return this._Notifications;
+			}
+			set
+			{
+				this._Notifications.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Vote", Storage="_Votes", ThisKey="GlobalPostID1", OtherKey="PostID")]
 		public EntitySet<Vote> Votes
 		{
@@ -4071,6 +4688,42 @@ namespace Legato.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = this;
+		}
+		
+		private void detach_Conversations(Conversation entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = null;
+		}
+		
+		private void attach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = this;
+		}
+		
+		private void detach_Messages(Message entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = null;
+		}
+		
+		private void attach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = this;
+		}
+		
+		private void detach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.GlobalPostID1 = null;
 		}
 		
 		private void attach_Votes(Vote entity)
@@ -5611,6 +6264,716 @@ namespace Legato.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageFlags")]
+	public partial class MessageFlag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _FlagID;
+		
+		private int _MessageID;
+		
+		private System.Guid _FlaggerID;
+		
+		private System.DateTime _Date;
+		
+		private System.Nullable<bool> _ModResponse;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<Message> _Message;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlagIDChanging(int value);
+    partial void OnFlagIDChanged();
+    partial void OnMessageIDChanging(int value);
+    partial void OnMessageIDChanged();
+    partial void OnFlaggerIDChanging(System.Guid value);
+    partial void OnFlaggerIDChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnModResponseChanging(System.Nullable<bool> value);
+    partial void OnModResponseChanged();
+    #endregion
+		
+		public MessageFlag()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._Message = default(EntityRef<Message>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlagID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int FlagID
+		{
+			get
+			{
+				return this._FlagID;
+			}
+			set
+			{
+				if ((this._FlagID != value))
+				{
+					this.OnFlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlagID = value;
+					this.SendPropertyChanged("FlagID");
+					this.OnFlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageID", DbType="Int NOT NULL")]
+		public int MessageID
+		{
+			get
+			{
+				return this._MessageID;
+			}
+			set
+			{
+				if ((this._MessageID != value))
+				{
+					if (this._Message.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMessageIDChanging(value);
+					this.SendPropertyChanging();
+					this._MessageID = value;
+					this.SendPropertyChanged("MessageID");
+					this.OnMessageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlaggerID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid FlaggerID
+		{
+			get
+			{
+				return this._FlaggerID;
+			}
+			set
+			{
+				if ((this._FlaggerID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFlaggerIDChanging(value);
+					this.SendPropertyChanging();
+					this._FlaggerID = value;
+					this.SendPropertyChanged("FlaggerID");
+					this.OnFlaggerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModResponse", DbType="Bit")]
+		public System.Nullable<bool> ModResponse
+		{
+			get
+			{
+				return this._ModResponse;
+			}
+			set
+			{
+				if ((this._ModResponse != value))
+				{
+					this.OnModResponseChanging(value);
+					this.SendPropertyChanging();
+					this._ModResponse = value;
+					this.SendPropertyChanged("ModResponse");
+					this.OnModResponseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_MessageFlag", Storage="_aspnet_User", ThisKey="FlaggerID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.MessageFlags.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.MessageFlags.Add(this);
+						this._FlaggerID = value.UserId;
+					}
+					else
+					{
+						this._FlaggerID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Message_MessageFlag", Storage="_Message", ThisKey="MessageID", OtherKey="MessageID", IsForeignKey=true)]
+		public Message Message
+		{
+			get
+			{
+				return this._Message.Entity;
+			}
+			set
+			{
+				Message previousValue = this._Message.Entity;
+				if (((previousValue != value) 
+							|| (this._Message.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Message.Entity = null;
+						previousValue.MessageFlags.Remove(this);
+					}
+					this._Message.Entity = value;
+					if ((value != null))
+					{
+						value.MessageFlags.Add(this);
+						this._MessageID = value.MessageID;
+					}
+					else
+					{
+						this._MessageID = default(int);
+					}
+					this.SendPropertyChanged("Message");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Messages")]
+	public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MessageID;
+		
+		private int _ConversationID;
+		
+		private System.Guid _SenderID;
+		
+		private System.Guid _ReceipientID;
+		
+		private System.DateTime _Date;
+		
+		private string _Markdown;
+		
+		private string _Html;
+		
+		private int _NumberInConvo;
+		
+		private bool _IsUnread;
+		
+		private System.Nullable<int> _GlobalPostID;
+		
+		private EntitySet<MessageFlag> _MessageFlags;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<aspnet_User> _aspnet_User1;
+		
+		private EntityRef<Conversation> _Conversation;
+		
+		private EntityRef<GlobalPostID> _GlobalPostID1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMessageIDChanging(int value);
+    partial void OnMessageIDChanged();
+    partial void OnConversationIDChanging(int value);
+    partial void OnConversationIDChanged();
+    partial void OnSenderIDChanging(System.Guid value);
+    partial void OnSenderIDChanged();
+    partial void OnReceipientIDChanging(System.Guid value);
+    partial void OnReceipientIDChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnMarkdownChanging(string value);
+    partial void OnMarkdownChanged();
+    partial void OnHtmlChanging(string value);
+    partial void OnHtmlChanged();
+    partial void OnNumberInConvoChanging(int value);
+    partial void OnNumberInConvoChanged();
+    partial void OnIsUnreadChanging(bool value);
+    partial void OnIsUnreadChanged();
+    partial void OnGlobalPostIDChanging(System.Nullable<int> value);
+    partial void OnGlobalPostIDChanged();
+    #endregion
+		
+		public Message()
+		{
+			this._MessageFlags = new EntitySet<MessageFlag>(new Action<MessageFlag>(this.attach_MessageFlags), new Action<MessageFlag>(this.detach_MessageFlags));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._aspnet_User1 = default(EntityRef<aspnet_User>);
+			this._Conversation = default(EntityRef<Conversation>);
+			this._GlobalPostID1 = default(EntityRef<GlobalPostID>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MessageID
+		{
+			get
+			{
+				return this._MessageID;
+			}
+			set
+			{
+				if ((this._MessageID != value))
+				{
+					this.OnMessageIDChanging(value);
+					this.SendPropertyChanging();
+					this._MessageID = value;
+					this.SendPropertyChanged("MessageID");
+					this.OnMessageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConversationID", DbType="Int NOT NULL")]
+		public int ConversationID
+		{
+			get
+			{
+				return this._ConversationID;
+			}
+			set
+			{
+				if ((this._ConversationID != value))
+				{
+					if (this._Conversation.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnConversationIDChanging(value);
+					this.SendPropertyChanging();
+					this._ConversationID = value;
+					this.SendPropertyChanged("ConversationID");
+					this.OnConversationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SenderID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid SenderID
+		{
+			get
+			{
+				return this._SenderID;
+			}
+			set
+			{
+				if ((this._SenderID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSenderIDChanging(value);
+					this.SendPropertyChanging();
+					this._SenderID = value;
+					this.SendPropertyChanged("SenderID");
+					this.OnSenderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceipientID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid ReceipientID
+		{
+			get
+			{
+				return this._ReceipientID;
+			}
+			set
+			{
+				if ((this._ReceipientID != value))
+				{
+					if (this._aspnet_User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReceipientIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReceipientID = value;
+					this.SendPropertyChanged("ReceipientID");
+					this.OnReceipientIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Markdown
+		{
+			get
+			{
+				return this._Markdown;
+			}
+			set
+			{
+				if ((this._Markdown != value))
+				{
+					this.OnMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._Markdown = value;
+					this.SendPropertyChanged("Markdown");
+					this.OnMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Html", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Html
+		{
+			get
+			{
+				return this._Html;
+			}
+			set
+			{
+				if ((this._Html != value))
+				{
+					this.OnHtmlChanging(value);
+					this.SendPropertyChanging();
+					this._Html = value;
+					this.SendPropertyChanged("Html");
+					this.OnHtmlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberInConvo", DbType="Int NOT NULL")]
+		public int NumberInConvo
+		{
+			get
+			{
+				return this._NumberInConvo;
+			}
+			set
+			{
+				if ((this._NumberInConvo != value))
+				{
+					this.OnNumberInConvoChanging(value);
+					this.SendPropertyChanging();
+					this._NumberInConvo = value;
+					this.SendPropertyChanged("NumberInConvo");
+					this.OnNumberInConvoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsUnread", DbType="Bit NOT NULL")]
+		public bool IsUnread
+		{
+			get
+			{
+				return this._IsUnread;
+			}
+			set
+			{
+				if ((this._IsUnread != value))
+				{
+					this.OnIsUnreadChanging(value);
+					this.SendPropertyChanging();
+					this._IsUnread = value;
+					this.SendPropertyChanged("IsUnread");
+					this.OnIsUnreadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int")]
+		public System.Nullable<int> GlobalPostID
+		{
+			get
+			{
+				return this._GlobalPostID;
+			}
+			set
+			{
+				if ((this._GlobalPostID != value))
+				{
+					if (this._GlobalPostID1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGlobalPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._GlobalPostID = value;
+					this.SendPropertyChanged("GlobalPostID");
+					this.OnGlobalPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Message_MessageFlag", Storage="_MessageFlags", ThisKey="MessageID", OtherKey="MessageID")]
+		public EntitySet<MessageFlag> MessageFlags
+		{
+			get
+			{
+				return this._MessageFlags;
+			}
+			set
+			{
+				this._MessageFlags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Message", Storage="_aspnet_User", ThisKey="SenderID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Messages.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Messages.Add(this);
+						this._SenderID = value.UserId;
+					}
+					else
+					{
+						this._SenderID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Message1", Storage="_aspnet_User1", ThisKey="ReceipientID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User1
+		{
+			get
+			{
+				return this._aspnet_User1.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User1.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User1.Entity = null;
+						previousValue.Messages1.Remove(this);
+					}
+					this._aspnet_User1.Entity = value;
+					if ((value != null))
+					{
+						value.Messages1.Add(this);
+						this._ReceipientID = value.UserId;
+					}
+					else
+					{
+						this._ReceipientID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Conversation_Message", Storage="_Conversation", ThisKey="ConversationID", OtherKey="ConversationID", IsForeignKey=true)]
+		public Conversation Conversation
+		{
+			get
+			{
+				return this._Conversation.Entity;
+			}
+			set
+			{
+				Conversation previousValue = this._Conversation.Entity;
+				if (((previousValue != value) 
+							|| (this._Conversation.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Conversation.Entity = null;
+						previousValue.Messages.Remove(this);
+					}
+					this._Conversation.Entity = value;
+					if ((value != null))
+					{
+						value.Messages.Add(this);
+						this._ConversationID = value.ConversationID;
+					}
+					else
+					{
+						this._ConversationID = default(int);
+					}
+					this.SendPropertyChanged("Conversation");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Message", Storage="_GlobalPostID1", ThisKey="GlobalPostID", OtherKey="GlobalPostID1", IsForeignKey=true)]
+		public GlobalPostID GlobalPostID1
+		{
+			get
+			{
+				return this._GlobalPostID1.Entity;
+			}
+			set
+			{
+				GlobalPostID previousValue = this._GlobalPostID1.Entity;
+				if (((previousValue != value) 
+							|| (this._GlobalPostID1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GlobalPostID1.Entity = null;
+						previousValue.Messages.Remove(this);
+					}
+					this._GlobalPostID1.Entity = value;
+					if ((value != null))
+					{
+						value.Messages.Add(this);
+						this._GlobalPostID = value.GlobalPostID1;
+					}
+					else
+					{
+						this._GlobalPostID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("GlobalPostID1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_MessageFlags(MessageFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Message = this;
+		}
+		
+		private void detach_MessageFlags(MessageFlag entity)
+		{
+			this.SendPropertyChanging();
+			entity.Message = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MiniProfilerResults")]
 	public partial class MiniProfilerResult : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5672,6 +7035,246 @@ namespace Legato.Models
 					this._Results = value;
 					this.SendPropertyChanged("Results");
 					this.OnResultsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Notifications")]
+	public partial class Notification : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _NotificationID;
+		
+		private System.Guid _UserID;
+		
+		private System.DateTime _Date;
+		
+		private int _GlobalPostID;
+		
+		private bool _IsUnread;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+		private EntityRef<GlobalPostID> _GlobalPostID1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNotificationIDChanging(int value);
+    partial void OnNotificationIDChanged();
+    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnGlobalPostIDChanging(int value);
+    partial void OnGlobalPostIDChanged();
+    partial void OnIsUnreadChanging(bool value);
+    partial void OnIsUnreadChanged();
+    #endregion
+		
+		public Notification()
+		{
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			this._GlobalPostID1 = default(EntityRef<GlobalPostID>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int NotificationID
+		{
+			get
+			{
+				return this._NotificationID;
+			}
+			set
+			{
+				if ((this._NotificationID != value))
+				{
+					this.OnNotificationIDChanging(value);
+					this.SendPropertyChanging();
+					this._NotificationID = value;
+					this.SendPropertyChanged("NotificationID");
+					this.OnNotificationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlobalPostID", DbType="Int NOT NULL")]
+		public int GlobalPostID
+		{
+			get
+			{
+				return this._GlobalPostID;
+			}
+			set
+			{
+				if ((this._GlobalPostID != value))
+				{
+					if (this._GlobalPostID1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGlobalPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._GlobalPostID = value;
+					this.SendPropertyChanged("GlobalPostID");
+					this.OnGlobalPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsUnread", DbType="Bit NOT NULL")]
+		public bool IsUnread
+		{
+			get
+			{
+				return this._IsUnread;
+			}
+			set
+			{
+				if ((this._IsUnread != value))
+				{
+					this.OnIsUnreadChanging(value);
+					this.SendPropertyChanging();
+					this._IsUnread = value;
+					this.SendPropertyChanged("IsUnread");
+					this.OnIsUnreadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Notification", Storage="_aspnet_User", ThisKey="UserID", OtherKey="UserId", IsForeignKey=true)]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Notifications.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Notifications.Add(this);
+						this._UserID = value.UserId;
+					}
+					else
+					{
+						this._UserID = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GlobalPostID_Notification", Storage="_GlobalPostID1", ThisKey="GlobalPostID", OtherKey="GlobalPostID1", IsForeignKey=true)]
+		public GlobalPostID GlobalPostID1
+		{
+			get
+			{
+				return this._GlobalPostID1.Entity;
+			}
+			set
+			{
+				GlobalPostID previousValue = this._GlobalPostID1.Entity;
+				if (((previousValue != value) 
+							|| (this._GlobalPostID1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GlobalPostID1.Entity = null;
+						previousValue.Notifications.Remove(this);
+					}
+					this._GlobalPostID1.Entity = value;
+					if ((value != null))
+					{
+						value.Notifications.Add(this);
+						this._GlobalPostID = value.GlobalPostID1;
+					}
+					else
+					{
+						this._GlobalPostID = default(int);
+					}
+					this.SendPropertyChanged("GlobalPostID1");
 				}
 			}
 		}

@@ -120,10 +120,16 @@
       <Association Name="aspnet_User_aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers" ThisKey="UserId" OtherKey="UserId" Type="aspnet_PersonalizationPerUser" />
       <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_Profile" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Profile" Cardinality="One" />
       <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="aspnet_UsersInRole" />
+      <Association Name="aspnet_User_Conversation" Member="Conversations" ThisKey="UserId" OtherKey="User1" Type="Conversation" />
+      <Association Name="aspnet_User_Conversation1" Member="Conversations1" ThisKey="UserId" OtherKey="User2" Type="Conversation" />
       <Association Name="aspnet_User_GlobalPostID" Member="GlobalPostIDs" ThisKey="UserId" OtherKey="UserID" Type="GlobalPostID" />
       <Association Name="aspnet_User_InstrumentReviewRevision" Member="InstrumentReviewRevisions" ThisKey="UserId" OtherKey="UserID" Type="InstrumentReviewRevision" />
       <Association Name="aspnet_User_InstrumentReview" Member="InstrumentReviews" ThisKey="UserId" OtherKey="UserID" Type="InstrumentReview" />
       <Association Name="aspnet_User_Instrument" Member="Instruments" ThisKey="UserId" OtherKey="UserID" Type="Instrument" />
+      <Association Name="aspnet_User_MessageFlag" Member="MessageFlags" ThisKey="UserId" OtherKey="FlaggerID" Type="MessageFlag" />
+      <Association Name="aspnet_User_Message" Member="Messages" ThisKey="UserId" OtherKey="SenderID" Type="Message" />
+      <Association Name="aspnet_User_Message1" Member="Messages1" ThisKey="UserId" OtherKey="ReceipientID" Type="Message" />
+      <Association Name="aspnet_User_Notification" Member="Notifications" ThisKey="UserId" OtherKey="UserID" Type="Notification" />
       <Association Name="aspnet_User_UserOpenId" Member="UserOpenIds" ThisKey="UserId" OtherKey="UserId" Type="UserOpenId" />
       <Association Name="aspnet_User_UserSuspension" Member="UserSuspensions" ThisKey="UserId" OtherKey="UserID" Type="UserSuspension" />
       <Association Name="aspnet_User_Vote" Member="Votes" ThisKey="UserId" OtherKey="UserAffectedByVoteID" Type="Vote" />
@@ -165,6 +171,21 @@
       <Association Name="aspnet_Membership_ConfirmEmailAddress" Member="aspnet_Membership" ThisKey="UserID" OtherKey="UserId" Type="aspnet_Membership" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Conversations" Member="Conversations">
+    <Type Name="Conversation">
+      <Column Name="ConversationID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="User1" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="User2" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastMessageDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Conversation_Message" Member="Messages" ThisKey="ConversationID" OtherKey="ConversationID" Type="Message" />
+      <Association Name="aspnet_User_Conversation" Member="aspnet_User" ThisKey="User1" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="aspnet_User_Conversation1" Member="aspnet_User1" ThisKey="User2" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="GlobalPostID_Conversation" Member="GlobalPostID1" ThisKey="GlobalPostID" OtherKey="GlobalPostID1" Type="GlobalPostID" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.GlobalPostIDs" Member="GlobalPostIDs">
     <Type Name="GlobalPostID">
       <Column Name="GlobalPostID" Member="GlobalPostID1" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -172,6 +193,9 @@
       <Column Name="SpecificPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PostCategory" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="SubmissionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="GlobalPostID_Conversation" Member="Conversations" ThisKey="GlobalPostID1" OtherKey="GlobalPostID" Type="Conversation" />
+      <Association Name="GlobalPostID_Message" Member="Messages" ThisKey="GlobalPostID1" OtherKey="GlobalPostID" Type="Message" />
+      <Association Name="GlobalPostID_Notification" Member="Notifications" ThisKey="GlobalPostID1" OtherKey="GlobalPostID" Type="Notification" />
       <Association Name="GlobalPostID_Vote" Member="Votes" ThisKey="GlobalPostID1" OtherKey="PostID" Type="Vote" />
       <Association Name="aspnet_User_GlobalPostID" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
     </Type>
@@ -246,10 +270,51 @@
       <Association Name="InstrumentType_Instrument" Member="Instruments" ThisKey="TypeID" OtherKey="TypeID" Type="Instrument" />
     </Type>
   </Table>
+  <Table Name="dbo.MessageFlags" Member="MessageFlags">
+    <Type Name="MessageFlag">
+      <Column Name="FlagID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MessageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FlaggerID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModResponse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="aspnet_User_MessageFlag" Member="aspnet_User" ThisKey="FlaggerID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="Message_MessageFlag" Member="Message" ThisKey="MessageID" OtherKey="MessageID" Type="Message" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Messages" Member="Messages">
+    <Type Name="Message">
+      <Column Name="MessageID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ConversationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SenderID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ReceipientID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Markdown" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Html" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NumberInConvo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsUnread" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Message_MessageFlag" Member="MessageFlags" ThisKey="MessageID" OtherKey="MessageID" Type="MessageFlag" />
+      <Association Name="aspnet_User_Message" Member="aspnet_User" ThisKey="SenderID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="aspnet_User_Message1" Member="aspnet_User1" ThisKey="ReceipientID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="Conversation_Message" Member="Conversation" ThisKey="ConversationID" OtherKey="ConversationID" Type="Conversation" IsForeignKey="true" />
+      <Association Name="GlobalPostID_Message" Member="GlobalPostID1" ThisKey="GlobalPostID" OtherKey="GlobalPostID1" Type="GlobalPostID" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.MiniProfilerResults" Member="MiniProfilerResults">
     <Type Name="MiniProfilerResult">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Results" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notifications" Member="Notifications">
+    <Type Name="Notification">
+      <Column Name="NotificationID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsUnread" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_Notification" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+      <Association Name="GlobalPostID_Notification" Member="GlobalPostID1" ThisKey="GlobalPostID" OtherKey="GlobalPostID1" Type="GlobalPostID" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.OneTimeRegistrationCodes" Member="OneTimeRegistrationCodes">
