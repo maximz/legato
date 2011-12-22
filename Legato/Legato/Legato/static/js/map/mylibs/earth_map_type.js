@@ -730,7 +730,7 @@ var EarthMapType = (function () {
       }
     });
 
-    if (google.earth) {
+if (google.earth && google.earth.isSupported()) {
       google.earth.createInstance(earthDiv, function (ge) {
         try {
           self._initEarth(ge);
