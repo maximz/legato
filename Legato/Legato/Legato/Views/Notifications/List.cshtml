@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Legato.Models.Notification>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            UserID
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            GlobalPostID
+        </th>
+        <th>
+            IsUnread
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlobalPostID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsUnread)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NotificationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NotificationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NotificationID })
+        </td>
+    </tr>
+}
+
+</table>

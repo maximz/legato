@@ -597,6 +597,7 @@
     <Content Include="Views\Account\RecoverOpenID.cshtml" />
     <Content Include="Views\Shared\NavFull.cshtml" />
     <Content Include="Views\Shared\NavPartial.cshtml" />
+    <Content Include="Views\Notifications\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
