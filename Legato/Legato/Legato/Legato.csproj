@@ -119,6 +119,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Controllers\LegalController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Current.cs" />
     <Compile Include="Default.aspx.cs">
@@ -248,6 +250,7 @@
     <Content Include="static\css\webfonts\svg\index.html" />
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
+    <Content Include="static\css\wmd.new.css" />
     <Content Include="static\images\advertiser_icon.png" />
     <Content Include="static\images\arrow_bg.gif" />
     <Content Include="static\images\content_btm.jpg" />
@@ -330,6 +333,7 @@
     <Content Include="static\images\social_icon.png" />
     <Content Include="static\images\submit.jpg" />
     <Content Include="static\images\topnav.jpg" />
+    <Content Include="static\images\wmd-buttons.old.png" />
     <Content Include="static\images\wmd-buttons.png" />
     <Content Include="static\js\Awesome.js" />
     <Content Include="static\js\Awesome.min.js" />
