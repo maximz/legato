@@ -118,6 +118,9 @@ namespace Legato.Controllers
             data.GlobalPostID = gpostmessage.GlobalPostID1;
             db.SubmitChanges();
 
+            // Notification:
+            new NotificationsController().CreateNotification(data.ReceipientID, gpostmessage, currentTime);
+
             return RedirectToAction("Message", new { id = data.MessageID });
         }
 
@@ -234,6 +237,9 @@ namespace Legato.Controllers
             db.SubmitChanges();
             message.GlobalPostID = gpostmessage.GlobalPostID1;
             db.SubmitChanges();
+
+            // Notification:
+            new NotificationsController().CreateNotification(otherUser, gpostconversation, currentTime);
 
             return RedirectToAction("Thread", new { id = conversation.ConversationID });
         }
