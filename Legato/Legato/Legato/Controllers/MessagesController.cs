@@ -45,7 +45,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        [Url("messages/{id}")]
+        [Url("messages/{id}", Constraints = @"id=\d+")]
         public virtual ActionResult Thread(int id) // individual thread
         {
             return ThreadWithModel(id, null);
@@ -71,6 +71,7 @@ namespace Legato.Controllers
             {
                 model.OtherUser = conversation.aspnet_User1;
             }
+            model.ThreadID = conversation.ConversationID;
 
             return View(model);
         }
@@ -230,7 +231,13 @@ namespace Legato.Controllers
             conversation.Subject = HtmlUtilities.Safe(data.Subject.TruncateWithEllipsis(100));
 
             // Look up other user
-            var otherUser = (Guid)Membership.GetUser(data.UserName).ProviderUserKey;
+            var otherUserObj = Membership.FindUsersByName(data.UserName)[data.UserName];
+            if(otherUserObj == null)
+            {
+                ModelState.AddModelError("UserName", "Invalid user");
+                return View(data);
+            }
+            var otherUser = (Guid)otherUserObj.ProviderUserKey;
             message.ReceipientID = otherUser;
             conversation.User2 = otherUser;
 

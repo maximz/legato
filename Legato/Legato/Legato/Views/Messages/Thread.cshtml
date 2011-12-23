@@ -60,12 +60,12 @@ $('a.flag-message').click(function (e) {
 <div id="reply">
 <div class="row">
 <div class="span16">
-@using (Html.BeginForm("Reply"))
+@using (Html.BeginForm("Reply","Messages"))
 {
 	@Html.ValidationSummary(true)
 	<fieldset>
 			<legend>Reply</legend>
-			@Html.HiddenFor(model => model.ThreadID, new { @value = Model.Conversation.ConversationID });
+			@Html.HiddenFor(model => model.ThreadID)
 			
 			<div class="clearfix">
 				@Html.LabelFor(model => model.Markdown)

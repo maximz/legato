@@ -3,7 +3,7 @@
 <li class="dropdown @if(ViewBag.curPage == "Account"){<text>active</text>}" data-dropdown="dropdown">
     <a href="#" class="dropdown-toggle">@User.Identity.Name @if (new Legato.Controllers.NotificationsController().GetState()) { <span class="label important">New!</span> }</a>
         <ul class="dropdown-menu">
-            <li><a href="@Url.Action("List", "Notifications")">Notifcations</a></li>
+            <li><a href="@Url.Action("List", "Notifications")">Notifications</a></li>
             <!--<li><a href="#">Secondary link</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>-->

@@ -410,11 +410,13 @@ namespace Legato.Models
                     UnderlyingType = typeof(Message);
                     UnderlyingPost = db.Messages.Where(m => m.MessageID == this.SpecificPostID).SingleOrDefault();
                     DetailsRoute = MVC.Messages.Message((UnderlyingPost as Message).MessageID);
+                    Title = "Message";
                     break;
                 case MagicCategoryStrings.Conversation:
                     UnderlyingType = typeof(Conversation);
                     UnderlyingPost = db.Conversations.Where(c => c.ConversationID == this.SpecificPostID).SingleOrDefault();
                     DetailsRoute = MVC.Messages.Thread((UnderlyingPost as Conversation).ConversationID);
+                    Title = UnderlyingPost.Subject;
                     break;
                 default:
                     throw new NotImplementedException();

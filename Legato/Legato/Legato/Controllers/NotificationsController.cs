@@ -25,8 +25,9 @@ namespace Legato.Controllers
 		public virtual ActionResult List()
 		{
 			ViewBag.curPage = "Account";
+            var notifications = GetNotifications((Guid)Membership.GetUser().ProviderUserKey);
 			ClearNotifications((Guid)Membership.GetUser().ProviderUserKey);
-			return View(GetNotifications((Guid)Membership.GetUser().ProviderUserKey));
+			return View(notifications);
 		}
 
 
@@ -35,7 +36,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="userid">The userid.</param>
 		/// <returns></returns>
-		internal List<Notification> GetNotifications(Guid userid)
+		public List<Notification> GetNotifications(Guid userid)
 		{
 			if(userid == null)
 			{
@@ -48,7 +49,7 @@ namespace Legato.Controllers
 				return currentCache as List<Notification>;
 			}
 			var db = Current.DB;
-			var notifications = db.Notifications.Where(n=>n.UserID == (Guid)Membership.GetUser().ProviderUserKey && n.IsUnread).OrderByDescending(n=>n.Date).ToList();
+			var notifications = db.Notifications.Where(n=>n.UserID == (Guid)Membership.GetUser().ProviderUserKey).OrderByDescending(n=>n.Date).ToList();
 			foreach(var n in notifications)
 			{
 				n.GlobalPostID1.FillProperties();
@@ -60,11 +61,11 @@ namespace Legato.Controllers
 		/// <summary>
 		/// Gets the state.
 		/// </summary>
-		/// <returns></returns>
-		internal bool GetState()
+		/// <returns>True if unread notifications exist.</returns>
+        public bool GetState()
 		{
 			var results = GetNotifications((Guid)Membership.GetUser().ProviderUserKey);
-			if (results != null && results.Count() >= 1)
+			if (results != null && results.Where(r=>r.IsUnread).Count() >= 1)
 			{
 				return true;
 			}
@@ -75,7 +76,7 @@ namespace Legato.Controllers
 		/// Clears notifications: sets to read
 		/// </summary>
 		/// <param name="userid">The userid.</param>
-		internal void ClearNotifications(Guid userid)
+        public void ClearNotifications(Guid userid)
 		{
 			if(userid == null)
 			{
@@ -98,7 +99,7 @@ namespace Legato.Controllers
 		/// <param name="post">The post.</param>
 		/// <param name="time">The time.</param>
 		/// <returns></returns>
-		internal Notification CreateNotification(Guid userid, GlobalPostID post, DateTime time)
+        public Notification CreateNotification(Guid userid, GlobalPostID post, DateTime time)
 		{
 			var db = Current.DB;
 			var notification = new Notification();
@@ -119,17 +120,25 @@ namespace Legato.Controllers
 		/// Invalidates the notification cache.
 		/// </summary>
 		/// <param name="userid">The userid.</param>
-		internal void InvalidateNotificationCache(Guid userid)
+        public void InvalidateNotificationCache(Guid userid)
 		{
 			Current.RemoveCachedObject(GetCacheKey(userid));
 		}
+
+        [Url("notifications/invalidate/{username}")]
+        [CustomAuthorization(AuthorizedRoles="Administrator,Moderator")]
+        public ActionResult Invalidate(string username)
+        {
+            Current.RemoveCachedObject(GetCacheKey((Guid)Membership.FindUsersByName(username)[username].ProviderUserKey));
+            return Content("done");
+        }
 
 		/// <summary>
 		/// Gets the cache key.
 		/// </summary>
 		/// <param name="userid">The userid.</param>
 		/// <returns></returns>
-		internal string GetCacheKey(Guid userid)
+        public string GetCacheKey(Guid userid)
 		{
 			return "notifications-" + userid;
 		}
