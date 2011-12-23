@@ -1,51 +1,30 @@
 ﻿@model IEnumerable<Legato.Models.Notification>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Notifications";
 }
 
-<h2>List</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            UserID
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            GlobalPostID
-        </th>
-        <th>
-            IsUnread
-        </th>
-        <th></th>
-    </tr>
+<section id="content">
+<div class="page-header">
+		<h1>Notifications <small>new events and changes</small></h1>
+	</div>
+	<div id="notifications">
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GlobalPostID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsUnread)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NotificationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NotificationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NotificationID })
-        </td>
-    </tr>
+    <div class="notification row">
+        <div class="span4">
+            <span class="timeago" title="@Html.DisplayFor(modelItem => item.Date)">@Html.DisplayFor(modelItem => item.Date)</span>
+        </div>
+        <div class="span10">
+            @if (item.IsUnread)
+            {
+                <span class="label success">New</span>
+            }
+            @Html.ActionLink(item.GlobalPostID1.Title,item.GlobalPostID1.DetailsRoute)
+        </div>
+    </div>
 }
 
-</table>
+</div>
+</div>
+</section>

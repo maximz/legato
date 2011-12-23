@@ -34,6 +34,10 @@ namespace Legato.Controllers
 			}
 			var db = Current.DB;
 			var notifications = db.Notifications.Where(n=>n.UserID == (Guid)Membership.GetUser().ProviderUserKey && n.IsUnread).OrderByDescending(n=>n.Date).ToList();
+            foreach(var n in notifications)
+            {
+                n.GlobalPostID1.FillProperties();
+            }
 			Current.SetCachedObject(cachekey, notifications, 5 * 60);
 			return notifications;
 		}
