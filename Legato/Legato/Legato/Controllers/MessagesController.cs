@@ -9,6 +9,7 @@ using Legato.Models;
 using System.Web.Security;
 using System.Net;
 using Legato.ViewModels;
+using System.Web.Routing;
 
 namespace Legato.Controllers
 {
@@ -18,6 +19,12 @@ namespace Legato.Controllers
     {
         //
         // GET: /Messages/
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            ViewBag.curPage = "Messages";
+        }
 
         /// <summary>
         /// Lists this instance.
