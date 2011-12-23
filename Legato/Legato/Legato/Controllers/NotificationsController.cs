@@ -24,6 +24,7 @@ namespace Legato.Controllers
 		[Url("notifications")]
 		public virtual ActionResult List()
 		{
+			ViewBag.curPage = "Account";
 			ClearNotifications((Guid)Membership.GetUser().ProviderUserKey);
 			return View(GetNotifications((Guid)Membership.GetUser().ProviderUserKey));
 		}
