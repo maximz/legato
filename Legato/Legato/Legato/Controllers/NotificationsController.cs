@@ -127,7 +127,7 @@ namespace Legato.Controllers
 
         [Url("notifications/invalidate/{username}")]
         [CustomAuthorization(AuthorizedRoles="Administrator,Moderator")]
-        public ActionResult Invalidate(string username)
+        public virtual ActionResult Invalidate(string username)
         {
             Current.RemoveCachedObject(GetCacheKey((Guid)Membership.FindUsersByName(username)[username].ProviderUserKey));
             return Content("done");
