@@ -13,7 +13,7 @@ namespace Legato.Controllers
 {
     [HandleError]
     [CustomAuthorization(AuthorizeEmailNotConfirmed=false, AuthorizeSuspended=false)]
-    public class MessagesController : CustomControllerBase
+    public partial class MessagesController : CustomControllerBase
     {
         //
         // GET: /Messages/

@@ -32,7 +32,6 @@ namespace T4MVC {
             public readonly string _LogOnPartial = "~/Views/Shared/_LogOnPartial.cshtml";
             public readonly string Error = "~/Views/Shared/Error.aspx";
             public readonly string Error_cshtml = "~/Views/Shared/Error.cshtml";
-            public readonly string LogOnUserControl = "~/Views/Shared/LogOnUserControl.ascx";
             public readonly string NavFull = "~/Views/Shared/NavFull.cshtml";
             public readonly string NavPartial = "~/Views/Shared/NavPartial.cshtml";
             static readonly _Awesome s_Awesome = new _Awesome();

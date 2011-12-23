@@ -10,7 +10,7 @@ using System.Web.Security;
 namespace Legato.Controllers
 {
 	[HandleError]
-	public class NotificationsController : CustomControllerBase
+    public partial class NotificationsController : CustomControllerBase
 	{
 		[CustomAuthorization(AuthorizeEmailNotConfirmed = true, AuthorizeSuspended = true)]
 		public virtual ActionResult List()

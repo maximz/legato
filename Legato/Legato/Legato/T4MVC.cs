@@ -29,6 +29,8 @@ public static class MVC {
     public static Legato.Controllers.HomeController Home = new Legato.Controllers.T4MVC_HomeController();
     public static Legato.Controllers.InstrumentsController Instruments = new Legato.Controllers.T4MVC_InstrumentsController();
     public static Legato.Controllers.LegalController Legal = new Legato.Controllers.T4MVC_LegalController();
+    public static Legato.Controllers.MessagesController Messages = new Legato.Controllers.T4MVC_MessagesController();
+    public static Legato.Controllers.NotificationsController Notifications = new Legato.Controllers.T4MVC_NotificationsController();
     public static Legato.Controllers.SearchController Search = new Legato.Controllers.T4MVC_SearchController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
