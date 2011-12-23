@@ -37,7 +37,7 @@ namespace Legato.Controllers
 			{
 				return null;
 			}
-			var cachekey = "notifications-"+userid;
+            var cachekey = GetCacheKey(userid);
 			var currentCache = Current.GetCachedObject(cachekey);
 			if(currentCache != null)
 			{
@@ -49,7 +49,7 @@ namespace Legato.Controllers
 			{
 				n.GlobalPostID1.FillProperties();
 			}
-			Current.SetCachedObject(cachekey, notifications, 5 * 60);
+            Current.SetCachedObjectPermanent(cachekey, notifications); // not removed until cache is invalidated with a new notification
 			return notifications;
 		}
 
@@ -68,7 +68,7 @@ namespace Legato.Controllers
 		}
 
 		/// <summary>
-		/// Clears the notifications.
+		/// Clears notifications: sets to read
 		/// </summary>
 		/// <param name="userid">The userid.</param>
 		internal void ClearNotifications(Guid userid)
@@ -77,7 +77,6 @@ namespace Legato.Controllers
 			{
 				return;
 			}
-			var cachekey = "notifications-" + userid;
 			var db = Current.DB;
 			foreach (var n in db.Notifications.Where(n => n.UserID == (Guid)Membership.GetUser().ProviderUserKey && n.IsUnread))
 			{
@@ -85,7 +84,7 @@ namespace Legato.Controllers
 			}
 			db.SubmitChanges();
 
-			Current.RemoveCachedObject(cachekey);
+            InvalidateNotificationCache(userid);
 		}
 
 		/// <summary>
@@ -107,7 +106,19 @@ namespace Legato.Controllers
 			db.Notifications.InsertOnSubmit(notification);
 			db.SubmitChanges();
 
+            InvalidateNotificationCache(userid);
+
 			return notification;
 		}
+
+        internal void InvalidateNotificationCache(Guid userid)
+        {
+            Current.RemoveCachedObject(GetCacheKey(userid));
+        }
+
+        internal string GetCacheKey(Guid userid)
+        {
+            return "notifications-" + userid;
+        }
 	}
 }
