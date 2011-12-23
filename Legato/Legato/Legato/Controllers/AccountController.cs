@@ -20,6 +20,7 @@ using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using System.Net;
 using System.Configuration;
+using System.Web.Routing;
 
 namespace Legato.Controllers
 {
@@ -31,6 +32,12 @@ namespace Legato.Controllers
     public partial class AccountController : CustomControllerBase
     {
         private static readonly OpenIdRelyingParty openid = new OpenIdRelyingParty();
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            ViewBag.curPage = "Account";
+        }
 
         // This constructor is used by the MVC framework to instantiate the controller using
         // the default forms authentication and membership providers.
