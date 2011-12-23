@@ -28,6 +28,7 @@ namespace Legato.Controllers
         {
             var db = Current.DB;
             var userID = Current.UserID.Value;
+            ViewBag.userID = userID;
             var threads = db.Conversations.Where(c => c.aspnet_User.UserId == userID || c.aspnet_User1.UserId == userID).OrderByDescending(c => c.LastMessageDate).ToList();
             return View(threads);
         }

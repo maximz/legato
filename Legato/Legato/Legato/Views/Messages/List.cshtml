@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Legato.Models.Conversation>
+
+@{
+	ViewBag.Title = "Conversations";
+}
+
+<section id="threadlist">
+  <div class="page-header">
+	<h1>Conversations <small>Open threads</small></h1>
+	@Html.ActionLink("Create New", MVC.Messages.Compose(), new { @class = "btn primary large" })
+  </div>
+<div id="conversations">
+@foreach(var c in Model)
+{
+	<div class="row">
+	<div class="thread" id="thread-@c.ConversationID">
+		<div class="clearfix span4">
+			<p><em>
+			@if (ViewBag.userID == c.User1)
+			{
+				<text>@c.aspnet_User1.UserName</text>
+			}
+			else
+			{
+				<text>@c.aspnet_User.UserName</text>
+			}
+			</em></p>
+			<p><span class="timeago" title="@c.LastMessageDate">@c.LastMessageDate</span></p>
+		</div>
+		<div class="input colborder span12">
+			<a href="@Url.Action("Thread",new { id = c.ConversationID})" title="@c.Subject"><h2>@c.Subject</h2></a>
+		</div>
+	</div>
+	</div>
+	<hr />
+}
+</div>
+	</section>
