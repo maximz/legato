@@ -8,6 +8,7 @@ using Legato.Helpers;
 using Legato.Models;
 using System.Web.Security;
 using System.Net;
+using Legato.ViewModels;
 
 namespace Legato.Controllers
 {
@@ -162,7 +163,7 @@ namespace Legato.Controllers
         [Url("messages/compose")]
         public virtual ActionResult Compose()
         {
-            return View(new Tuple<Message, string, string>(new Message(), "", ""));
+            return View(new ComposeViewModel());
         }
 
         /// <summary>
@@ -173,11 +174,11 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [Url("messages/compose")]
-        public virtual ActionResult Compose(Tuple<Message, string, string> data) // Message, subject, receipient's user name
+        public virtual ActionResult Compose(ComposeViewModel data)
         {
             var db = Current.DB;
             var currentTime = DateTime.Now;
-            var message = data.Item1;
+            var message = new Message();
             var conversation = new Conversation();
 
             // Sender IDs
@@ -189,15 +190,15 @@ namespace Legato.Controllers
             message.NumberInConvo = 1;
             conversation.LastMessageDate = currentTime;
             conversation.StartDate = currentTime;
-            conversation.Subject = data.Item2.TruncateWithEllipsis(100);
+            conversation.Subject = data.Subject.TruncateWithEllipsis(100);
 
             // Look up other user
-            var otherUser = (Guid)Membership.GetUser(data.Item3).ProviderUserKey;
+            var otherUser = (Guid)Membership.GetUser(data.UserName).ProviderUserKey;
             message.ReceipientID = otherUser;
             conversation.User2 = otherUser;
 
             // Handle markdown
-            message.Markdown = HtmlUtilities.Sanitize(message.Markdown);
+            message.Markdown = HtmlUtilities.Sanitize(data.Markdown);
             message.Html = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(message.Markdown));
 
             // Submit

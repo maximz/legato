@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\Instruments\RevisionSubmissionViewModel.cs" />
     <Compile Include="ViewModels\Instruments\SubmitViewModel.cs" />
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
+    <Compile Include="ViewModels\Messages\ComposeViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultsModel.cs" />
     <Compile Include="ViewModels\Search\TagResultsModel.cs" />
   </ItemGroup>
@@ -604,6 +605,8 @@
     <Content Include="Views\Shared\NavFull.cshtml" />
     <Content Include="Views\Shared\NavPartial.cshtml" />
     <Content Include="Views\Notifications\List.cshtml" />
+    <Content Include="Views\Messages\Thread.cshtml" />
+    <Content Include="Views\Messages\Compose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
