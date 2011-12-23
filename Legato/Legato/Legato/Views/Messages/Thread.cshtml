@@ -1,8 +1,8 @@
 ﻿@model Legato.ViewModels.ThreadViewModel
 
 @{
-	ViewBag.Title = Model.Conversation.Subject;
-	ViewBag.revNum = Legato.Current.RevNumber();
+    ViewBag.Title = Model.Conversation.Subject;
+    ViewBag.revNum = Legato.Current.RevNumber();
 }
 
 @section ScriptContentAtEndOfBody {
@@ -37,17 +37,17 @@ $('a.flag-message').click(function (e) {
 	<h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
   </div>
 <div id="messages">
-@foreach(var m in Model.Messages)
+@foreach (var m in Model.Messages)
 {
 	<div class="row">
 	<div class="message" id="message-@m.MessageID">
 		<div class="clearfix span4">
-			<p><em>@m.aspnet_User.UserName</em></p>
-			<p><span class="timeago" title="@m.Date">@m.Date</span></p>
-			@if(m.SenderID == Model.OtherUser.UserId)
-			{
-				<a href="#" class="flag-message" id="flag-@m.MessageID" mid="@m.MessageID">Flag as spam</a>
-			}
+			<dl><dt>@m.aspnet_User.UserName</dt>
+			<dd><span class="timeago" title="@m.Date">@m.Date</span></dd>
+			@if (m.SenderID == Model.OtherUser.UserId)
+   {
+				<dd><a href="#" class="flag-message" id="flag-@m.MessageID" mid="@m.MessageID">Flag as spam</a></dd>
+   }
 		</div>
 		<div class="input colborder span12">
 			<blockquote>@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
@@ -60,7 +60,7 @@ $('a.flag-message').click(function (e) {
 <div id="reply">
 <div class="row">
 <div class="span16">
-@using (Html.BeginForm("Reply","Messages"))
+@using (Html.BeginForm("Reply", "Messages"))
 {
 	@Html.ValidationSummary(true)
 	<fieldset>
