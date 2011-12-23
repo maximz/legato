@@ -20,7 +20,16 @@
 
 .wmd-preview 
 { 
-	background-color: #c0e0ff; 
+	clear: both;
+	padding: 3px;
+	border: 2px dotted #ccc;
+	font-size: 107%;
+	line-height: 130%;
+	width: 100%;
+	margin-top: 10px;
+}
+.wmd-preview p {
+	word-wrap: break-word;
 }
 
 .wmd-button-row 
@@ -58,7 +67,7 @@
 }
 
 .wmd-button > span {
-    background-image: url(../../wmd-buttons.png);
+    background-image: url(../images/wmd-buttons.png);
     background-repeat: no-repeat;
     background-position: 0px 0px;
     width: 20px;
