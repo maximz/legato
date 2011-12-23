@@ -21,7 +21,7 @@
 $('a.flag-message').click(function (e) {
 	e.preventDefault();
 	var messageid = $(this).attr('mid');
-	$.post('@(Url.Action("Reply"))', { id = messageid }, function(data) { alert('Flagged message.'); });
+	$.post('@(Url.Action("Reply"))', { id : messageid }, function(data) { alert('Flagged message.'); });
 
 	return false;
 });
@@ -38,7 +38,7 @@ $('a.flag-message').click(function (e) {
 @foreach(var m in Model.Messages)
 {
 	<div class="row">
-	<div class="message" id="messages-@m.MessageID">
+	<div class="message" id="message-@m.MessageID">
 		<div class="clearfix span4">
 			<p><em>@m.aspnet_User.UserName</em></p>
 			<p><span class="timeago" title="@m.Date">@m.Date</span></p>
