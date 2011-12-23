@@ -1,6 +1,4 @@
-﻿@using Legato.ViewModels;
-@model ComposeViewModel // Message, subject, receipient's user name
-
+﻿@model Legato.ViewModels.ComposeViewModel
 @{
 	ViewBag.Title = "Compose Message";
 	ViewBag.revNum = Legato.Current.RevNumber();
@@ -60,7 +58,7 @@
 
 			</fieldset>
 		  <div class="actions well">
-			<input type="submit" class="btn primary large" value="Send">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
+			<input type="submit" class="btn primary large" value="Send" />&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
 		  </div>
 		
 }

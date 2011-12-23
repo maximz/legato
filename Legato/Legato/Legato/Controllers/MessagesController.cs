@@ -40,11 +40,33 @@ namespace Legato.Controllers
         [Url("messages/{id}")]
         public virtual ActionResult Thread(int id) // individual thread
         {
+            return ThreadWithModel(id, null);
+        }
+
+        public virtual ActionResult ThreadWithModel(int id, ThreadViewModel model) // individual thread
+        {
             var db = Current.DB;
             var conversation = db.Conversations.Where(c => c.ConversationID == id).SingleOrDefault();
             var messages = db.Messages.Where(m => m.ConversationID == id).OrderBy(m => m.Date).ToList();
-            return View(new Tuple<Conversation, List<Message>>(conversation, messages));
+
+            if(model == null)
+            {
+                model = new ThreadViewModel();
+            }
+            model.Conversation = conversation;
+            model.Messages = messages;
+            if(conversation.User1 != Current.UserID)
+            {
+                model.OtherUser = conversation.aspnet_User;
+            }
+            else
+            {
+                model.OtherUser = conversation.aspnet_User1;
+            }
+
+            return View(model);
         }
+
         /// <summary>
         /// Messages the specified id.
         /// </summary>
@@ -68,13 +90,20 @@ namespace Legato.Controllers
         /// <returns></returns>
         [HttpPost]
         [VerifyReferrer]
+        [ValidateInput(false)]
         [Url("messages/reply")]
-        public virtual ActionResult Reply(Message data)
+        public virtual ActionResult Reply(ThreadViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return ThreadWithModel(model.ThreadID, model);
+            }
             var db = Current.DB;
             var currentTime = DateTime.Now;
+            var data = new Message();
             data.SenderID = Current.UserID.Value;
-            var thread = db.Conversations.Where(c => c.ConversationID == data.ConversationID).SingleOrDefault();
+            data.ConversationID = model.ThreadID;
+            var thread = db.Conversations.Where(c => c.ConversationID == model.ThreadID).SingleOrDefault();
 
             // Set receipient ID to the other user's ID
             if(Current.UserID.Value == thread.User1)
@@ -92,7 +121,7 @@ namespace Legato.Controllers
             data.IsUnread = true;
 
             // Handle markdown
-            data.Markdown = HtmlUtilities.Sanitize(data.Markdown);
+            data.Markdown = HtmlUtilities.Sanitize(model.Markdown);
             data.Html = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(data.Markdown));
 
             // Submit
@@ -190,7 +219,7 @@ namespace Legato.Controllers
             message.NumberInConvo = 1;
             conversation.LastMessageDate = currentTime;
             conversation.StartDate = currentTime;
-            conversation.Subject = data.Subject.TruncateWithEllipsis(100);
+            conversation.Subject = HtmlUtilities.Safe(data.Subject.TruncateWithEllipsis(100));
 
             // Look up other user
             var otherUser = (Guid)Membership.GetUser(data.UserName).ProviderUserKey;

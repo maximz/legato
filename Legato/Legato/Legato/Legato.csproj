@@ -217,6 +217,7 @@
     <Compile Include="ViewModels\Instruments\SubmitViewModel.cs" />
     <Compile Include="ViewModels\Instruments\VenueHourViewModel.cs" />
     <Compile Include="ViewModels\Messages\ComposeViewModel.cs" />
+    <Compile Include="ViewModels\Messages\ThreadViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchResultsModel.cs" />
     <Compile Include="ViewModels\Search\TagResultsModel.cs" />
   </ItemGroup>

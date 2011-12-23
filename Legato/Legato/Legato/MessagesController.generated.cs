@@ -47,6 +47,11 @@ namespace Legato.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult ThreadWithModel() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ThreadWithModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Message() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Message);
         }
@@ -75,6 +80,7 @@ namespace Legato.Controllers {
         public class ActionNamesClass {
             public readonly string List = "List";
             public readonly string Thread = "Thread";
+            public readonly string ThreadWithModel = "ThreadWithModel";
             public readonly string Message = "Message";
             public readonly string Reply = "Reply";
             public readonly string Flag = "Flag";
@@ -87,6 +93,8 @@ namespace Legato.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string Compose = "~/Views/Messages/Compose.cshtml";
+            public readonly string Thread = "~/Views/Messages/Thread.cshtml";
         }
     }
 
@@ -105,15 +113,22 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
+        public override System.Web.Mvc.ActionResult ThreadWithModel(int id, Legato.ViewModels.ThreadViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ThreadWithModel);
+            callInfo.RouteValueDictionary.Add("id", id);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
         public override System.Web.Mvc.ActionResult Message(int id) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Message);
             callInfo.RouteValueDictionary.Add("id", id);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Reply(Legato.Models.Message data) {
+        public override System.Web.Mvc.ActionResult Reply(Legato.ViewModels.ThreadViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Reply);
-            callInfo.RouteValueDictionary.Add("data", data);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 
@@ -128,7 +143,7 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Compose(System.Tuple<Legato.Models.Message,string,string> data) {
+        public override System.Web.Mvc.ActionResult Compose(Legato.ViewModels.ComposeViewModel data) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Compose);
             callInfo.RouteValueDictionary.Add("data", data);
             return callInfo;
