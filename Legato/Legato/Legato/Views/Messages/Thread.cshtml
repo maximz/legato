@@ -19,11 +19,13 @@
 })();
 
 $('a.flag-message').click(function (e) {
-	e.preventDefault();
-	var messageid = $(this).attr('mid');
-	$.post('@(Url.Action("Reply"))', { id : messageid }, function(data) { alert('Flagged message.'); });
-
-	return false;
+    e.preventDefault();
+    var messageid = $(this).attr('mid');
+    $.post('@(Url.Action("Reply"))', { id: messageid }, function (data) {
+        $(this).append('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
+        $('.alert-message').alert();
+    });
+    return false;
 });
 
 
