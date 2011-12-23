@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Legato.Models.Notification>
 
 @{
-    ViewBag.Title = "Notifications";
+	ViewBag.Title = "Notifications";
 }
 
 <section id="content">
@@ -11,18 +11,18 @@
 	<div id="notifications">
 
 @foreach (var item in Model) {
-    <div class="notification row">
-        <div class="span4">
-            <span class="timeago" title="@Html.DisplayFor(modelItem => item.Date)">@Html.DisplayFor(modelItem => item.Date)</span>
-        </div>
-        <div class="span10">
-            @if (item.IsUnread)
-            {
-                <span class="label success">New</span>
-            }
-            @Html.ActionLink(item.GlobalPostID1.Title,item.GlobalPostID1.DetailsRoute)
-        </div>
-    </div>
+	<div class="notification row">
+		<div class="span4">
+			<span class="timeago" title="@Html.DisplayFor(modelItem => item.Date)">@Html.DisplayFor(modelItem => item.Date)</span>
+		</div>
+		<div class="span10">
+			@if (item.IsUnread)
+			{
+				<span class="label success">New</span>
+			}
+			@Html.ActionLink(item.GlobalPostID1.Title,item.GlobalPostID1.DetailsRoute)
+		</div>
+	</div>
 }
 
 </div>
