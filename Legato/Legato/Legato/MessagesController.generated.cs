@@ -94,6 +94,7 @@ namespace Legato.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string Compose = "~/Views/Messages/Compose.cshtml";
+            public readonly string List = "~/Views/Messages/List.cshtml";
             public readonly string Thread = "~/Views/Messages/Thread.cshtml";
         }
     }

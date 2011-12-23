@@ -40,6 +40,11 @@ namespace Legato.Controllers {
 			return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
 		}
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Invalidate() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Invalidate);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public NotificationsController Actions { get { return MVC.Notifications; } }
@@ -54,6 +59,7 @@ namespace Legato.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string List = "List";
+            public readonly string Invalidate = "Invalidate";
         }
 
 
@@ -72,6 +78,12 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult List() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.List);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Invalidate(string username) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Invalidate);
+            callInfo.RouteValueDictionary.Add("username", username);
             return callInfo;
         }
 
