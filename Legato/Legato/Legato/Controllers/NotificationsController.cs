@@ -10,6 +10,9 @@ using RiaLibrary.Web;
 
 namespace Legato.Controllers
 {
+	/// <summary>
+	/// Handles user notifications.
+	/// </summary>
 	[HandleError]
 	public partial class NotificationsController : CustomControllerBase
 	{
@@ -37,7 +40,7 @@ namespace Legato.Controllers
 			{
 				return null;
 			}
-            var cachekey = GetCacheKey(userid);
+			var cachekey = GetCacheKey(userid);
 			var currentCache = Current.GetCachedObject(cachekey);
 			if(currentCache != null)
 			{
@@ -49,7 +52,7 @@ namespace Legato.Controllers
 			{
 				n.GlobalPostID1.FillProperties();
 			}
-            Current.SetCachedObjectPermanent(cachekey, notifications); // not removed until cache is invalidated with a new notification
+			Current.SetCachedObjectPermanent(cachekey, notifications); // not removed until cache is invalidated with a new notification
 			return notifications;
 		}
 
@@ -84,7 +87,7 @@ namespace Legato.Controllers
 			}
 			db.SubmitChanges();
 
-            InvalidateNotificationCache(userid);
+			InvalidateNotificationCache(userid);
 		}
 
 		/// <summary>
@@ -106,19 +109,28 @@ namespace Legato.Controllers
 			db.Notifications.InsertOnSubmit(notification);
 			db.SubmitChanges();
 
-            InvalidateNotificationCache(userid);
+			InvalidateNotificationCache(userid);
 
 			return notification;
 		}
 
-        internal void InvalidateNotificationCache(Guid userid)
-        {
-            Current.RemoveCachedObject(GetCacheKey(userid));
-        }
+		/// <summary>
+		/// Invalidates the notification cache.
+		/// </summary>
+		/// <param name="userid">The userid.</param>
+		internal void InvalidateNotificationCache(Guid userid)
+		{
+			Current.RemoveCachedObject(GetCacheKey(userid));
+		}
 
-        internal string GetCacheKey(Guid userid)
-        {
-            return "notifications-" + userid;
-        }
+		/// <summary>
+		/// Gets the cache key.
+		/// </summary>
+		/// <param name="userid">The userid.</param>
+		/// <returns></returns>
+		internal string GetCacheKey(Guid userid)
+		{
+			return "notifications-" + userid;
+		}
 	}
 }
