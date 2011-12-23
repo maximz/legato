@@ -161,25 +161,8 @@ namespace Legato.Controllers
                 return RedirectToAction("NotFound","Error");
             }
 
-            switch(globalpost.PostCategory)
-            {
-                case "ins":
-                    return RedirectToAction("Individual","Instruments", new{ instrumentID = globalpost.SpecificPostID});
-                    break;
-                case "ins.rev":
-                    return RedirectToAction("IndividualReview","Instruments", new{ reviewID = globalpost.SpecificPostID});
-                    break;
-                case "i.r.r":
-                    var reviewr = db.InstrumentReviewRevisions.Where(r=>r.RevisionID==globalpost.SpecificPostID).SingleOrDefault();
-                    if(reviewr==null)
-                    {
-                        return RedirectToAction("NotFound","Error");
-                    }
-                    return RedirectToAction("Timeline","Instruments", new{ reviewID = reviewr.ReviewID});
-                    break;
-            }
-
-            return RedirectToAction("NotFound","Error");
+            globalpost.FillProperties();
+            return globalpost.DetailsRoute;
         }
 
         [Url("BuildNum")]

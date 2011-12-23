@@ -389,22 +389,32 @@ namespace Legato.Models
             var db = Current.DB;
             switch(this.PostCategory)
             {
-                case "Instrument":
+                case MagicCategoryStrings.Instrument:
                     UnderlyingType = typeof(Instrument);
                     UnderlyingPost = db.Instruments.Where(p => p.InstrumentID == this.SpecificPostID).SingleOrDefault();
                     DetailsRoute = MVC.Instruments.Individual((UnderlyingPost as Instrument).InstrumentID, (UnderlyingPost as Instrument).UrlSlug);
                     Title = UnderlyingPost.Title;
                     break;
-                case "InstrumentReview":
+                case MagicCategoryStrings.InstrumentReview:
                     UnderlyingType = typeof(InstrumentReview);
                     UnderlyingPost = db.InstrumentReviews.Where(r => r.ReviewID == this.SpecificPostID).SingleOrDefault();
                     DetailsRoute = MVC.Instruments.IndividualReview((UnderlyingPost as InstrumentReview).ReviewID);
                     Title = UnderlyingPost.Title;
                     break;
-                case "InstrumentReviewRevision":
+                case MagicCategoryStrings.InstrumentReviewRevision:
                     UnderlyingType = typeof(InstrumentReviewRevision);
                     UnderlyingPost = db.InstrumentReviewRevisions.Where(rev => rev.RevisionID == this.SpecificPostID).SingleOrDefault();
                     DetailsRoute = MVC.Instruments.IndividualReview((UnderlyingPost as InstrumentReviewRevision).ReviewID);
+                    break;
+                case MagicCategoryStrings.Message:
+                    UnderlyingType = typeof(Message);
+                    UnderlyingPost = db.Messages.Where(m => m.MessageID == this.SpecificPostID).SingleOrDefault();
+                    DetailsRoute = MVC.Messages.Message((UnderlyingPost as Message).MessageID);
+                    break;
+                case MagicCategoryStrings.Conversation:
+                    UnderlyingType = typeof(Conversation);
+                    UnderlyingPost = db.Conversations.Where(c => c.ConversationID == this.SpecificPostID).SingleOrDefault();
+                    DetailsRoute = MVC.Messages.Thread((UnderlyingPost as Conversation).ConversationID);
                     break;
                 default:
                     throw new NotImplementedException();
