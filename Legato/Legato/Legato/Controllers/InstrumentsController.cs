@@ -97,6 +97,10 @@ namespace Legato.Controllers
             {
                 ViewBag.cannotGE = true;
             }
+            else
+            {
+                ViewBag.cannotGE = false;
+            }
 
 			return View();
 		}
