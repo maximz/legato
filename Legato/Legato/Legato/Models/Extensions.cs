@@ -344,6 +344,65 @@ namespace Legato.Models
         }
     }
 
+    public partial class Message
+    {
+        public string Subject
+        {
+            get;
+            internal set;
+        }
+        public aspnet_User OtherUser
+        {
+            get;
+            internal set;
+        }
+        public void FillProperties()
+        {
+            var db = Current.DB;
+            var conversation = db.Conversations.Where(c => c.ConversationID == this.ConversationID).SingleOrDefault();
+            Subject = conversation.Subject;
+            if (Current.UserID.HasValue)
+            {
+                var currentUser = Current.UserID.Value;
+                if (currentUser == SenderID)
+                {
+                    OtherUser = db.aspnet_Users.Where(u => u.UserId == ReceipientID).SingleOrDefault();
+                }
+                else if (currentUser == ReceipientID)
+                {
+                    OtherUser = db.aspnet_Users.Where(u => u.UserId == SenderID).SingleOrDefault();
+                }
+            }
+
+        }
+    }
+
+    public partial class Conversation
+    {
+        public aspnet_User OtherUser
+        {
+            get;
+            internal set;
+        }
+        public void FillProperties()
+        {
+            var db = Current.DB;
+            if (Current.UserID.HasValue)
+            {
+                var currentUser = Current.UserID.Value;
+                if(currentUser == this.User1)
+                {
+                    OtherUser = db.aspnet_Users.Where(u => u.UserId == this.User2).SingleOrDefault();
+                }
+                else if (currentUser == this.User2)
+                {
+                    OtherUser = db.aspnet_Users.Where(u => u.UserId == this.User1).SingleOrDefault();
+                }
+            }
+
+        }
+    }
+
     /// <summary>
     /// Global reference to a specific post in some category
     /// </summary>
@@ -409,14 +468,16 @@ namespace Legato.Models
                 case MagicCategoryStrings.Message:
                     UnderlyingType = typeof(Message);
                     UnderlyingPost = db.Messages.Where(m => m.MessageID == this.SpecificPostID).SingleOrDefault();
+                    UnderlyingPost.FillProperties();
                     DetailsRoute = MVC.Messages.Message((UnderlyingPost as Message).MessageID);
-                    Title = "Message";
+                    Title = UnderlyingPost.Subject + " - Conversation with " + UnderlyingPost.OtherUser.UserName;
                     break;
                 case MagicCategoryStrings.Conversation:
                     UnderlyingType = typeof(Conversation);
                     UnderlyingPost = db.Conversations.Where(c => c.ConversationID == this.SpecificPostID).SingleOrDefault();
+                    UnderlyingPost.FillProperties();
                     DetailsRoute = MVC.Messages.Thread((UnderlyingPost as Conversation).ConversationID);
-                    Title = UnderlyingPost.Subject;
+                    Title = UnderlyingPost.Subject + " - Conversation with "+UnderlyingPost.OtherUser.UserName;
                     break;
                 default:
                     throw new NotImplementedException();
