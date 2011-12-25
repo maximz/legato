@@ -413,6 +413,8 @@
     <Content Include="static\js\map\libs\respond.min.js" />
     <Content Include="static\js\map\map.js" />
     <Content Include="static\js\map\map.min.js" />
+    <Content Include="static\js\map\map.noearth.js" />
+    <Content Include="static\js\map\map.noearth.min.js" />
     <Content Include="static\js\map\messageBubble.js" />
     <Content Include="static\js\map\messageBubble.min.js" />
     <Content Include="static\js\map\mylibs\earth_map_type.js" />
