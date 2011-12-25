@@ -139,6 +139,7 @@
     <Compile Include="Helpers\Crypto.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
+    <Compile Include="Helpers\CustomHandleErrorAttribute.cs" />
     <Compile Include="Helpers\DataKeys.cs" />
     <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -644,7 +645,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

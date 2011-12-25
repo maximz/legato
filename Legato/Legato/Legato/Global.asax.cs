@@ -36,6 +36,8 @@ namespace Legato
 
         protected void Application_Start()
         {
+            GlobalFilters.Filters.Add(new Legato.Helpers.CustomHandleErrorAttribute());
+
             AreaRegistration.RegisterAllAreas();
 
             XmlSiteMapController.RegisterRoutes(RouteTable.Routes); // register sitemap.xml
