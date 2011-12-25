@@ -136,6 +136,7 @@
     <Compile Include="Helpers\AccountProfile.cs" />
     <Compile Include="Helpers\ActionLinkExtensions.cs" />
     <Compile Include="Helpers\AntiXSS.cs" />
+    <Compile Include="Helpers\CaptchaChallenge.cs" />
     <Compile Include="Helpers\Crypto.cs" />
     <Compile Include="Helpers\CustomAuthorizationAttribute.cs" />
     <Compile Include="Helpers\CustomCacheAttribute.cs" />
