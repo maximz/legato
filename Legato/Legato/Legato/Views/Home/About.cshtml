@@ -2,7 +2,38 @@
 	ViewBag.Title = "About Us";
 	ViewBag.revNum = Legato.Current.RevNumber();
     var revNum = ViewBag.revNum;
+	ViewBag.sectionNum = 0;
+	ViewBag.countNum = 0;
 }
+	@helper NewSection()
+	{
+		/* see http://weblogs.asp.net/jgalloway/archive/2011/03/23/comparing-mvc-3-helpers-using-extension-methods-and-declarative-razor-helper.aspx and http://weblogs.asp.net/scottgu/archive/2011/05/12/asp-net-mvc-3-and-the-helper-syntax-within-razor.aspx*/
+		ViewBag.sectionNum++;
+		ViewBag.countNum = 0;
+	}
+	@helper NewQ()
+	{
+		ViewBag.countNum++;
+	}
+	@helper GetNum()
+	{
+		var x = "f."+ViewBag.sectionNum+"."+ViewBag.countNum;
+		@x
+	}
+	@helper DisplayQA(string question, string answer)
+	{
+		@NewQ()
+		<h4 id="@GetNum()">@question</h4>
+		<p>@answer</p>
+	}
+	@helper DisplaySection(string title)
+	{
+		@NewSection() <h2 id="@GetNum()">@title</h2>
+	}
+	@helper EndSection()
+	{
+		<text><hr/></text>
+	}
 
 @section HeadContent {
 	<link href="/static/css/bootstrap.additions.css?@revNum" rel="stylesheet">
@@ -20,12 +51,11 @@
     <header class="jumbotron masthead" style="position:relative; top: 0px; left: 0px; width=100%; " id="overview">
       <div class="inner">
         <div class="container">
-          <h1>Bootstrap, from Twitter</h1>
+          <h1>Legato Network</h1>
           <p class="lead">
-            Bootstrap is a toolkit from Twitter designed to kickstart development of webapps and sites.<br />
-            It includes base CSS and HTML for typography, forms, buttons, tables, grids, navigation, and more.<br />
+            Are you looking for an instrument in a new place? Do you have an instrument sitting around, unused?<br />That's where Legato Network comes in.<br />
           </p>
-          <p><strong>Nerd alert:</strong> Bootstrap is <a href="#less" title="Read about using Bootstrap with Less">built with Less</a> and was designed to work out of the gate with modern browsers in mind.</p>
+          <p>&nbsp;</p>
         </div><!-- /container -->
       </div>
     </header>
@@ -34,13 +64,13 @@
 
       <!-- About Bootstrap
 ================================================== -->
-<section id="about">
+<!--<section id="about">
   <div class="page-header">
-    <h1>About Bootstrap <small>Brief history, browser support, and more</small></h1>
+    <h1>About Legato <small>Brief history, browser support, and more</small></h1>
   </div>
   <div class="row">
     <div class="span-one-third">
-      <h3>History</h3>
+      <h4>History</h4>
       <p>Engineers at Twitter have historically used almost any library they were familiar with to meet front-end requirements. Bootstrap began as an answer to the challenges that presented. With the help of many awesome folks, Bootstrap has grown significantly.</p>
       <p>Read more on <a href="https://dev.twitter.com/blog/bootstrap-twitter">dev.twitter.com &rsaquo;</a></p>
       <p>
@@ -49,7 +79,7 @@
       </p>
     </div>
     <div class="span-one-third">
-      <h3>Browser support</h3>
+      <h4>Browser support</h4>
       <p>Bootstrap is tested and supported in major modern browsers like Chrome, Safari, Internet Explorer, and Firefox.</p>
       <img src="assets/img/browsers.png" alt="Tested and supported in Chrome, Safari, Internet Explorer, and Firefox">
       <ul>
@@ -61,7 +91,7 @@
       </ul>
     </div>
     <div class="span-one-third">
-      <h3>What's included</h3>
+      <h4>What's included</h4>
       <p>Bootstrap comes complete with compiled CSS, uncompiled, and example templates.</p>
       <ul>
         <li><a href="./javascript.html">Javascript plugins</a></li>
@@ -71,11 +101,11 @@
         <li>Three example pages with different layouts</li>
       </ul>
     </div>
-  </div><!-- /row -->
+  </div>
 
   <div class="row">
     <div class="span12">
-      <h3>Quick-start examples</h3>
+      <h4>Quick-start examples</h4>
       <p>Need some quick templates? Check out these basic examples we've put together:</p>
       <ul class="media-grid">
         <li>
@@ -89,17 +119,56 @@
         </li>
       </ul>
     </div>
-  </div><!-- /row -->
+  </div>
 </section>
-
+ -->
 <section id="faq">
 
 	<div class="page-header">
 		<h1>FAQ <small>Frequently asked questions</small></h1>
 	</div>
-	<h2>Question</h2>
-	<p>Answer</p>
-	<h2>Question</h2>
-	<p>Answer</p>
-
+	@DisplaySection("General")
+		@DisplayQA("What's the point of Legato Network?", "Answer")
+		@DisplayQA("When do I search for an instrument?", "Answer")
+		@DisplayQA("When do I submit an instrument?", "Answer")
+		@DisplayQA("Is it safe?", "Answer")
+	@EndSection()
+	@9
+	@DisplaySection("Map")
+		@DisplayQA("How do I find a compatible instrument?", "Answer")
+		@DisplayQA("I want to limit my search to pianos only...", "Answer")
+		@DisplayQA("What are overlays?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Submit")
+		@DisplayQA("How do I add an instrument?", "Answer")
+		@DisplayQA("What is Markdown?", "Answer")
+		@DisplayQA("What are these different instrument classes?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Listings")
+		@DisplayQA("What do these ratings mean?", "Answer")
+		@DisplayQA("Now that I've found a cool instrument, how do I arrange a playing session?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Reviews")
+		@DisplayQA("Now that I've played on an instrument, how do I submit a review?", "Answer")
+		@DisplayQA("What do I write in a review?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Notifications")
+		@DisplayQA("How do I check my notifications?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Messages")
+		@DisplayQA("How do I view conversations?", "Answer")
+		@DisplayQA("How do I compose a message?", "Answer")
+		@DisplayQA("How do I reply to a message?", "Answer")
+	@EndSection()
+	
+	@DisplaySection("Other")
+		@DisplayQA("How do I contact Legato?", "Answer, (714) 253-4286, hello@legatonetwork.com")
+		@DisplayQA("What's the answer to Life, The Universe, and Everything?", "42.")
+	@EndSection()
+	
 </section>
