@@ -91,6 +91,13 @@ namespace Legato.Controllers
 		{
 			var db = Current.DB;
 			ViewBag.countInstruments = db.Instruments.Count();
+
+            // Detect IE
+            if(Current.Request.Browser.Browser.Trim().ToUpperInvariant() == "IE")
+            {
+                ViewBag.cannotGE = true;
+            }
+
 			return View();
 		}
 
