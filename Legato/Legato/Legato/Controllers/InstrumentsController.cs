@@ -85,7 +85,7 @@ namespace Legato.Controllers
 		}
 		 * */
 
-		[Url("Instruments")]
+		[Url("instruments")]
 		[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
 		public virtual ActionResult Map()
 		{
@@ -232,7 +232,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="instrumentID">The instrument ID.</param>
 		/// <returns></returns>
-		[Url("Instruments/Listing/{instrumentID}/{slug?}")]
+		[Url("instruments/listing/{instrumentID}/{slug?}")]
 		[CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
 		public virtual ActionResult Individual(int instrumentID, string slug)
 		{
@@ -267,7 +267,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="reviewID">The review ID.</param>
 		/// <returns></returns>
-		[Url("Instrument/Review/{reviewID}")]
+		[Url("instruments/review/{reviewID}")]
 		[CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
 		public virtual ActionResult IndividualReview(int reviewID)
 		{
@@ -302,7 +302,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="reviewID">The review ID.</param>
 		/// <returns></returns>
-		[Url("Instrument/Review/Timeline/{reviewID}")]
+		[Url("instruments/review/timeline/{reviewID}")]
 		[CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "reviewID")]
 		public virtual ActionResult Timeline(int reviewID)
 		{
@@ -321,7 +321,7 @@ namespace Legato.Controllers
 		#endregion
 
 		#region Listing and Review Creation Methods
-		[Url("Instruments/Submit")]
+		[Url("instruments/submit")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended=false, AuthorizeEmailNotConfirmed=false)]
 		public virtual ActionResult Submit()
@@ -331,7 +331,7 @@ namespace Legato.Controllers
 
 			return View(model);
 		}
-		[Url("Instruments/Submit")]
+		[Url("instruments/submit")]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
 		[HttpPost][VerifyReferrer]
 		[ValidateInput(false)]
@@ -541,7 +541,7 @@ namespace Legato.Controllers
 		}
 
 
-		[Url("Instrument/Review/Create/{instrumentID}")]
+		[Url("instruments/review/create/{instrumentID}")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult Review(int instrumentID)
@@ -591,7 +591,7 @@ namespace Legato.Controllers
 		}
 		
 		[HttpPost][VerifyReferrer]
-		[Url("Instruments/Review/Create")]
+		[Url("instruments/review/create")]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		[ValidateInput(false)]
 		//[RateLimit(Name = "InstrumentReviewSubmitPOST", Seconds = 600)]
@@ -720,7 +720,7 @@ catch(Exception ex)
 		/// </summary>
 		/// <param name="reviewID">The review ID.</param>
 		/// <returns></returns>
-		[Url("Instrument/Review/Edit/{reviewID}")]
+		[Url("instruments/review/edit/{reviewID}")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
 		public virtual ActionResult EditReview(int reviewID)
@@ -762,7 +762,7 @@ catch(Exception ex)
 				return RedirectToAction("NotFound", "Error");
 			}
 		}
-		[Url("Instrument/Review/Edit")]
+		[Url("instruments/review/edit")]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
 		[HttpPost][VerifyReferrer]
 		[RateLimit(Name = "InstrumentReviewEditPOST", Seconds = 600)]
@@ -850,7 +850,7 @@ catch(Exception ex)
 		/// </summary>
 		/// <param name="reviewID">The listing ID.</param>
 		/// <returns></returns>
-		[Url("Instrument/Listing/Edit/{instrumentID}")]
+		[Url("instruments/listing/edit/{instrumentID}")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult EditListing(int instrumentID)
@@ -898,7 +898,7 @@ catch(Exception ex)
 				return RedirectToAction("NotFound", "Error");
 			}
 		}
-		[Url("Instruments/Listing/Edit")]
+		[Url("instruments/listing/edit")]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		[HttpPost]
 		[VerifyReferrer]

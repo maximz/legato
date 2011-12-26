@@ -135,6 +135,7 @@ namespace Legato.Controllers {
             public readonly string Map = "~/Views/Instruments/Map.cshtml";
             public readonly string Read = "~/Views/Instruments/Read.aspx";
             public readonly string Review = "~/Views/Instruments/Review.cshtml";
+            public readonly string ReviewBySubmitterDisabled = "~/Views/Instruments/ReviewBySubmitterDisabled.cshtml";
             public readonly string ReviewTimeline = "~/Views/Instruments/ReviewTimeline.aspx";
             public readonly string Submit = "~/Views/Instruments/Submit.cshtml";
             public readonly string Timeline = "~/Views/Instruments/Timeline.cshtml";
