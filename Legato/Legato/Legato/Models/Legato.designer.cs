@@ -5578,6 +5578,10 @@ namespace Legato.Models
 		
 		private System.Nullable<int> _GlobalPostID;
 		
+		private string _Markdown;
+		
+		private string _HTML;
+		
 		private EntitySet<InstrumentHour> _InstrumentHours;
 		
 		private EntitySet<InstrumentReview> _InstrumentReviews;
@@ -5620,6 +5624,10 @@ namespace Legato.Models
     partial void OnTimeSpanOfPriceChanged();
     partial void OnGlobalPostIDChanging(System.Nullable<int> value);
     partial void OnGlobalPostIDChanged();
+    partial void OnMarkdownChanging(string value);
+    partial void OnMarkdownChanged();
+    partial void OnHTMLChanging(string value);
+    partial void OnHTMLChanged();
     #endregion
 		
 		public Instrument()
@@ -5935,6 +5943,46 @@ namespace Legato.Models
 					this._GlobalPostID = value;
 					this.SendPropertyChanged("GlobalPostID");
 					this.OnGlobalPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Markdown", DbType="NVarChar(MAX)")]
+		public string Markdown
+		{
+			get
+			{
+				return this._Markdown;
+			}
+			set
+			{
+				if ((this._Markdown != value))
+				{
+					this.OnMarkdownChanging(value);
+					this.SendPropertyChanging();
+					this._Markdown = value;
+					this.SendPropertyChanged("Markdown");
+					this.OnMarkdownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HTML", DbType="NVarChar(MAX)")]
+		public string HTML
+		{
+			get
+			{
+				return this._HTML;
+			}
+			set
+			{
+				if ((this._HTML != value))
+				{
+					this.OnHTMLChanging(value);
+					this.SendPropertyChanging();
+					this._HTML = value;
+					this.SendPropertyChanged("HTML");
+					this.OnHTMLChanged();
 				}
 			}
 		}

@@ -394,6 +394,8 @@ namespace Legato.Controllers
 					listing.Price = (decimal?)model.Listing.Price;
 					listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
 					listing.VenueName = model.Listing.VenueName;
+                    listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
+                    listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 
 					/*Matching instrument and style:
 					 * 1. take instrument name, find match in Instruments table
@@ -876,7 +878,8 @@ catch(Exception ex)
 					TimeSpanOfPrice = listing.TimeSpanOfPrice,
 					StreetAddress = listing.StreetAddress,
 					VenueName = listing.VenueName,
-					InstrumentID = listing.InstrumentID
+					InstrumentID = listing.InstrumentID,
+                    GeneralInfoMarkdown = listing.Markdown
 				};
 				listingmodel.Equipment = new EquipmentViewModel()
 				{
@@ -935,6 +938,8 @@ catch(Exception ex)
 				listing.Price = (decimal?)model.Listing.Price;
 				listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
 				listing.VenueName = model.Listing.VenueName;
+                listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
+                listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 				
 				/*Matching instrument and style:
 				 * 1. take instrument name, find match in Instruments table

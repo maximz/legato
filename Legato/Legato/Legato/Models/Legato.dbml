@@ -254,6 +254,8 @@
       <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="TimeSpanOfPrice" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="GlobalPostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Markdown" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HTML" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Instrument_InstrumentHour" Member="InstrumentHours" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentHour" />
       <Association Name="Instrument_InstrumentReview" Member="InstrumentReviews" ThisKey="InstrumentID" OtherKey="InstrumentID" Type="InstrumentReview" />
       <Association Name="aspnet_User_Instrument" Member="aspnet_User" ThisKey="UserID" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />

@@ -59,7 +59,8 @@ namespace Legato.ViewModels
             set;
         }
 
-        //[Required]
+        [DisplayName("Description")]
+        [Required]
         [AllowHtml]
         public string GeneralInfoMarkdown
         {

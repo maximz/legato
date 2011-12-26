@@ -9,6 +9,16 @@
 <script src="@Url.Content("~/static/js/jquery.validate.min.js")?@ViewBag.revNum" type="text/javascript"></script>
 <script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")?@ViewBag.revNum" type="text/javascript"></script>
 <script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+
+<script>
+    (function () {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+    })();
+
+</script>
+
 }
 
 <section id="edit-listing">
@@ -62,6 +72,15 @@
 				@Html.TextBoxFor(model => model.Listing.Price, new { title = "price in local currency" }) per @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice, new { title = "year, month, day, hour, etc." })
 				@Html.ValidationMessageFor(model => model.Listing.Price)
 				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
+			</div></div>
+
+            <div class="clearfix">
+				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
+			<div class="input wmd-panel">
+				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
+				<div id="wmd-button-bar" class="wmd-panel"></div>
+				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input", id = "wmd-input" })
+				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
 			</div></div>
 	</fieldset>
 	<div class="actions well">
