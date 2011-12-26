@@ -12,25 +12,25 @@ namespace Legato.Controllers
     {
         //
         // GET: /Legal/
-        [Url("Legal")]
+        [Url("legal")]
         [CustomCache(Duration = 14400, NoCachingForAuthenticatedUsers = true)]
         public virtual ActionResult Index()
         {
             return View();
         }
-        [Url("Legal/Terms")]
+        [Url("legal/terms")]
         [CustomCache(Duration=14400,NoCachingForAuthenticatedUsers=true)]
         public virtual ActionResult TermsOfService()
         {
             return View();
         }
-        [Url("Legal/Privacy")]
+        [Url("legal/privacy")]
         [CustomCache(Duration = 14400, NoCachingForAuthenticatedUsers = true)]
         public virtual ActionResult Privacy()
         {
             return View();
         }
-        [Url("Legal/Content")]
+        [Url("legal/content")]
         [CustomCache(Duration = 14400, NoCachingForAuthenticatedUsers = true)]
         public virtual ActionResult Content()
         {

@@ -27,7 +27,7 @@ namespace Legato.Controllers
 
         //
         // GET: /Admin/
-        [Url("Admin")]
+        [Url("admin")]
         [HttpGet]
         public virtual ActionResult Index()
         {
@@ -42,7 +42,7 @@ namespace Legato.Controllers
 
         #region Site Welcome Message
 
-        [Url("Admin/Message/Toggle")]
+        [Url("admin/message/toggle")]
         [HttpGet]
         public virtual ActionResult ToggleMessage()
         {
@@ -60,7 +60,7 @@ namespace Legato.Controllers
             return RedirectToAction("Index");
         }
 
-        [Url("Admin/Message/Set")]
+        [Url("admin/message/set")]
         [HttpPost]
         [ValidateInput(false)]
         [VerifyReferrer]
@@ -75,7 +75,7 @@ namespace Legato.Controllers
 
         #region Whitelist
 
-        [Url("Admin/Whitelist/Toggle")]
+        [Url("admin/whitelist/toggle")]
         [HttpGet]
         public virtual ActionResult ToggleWhitelist()
         {
@@ -91,7 +91,7 @@ namespace Legato.Controllers
             return RedirectToAction("Index");
         }
 
-        [Url("Admin/Whitelist/Get")]
+        [Url("admin/whitelist/get")]
         [HttpGet]
         public virtual ActionResult GetWhitelist()
         {
@@ -100,7 +100,7 @@ namespace Legato.Controllers
             return View();
         }
 
-        [Url("Admin/Whitelist/Set")]
+        [Url("admin/whitelist/set")]
         [HttpPost]
         [ValidateInput(false)]
         [VerifyReferrer]
@@ -129,7 +129,7 @@ namespace Legato.Controllers
 
         #region Posts
 
-        [Url("Admin/DeletePost")]
+        [Url("admin/deletepost")]
         [HttpPost]
         [VerifyReferrer]
         public virtual ActionResult DeletePost(int id)
@@ -176,7 +176,7 @@ namespace Legato.Controllers
 
         #region Users
 
-        [Url("Admin/Users")]
+        [Url("admin/users")]
         [HttpPost]
         [VerifyReferrer]
         public virtual ActionResult UserSearchByName(string nameContains)
@@ -194,7 +194,7 @@ namespace Legato.Controllers
 
         }
 
-        [Url("Admin/Users/GetGuid")]
+        [Url("admin/users/getguid")]
         [HttpPost]
         [VerifyReferrer]
         public virtual ActionResult GetGuidFromUsername(string username)
@@ -211,7 +211,7 @@ namespace Legato.Controllers
             }
         }
 
-        [Url("Admin/Users/View/{UserId}")]
+        [Url("admin/users/view/{UserId}")]
         [HttpGet]
         public virtual ActionResult GetUserById(Guid UserId)
         {
@@ -227,13 +227,13 @@ namespace Legato.Controllers
             return View(model);
         }
 
-        [Url("Admin/Users/Suspend")]
+        [Url("admin/users/suspend")]
         [HttpGet]
         public virtual ActionResult SuspendUser()
         {
             return View(new SuspendUserViewModel());
         }
-        [Url("Admin/SuspendUser")]
+        [Url("admin/suspenduser")]
         [HttpPost]
         [VerifyReferrer]
         public virtual ActionResult SuspendUser(SuspendUserViewModel model)
@@ -298,7 +298,7 @@ namespace Legato.Controllers
 
         }
 
-        [Url("Admin/Users/Emails/{delimiter}")]
+        [Url("admin/users/emails/{delimiter}")]
         [HttpPost]
         [VerifyReferrer]
         public virtual ActionResult GetEmailList(string delimiter)

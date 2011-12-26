@@ -43,7 +43,7 @@ namespace Legato.Controllers
         /// Displays a search form.
         /// </summary>
         /// <returns></returns>
-        [Url("Search")]
+        [Url("search")]
         [CustomCache(Duration = 3600, NoCachingForAuthenticatedUsers = true)]
         [HttpGet]
         public virtual ActionResult Index()
@@ -56,7 +56,7 @@ namespace Legato.Controllers
         /// <param name="query">The query.</param>
         /// <param name="tags">The tags.</param>
         /// <returns></returns>
-        [Url("Search/Execute")]
+        [Url("search/execute")]
         [HttpPost]
         public virtual ActionResult IndexPost(string query, string tags)
         {
@@ -90,7 +90,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns></returns>
-        [Url("Search/{query}")]
+        [Url("search/{query}")]
         [CustomCache(Duration = 300, NoCachingForAuthenticatedUsers = true, VaryByParam = "query")]
         public virtual ActionResult Search(string query)
         {
@@ -131,7 +131,7 @@ namespace Legato.Controllers
         /// <param name="query">The query.</param>
         /// <param name="tags">The tags.</param>
         /// <returns></returns>
-        [Url("Search/{query}/{tags}")]
+        [Url("search/{query}/{tags}")]
         [CustomCache(Duration = 300, NoCachingForAuthenticatedUsers = true, VaryByParam = "query")]
         public virtual ActionResult TagSearch(string query, string tags)
         {
@@ -238,7 +238,7 @@ namespace Legato.Controllers
         }
 
         #region Administrative Methods
-        [Url("Admin/Search/Regenerate")]
+        [Url("admin/search/regenerate")]
         [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator+","+RoleNames.Administrator)]
         [HttpGet]
         public virtual ActionResult RegenerateIndex()
@@ -248,7 +248,7 @@ namespace Legato.Controllers
         [CaptchaValidator]
         [HttpPost]
         [VerifyReferrer]
-        [Url("Admin/Search/Regenerate")]
+        [Url("admin/search/regenerate")]
         [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         public virtual ActionResult RegenerateIndex(bool captchaValid)
         {
@@ -277,7 +277,7 @@ namespace Legato.Controllers
                 return RedirectToAction("InternalServerError", "Error");
             }
         }
-        [Url("Admin/Search/Optimize")]
+        [Url("admin/search/optimize")]
         [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         [HttpGet]
         public virtual ActionResult OptimizeIndex()
@@ -287,7 +287,7 @@ namespace Legato.Controllers
         [CaptchaValidator]
         [HttpPost]
         [VerifyReferrer]
-        [Url("Admin/Search/Optimize")]
+        [Url("admin/search/optimize")]
         [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
         public virtual ActionResult OptimizeIndex(bool captchaValid)
         {

@@ -25,7 +25,7 @@ namespace Legato.Controllers
             return View();
         }
 
-        [Url("About")]
+        [Url("about")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult About()
         {
@@ -33,7 +33,7 @@ namespace Legato.Controllers
             return View();
         }
 
-        [Url("About/faq")]
+        [Url("about/faq")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult Faq()
         {
@@ -50,7 +50,7 @@ namespace Legato.Controllers
         /// "Contact us" form.
         /// </summary>
         /// <returns></returns>
-        [Url("About/Contact")]
+        [Url("about/contact")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         [HttpGet]
         public virtual ActionResult Contact()
@@ -68,7 +68,7 @@ namespace Legato.Controllers
         /// <returns></returns>
         [CaptchaValidator]
         [HttpPost]
-        [Url("About/ContactSubmit")]
+        [Url("about/contactsubmit")]
         public virtual ActionResult ContactSubmit(ContactViewModel model, bool captchaValid)
         {
             ViewBag.curPage = "About";
@@ -143,7 +143,7 @@ namespace Legato.Controllers
         /// </summary>
         /// <param name="slug">The slug.</param>
         /// <returns></returns>
-        [Url("Coming/Soon/{slug?}")]
+        [Url("coming/soon/{slug?}")]
         [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200)]
         public virtual ActionResult ComingSoon(string slug)
         {
