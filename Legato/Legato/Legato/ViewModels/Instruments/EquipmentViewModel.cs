@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.ComponentModel;
+using Legato.Helpers;
 
 namespace Legato.ViewModels
 {
@@ -85,12 +86,7 @@ namespace Legato.ViewModels
         {
             if (Classes == null)
             {
-                    Classes = new SelectList(new[]
-                {
-                    new { Id = 1, Name = "Public" },
-                    new { Id = 2, Name = "Rent" },
-                    //new { Id = 3, Name = "Sale" },
-                }, "Id", "Name");
+                Classes = new SelectList(InstrumentClasses.Classes, InstrumentClasses.ValueField, InstrumentClasses.TextField);
             }
 
             if (Types == null)

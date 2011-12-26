@@ -62,6 +62,11 @@ namespace Legato.Models
             internal set;
         }
 
+        public string ListingClassDisplay
+        {
+            get;
+            internal set;
+        }
         public void FillProperties()
         {
             // Arrange
@@ -107,6 +112,8 @@ namespace Legato.Models
             }
             Title = Title.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
+
+            ListingClassDisplay = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault().DisplayName;
         }
 
         public ListingPermissionsModel Permissions()

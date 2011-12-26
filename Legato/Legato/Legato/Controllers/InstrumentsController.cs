@@ -382,14 +382,14 @@ namespace Legato.Controllers
 					}
 					listing.TypeID = type.TypeID;
 
-					var style = model.Listing.Equipment.Classes.Where(c=>c.Value == model.Listing.Equipment.SelectedClass.ToString()).FirstOrDefault().Text.ToLowerInvariant();
-					if (style == null || (style != "public" && style != "rent" && style != "sale"))
+                    var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+                    if (style == null)
 					{
 						ModelState.AddModelError("SelectedClass", "No such class exists.");
 						new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
 						return View(model);
 					}
-					listing.ListingClass = style;
+                    listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
 
 					var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 					listing.UserID = userGuid;
@@ -899,14 +899,14 @@ catch(Exception ex)
 					}
 					listing.InstrumentType = type; // have to assign entity
 
-					var style = model.Listing.Equipment.Classes.Where(c=>c.Value == model.Listing.Equipment.SelectedClass.ToString()).FirstOrDefault().Text.ToLowerInvariant();
-					if (style == null || (style != "public" && style != "rent" && style != "sale"))
-					{
-						ModelState.AddModelError("SelectedClass", "No such class exists.");
-						new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
-						return View(model);
-					}
-					listing.ListingClass = style;
+                    var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+                    if (style == null)
+                    {
+                        ModelState.AddModelError("SelectedClass", "No such class exists.");
+                        new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
+                        return View(model);
+                    }
+                    listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
 				db.SubmitChanges(); // Listing is changed
 
 				try
