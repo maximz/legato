@@ -53,8 +53,8 @@ namespace Legato.Helpers
         public const string ValueField = "Id";
         public const string TextField = "DisplayName";
         public static IEnumerable<InstrumentClass> Classes = new[] {
-            new InstrumentClass() { Id = 1, Name = "Public", DisplayName = "A public instrument" },
-            new InstrumentClass() { Id = 2, Name = "Rent", DisplayName = "My own instrument" }
+            new InstrumentClass() { Id = 1, Name = "Public", DisplayName = "A public instrument", ReviewBySubmitterEnabled = true },
+            new InstrumentClass() { Id = 2, Name = "Rent", DisplayName = "My own instrument", ReviewBySubmitterEnabled = false }
             //new { Id = 3, Name = "Sale" },
         };
     }
@@ -76,5 +76,17 @@ namespace Legato.Helpers
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets a value indicating whether review by submitter is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [reviews enabled]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ReviewBySubmitterEnabled
+        {
+            get;
+            set;
+        }
+
     }
 }

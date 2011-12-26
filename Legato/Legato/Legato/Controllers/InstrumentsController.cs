@@ -339,10 +339,41 @@ namespace Legato.Controllers
 		public virtual ActionResult Submit(SubmitViewModel model)
 		{
 			ViewBag.curPage = "Submit";
+
+            // See whether we need to cancel certain ModelErrors
+            var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+            bool cancelReviewErrors = false;
+            if(style != null && style.ReviewBySubmitterEnabled == false)
+            {
+                cancelReviewErrors = true;
+            }
+
+
 			if (!ModelState.IsValid)
 			{
-				new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
-				return View(model);
+                var ret = true;
+                if(cancelReviewErrors)
+                {
+                    foreach(var m in ModelState.Where(m=>m.Key == "ReviewRevision_RatingOverall"))
+                    {
+                        
+                        ModelState.Remove(m);
+                    }
+                    foreach (var m in ModelState.Where(m => m.Key == "ReviewRevision_ReviewMarkdown"))
+                    {
+                        ModelState.Remove(m);
+                    }
+                    if(ModelState.IsValid)
+                    {
+                        ret = false;
+                    }
+                }
+
+                if (ret)
+                {
+                    new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
+                    return View(model);
+                }
 			}
 
 			try
@@ -382,7 +413,6 @@ namespace Legato.Controllers
 					}
 					listing.TypeID = type.TypeID;
 
-                    var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
                     if (style == null)
 					{
 						ModelState.AddModelError("SelectedClass", "No such class exists.");
@@ -409,61 +439,75 @@ namespace Legato.Controllers
 					db.Instruments.Where(i => i.InstrumentID == listing.InstrumentID).SingleOrDefault().GlobalPostID = gpost.GlobalPostID1; // Nasty SQL hack
 					db.SubmitChanges();
 
-					//REVIEW:
-					var review = new InstrumentReview();
-					review.Instrument = listing;
-					review.UserID = userGuid;
-					review.SubmissionDate = time;
-					db.InstrumentReviews.InsertOnSubmit(review);
-					db.SubmitChanges();
+                    try
+                    {
+                        // Search
+                        // Add to Lucene index:
+                        Legato.Models.Search.SearchManager.Current.Add(listing);
+                    }
+                    catch (Exception ex)
+                    {
+                        // This means that we got the write.lock error...
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                    }
 
-					// Global Post:
-					var gpostrev = new GlobalPostID();
-					gpostrev.UserID = userGuid;
-					gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
-					gpostrev.SubmissionDate = time;
-					gpostrev.SpecificPostID = review.ReviewID;
-					db.GlobalPostIDs.InsertOnSubmit(gpostrev);
-					db.SubmitChanges();
-					review.GlobalPostID = gpostrev.GlobalPostID1;
-					db.SubmitChanges();
+                    if (style.ReviewBySubmitterEnabled)
+                    {
 
-					//REVISION:
-					var r = new InstrumentReviewRevision();
-					r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
-					r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
-					r.RatingGeneral = model.ReviewRevision.RatingOverall;
-					r.RevisionDate = time;
-					r.InstrumentReview = review;
-					r.UserID = userGuid;
+                        //REVIEW:
+                        var review = new InstrumentReview();
+                        review.Instrument = listing;
+                        review.UserID = userGuid;
+                        review.SubmissionDate = time;
+                        db.InstrumentReviews.InsertOnSubmit(review);
+                        db.SubmitChanges();
 
-					db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-					db.SubmitChanges();
+                        // Global Post:
+                        var gpostrev = new GlobalPostID();
+                        gpostrev.UserID = userGuid;
+                        gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
+                        gpostrev.SubmissionDate = time;
+                        gpostrev.SpecificPostID = review.ReviewID;
+                        db.GlobalPostIDs.InsertOnSubmit(gpostrev);
+                        db.SubmitChanges();
+                        review.GlobalPostID = gpostrev.GlobalPostID1;
+                        db.SubmitChanges();
 
-					// Global Post:
-					var gpostrevis = new GlobalPostID();
-					gpostrevis.UserID = userGuid;
-					gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
-					gpostrevis.SubmissionDate = time;
-					gpostrevis.SpecificPostID = r.RevisionID;
-					db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
-					db.SubmitChanges();
-					r.GlobalPostID = gpostrevis.GlobalPostID1;
-					db.SubmitChanges();
+                        //REVISION:
+                        var r = new InstrumentReviewRevision();
+                        r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
+                        r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+                        r.RatingGeneral = model.ReviewRevision.RatingOverall;
+                        r.RevisionDate = time;
+                        r.InstrumentReview = review;
+                        r.UserID = userGuid;
 
-					try
-					{
-						// Search
-						// Add to Lucene index:
-						Legato.Models.Search.SearchManager.Current.Add(listing);
-						Legato.Models.Search.SearchManager.Current.Add(review);
-					}
-					catch(Exception ex)
-					{
-						// This means that we got the write.lock error...
-						Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
-						Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
-					}
+                        db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+                        db.SubmitChanges();
+
+                        // Global Post:
+                        var gpostrevis = new GlobalPostID();
+                        gpostrevis.UserID = userGuid;
+                        gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
+                        gpostrevis.SubmissionDate = time;
+                        gpostrevis.SpecificPostID = r.RevisionID;
+                        db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
+                        db.SubmitChanges();
+                        r.GlobalPostID = gpostrevis.GlobalPostID1;
+                        db.SubmitChanges();
+                        try
+                        {
+                            Legato.Models.Search.SearchManager.Current.Add(review);
+                        }
+                        catch (Exception ex)
+                        {
+                            // This means that we got the write.lock error...
+                            Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
+                            Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                        }
+                    }
+
 
 					listing.FillProperties();
 					return RedirectToAction("Individual", new { instrumentID = listing.InstrumentID, slug = listing.UrlSlug }); //shows details for that submission thread, with only one revision!
@@ -502,6 +546,7 @@ namespace Legato.Controllers
 		{
 			var db = Current.DB;
 			var profiler = Current.MiniProfiler;
+            Instrument ins;
 
 			using (profiler.Step("Checks"))
 			{
@@ -512,7 +557,8 @@ namespace Legato.Controllers
 					{
 						return RedirectToAction("NotFound", "Error");
 					}
-					if (db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault() == null)
+                    ins = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
+					if (ins == null)
 					{
 						return RedirectToAction("NotFound", "Error");
 					}
@@ -527,6 +573,15 @@ namespace Legato.Controllers
 						return View("AlreadyReviewed", existingReview);
 					}
 				}
+
+                using (profiler.Step("User is not banned from reviewing this one"))
+                {
+                    var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(ins.ListingClass)).SingleOrDefault();
+                    if(style == null || style.ReviewBySubmitterEnabled == false)
+                    {
+                        return View("ReviewBySubmitterDisabled", ins);
+                    }
+                }
 			}
 
 			// All checks succeeded. Rendering review creation view.
