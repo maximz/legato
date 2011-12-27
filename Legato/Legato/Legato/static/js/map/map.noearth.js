@@ -29,6 +29,7 @@ var Legato = Legato || {};
 			//this.timeZonesLayer = null;
 			this.mapCanvas = null;
 			this.markers = [];
+			this.infowindows = [];
 			this.geocoder = null;
 			this.mapOptions = {
 				maxZoom: 20,
@@ -197,7 +198,15 @@ var Legato = Legato || {};
 					marker.setMap(self.map);
 					
 					google.maps.event.addListener(marker, 'click', function() {
+						// close old infowindows
+						$.each(self.infowindows, function(index, value) {
+							value.close();
+						});
+						self.infowindows = [];
+						
+						// open new infowindow
 						this.infowindow.open(self.map, this);
+						self.infowindows.push(this.infowindow);
 					});
 					
 				}
