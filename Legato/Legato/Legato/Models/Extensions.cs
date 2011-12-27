@@ -149,11 +149,20 @@ namespace Legato.Models
                     model.HasAlreadyReviewed = false;
                 }
 
+                var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault();
+                if(style != null && style.CanMessageOwner)
+                {
+                    model.CanMessage = true;
+                }
+                else
+                {
+                    model.CanMessage = false;
+                }
                 return model;
             }
             else // Anonymous user
             {
-                return new ListingPermissionsModel() { CanComment = false, CanEdit = false, CanDelete = false, CanFlag = false, HasAlreadyReviewed = false, Listing = this };
+                return new ListingPermissionsModel() { CanComment = false, CanEdit = false, CanDelete = false, CanFlag = false, HasAlreadyReviewed = false, CanMessage = false, Listing = this };
             }
         }
 
@@ -185,6 +194,11 @@ namespace Legato.Models
                 set;
             }
             public bool HasAlreadyReviewed
+            {
+                get;
+                set;
+            }
+            public bool CanMessage
             {
                 get;
                 set;

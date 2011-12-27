@@ -53,8 +53,8 @@ namespace Legato.Helpers
         public const string ValueField = "Id";
         public const string TextField = "DisplayName";
         public static IEnumerable<InstrumentClass> Classes = new[] {
-            new InstrumentClass() { Id = 1, Name = "Public", DisplayName = "A public instrument", ReviewBySubmitterEnabled = true },
-            new InstrumentClass() { Id = 2, Name = "Rent", DisplayName = "My own instrument", ReviewBySubmitterEnabled = false }
+            new InstrumentClass() { Id = 1, Name = "Public", DisplayName = "A public instrument", ReviewBySubmitterEnabled = true, CanMessageOwner = false },
+            new InstrumentClass() { Id = 2, Name = "Rent", DisplayName = "My own instrument", ReviewBySubmitterEnabled = false, CanMessageOwner = true }
             //new { Id = 3, Name = "Sale" },
         };
     }
@@ -83,6 +83,12 @@ namespace Legato.Helpers
         ///   <c>true</c> if [reviews enabled]; otherwise, <c>false</c>.
         /// </value>
         public bool ReviewBySubmitterEnabled
+        {
+            get;
+            set;
+        }
+
+        public bool CanMessageOwner
         {
             get;
             set;

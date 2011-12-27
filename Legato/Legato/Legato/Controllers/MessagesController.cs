@@ -193,15 +193,37 @@ namespace Legato.Controllers
             return Json(new { status = "success" });
         }
 
+        public virtual ActionResult ComposeFromMessage(int instrumentID)
+        {
+            var instrument = Current.DB.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
+            if(instrument == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            instrument.FillProperties();
+            var title = "Re: " + instrument.Title;
+            var username = instrument.aspnet_User.UserName;
+            return RedirectToAction(Compose(username, title));
+        }
+
         /// <summary>
         /// Composes this instance.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Url("messages/compose")]
-        public virtual ActionResult Compose()
+        [Url("messages/compose/{username?}/{title?}")]
+        public virtual ActionResult Compose(string username, string title)
         {
-            return View(new ComposeViewModel());
+            var model = new ComposeViewModel();
+            if(username.HasValue())
+            {
+                model.UserName = username;
+            }
+            if(title.HasValue())
+            {
+                model.Subject = title;
+            }
+            return View(model);
         }
 
         /// <summary>
