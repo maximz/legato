@@ -99,18 +99,18 @@ var Legato = Legato || {};
 			self.map.setMapTypeId('styledMapType');
 			*/
 
-				self.overlay = new google.maps.OverlayView();
+				/*self.overlay = new google.maps.OverlayView();
 				self.overlay.draw = function ()
 				{};
-				self.overlay.setMap(self.map);
+				self.overlay.setMap(self.map);*/
 
 				geocoder = new google.maps.Geocoder();
 
-				// When we add infobubbles, here's a hacky bugfix:
+				/*// When we add infobubbles, here's a hacky bugfix:
 				google.maps.event.addListener(self.map, 'dragstart', function ()
 				{
 					$(".infoBubble").not("#infoBubbleTemplate").remove();
-				});
+				}); */
 
 				/*
 				// timezones
@@ -147,56 +147,14 @@ var Legato = Legato || {};
 				}
 			}*/
 			
-			this.calculateMarkerSize = function(count) // count is currently not used
-			{
-				// this method calculates marker size and scale factor for our marker sprites (see makeMarkerImage() and newMarker()). 
-			
-				/* Used for calculating marker size based on device count - which we are not doing right now
-				if(count > 10)
-				{
-					count = 10;
-				}
-				var size = Math.floor(4*(count-1) + 8); // * spriteWidth/16; */
-
-				var markerSize = (self.markerSize > 0 && self.markerSize <= 5) ? 16 * self.markerSize : 16;
-				var markerScale = markerSize / self.spriteWidth;
-				
-				var result = {
-					size : markerSize,
-					scaleFactor : markerScale 
-				};
-				return result;
-			}
-			
-			this.makeMarkerImage = function(size, scaleFactor, offset)
-			{
-				// returns a google.maps.MarkerImage() with the appropriate values for our marker creation procedure.
-				var spriteWidth = self.spriteWidth;
-				
-				return new google.maps.MarkerImage('/static/images/map/markers.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
-			}
-
 			this.newMarker = function (lat, lng, count)
 			{
 
-				// this method is in charge of creating individual markers
-				
-				var spriteWidth = self.spriteWidth;
-
-				// Used for randomizing marker image
-				var offset = Math.floor(Math.random() * 3) * spriteWidth;
-				
-				var markerSize = self.calculateMarkerSize(count);
-
-				// Custom marker
 				var marker = new google.maps.Marker(
 				{
-					position: new google.maps.LatLng(lat, lng),
-					icon: self.makeMarkerImage(markerSize.size, markerSize.scaleFactor, offset)
+					position: new google.maps.LatLng(lat, lng)
 				});
 				
-				marker.offset = offset; // in case we have to refresh this marker or change its size
-
 				return marker;
 			}
 
@@ -222,6 +180,8 @@ var Legato = Legato || {};
 					self.markers.push(marker);
 
 					// Tack on some extra data
+					marker.title = loc.label;
+					marker.url = self.getIndividualPageLink(loc.id, loc.slug);
 					marker.id = loc.id;
 					marker.label = loc.label;
 					marker.typeid = loc.typeid;
@@ -229,38 +189,16 @@ var Legato = Legato || {};
 					marker.lClass = loc.lClass;
 					marker.slug = loc.slug;
 					marker.omniType = 'marker'; // for omnibox autocomplete logic
-
-					// Handle mouseover event
-					google.maps.event.addListener(marker, 'mouseover', function ()
-					{
-
-						// Get screen xy
-						var pos = self.latLngPixel(this.getPosition());
-
-						// Create an overlay
-						var overlay = self.createOverlay(this, pos);
-
-						// Add it to the dom
-						$(self.mapCanvas).after(overlay);
+					
+					marker.infowindow = new google.maps.InfoWindow({
+						content: '<a href="'+marker.url+'">'+marker.title+'</a>'
 					});
-
-					// Stagger animation onto the map
-					if (i < 50)
-					{
-						marker.setAnimation(google.maps.Animation.DROP);
-						setTimeout((function (marker)
-						{
-							return function ()
-							{
-								marker.setMap(self.map);
-							}
-						})(marker), i * 200 + Math.random() * 500 + 500);
-					}
-					else
-					{
-						marker.setAnimation(null);
-						marker.setMap(self.map);
-					}
+					
+					marker.setMap(self.map);
+					
+					google.maps.event.addListener(marker, 'click', function() {
+						this.infowindow.open(self.map, this);
+					});
 					
 				}
 				
@@ -268,59 +206,6 @@ var Legato = Legato || {};
 				
 				// After all markers are added, initialize omnibox:
 				Legato.omnibox.init();
-			}
-			
-			this.createOverlay = function (marker, position)
-			{
-				var overlay = $("#messageTemplate").clone();
-
-				overlay.attr("id", marker.id);
-				overlay.attr("href", self.getIndividualPageLink(marker.id, marker.slug))
-
-				// Position it at the marker
-				overlay.css(
-				{
-					left: position.x - 52,
-					top: position.y - 52,
-				});
-
-				// Use distance from center to decide when to hide
-				var radius = 50;
-				var radiusSq = radius * radius;
-
-				var checkDistance = function (event)
-					{
-						var dx = event.pageX - position.x;
-						var dy = event.pageY - position.y;
-
-						if (dx * dx + dy * dy > radiusSq)
-						{
-
-							$(window).unbind("mousemove", checkDistance);
-							overlay.data("MessageBubble").disappear(250);
-							setTimeout(function ()
-							{
-								overlay.remove();
-							}, 250);
-						}
-					}
-
-				$(window).bind("mousemove", checkDistance);
-
-				// Make it a message bubble
-				overlay.messageBubble();
-
-				var dom = overlay.data("MessageBubble").dom;
-				dom.label.text(marker.typename);
-				dom.lower.text('for '+marker.lClass);
-
-				overlay.data("MessageBubble").disappear(0);
-				setTimeout(function ()
-				{
-					overlay.data("MessageBubble").appear(250);
-				}, 20);
-
-				return overlay;
 			}
 
 			// Removes markers from the map: see http://code.google.com/apis/maps/documentation/javascript/overlays.html#RemovingOverlays and http://stackoverflow.com/questions/1544739/google-maps-api-v3-how-to-remove-all-markers/1903905#1903905
