@@ -16,9 +16,9 @@ public static Document DynamicToDocument(dynamic r)
                 p.FillProperties();
 
                 doc.Add(new Field("Title", new StringReader(p.Title)));
-                doc.Add(new Field("Text", new StringReader(p.Title)));
+                doc.Add(new Field("Text", new StringReader(p.Markdown)));
                 doc.Add(new Field("RawTitle", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
-                doc.Add(new Field("RawText", p.Title, Field.Store.YES, Field.Index.UN_TOKENIZED));
+                doc.Add(new Field("RawText", p.Markdown, Field.Store.YES, Field.Index.UN_TOKENIZED));
                 doc.Add(new Field("Type", new StringReader(MagicCategoryStrings.Instrument)));
                 doc.Add(new Field("PostID", Convert.ToString(p.InstrumentID), Field.Store.YES, Field.Index.UN_TOKENIZED));
                 doc.Add(new Field("GlobalPostID", Convert.ToString(p.GlobalPostID), Field.Store.YES, Field.Index.UN_TOKENIZED));
