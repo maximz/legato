@@ -8,7 +8,7 @@
     @if(Model.CanMessage) {
 	<div class="lsep">|</div>
 	<div class="thread-post-functions-link post-menu">
-		@Html.ActionLink("message owner", "ComposeFromInstrument", "Messages", new { instrumentID = Model.Listing.InstrumentID})</div>
+		@HtmlUtilities.RenderHtmlInRazor(Html.ActionLink("message owner", "ComposeFromInstrument", "Messages", new { instrumentID = Model.Listing.InstrumentID}))</div>
 	}
 		
 	@if(Model.CanEdit) {

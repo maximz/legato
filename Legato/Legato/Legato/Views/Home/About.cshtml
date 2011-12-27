@@ -23,12 +23,12 @@
 	@helper DisplayQA(string question, string answer)
 	{
 		@NewQ()
-		<h4 id="@GetNum()">@question</h4>
-		<p>@answer</p>
+		<h4 id="@GetNum()">@HtmlUtilities.RenderHtmlInRazor(question)</h4>
+		<p>@HtmlUtilities.RenderHtmlInRazor(answer)</p>
 	}
 	@helper DisplaySection(string title)
 	{
-		@NewSection() <h2 id="@GetNum()">@title</h2>
+		@NewSection() <h2 id="@GetNum()">@HtmlUtilities.RenderHtmlInRazor(title)</h2>
 	}
 	@helper EndSection()
 	{

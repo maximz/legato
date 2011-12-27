@@ -193,7 +193,9 @@ namespace Legato.Controllers
             return Json(new { status = "success" });
         }
 
-        public virtual ActionResult ComposeFromMessage(int instrumentID)
+        [Url("messages/composefrominstrument/{instrumentID}")]
+        [HttpGet]
+        public virtual ActionResult ComposeFromInstrument(int instrumentID)
         {
             var instrument = Current.DB.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
             if(instrument == null)
@@ -201,9 +203,9 @@ namespace Legato.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
             instrument.FillProperties();
-            var title = "Re: " + instrument.Title;
+            var title = "Re " + instrument.Title;
             var username = instrument.aspnet_User.UserName;
-            return RedirectToAction(Compose(username, title));
+            return RedirectToAction(MVC.Messages.Compose(username, title));
         }
 
         /// <summary>

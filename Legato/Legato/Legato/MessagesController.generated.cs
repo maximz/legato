@@ -67,8 +67,8 @@ namespace Legato.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ComposeFromMessage() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ComposeFromMessage);
+        public System.Web.Mvc.ActionResult ComposeFromInstrument() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ComposeFromInstrument);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,7 +94,7 @@ namespace Legato.Controllers {
             public readonly string Message = "Message";
             public readonly string Reply = "Reply";
             public readonly string Flag = "Flag";
-            public readonly string ComposeFromMessage = "ComposeFromMessage";
+            public readonly string ComposeFromInstrument = "ComposeFromInstrument";
             public readonly string Compose = "Compose";
         }
 
@@ -150,8 +150,8 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ComposeFromMessage(int instrumentID) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ComposeFromMessage);
+        public override System.Web.Mvc.ActionResult ComposeFromInstrument(int instrumentID) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ComposeFromInstrument);
             callInfo.RouteValueDictionary.Add("instrumentID", instrumentID);
             return callInfo;
         }
