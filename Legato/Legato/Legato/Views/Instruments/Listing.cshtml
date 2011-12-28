@@ -1,9 +1,9 @@
 ﻿@model Legato.ViewModels.ReadListingViewModel
 
 @{
-	ViewBag.Title = Model.Instrument.Title;
-	ViewBag.revNum = Legato.Current.RevNumber();
-	ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
+    ViewBag.Title = Model.Instrument.Title;
+    ViewBag.revNum = Legato.Current.RevNumber();
+    ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
 }
 
 @section HeadContent {
@@ -63,27 +63,27 @@
 		<div class="row">
 			<h1 class="span12">@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
 			@if (ViewBag.ReviewsExist)
-			{
+   {
 				<div id="averageRating" class="span4 pull-right"></div>
-			}
+   }
 		</div>
 		<div class="row">
 			<div class="span12">
 				@if (Model.Instrument.Price.HasValue)
-				{
+    {
 					<text><p>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
-				}
+    }
 				<div class="description">
 					<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(Model.Instrument.HTML))</blockquote>
 				</div>
-				<div id="actions">@Html.Action("UserLinksForListing",new { instrumentID = Model.Instrument.InstrumentID })</div>
+				<div id="actions">@Html.Action("UserLinksForListing", new { instrumentID = Model.Instrument.InstrumentID })</div>
 			</div>
 			<div class="span4 pull-right s4divider">
-				<p>@Html.ActionLink("Add a Review","Review", new {instrumentID = Model.Instrument.InstrumentID}, new { @class="btn primary large" })</p>
+				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID }, new { @class = "btn primary large" })</p>
 				<div class="userbox box">
-					<p>by @Model.Instrument.aspnet_User.UserName</p>
-					<p>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></p>
-					<p>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></p>
+					<dl><dt>by @(Model.Instrument.aspnet_User.UserName)</dt>
+					<dd>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></dd>
+					<dd>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></dd></dl>
 				</div>
 			</div>
 		</div> <!--- //row -->
@@ -94,13 +94,13 @@
 				<h2 class="span8">Reviews (@Model.Instrument.NumberOfReviews)</h2>
 			</div>
 			@if (!ViewBag.ReviewsExist)
-			{
-				<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new {instrumentID = Model.Instrument.InstrumentID})</p>
-			}
-			else
-			{
-				foreach (var r in Model.Reviews)
-				{
+   {
+				<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
+   }
+   else
+   {
+       foreach (var r in Model.Reviews)
+       {
 					<div class="review container" id="review-@r.ReviewID">
 						<div class="ratings">
 							<div id="rate-general-@r.ReviewID"></div>
@@ -113,26 +113,30 @@
 								<div class="details">
 								</div>
 								<div class="actionLinks">
-									@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID})
+									@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID })
 								</div>
 							</div>
 							<div class="span3 s4divider">
 								<div class="userbox box">
-									<p>by @r.aspnet_User.UserName</p>
-									<p>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></p>
-									@if(r.Revisions.Count()>1) { <text><p>edited @r.Revisions.Count() times</p></text> }
+									<dl><dt>by @r.aspnet_User.UserName</dt>
+									<dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
+									@if (r.Revisions.Count() > 1)
+                                    {
+                                        <text><dd>edited @r.Revisions.Count() times</dd></text>
+                                    }
+                                    </dl>
 								</div>
 							</div>
 						</div>
 					</div>
 					<hr/>
-				 }
-				 if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
-				 {
-					<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?","Individual", new {instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
-				 }
-				<p>@Html.ActionLink("Add a Review","Review", new { instrumentID = Model.Instrument.InstrumentID})</p>
-			}
+       }
+       if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
+       {
+					<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
+       }
+				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
+   }
 		</div>
 		<div class="span4 s4divider">
 			<a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
