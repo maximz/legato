@@ -3,6 +3,7 @@
 @{
 	ViewBag.Title = Model.Instrument.Title;
 	ViewBag.revNum = Legato.Current.RevNumber();
+    ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
 }
 
 @section HeadContent {
@@ -83,8 +84,14 @@
 		</div> <!--- /header -->
 		<div class="row">
 		  <div class="span12">
-			<h2 style="margin-bottom: 20px;">Reviews (@Model.Instrument.NumberOfReviews)</h2>
-			@if (Model.Reviews == null || Model.Reviews.Count() < 1)
+            <div class="row" style="margin-bottom: 20px;">
+			    <h2 class="span8">Reviews (@Model.Instrument.NumberOfReviews)</h2>
+                @if (ViewBag.ReviewsExist)
+                {
+                    <div id="averageRating" class="span4 pull-right"></div>
+                }
+            </div>
+			@if (!ViewBag.ReviewsExist)
 {
 	<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new {instrumentID = Model.Instrument.InstrumentID})</p>
 }
@@ -142,7 +149,8 @@ $('#averageRating').raty({
   readOnly:   true,
   start:  @(Model.Instrument.AverageOverallRating),
   size: 24,
-  path:       '/static/images/raty/'
+  path:       '/static/images/raty/big/',
+  revnum: '@(ViewBag.revNum)'
 });
 
 // Star ratings in each review:
@@ -153,7 +161,8 @@ $('#averageRating').raty({
   cancel:     false,
   readOnly:   true,
   start:  @(r.Revisions.First().RatingGeneral),
-  path:       '/static/images/raty/'
+  path:       '/static/images/raty/',
+  revnum: '@(ViewBag.revNum)'
 });
 </text>
 }
