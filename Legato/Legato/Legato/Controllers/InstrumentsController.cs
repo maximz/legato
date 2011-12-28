@@ -354,15 +354,15 @@ namespace Legato.Controllers
                 var ret = true;
                 if(cancelReviewErrors)
                 {
-                    foreach(var m in ModelState.Where(m=>m.Key == "ReviewRevision_RatingOverall"))
+                    if(ModelState.ContainsKey("ReviewRevision.RatingOverall"))
                     {
-                        
-                        ModelState.Remove(m);
+                        ModelState["ReviewRevision.RatingOverall"].Errors.Clear();
                     }
-                    foreach (var m in ModelState.Where(m => m.Key == "ReviewRevision_ReviewMarkdown"))
+                    if (ModelState.ContainsKey("ReviewRevision.ReviewMarkdown"))
                     {
-                        ModelState.Remove(m);
+                        ModelState["ReviewRevision.ReviewMarkdown"].Errors.Clear();
                     }
+
                     if(ModelState.IsValid)
                     {
                         ret = false;
