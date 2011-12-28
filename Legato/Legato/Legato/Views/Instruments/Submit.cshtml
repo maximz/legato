@@ -38,6 +38,23 @@ $('#rate_overall').raty({
 {
 	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate_overall');</text>
 }
+
+
+// handle changes in selected class
+$(".classSelector").change(function(e) { 
+    $('.classSelector option:selected').each(function() {
+        //alert($(this).val() + $(this).text());
+        if($(this).val() == '2') // text = "My own instrument"
+        {
+            $('#reviewFields').hide('slow');
+        }
+        else if($(this).val() == '1') // text = "A public instrument"
+        {
+            $('#reviewFields').show('slow');
+        }
+    });
+});
+
 </script>
 }
 
@@ -58,7 +75,7 @@ $('#rate_overall').raty({
 			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
 			<div class="input">
-				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types, new { @class = "classSelector" })
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
 			</div></div>
 			
@@ -102,7 +119,7 @@ $('#rate_overall').raty({
 				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
 			</div></div>
 	</fieldset>
-	<fieldset>
+	<fieldset id="reviewFields">
 	<legend>Review</legend>
 	<div>
 		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
