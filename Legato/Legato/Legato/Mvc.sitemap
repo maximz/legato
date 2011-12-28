@@ -18,7 +18,7 @@
       <mvcSiteMapNode title="Log In or Register" action="Login"/>
       <mvcSiteMapNode title="Notifications" controller="Notifications" action="List" changeFrequency="Always" updatePriority="Normal"/>
     </mvcSiteMapNode>
-    <mvcSiteMapNode title="Messages" controller="Messages">
+    <mvcSiteMapNode title="Messages" controller="Messages" clickable="false">
       <mvcSiteMapNode title="Conversations" action="List" changeFrequency="Always" updatePriority="Normal"/>
       <mvcSiteMapNode title="Compose" action="Compose" changeFrequency="Always" updatePriority="Normal"/>
     </mvcSiteMapNode>

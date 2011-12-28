@@ -26,7 +26,10 @@ namespace Legato.Helpers
                 ins.FillProperties();
                 DynamicNode node = new DynamicNode();
                 node.Title = ins.Title;
-                node.ParentKey = "Type_" + ins.InstrumentType.Name;
+                node.Controller = "Instruments";
+                node.Action = "Individual";
+                //node.ParentKey = "Type_" + ins.InstrumentType.Name;
+                node.Key = "Instrument_" + ins.InstrumentID.ToString();
                 node.RouteValues.Add("instrumentID", ins.InstrumentID);
                 node.RouteValues.Add("slug", ins.UrlSlug);
 
