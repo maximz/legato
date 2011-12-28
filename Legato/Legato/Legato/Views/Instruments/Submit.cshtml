@@ -13,13 +13,13 @@
 <script>
 
 (function () {
-                var converter1 = Markdown.getSanitizingConverter();
-                var editor1 = new Markdown.Editor(converter1);
-                editor1.run();
+	var converter1 = Markdown.getSanitizingConverter();
+	var editor1 = new Markdown.Editor(converter1);
+	editor1.run();
 
-                var converter2 = Markdown.getSanitizingConverter();
-                var editor2 = new Markdown.Editor(converter2, '-second');
-                editor2.run();
+	var converter2 = Markdown.getSanitizingConverter();
+	var editor2 = new Markdown.Editor(converter2, '-second');
+	editor2.run();
 })();
 
 $('#rate_overall').raty({
@@ -93,7 +93,7 @@ $('#rate_overall').raty({
 				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			</div></div>
 
-            <div class="clearfix">
+			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
