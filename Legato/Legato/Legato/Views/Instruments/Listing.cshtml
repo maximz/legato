@@ -1,9 +1,9 @@
 ﻿@model Legato.ViewModels.ReadListingViewModel
 
 @{
-    ViewBag.Title = Model.Instrument.Title;
-    ViewBag.revNum = Legato.Current.RevNumber();
-    ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
+	ViewBag.Title = Model.Instrument.Title;
+	ViewBag.revNum = Legato.Current.RevNumber();
+	ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
 }
 
 @section HeadContent {
@@ -70,9 +70,9 @@
 		<div class="row">
 			<div class="span12">
 				@if (Model.Instrument.Price.HasValue)
-    {
+	{
 					<text><p>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
-    }
+	}
 				<div class="description">
 					<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(Model.Instrument.HTML))</blockquote>
 				</div>
@@ -99,8 +99,8 @@
    }
    else
    {
-       foreach (var r in Model.Reviews)
-       {
+	   foreach (var r in Model.Reviews)
+	   {
 					<div class="review container" id="review-@r.ReviewID">
 						<div class="ratings">
 							<div id="rate-general-@r.ReviewID"></div>
@@ -121,20 +121,20 @@
 									<dl><dt>by @r.aspnet_User.UserName</dt>
 									<dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
 									@if (r.Revisions.Count() > 1)
-                                    {
-                                        <text><dd>edited @r.Revisions.Count() times</dd></text>
-                                    }
-                                    </dl>
+									{
+										<text><dd>edited @r.Revisions.Count() times</dd></text>
+									}
+									</dl>
 								</div>
 							</div>
 						</div>
 					</div>
 					<hr/>
-       }
-       if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
-       {
+	   }
+	   if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
+	   {
 					<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
-       }
+	   }
 				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
    }
 		</div>
