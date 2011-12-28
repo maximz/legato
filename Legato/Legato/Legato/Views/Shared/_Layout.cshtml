@@ -116,6 +116,15 @@
 	<![endif]-->
 
 	@MvcMiniProfiler.MiniProfiler.RenderIncludes()
+
+    <style type="text/css">
+    .profiler-results
+    {
+        /* compensating for topbar/nav */
+        z-index: 9999;
+        top: 40px;
+    }
+    </style>
 	
 	@RenderSection("ScriptContentAtEndOfBody", false)
 	
