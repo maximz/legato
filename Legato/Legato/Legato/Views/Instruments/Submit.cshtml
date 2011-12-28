@@ -42,17 +42,17 @@ $('#rate_overall').raty({
 
 // handle changes in selected class
 $(".classSelector").change(function(e) { 
-    $('.classSelector option:selected').each(function() {
-        //alert($(this).val() + $(this).text());
-        if($(this).val() == '2') // text = "My own instrument"
-        {
-            $('#reviewFields').hide('slow');
-        }
-        else if($(this).val() == '1') // text = "A public instrument"
-        {
-            $('#reviewFields').show('slow');
-        }
-    });
+	$('.classSelector option:selected').each(function() {
+		//alert($(this).val() + $(this).text());
+		if($(this).val() == '2') // text = "My own instrument"
+		{
+			$('#reviewFields').hide('slow');
+		}
+		else if($(this).val() == '1') // text = "A public instrument"
+		{
+			$('#reviewFields').show('slow');
+		}
+	});
 });
 
 </script>
