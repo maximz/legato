@@ -321,11 +321,11 @@
     <Content Include="static\images\network_icon.jpg" />
     <Content Include="static\images\publisher_icon.png" />
     <Content Include="static\images\raty\background.gif" />
-    <Content Include="static\images\raty\big\cancel-off-big.png" />
-    <Content Include="static\images\raty\big\cancel-on-big.png" />
-    <Content Include="static\images\raty\big\star-half-big.png" />
-    <Content Include="static\images\raty\big\star-off-big.png" />
-    <Content Include="static\images\raty\big\star-on-big.png" />
+    <Content Include="static\images\raty\big\cancel-off.png" />
+    <Content Include="static\images\raty\big\cancel-on.png" />
+    <Content Include="static\images\raty\big\star-half.png" />
+    <Content Include="static\images\raty\big\star-off.png" />
+    <Content Include="static\images\raty\big\star-on.png" />
     <Content Include="static\images\raty\cancel-off.png" />
     <Content Include="static\images\raty\cancel-on.png" />
     <Content Include="static\images\raty\coffee.png" />
