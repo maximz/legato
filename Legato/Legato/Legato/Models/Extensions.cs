@@ -104,7 +104,7 @@ namespace Legato.Models
             }
             if (this.InstrumentType != null && this.InstrumentType.Name.HasValue())
             {
-                Title += this.InstrumentType.Name.Trim() + " ";
+                Title += this.InstrumentType.Name.Trim() + ": ";
             }
             if (this.StreetAddress.HasValue())
             {
