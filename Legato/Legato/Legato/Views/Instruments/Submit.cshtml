@@ -41,8 +41,8 @@ $('#rate_overall').raty({
 
 
 // handle changes in selected class
-$(".classSelector").change(function(e) { 
-	$('.classSelector option:selected').each(function() {
+$("#Listing_Equipment_SelectedClass").change(function(e) { 
+	$('#Listing_Equipment_SelectedClass option:selected').each(function() {
 		//alert($(this).val() + $(this).text());
 		if($(this).val() == '2') // text = "My own instrument"
 		{
@@ -70,12 +70,12 @@ $(".classSelector").change(function(e) {
 {
 	@Html.ValidationSummary(true)
 	<fieldset>
-			<legend>Instrument details</legend>
+			<legend>Listing</legend>
 			
 			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
 			<div class="input">
-				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types, new { @class = "classSelector" })
+				@Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
 				@Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
 			</div></div>
 			
