@@ -150,7 +150,7 @@ namespace Legato.Models
                 }
 
                 var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault();
-                if(style != null && style.CanMessageOwner)
+                if(style != null && style.CanMessageOwner && userGuid != submitterGuid) // if we are allowed to message owner and this user isn't the owner of this instrument
                 {
                     model.CanMessage = true;
                 }
