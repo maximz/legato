@@ -321,9 +321,12 @@
     <Content Include="static\images\network_icon.jpg" />
     <Content Include="static\images\publisher_icon.png" />
     <Content Include="static\images\raty\background.gif" />
-    <Content Include="static\images\raty\cancel-off-big.png" />
+    <Content Include="static\images\raty\big\cancel-off-big.png" />
+    <Content Include="static\images\raty\big\cancel-on-big.png" />
+    <Content Include="static\images\raty\big\star-half-big.png" />
+    <Content Include="static\images\raty\big\star-off-big.png" />
+    <Content Include="static\images\raty\big\star-on-big.png" />
     <Content Include="static\images\raty\cancel-off.png" />
-    <Content Include="static\images\raty\cancel-on-big.png" />
     <Content Include="static\images\raty\cancel-on.png" />
     <Content Include="static\images\raty\coffee.png" />
     <Content Include="static\images\raty\face-a.png" />
@@ -333,11 +336,8 @@
     <Content Include="static\images\raty\face-off.png" />
     <Content Include="static\images\raty\medal-off.png" />
     <Content Include="static\images\raty\medal-on.png" />
-    <Content Include="static\images\raty\star-half-big.png" />
     <Content Include="static\images\raty\star-half.png" />
-    <Content Include="static\images\raty\star-off-big.png" />
     <Content Include="static\images\raty\star-off.png" />
-    <Content Include="static\images\raty\star-on-big.png" />
     <Content Include="static\images\raty\star-on.png" />
     <Content Include="static\images\Redbarbg.png" />
     <Content Include="static\images\social_icon.png" />
@@ -650,7 +650,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
