@@ -61,7 +61,7 @@
 		<div class="page-header">
 		  <h1>@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
 		  <div class="row">
-			<div class="span10">
+			<div class="span12">
 			@if (Model.Instrument.Price.HasValue)
 		  {
 			<text><p>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
@@ -71,7 +71,7 @@
 			</div>
 		  <div id="actions">@Html.Action("UserLinksForListing",new { instrumentID = Model.Instrument.InstrumentID })</div>
 		  </div>
-			<div class="span4 pull-right">
+			<div class="span4 pull-right s4divider">
 				<p>@Html.ActionLink("Add a Review","Review", new {instrumentID = Model.Instrument.InstrumentID}, new { @class="btn primary large" })</p>
 				<div class="userbox box">
 				<p>by @Model.Instrument.aspnet_User.UserName</p>
@@ -82,8 +82,8 @@
 		  </div> <!--- //row -->
 		</div> <!--- /header -->
 		<div class="row">
-		  <div class="span10">
-			<h2>Reviews (@Model.Instrument.NumberOfReviews)</h2>
+		  <div class="span12">
+			<h2 style="margin-bottom: 20px;">Reviews (@Model.Instrument.NumberOfReviews)</h2>
 			@if (Model.Reviews == null || Model.Reviews.Count() < 1)
 {
 	<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new {instrumentID = Model.Instrument.InstrumentID})</p>
@@ -92,7 +92,7 @@ else
 {
 	foreach (var r in Model.Reviews)
 	 {
-		<div class="review" id="review-@r.ReviewID">
+		<div class="review container" id="review-@r.ReviewID">
 			<div class="ratings">
 				<div id="rate-general-@r.ReviewID"></div>
 			</div>
@@ -100,14 +100,14 @@ else
 				<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
 			</div>
 			<div class="row">
-			<div class="span10">
+			<div class="span9">
 			<div class="details">
 			</div>
 			<div class="actionLinks">
 				@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID})
 			</div>
 			</div>
-			<div class="span4 s4divider">
+			<div class="span3 s4divider">
 			<div class="userbox box">
 				<p>by @r.aspnet_User.UserName</p>
 				<p>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></p>
