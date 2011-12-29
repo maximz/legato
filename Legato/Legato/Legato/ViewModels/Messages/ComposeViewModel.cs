@@ -22,6 +22,7 @@ namespace Legato.ViewModels
         [Required]
         [StringLength(100)]
         [Display(Name="Subject")]
+        [AllowHtml]
         public string Subject
         {
             get;
@@ -29,6 +30,7 @@ namespace Legato.ViewModels
         }
         [Required]
         [Display(Name = "Recipient")]
+        [AllowHtml]
         public string UserName
         {
             get;

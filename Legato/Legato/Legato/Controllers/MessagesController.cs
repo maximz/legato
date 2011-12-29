@@ -203,7 +203,7 @@ namespace Legato.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
             instrument.FillProperties();
-            var title = "Re " + instrument.Title;
+            var title = "Re: " + instrument.Title;
             var username = instrument.aspnet_User.UserName;
             return RedirectToAction(MVC.Messages.Compose(username, title));
         }
@@ -214,16 +214,17 @@ namespace Legato.Controllers
         /// <returns></returns>
         [HttpGet]
         [Url("messages/compose/{username?}/{title?}")]
+        [ValidateInput(false)]
         public virtual ActionResult Compose(string username, string title)
         {
             var model = new ComposeViewModel();
             if(username.HasValue())
             {
-                model.UserName = username;
+                model.UserName = HtmlUtilities.Safe(Server.UrlDecode(username));
             }
             if(title.HasValue())
             {
-                model.Subject = title;
+                model.Subject = HtmlUtilities.Safe(Server.UrlDecode(title).TruncateWithEllipsis(100));
             }
             return View(model);
         }
@@ -236,6 +237,7 @@ namespace Legato.Controllers
         [HttpPost]
         [VerifyReferrer]
         [Url("messages/compose")]
+        [ValidateInput(false)]
         public virtual ActionResult Compose(ComposeViewModel data)
         {
             var db = Current.DB;
