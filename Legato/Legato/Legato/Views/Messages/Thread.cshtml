@@ -1,8 +1,8 @@
 ﻿@model Legato.ViewModels.ThreadViewModel
 
 @{
-    ViewBag.Title = Model.Conversation.Subject;
-    ViewBag.revNum = Legato.Current.RevNumber();
+	ViewBag.Title = Model.Conversation.Subject;
+	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
 @section ScriptContentAtEndOfBody {
@@ -13,27 +13,27 @@
 <script>
 
 (function () {
-    var converter1 = Markdown.getSanitizingConverter();
-    var editor1 = new Markdown.Editor(converter1);
-    editor1.run();
-    var curFlag = null;
+	var converter1 = Markdown.getSanitizingConverter();
+	var editor1 = new Markdown.Editor(converter1);
+	editor1.run();
+	var curFlag = null;
 })();
 
 $('a.flag-message').click(function (e) {
-    e.preventDefault();
-    curFlag = $(this);
-    var messageid = $(this).attr('mid');
-    $.ajax({ url: '@(Url.Action("Flag"))', data: { id: messageid }, type: 'POST', statusCode: { 200: function (data) {
-        curFlag.append('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
-        $('.alert-message').alert();
-    }, 409: function() { 
-        curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
-        $('.alert-message').alert();
-    }, 500: function() {
-        curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
-        $('.alert-message').alert();
-    }});
-    return false;
+	e.preventDefault();
+	curFlag = $(this);
+	var messageid = $(this).attr('mid');
+	$.ajax({ url: '@(Url.Action("Flag"))', data: { id: messageid }, type: 'POST', statusCode: { 200: function (data) {
+		curFlag.append('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
+		$('.alert-message').alert();
+	}, 409: function() { 
+		curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
+		$('.alert-message').alert();
+	}, 500: function() {
+		curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
+		$('.alert-message').alert();
+	}});
+	return false;
 });
 
 
