@@ -232,7 +232,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="instrumentID">The instrument ID.</param>
 		/// <returns></returns>
-		[Url("instruments/listing/{instrumentID}/{slug?}")]
+        [Url("instruments/listing/{instrumentID}/{slug?}", Constraints = @"instrumentID=\d+")]
 		[CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
 		public virtual ActionResult Individual(int instrumentID, string slug)
 		{
@@ -541,7 +541,7 @@ namespace Legato.Controllers
 		}
 
 
-		[Url("instruments/review/create/{instrumentID}")]
+        [Url("instruments/review/create/{instrumentID}", Constraints = @"instrumentID=\d+")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult Review(int instrumentID)
@@ -720,7 +720,7 @@ catch(Exception ex)
 		/// </summary>
 		/// <param name="reviewID">The review ID.</param>
 		/// <returns></returns>
-		[Url("instruments/review/edit/{reviewID}")]
+		[Url("instruments/review/edit/{reviewID}", Constraints = @"reviewID=\d+")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed=false)]
 		public virtual ActionResult EditReview(int reviewID)
@@ -850,7 +850,7 @@ catch(Exception ex)
 		/// </summary>
 		/// <param name="reviewID">The listing ID.</param>
 		/// <returns></returns>
-		[Url("instruments/listing/edit/{instrumentID}")]
+        [Url("instruments/listing/edit/{instrumentID}", Constraints = @"instrumentID=\d+")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult EditListing(int instrumentID)
