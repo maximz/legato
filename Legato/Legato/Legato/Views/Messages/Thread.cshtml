@@ -23,10 +23,16 @@ $('a.flag-message').click(function (e) {
     e.preventDefault();
     curFlag = $(this);
     var messageid = $(this).attr('mid');
-    $.post('@(Url.Action("Flag"))', { id: messageid }, function (data) {
+    $.ajax({ url: '@(Url.Action("Flag"))', data: { id: messageid }, type: 'POST', statusCode: { 200: function (data) {
         curFlag.append('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
         $('.alert-message').alert();
-    });
+    }, 409: function() { 
+        curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
+        $('.alert-message').alert();
+    }, 500: function() {
+        curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
+        $('.alert-message').alert();
+    }});
     return false;
 });
 
