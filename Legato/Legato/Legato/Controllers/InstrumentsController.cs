@@ -569,7 +569,7 @@ namespace Legato.Controllers
 				using (profiler.Step("User hasn't previously reviewed this"))
 				{
 					// Check to see whether this user has already reviewed this instrument (checks using UserGuid and InstrumentID)
-					var existingReview = db.InstrumentReviews.Where(r => r.UserID == (Guid)Membership.GetUser().ProviderUserKey && r.InstrumentID == instrumentID).SingleOrDefault();
+					var existingReview = db.InstrumentReviews.Where(r => r.UserID == Current.UserID.Value && r.InstrumentID == instrumentID).SingleOrDefault();
 					if (existingReview != null)
 					{
 						return View("AlreadyReviewed", existingReview);
@@ -579,7 +579,7 @@ namespace Legato.Controllers
                 using (profiler.Step("User is not banned from reviewing this one"))
                 {
                     var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(ins.ListingClass)).SingleOrDefault();
-                    if(style == null || style.ReviewBySubmitterEnabled == false)
+                    if((style == null || style.ReviewBySubmitterEnabled == false) && ins.UserID == Current.UserID.Value) // if submitter is not allowed to review their own instrument and this is the submitter, block
                     {
                         return View("ReviewBySubmitterDisabled", ins);
                     }
