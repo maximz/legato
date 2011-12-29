@@ -410,7 +410,7 @@ var Legato = Legato || {};
 
 				var dom = overlay.data("MessageBubble").dom;
 				dom.label.text(marker.typename);
-				dom.lower.text('for '+marker.lClass);
+				dom.lower.text('Listing');
 
 				overlay.data("MessageBubble").disappear(0);
 				setTimeout(function ()
