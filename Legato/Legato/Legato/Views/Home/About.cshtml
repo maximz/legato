@@ -1,7 +1,7 @@
 ﻿@{
 	ViewBag.Title = "About Us";
 	ViewBag.revNum = Legato.Current.RevNumber();
-    var revNum = ViewBag.revNum;
+	var revNum = ViewBag.revNum;
 	ViewBag.sectionNum = 0;
 	ViewBag.countNum = 0;
 }
@@ -37,88 +37,88 @@
 
 @section HeadContent {
 	<link href="/static/css/bootstrap.additions.css?@revNum" rel="stylesheet">
-	    <style type="text/css">
-      body {
-        padding-top: 0px;
-      }
-    </style>
+		<style type="text/css">
+	  body {
+		padding-top: 0px;
+	  }
+	</style>
 }
 
 @section BetweenHeaderAndContent {
 
 <!-- Masthead (blueprinty thing)
-    ================================================== -->
-    <header class="jumbotron masthead" style="position:relative; top: 0px; left: 0px; width=100%; " id="overview">
-      <div class="inner">
-        <div class="container">
-          <h1>Legato Network</h1>
-          <p class="lead">
-            Are you looking for an instrument in a new place? Do you have an instrument sitting around, unused?<br />That's where Legato Network comes in.<br />
-          </p>
-          <p>&nbsp;</p>
-        </div><!-- /container -->
-      </div>
-    </header>
+	================================================== -->
+	<header class="jumbotron masthead" style="position:relative; top: 0px; left: 0px; width=100%; " id="overview">
+	  <div class="inner">
+		<div class="container">
+		  <h1>Legato Network</h1>
+		  <p class="lead">
+			Are you looking for an instrument in a new place? Do you have an instrument sitting around, unused?<br />That's where Legato Network comes in.<br />
+		  </p>
+		  <p>&nbsp;</p>
+		</div><!-- /container -->
+	  </div>
+	</header>
 
 }
 
-      <!-- About Bootstrap
+	  <!-- About Bootstrap
 ================================================== -->
 <!--<section id="about">
   <div class="page-header">
-    <h1>About Legato <small>Brief history, browser support, and more</small></h1>
+	<h1>About Legato <small>Brief history, browser support, and more</small></h1>
   </div>
   <div class="row">
-    <div class="span-one-third">
-      <h4>History</h4>
-      <p>Engineers at Twitter have historically used almost any library they were familiar with to meet front-end requirements. Bootstrap began as an answer to the challenges that presented. With the help of many awesome folks, Bootstrap has grown significantly.</p>
-      <p>Read more on <a href="https://dev.twitter.com/blog/bootstrap-twitter">dev.twitter.com &rsaquo;</a></p>
-      <p>
-        <a href="http://twitter.com/twbootstrap" class="twitter-follow-button">Follow @@twbootstrap</a>
-        <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-      </p>
-    </div>
-    <div class="span-one-third">
-      <h4>Browser support</h4>
-      <p>Bootstrap is tested and supported in major modern browsers like Chrome, Safari, Internet Explorer, and Firefox.</p>
-      <img src="assets/img/browsers.png" alt="Tested and supported in Chrome, Safari, Internet Explorer, and Firefox">
-      <ul>
-        <li>Latest Safari</li>
-        <li>Latest Google Chrome</li>
-        <li>Firefox 4+</li>
-        <li>Internet Explorer 7+</li>
-        <li>Opera 11</li>
-      </ul>
-    </div>
-    <div class="span-one-third">
-      <h4>What's included</h4>
-      <p>Bootstrap comes complete with compiled CSS, uncompiled, and example templates.</p>
-      <ul>
-        <li><a href="./javascript.html">Javascript plugins</a></li>
-        <li>All original .less files</li>
-        <li>Fully <a href="../bootstrap.css">compiled</a> and <a href="../bootstrap.min.css">minified</a> CSS</li>
-        <li>Complete styleguide documentation</li>
-        <li>Three example pages with different layouts</li>
-      </ul>
-    </div>
+	<div class="span-one-third">
+	  <h4>History</h4>
+	  <p>Engineers at Twitter have historically used almost any library they were familiar with to meet front-end requirements. Bootstrap began as an answer to the challenges that presented. With the help of many awesome folks, Bootstrap has grown significantly.</p>
+	  <p>Read more on <a href="https://dev.twitter.com/blog/bootstrap-twitter">dev.twitter.com &rsaquo;</a></p>
+	  <p>
+		<a href="http://twitter.com/twbootstrap" class="twitter-follow-button">Follow @@twbootstrap</a>
+		<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+	  </p>
+	</div>
+	<div class="span-one-third">
+	  <h4>Browser support</h4>
+	  <p>Bootstrap is tested and supported in major modern browsers like Chrome, Safari, Internet Explorer, and Firefox.</p>
+	  <img src="assets/img/browsers.png" alt="Tested and supported in Chrome, Safari, Internet Explorer, and Firefox">
+	  <ul>
+		<li>Latest Safari</li>
+		<li>Latest Google Chrome</li>
+		<li>Firefox 4+</li>
+		<li>Internet Explorer 7+</li>
+		<li>Opera 11</li>
+	  </ul>
+	</div>
+	<div class="span-one-third">
+	  <h4>What's included</h4>
+	  <p>Bootstrap comes complete with compiled CSS, uncompiled, and example templates.</p>
+	  <ul>
+		<li><a href="./javascript.html">Javascript plugins</a></li>
+		<li>All original .less files</li>
+		<li>Fully <a href="../bootstrap.css">compiled</a> and <a href="../bootstrap.min.css">minified</a> CSS</li>
+		<li>Complete styleguide documentation</li>
+		<li>Three example pages with different layouts</li>
+	  </ul>
+	</div>
   </div>
 
   <div class="row">
-    <div class="span12">
-      <h4>Quick-start examples</h4>
-      <p>Need some quick templates? Check out these basic examples we've put together:</p>
-      <ul class="media-grid">
-        <li>
-          <a href="../examples/hero.html"><img src="assets/img/example-diagram-01.png" alt="Simple three-column layout with hero unit"></a>
-        </li>
-        <li>
-          <a href="../examples/fluid.html"><img src="assets/img/example-diagram-02.png" alt="Fluid layout with static sidebar"></a>
-        </li>
-        <li>
-          <a href="../examples/container-app.html"><img src="assets/img/example-diagram-03.png" alt="Simple hanging container for apps"></a>
-        </li>
-      </ul>
-    </div>
+	<div class="span12">
+	  <h4>Quick-start examples</h4>
+	  <p>Need some quick templates? Check out these basic examples we've put together:</p>
+	  <ul class="media-grid">
+		<li>
+		  <a href="../examples/hero.html"><img src="assets/img/example-diagram-01.png" alt="Simple three-column layout with hero unit"></a>
+		</li>
+		<li>
+		  <a href="../examples/fluid.html"><img src="assets/img/example-diagram-02.png" alt="Fluid layout with static sidebar"></a>
+		</li>
+		<li>
+		  <a href="../examples/container-app.html"><img src="assets/img/example-diagram-03.png" alt="Simple hanging container for apps"></a>
+		</li>
+	  </ul>
+	</div>
   </div>
 </section>
  -->
