@@ -92,15 +92,15 @@ namespace Legato.Controllers
 			var db = Current.DB;
 			ViewBag.countInstruments = db.Instruments.Count();
 
-            // Detect IE
-            if(Current.Request.Browser.Browser.Trim().ToUpperInvariant() == "IE")
-            {
-                ViewBag.cannotGE = true;
-            }
-            else
-            {
-                ViewBag.cannotGE = false;
-            }
+			// Detect IE
+			if(Current.Request.Browser.Browser.Trim().ToUpperInvariant() == "IE")
+			{
+				ViewBag.cannotGE = true;
+			}
+			else
+			{
+				ViewBag.cannotGE = false;
+			}
 
 			return View();
 		}
@@ -232,7 +232,7 @@ namespace Legato.Controllers
 		/// </summary>
 		/// <param name="instrumentID">The instrument ID.</param>
 		/// <returns></returns>
-        [Url("instruments/listing/{instrumentID}/{slug?}", Constraints = @"instrumentID=\d+")]
+		[Url("instruments/listing/{instrumentID}/{slug?}", Constraints = @"instrumentID=\d+")]
 		[CustomCache(NoCachingForAuthenticatedUsers=true,Duration = 7200, VaryByParam = "instrumentID")]
 		public virtual ActionResult Individual(int instrumentID, string slug)
 		{
@@ -340,40 +340,40 @@ namespace Legato.Controllers
 		{
 			ViewBag.curPage = "Submit";
 
-            // See whether we need to cancel certain ModelErrors
-            var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
-            bool cancelReviewErrors = false;
-            if(style != null && style.ReviewBySubmitterEnabled == false)
-            {
-                cancelReviewErrors = true;
-            }
+			// See whether we need to cancel certain ModelErrors
+			var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+			bool cancelReviewErrors = false;
+			if(style != null && style.ReviewBySubmitterEnabled == false)
+			{
+				cancelReviewErrors = true;
+			}
 
 
 			if (!ModelState.IsValid)
 			{
-                var ret = true;
-                if(cancelReviewErrors)
-                {
-                    if(ModelState.ContainsKey("ReviewRevision.RatingOverall"))
-                    {
-                        ModelState["ReviewRevision.RatingOverall"].Errors.Clear();
-                    }
-                    if (ModelState.ContainsKey("ReviewRevision.ReviewMarkdown"))
-                    {
-                        ModelState["ReviewRevision.ReviewMarkdown"].Errors.Clear();
-                    }
+				var ret = true;
+				if(cancelReviewErrors)
+				{
+					if(ModelState.ContainsKey("ReviewRevision.RatingOverall"))
+					{
+						ModelState["ReviewRevision.RatingOverall"].Errors.Clear();
+					}
+					if (ModelState.ContainsKey("ReviewRevision.ReviewMarkdown"))
+					{
+						ModelState["ReviewRevision.ReviewMarkdown"].Errors.Clear();
+					}
 
-                    if(ModelState.IsValid)
-                    {
-                        ret = false;
-                    }
-                }
+					if(ModelState.IsValid)
+					{
+						ret = false;
+					}
+				}
 
-                if (ret)
-                {
-                    new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
-                    return View(model);
-                }
+				if (ret)
+				{
+					new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
+					return View(model);
+				}
 			}
 
 			try
@@ -394,8 +394,8 @@ namespace Legato.Controllers
 					listing.Price = (decimal?)model.Listing.Price;
 					listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
 					listing.VenueName = model.Listing.VenueName;
-                    listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
-                    listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
+					listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
+					listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 
 					/*Matching instrument and style:
 					 * 1. take instrument name, find match in Instruments table
@@ -415,13 +415,13 @@ namespace Legato.Controllers
 					}
 					listing.TypeID = type.TypeID;
 
-                    if (style == null)
+					if (style == null)
 					{
 						ModelState.AddModelError("SelectedClass", "No such class exists.");
 						new RateLimitAttribute().CancelRateLimit("InstrumentSubmitPOST");
 						return View(model);
 					}
-                    listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
+					listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
 
 					var userGuid = (Guid)Membership.GetUser().ProviderUserKey; //http://stackoverflow.com/questions/924692/how-do-you-get-the-userid-of-a-user-object-in-asp-net-mvc and http://stackoverflow.com/questions/263486/how-to-get-current-user-in-asp-net-mvc
 					listing.UserID = userGuid;
@@ -441,74 +441,74 @@ namespace Legato.Controllers
 					db.Instruments.Where(i => i.InstrumentID == listing.InstrumentID).SingleOrDefault().GlobalPostID = gpost.GlobalPostID1; // Nasty SQL hack
 					db.SubmitChanges();
 
-                    try
-                    {
-                        // Search
-                        // Add to Lucene index:
-                        Legato.Models.Search.SearchManager.Current.Add(listing);
-                    }
-                    catch (Exception ex)
-                    {
-                        // This means that we got the write.lock error...
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
-                    }
+					try
+					{
+						// Search
+						// Add to Lucene index:
+						Legato.Models.Search.SearchManager.Current.Add(listing);
+					}
+					catch (Exception ex)
+					{
+						// This means that we got the write.lock error...
+						Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
+						Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+					}
 
-                    if (style.ReviewBySubmitterEnabled)
-                    {
+					if (style.ReviewBySubmitterEnabled)
+					{
 
-                        //REVIEW:
-                        var review = new InstrumentReview();
-                        review.Instrument = listing;
-                        review.UserID = userGuid;
-                        review.SubmissionDate = time;
-                        db.InstrumentReviews.InsertOnSubmit(review);
-                        db.SubmitChanges();
+						//REVIEW:
+						var review = new InstrumentReview();
+						review.Instrument = listing;
+						review.UserID = userGuid;
+						review.SubmissionDate = time;
+						db.InstrumentReviews.InsertOnSubmit(review);
+						db.SubmitChanges();
 
-                        // Global Post:
-                        var gpostrev = new GlobalPostID();
-                        gpostrev.UserID = userGuid;
-                        gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
-                        gpostrev.SubmissionDate = time;
-                        gpostrev.SpecificPostID = review.ReviewID;
-                        db.GlobalPostIDs.InsertOnSubmit(gpostrev);
-                        db.SubmitChanges();
-                        review.GlobalPostID = gpostrev.GlobalPostID1;
-                        db.SubmitChanges();
+						// Global Post:
+						var gpostrev = new GlobalPostID();
+						gpostrev.UserID = userGuid;
+						gpostrev.PostCategory = MagicCategoryStrings.InstrumentReview;
+						gpostrev.SubmissionDate = time;
+						gpostrev.SpecificPostID = review.ReviewID;
+						db.GlobalPostIDs.InsertOnSubmit(gpostrev);
+						db.SubmitChanges();
+						review.GlobalPostID = gpostrev.GlobalPostID1;
+						db.SubmitChanges();
 
-                        //REVISION:
-                        var r = new InstrumentReviewRevision();
-                        r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
-                        r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
-                        r.RatingGeneral = model.ReviewRevision.RatingOverall;
-                        r.RevisionDate = time;
-                        r.InstrumentReview = review;
-                        r.UserID = userGuid;
+						//REVISION:
+						var r = new InstrumentReviewRevision();
+						r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
+						r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
+						r.RatingGeneral = model.ReviewRevision.RatingOverall;
+						r.RevisionDate = time;
+						r.InstrumentReview = review;
+						r.UserID = userGuid;
 
-                        db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
-                        db.SubmitChanges();
+						db.InstrumentReviewRevisions.InsertOnSubmit(r); //An exception will be thrown here if there are invalid properties
+						db.SubmitChanges();
 
-                        // Global Post:
-                        var gpostrevis = new GlobalPostID();
-                        gpostrevis.UserID = userGuid;
-                        gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
-                        gpostrevis.SubmissionDate = time;
-                        gpostrevis.SpecificPostID = r.RevisionID;
-                        db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
-                        db.SubmitChanges();
-                        r.GlobalPostID = gpostrevis.GlobalPostID1;
-                        db.SubmitChanges();
-                        try
-                        {
-                            Legato.Models.Search.SearchManager.Current.Add(review);
-                        }
-                        catch (Exception ex)
-                        {
-                            // This means that we got the write.lock error...
-                            Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
-                            Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
-                        }
-                    }
+						// Global Post:
+						var gpostrevis = new GlobalPostID();
+						gpostrevis.UserID = userGuid;
+						gpostrevis.PostCategory = MagicCategoryStrings.InstrumentReviewRevision;
+						gpostrevis.SubmissionDate = time;
+						gpostrevis.SpecificPostID = r.RevisionID;
+						db.GlobalPostIDs.InsertOnSubmit(gpostrevis);
+						db.SubmitChanges();
+						r.GlobalPostID = gpostrevis.GlobalPostID1;
+						db.SubmitChanges();
+						try
+						{
+							Legato.Models.Search.SearchManager.Current.Add(review);
+						}
+						catch (Exception ex)
+						{
+							// This means that we got the write.lock error...
+							Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Probably a write.Lock error in Instruments.Submit()"), Current.Context);
+							Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+						}
+					}
 
 
 					listing.FillProperties();
@@ -541,14 +541,14 @@ namespace Legato.Controllers
 		}
 
 
-        [Url("instruments/review/create/{instrumentID}", Constraints = @"instrumentID=\d+")]
+		[Url("instruments/review/create/{instrumentID}", Constraints = @"instrumentID=\d+")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult Review(int instrumentID)
 		{
 			var db = Current.DB;
 			var profiler = Current.MiniProfiler;
-            Instrument ins;
+			Instrument ins;
 
 			using (profiler.Step("Checks"))
 			{
@@ -559,7 +559,7 @@ namespace Legato.Controllers
 					{
 						return RedirectToAction("NotFound", "Error");
 					}
-                    ins = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
+					ins = db.Instruments.Where(i => i.InstrumentID == instrumentID).SingleOrDefault();
 					if (ins == null)
 					{
 						return RedirectToAction("NotFound", "Error");
@@ -576,14 +576,14 @@ namespace Legato.Controllers
 					}
 				}
 
-                using (profiler.Step("User is not banned from reviewing this one"))
-                {
-                    var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(ins.ListingClass)).SingleOrDefault();
-                    if((style == null || style.ReviewBySubmitterEnabled == false) && ins.UserID == Current.UserID.Value) // if submitter is not allowed to review their own instrument and this is the submitter, block
-                    {
-                        return View("ReviewBySubmitterDisabled", ins);
-                    }
-                }
+				using (profiler.Step("User is not banned from reviewing this one"))
+				{
+					var style = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(ins.ListingClass)).SingleOrDefault();
+					if((style == null || style.ReviewBySubmitterEnabled == false) && ins.UserID == Current.UserID.Value) // if submitter is not allowed to review their own instrument and this is the submitter, block
+					{
+						return View("ReviewBySubmitterDisabled", ins);
+					}
+				}
 			}
 
 			// All checks succeeded. Rendering review creation view.
@@ -647,7 +647,7 @@ namespace Legato.Controllers
 					{
 						// REVISION:
 						r = new InstrumentReviewRevision();
-                        r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
+						r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
 						r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
 						r.RatingGeneral = model.ReviewRevision.RatingOverall;
 						r.RevisionDate = time;
@@ -801,7 +801,7 @@ catch(Exception ex)
 
 					//REVISION:
 					var r = new InstrumentReviewRevision();
-                    r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
+					r.MessageMarkdown = HtmlUtilities.Sanitize(model.ReviewRevision.ReviewMarkdown);
 					r.MessageHTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.ReviewRevision.ReviewMarkdown));
 					r.RatingGeneral = model.ReviewRevision.RatingOverall;
 					r.RevisionDate = time;
@@ -850,7 +850,7 @@ catch(Exception ex)
 		/// </summary>
 		/// <param name="reviewID">The listing ID.</param>
 		/// <returns></returns>
-        [Url("instruments/listing/edit/{instrumentID}", Constraints = @"instrumentID=\d+")]
+		[Url("instruments/listing/edit/{instrumentID}", Constraints = @"instrumentID=\d+")]
 		[HttpGet]
 		[CustomAuthorization(AuthorizeSuspended = false, AuthorizeEmailNotConfirmed = false)]
 		public virtual ActionResult EditListing(int instrumentID)
@@ -879,7 +879,7 @@ catch(Exception ex)
 					StreetAddress = listing.StreetAddress,
 					VenueName = listing.VenueName,
 					InstrumentID = listing.InstrumentID,
-                    GeneralInfoMarkdown = listing.Markdown
+					GeneralInfoMarkdown = listing.Markdown
 				};
 				listingmodel.Equipment = new EquipmentViewModel()
 				{
@@ -938,8 +938,8 @@ catch(Exception ex)
 				listing.Price = (decimal?)model.Listing.Price;
 				listing.TimeSpanOfPrice = model.Listing.TimeSpanOfPrice;
 				listing.VenueName = model.Listing.VenueName;
-                listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
-                listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
+				listing.Markdown = HtmlUtilities.Sanitize(model.Listing.GeneralInfoMarkdown);
+				listing.HTML = HtmlUtilities.Safe(HtmlUtilities.RawToCooked(model.Listing.GeneralInfoMarkdown));
 				
 				/*Matching instrument and style:
 				 * 1. take instrument name, find match in Instruments table
@@ -959,14 +959,14 @@ catch(Exception ex)
 					}
 					listing.InstrumentType = type; // have to assign entity
 
-                    var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
-                    if (style == null)
-                    {
-                        ModelState.AddModelError("SelectedClass", "No such class exists.");
-                        new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
-                        return View(model);
-                    }
-                    listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
+					var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+					if (style == null)
+					{
+						ModelState.AddModelError("SelectedClass", "No such class exists.");
+						new RateLimitAttribute().CancelRateLimit("InstrumentListingEditPOST");
+						return View(model);
+					}
+					listing.ListingClass = model.Listing.Equipment.SelectedClass.ToString();
 				db.SubmitChanges(); // Listing is changed
 
 				try
