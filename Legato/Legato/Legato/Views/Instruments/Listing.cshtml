@@ -71,8 +71,8 @@
 			<div class="span12">
 				@if (Model.Instrument.Price.HasValue)
 	{
-					<text><p>@Model.Instrument.Price.Value <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
-	}
+					<text><p><b>Price: </b>@Math.Round(Model.Instrument.Price.Value, 2, MidpointRounding.AwayFromZero) <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
+    }
 				<div class="description">
 					<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(Model.Instrument.HTML))</blockquote>
 				</div>
