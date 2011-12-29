@@ -24,15 +24,15 @@ $('a.flag-message').click(function (e) {
 	curFlag = $(this);
 	var messageid = $(this).attr('mid');
 	$.ajax({ url: '@(Url.Action("Flag"))', data: { id: messageid }, type: 'POST', statusCode: { 200: function (data) {
-		curFlag.append('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
+		curFlag.after('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
 		$('.alert-message').alert();
 	}, 409: function() { 
-		curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
+		curFlag.after('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
 		$('.alert-message').alert();
 	}, 500: function() {
-		curFlag.append('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
+		curFlag.after('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
 		$('.alert-message').alert();
-	}});
+	}}});
 	return false;
 });
 
@@ -47,9 +47,12 @@ $('a.flag-message').click(function (e) {
 <div id="messages">
 @foreach (var m in Model.Messages)
 {
-	<div class="row">
+	<div class="container row">
 	<div class="message" id="message-@m.MessageID">
-		<div class="clearfix span4">
+		<div class="input colborder span12">
+			<blockquote style="margin-left: 20px;">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
+		</div>
+        <div class="clearfix pull-right span4">
 			<dl><dt>@m.aspnet_User.UserName</dt>
 			<dd><span class="timeago" title="@m.Date">@m.Date</span></dd>
 			@if (m.SenderID == Model.OtherUser.UserId)
@@ -57,9 +60,7 @@ $('a.flag-message').click(function (e) {
 				<dd><a href="#" class="flag-message" id="flag-@m.MessageID" mid="@m.MessageID">Flag as spam</a></dd>
    }
 		</div>
-		<div class="input colborder span12">
-			<blockquote>@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
-		</div>
+
 	</div>
 	</div>
 	<hr />
