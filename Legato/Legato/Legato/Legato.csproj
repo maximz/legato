@@ -225,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="App_Offline.htm" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
     <Content Include="static\css\Awesome.css" />
@@ -343,6 +344,8 @@
     <Content Include="static\images\social_icon.png" />
     <Content Include="static\images\submit.jpg" />
     <Content Include="static\images\topnav.jpg" />
+    <Content Include="static\images\wallpaper.png" />
+    <Content Include="static\images\wallpaper_crop.png" />
     <Content Include="static\images\wmd-buttons.old.png" />
     <Content Include="static\images\wmd-buttons.png" />
     <Content Include="static\js\Awesome.js" />
@@ -653,7 +656,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
