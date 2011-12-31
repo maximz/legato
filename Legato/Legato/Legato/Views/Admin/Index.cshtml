@@ -47,7 +47,7 @@
         <hr />
 
         <h2>Users</h2>
-
+        @Html.ActionLink("Get User List", "GetUserList", "Admin")
         @using (Html.BeginForm("UserSearchByName", "Admin"))
         {
             <p>Find by name! Name contains:</p>

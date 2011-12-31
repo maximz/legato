@@ -95,6 +95,7 @@ namespace Legato.Controllers {
             public readonly string GetWhitelist = "GetWhitelist";
             public readonly string SetWhitelist = "SetWhitelist";
             public readonly string DeletePost = "DeletePost";
+            public readonly string GetUserList = "GetUserList";
             public readonly string UserSearchByName = "UserSearchByName";
             public readonly string GetGuidFromUsername = "GetGuidFromUsername";
             public readonly string GetUserById = "GetUserById";
@@ -155,6 +156,11 @@ namespace Legato.Controllers {
         public override System.Web.Mvc.ActionResult DeletePost(int id) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeletePost);
             callInfo.RouteValueDictionary.Add("id", id);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult GetUserList() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetUserList);
             return callInfo;
         }
 

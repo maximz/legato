@@ -176,6 +176,22 @@ namespace Legato.Controllers
 
         #region Users
 
+        [Url("admin/userlist")]
+        [HttpGet]
+        public virtual ActionResult GetUserList()
+        {
+            try
+            {
+                var db = Current.DB;
+                var results = db.aspnet_Users.ToList();
+                return View("UserSearchByName", results);
+            }
+            catch
+            {
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        
         [Url("admin/users")]
         [HttpPost]
         [VerifyReferrer]
