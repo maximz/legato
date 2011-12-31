@@ -181,6 +181,8 @@
     <Compile Include="MessagesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Email\EmailException.cs" />
+    <Compile Include="Models\Email\Email.cs" />
     <Compile Include="Models\ExceptionBase.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Legato.designer.cs">
