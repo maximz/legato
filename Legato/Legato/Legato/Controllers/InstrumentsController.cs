@@ -12,6 +12,7 @@ using System.Net;
 using Legato.ViewModels;
 using System.Web.Routing;
 using MvcMiniProfiler;
+using System.Text;
 
 namespace Legato.Controllers
 {
@@ -509,6 +510,16 @@ namespace Legato.Controllers
 							Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
 						}
 					}
+
+                    // During beta only
+                    try
+                    {
+                        SendNewSubmissionEmail(listing.InstrumentID, Current.UserName.GetValueOrDefault(""));
+                    }
+                    catch
+                    {
+                        // No big deal.
+                    }
 
 
 					listing.FillProperties();
@@ -1054,5 +1065,36 @@ catch(Exception ex)
 
 		#endregion
 
-	}
+        #region Misc
+
+        /// <summary>
+        /// Sends email to admins that a new instrument has been submitted. Only for beta period - that's why this is so hacky.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="username">The username.</param>
+        internal void SendNewSubmissionEmail(int id, string username)
+        {
+            const string subject = "New instrument submission - Legato Network";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hello!");
+            sb.Append(Environment.NewLine);
+            sb.Append("New instrument:");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append(id.ToString());
+            sb.Append(username);
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("- Legato Network :)");
+
+            string body = sb.ToString();
+
+            var netmessage = SendEmail.StandardNoReply("maxim@legatonetwork.com", subject, body, false);
+            SendEmail.Send(netmessage);
+        }
+
+        #endregion
+
+    }
 }

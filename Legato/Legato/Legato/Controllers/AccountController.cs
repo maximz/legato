@@ -366,6 +366,16 @@ namespace Legato.Controllers
 
                         SendEmailVerificationEmail(model.EmailAddress, confirm.ConfirmID);
 
+                        // During beta only
+                        try
+                        {
+                            SendNewUserEmail(userid, model.Nickname);
+                        }
+                        catch
+                        {
+                            // No big deal.
+                        }
+
 
                         FormsAuth.SignIn(model.Nickname, true /* createPersistentCookie */);
 
@@ -799,6 +809,33 @@ namespace Legato.Controllers
             var netmessage = SendEmail.StandardNoReply(emailAddress, subject, body, false);
             SendEmail.Send(netmessage);
 
+        }
+
+        /// <summary>
+        /// Sends email to admins that a new user has registered. Only for beta period - that's why this is so hacky.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="username">The username.</param>
+        internal void SendNewUserEmail(Guid id, string username)
+        {
+            const string subject = "New user registration - Legato Network";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hello!");
+            sb.Append(Environment.NewLine);
+            sb.Append("New user registration:");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append(id.ToString());
+            sb.Append(username);
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("- Legato Network :)");
+
+            string body = sb.ToString();
+
+            var netmessage = SendEmail.StandardNoReply("maxim@legatonetwork.com", subject, body, false);
+            SendEmail.Send(netmessage);
         }
 
         #endregion
