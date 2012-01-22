@@ -115,7 +115,7 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
 				<span class="help-block">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.</span>
-                <div id="wmd-button-bar" class="wmd-panel"></div>
+				<div id="wmd-button-bar" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input", id = "wmd-input" })
 				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
 			</div></div>
@@ -137,7 +137,7 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
-                <span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
+				<span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
 				<div id="wmd-button-bar-second" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input-second" })
 				<div id="wmd-preview-second" class="wmd-preview wmd-panel"></div>

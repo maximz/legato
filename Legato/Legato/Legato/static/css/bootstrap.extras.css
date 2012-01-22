@@ -4,7 +4,7 @@ padding-top:60px;
 }
 
 .container > footer p {
-    text-align: center; /* center align it with the container */
+	text-align: center; /* center align it with the container */
 }
 
 
@@ -120,9 +120,9 @@ kbd {
 #mapView #mainHeader #messagesPosted {display:block;}
 
 #mapCanvas {
-    /*position: absolute;*/
-    top: 0px;
-    /*left: 20%;
-    right: 0;*/
-    bottom: 30px;
+	/*position: absolute;*/
+	top: 0px;
+	/*left: 20%;
+	right: 0;*/
+	bottom: 30px;
 }

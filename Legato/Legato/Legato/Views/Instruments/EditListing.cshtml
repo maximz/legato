@@ -1,8 +1,8 @@
 ﻿@model Legato.ViewModels.EditListingViewModel
 
 @{
-    ViewBag.Title = "Edit Listing";
-    ViewBag.revNum = Legato.Current.RevNumber();
+	ViewBag.Title = "Edit Listing";
+	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
 @section ScriptContentAtEndOfBody {
@@ -11,11 +11,11 @@
 <script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
 
 <script>
-    (function () {
-        var converter1 = Markdown.getSanitizingConverter();
-        var editor1 = new Markdown.Editor(converter1);
-        editor1.run();
-    })();
+	(function () {
+		var converter1 = Markdown.getSanitizingConverter();
+		var editor1 = new Markdown.Editor(converter1);
+		editor1.run();
+	})();
 
 </script>
 
@@ -34,7 +34,7 @@
 	@Html.ValidationSummary(true)
 	<fieldset>
 			<legend>Instrument details</legend>
-            @Html.HiddenFor(model => model.Listing.InstrumentID)
+			@Html.HiddenFor(model => model.Listing.InstrumentID)
 			
 			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.Equipment.SelectedType)
@@ -74,11 +74,11 @@
 				@Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			</div></div>
 
-            <div class="clearfix">
+			<div class="clearfix">
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
-                <span class="help-block">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.</span>
+				<span class="help-block">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.</span>
 				<div id="wmd-button-bar" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input", id = "wmd-input" })
 				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>

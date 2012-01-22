@@ -1,8 +1,8 @@
 ﻿@model Legato.ViewModels.EditReviewViewModel
 
 @{
-    ViewBag.Title = "Edit Review";
-    ViewBag.revNum = Legato.Current.RevNumber();
+	ViewBag.Title = "Edit Review";
+	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
 @section ScriptContentAtEndOfBody {
@@ -13,9 +13,9 @@
 <script>
 
 (function () {
-                var converter1 = Markdown.getSanitizingConverter();
-                var editor1 = new Markdown.Editor(converter1);
-                editor1.run();
+				var converter1 = Markdown.getSanitizingConverter();
+				var editor1 = new Markdown.Editor(converter1);
+				editor1.run();
 })();
 
 $('#rate_overall').raty({
@@ -48,9 +48,9 @@ $('#rate_overall').raty({
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Review</legend>
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<legend>Review</legend>
 		@Html.HiddenFor(model => model.ReviewRevision.ReviewID)
 		
 	<div>
@@ -68,10 +68,10 @@ $('#rate_overall').raty({
 				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
-                <span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
+				<span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
 				<div id="wmd-button-bar" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input" })
-                <div id="wmd-preview" class="wmd-preview wmd-panel"></div>
+				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
 			</div></div>
 
 			</fieldset>
