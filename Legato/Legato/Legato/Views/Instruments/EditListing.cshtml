@@ -78,6 +78,7 @@
 				@Html.LabelFor(model => model.Listing.GeneralInfoMarkdown)
 			<div class="input wmd-panel">
 				@Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
+                <span class="help-block">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.</span>
 				<div id="wmd-button-bar" class="wmd-panel"></div>
 				@Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input", id = "wmd-input" })
 				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
