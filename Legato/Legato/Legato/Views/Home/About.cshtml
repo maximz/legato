@@ -137,7 +137,7 @@
 	@DisplaySection("Map")
 		@DisplayQA("How do I find a compatible instrument?", "First, "+Html.ActionLink("open the map", "Map", "Instruments")+". Next, pan the map to your location, or enter an address into the box at the top. All available instruments in the area should be visible. Click on an instrument marker to see more details.")
 		@DisplayQA("How can I limit my search to pianos only?", "On "+Html.ActionLink("the map page", "Map", "Instruments")+", type 'Piano' or another instrument type into the search box and click the auto-completed result to display only pianos. To remove the filter and display all instruments again, type in 'All' and click the auto-completed result.")
-		@DisplayQA("What are overlays?", "Overlays are the different markers and icons displayed on the map. For now, overlays include only instrument markers. By opening the Overlays window from the bottom bar of "+Html.ActionLink("the map page", "Map", "Instruments")+", you can change marker size and instrument type filters.")
+		@{/*DisplayQA("What are overlays?", "Overlays are the different markers and icons displayed on the map. For now, overlays include only instrument markers. By opening the Overlays window from the bottom bar of "+Html.ActionLink("the map page", "Map", "Instruments")+", you can change marker size and instrument type filters.")*/}
 	@EndSection()
 	
 	@DisplaySection("Submit")
@@ -147,13 +147,15 @@
 	@EndSection()
 	
 	@DisplaySection("Listings")
-		@DisplayQA("What do these ratings mean?", "Ratings are arbitrary measures of instrument quality. When users play on an instrument (other than their own), they are allowed to submit a review to the site. In the review, they select a rating out of 5 stars that represents how they felt about the instrument. A rating of 5 stars represents a great instrument, while a rating of 1 star represents a horrible instrument.")
+		@DisplayQA("What should listing text be about?", "In listing text, give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.");
 		@DisplayQA("Now that I've found a cool instrument, how do I arrange a playing session?", "On the listing page, look for a 'message owner' button. If you find it, that means that the instrument has been listed by its owner. To arrange a playing session on such an instrument, click on 'message owner' and arrange a time with the owner via private message. If no 'message owner' button exists, the instrument is available for public use and was listed by someone other than its owner. Check the description for availability details, and stop by during the day to see if the instrument is available.")
 	@EndSection()
 	
 	@DisplaySection("Reviews")
-		@DisplayQA("Now that I've played on an instrument, how do I submit a review?", "Return to the instrument's listing page and click 'Add a Review'. Fill out the form with details and thoughts about your playing session.")
+		@DisplayQA("What do these ratings mean?", "Ratings are arbitrary measures of instrument quality. When users play on an instrument (other than their own), they are allowed to submit a review to the site. In the review, they select a rating out of 5 stars that represents how they felt about the instrument. A rating of 5 stars represents a great instrument, while a rating of 1 star represents a horrible instrument.")
+        @DisplayQA("Now that I've played on an instrument, how do I submit a review?", "Return to the instrument's listing page and click 'Add a Review'. Fill out the form with details and thoughts about your playing session.")
 		@DisplayQA("What do I write in a review?", "First, rank the instrument out of 5 stars, where 5 stars means 'great' and 1 star means 'horrible'. Next, write a message where you describe why you chose that rating and provide other details about your playing session.")
+        @DisplayQA("What should review text be about?", "In review text, please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. In other words, <b>tell us your story</b>.")
 	@EndSection()
 	
 	@DisplaySection("Notifications")
@@ -168,7 +170,7 @@
 	
 	@DisplaySection("Other")
 		@DisplayQA("How do I contact Legato Network?", "Visit our " + Html.ActionLink("Contact Us page", "Contact", "Home") + ".")
-		@DisplayQA("What's the answer to Life, The Universe, and Everything?", "42.")
+		@{/*DisplayQA("What's the answer to Life, The Universe, and Everything?", "42.")*/}
 	@EndSection()
 	
 </section>
