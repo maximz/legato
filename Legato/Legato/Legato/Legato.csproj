@@ -75,6 +75,9 @@
       <HintPath>lib\RiaLibrary.Web.dll</HintPath>
     </Reference>
     <Reference Include="RouteDebug, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spatial.Net">
+      <HintPath>lib\Spatial.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -193,6 +196,7 @@
     <Compile Include="Models\Search\Search.cs" />
     <Compile Include="Models\Search\SearchDocument.cs" />
     <Compile Include="Models\Search\SearchException.cs" />
+    <Compile Include="Models\Search\SpatialSearch.cs" />
     <Compile Include="Models\SqlProfiling.cs" />
     <Compile Include="NotificationsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -658,7 +662,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
