@@ -171,13 +171,22 @@ namespace Legato.Controllers
 			}
 		}
 
+        /// <summary>
+        /// Gets the nearby instruments.
+        /// </summary>
+        /// <param name="lat">The latitude.</param>
+        /// <param name="lng">The longitude.</param>
+        /// <param name="top">The number of nearest records to return..</param>
+        /// <returns></returns>
         [Url("Instruments/AJAX/Nearby")]
         [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "*")]
         [HttpPost]
-        public virtual ActionResult GetNearbyInstruments(double lat, double lng)
+        public virtual ActionResult GetNearbyInstruments(double lat, double lng, int top)
         {
+            var isFilteredToTopResults = (top > 0);
+
             var nDecimal = 2; // 2 decimal places in cache
-            var cacheKey = "Search.Spatial." + lat.ToString("N" + nDecimal) + "." + lng.ToString("N" + nDecimal);
+            var cacheKey = "Search.Spatial." + lat.ToString("N" + nDecimal) + "." + lng.ToString("N" + nDecimal) + "." + (isFilteredToTopResults ? top.ToString() : "all");
             var cachedObject = Current.GetCachedObject(cacheKey);
             if (cachedObject != null)
             {
