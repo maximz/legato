@@ -1,5 +1,7 @@
 ﻿@{
     Layout = null;
+    var revNum = Legato.Current.RevNumber();
+    ViewBag.revNum = revNum;
 }
 
 <!DOCTYPE html>
@@ -7,6 +9,7 @@
 <html>
 <head>
     <title>Admin</title>
+    <link href="/static/css/bootstrap.min.css?@revNum" rel="stylesheet">
 </head>
 <body>
     <div>
