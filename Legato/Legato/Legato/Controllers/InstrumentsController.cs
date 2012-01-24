@@ -13,6 +13,7 @@ using Legato.ViewModels;
 using System.Web.Routing;
 using MvcMiniProfiler;
 using System.Text;
+using Legato.Models.Search;
 
 namespace Legato.Controllers
 {
@@ -169,6 +170,43 @@ namespace Legato.Controllers
 				return Content("500 Error");
 			}
 		}
+
+        [Url("Instruments/AJAX/Nearby")]
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "*")]
+        [HttpPost]
+        public virtual ActionResult GetNearbyInstruments(double lat, double lng)
+        {
+            var nDecimal = 2; // 2 decimal places in cache
+            var cacheKey = "Search.Spatial." + lat.ToString("N" + nDecimal) + "." + lng.ToString("N" + nDecimal);
+            var cachedObject = Current.GetCachedObject(cacheKey);
+            if (cachedObject != null)
+            {
+                return Json(cachedObject as SpatialSearchResultsModel, JsonRequestBehavior.AllowGet);
+            }
+
+            // Not in cache (yet)
+            try
+            {
+                var model = SpatialSearchManager.Current.SearchIndex(lat, lng, 200);
+                if (model == null)
+                {
+                    throw new ApplicationException("No results."); // go into the catch block to return error when no results.
+                }
+                
+                // Add to cache
+                Current.SetCachedObject(cacheKey, model, 7200);
+                
+                // Return
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                Current.Context.Response.Clear();
+                Current.Context.Response.ClearHeaders();
+                Current.Context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Content("500 Error");
+            }
+        }
 
 		#endregion
 
