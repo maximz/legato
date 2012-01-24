@@ -628,6 +628,8 @@
     <Content Include="Views\Messages\Compose.cshtml" />
     <Content Include="Views\Messages\List.cshtml" />
     <Content Include="Views\Instruments\ReviewBySubmitterDisabled.cshtml" />
+    <Content Include="Views\Search\SpatialOptimizeIndex.cshtml" />
+    <Content Include="Views\Search\SpatialRegenerateIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
