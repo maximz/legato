@@ -319,6 +319,76 @@ namespace Legato.Controllers
 
         #endregion
 
+        #region Spatial Administrative Methods
+        [Url("admin/spatial/regenerate")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
+        [HttpGet]
+        public virtual ActionResult SpatialRegenerateIndex()
+        {
+            return View();
+        }
+        [CaptchaValidator]
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("admin/spatial/regenerate")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
+        public virtual ActionResult SpatialRegenerateIndex(bool captchaValid)
+        {
+            try
+            {
+                if (captchaValid)
+                {
+                    SpatialSearchManager.Current.CreateIndex();
+                }
+                else
+                {
+                    ModelState.AddModelError("CAPTCHA", "Please re-enter the verification word.");
+                    return View();
+                }
+                return Content("Index successfully regenerated!");
+            }
+            catch (Exception ex)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+        [Url("admin/spatial/optimize")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
+        [HttpGet]
+        public virtual ActionResult SpatialOptimizeIndex()
+        {
+            return View();
+        }
+        [CaptchaValidator]
+        [HttpPost]
+        [VerifyReferrer]
+        [Url("admin/spatial/optimize")]
+        [CustomAuthorization(AuthorizeEmailNotConfirmed = false, AuthorizeSuspended = false, AuthorizedRoles = RoleNames.Moderator + "," + RoleNames.Administrator)]
+        public virtual ActionResult SpatialOptimizeIndex(bool captchaValid)
+        {
+            try
+            {
+                if (captchaValid)
+                {
+                    SpatialSearchManager.Current.OptimizeIndex();
+                }
+                else
+                {
+                    ModelState.AddModelError("CAPTCHA", "Please re-enter the verification word.");
+                    return View();
+                }
+                return Content("Index successfully optimized!");
+            }
+            catch (Exception ex)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+                return RedirectToAction("InternalServerError", "Error");
+            }
+        }
+
+        #endregion
+
         // In the index, we have two tokenized fields to search across - Title and Text. Thus, we have to use a special QueryParser: http://stackoverflow.com/questions/468405/lucene-net-how-to-incorporate-multiple-fields-in-queryparser/2036898#2036898
 
 
