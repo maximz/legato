@@ -106,6 +106,17 @@ namespace Legato.Controllers
 
 			return View();
 		}
+        [Url("instruments/old")]
+        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
+        public virtual ActionResult MapOld()
+        {
+            var db = Current.DB;
+            ViewBag.countInstruments = db.Instruments.Count();
+
+            ViewBag.cannotGE = true;
+
+            return View("Map");
+        }
 
 		[Url("Instruments/AJAX/GetPoints")]
 		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 120, VaryByParam = "None")]

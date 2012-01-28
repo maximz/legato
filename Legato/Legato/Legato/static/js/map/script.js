@@ -14,6 +14,12 @@
 /* Global stuff */
 
 $(document).ready(function () {
+	var mapVersionCookie = $.cookie('the_cookie');
+	if(mapVersionCookie != null && mapVersionCookie == 'true')
+	{
+		redirectToOldMap();
+		return;
+	}
 
     // load all instype information
     Legato.instypes = [];
@@ -127,6 +133,10 @@ $('#helpText').click(function (e) {
 	return false;
 });
 
+$('#problems').click(function(e) {
+	$.cookie('legatomap_useold', 'true', { expires: 30, path: '/' });
+});
+
 
 if ($.browser.msie && $.browser.version <= 8) {
     $("#logo-wrap").css({marginTop: 0});
@@ -213,3 +223,16 @@ setTimeout(function() {
 //$('input[title!=""]').hint(); // activates textbox hinting (see jquery.hint.js)
 
 });
+
+function redirectToOldMap()
+{
+var x = window.location.href;
+var addSlash = true;
+if(x[x.length - 1] == '/')
+{
+    addSlash = false;
+}
+
+window.location.href = x + (addSlash ? '/' : '') + 'old';
+    
+}
