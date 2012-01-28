@@ -35,30 +35,9 @@ $(document).ready(function () {
     allType.omniType = "type";
     Legato.instypes.push(allType);
 
-// configure modal dialog
-$("#helpText").overlay({
- 
-	// some mask tweaks suitable for modal dialogs
-	mask: 'gray',
-	effect: 'apple',
-	closeOnClick: true,
-	onBeforeLoad: function() {
-		// grab wrapper element inside content
-		var wrap = this.getOverlay().find('.modalContentWrap');
-		
-		// load the page specified in the overlay trigger
-		wrap.load(this.getTrigger().attr('href'));
-	}
-});
 
-// configure modal dialog
-$("#typeOverlayTrigger").overlay({
 
-    // some mask tweaks suitable for modal dialogs
-    mask: 'gray',
-    effect: 'apple',
-    closeOnClick: true
-});
+
 
 // Configure slider choosing marker size
 $("#chooseMarkerSize #markerSizeSelect").slider({
@@ -112,24 +91,39 @@ $('#chooseTypeForm #submitButton').click(function (e) {
 $('#typeOverlayTrigger').click(function (e) {
 	if(!Legato.map.isEarthCurrentlyEnabled)
 	{
-		$('#typeOverlayTrigger').data('overlay').load(); // open the overlay window
+		// configure modal dialog
+		$("#typeOverlay").overlay({
+			// some mask tweaks suitable for modal dialogs
+			mask: 'gray',
+			effect: 'apple',
+			closeOnClick: true,
+			load: true
+		});
 	}
-	else
-	{
-		$('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
-	}
+
 	return false;
 });
 
 $('#helpText').click(function (e) {
 	if(!Legato.map.isEarthCurrentlyEnabled)
 	{
-		$('#helpText').data('overlay').load(); // open the overlay window
+		// configure modal dialog
+		$("#helpOverlay").overlay({
+			// some mask tweaks suitable for modal dialogs
+			mask: 'gray',
+			effect: 'apple',
+			closeOnClick: true,
+			onBeforeLoad: function() {
+				// grab wrapper element inside content
+				var wrap = this.getOverlay().find('.modalContentWrap');
+				
+				// load the page specified in the overlay trigger
+				wrap.load($('#helpText').attr('href'));
+			},
+			load: true
+		});
 	}
-	else
-	{
-		$('#helpText').data('overlay').close(); // close the overlay window
-	}
+
 	return false;
 });
 
