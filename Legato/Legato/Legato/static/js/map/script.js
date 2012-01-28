@@ -109,6 +109,30 @@ $('#chooseTypeForm #submitButton').click(function (e) {
     return false; // so the form isn't submitted
 });
 
+$('#typeOverlayTrigger').click(function (e) {
+	if(!Legato.map.isEarthCurrentlyEnabled)
+	{
+		$('#typeOverlayTrigger').data('overlay').load(); // open the overlay window
+	}
+	else
+	{
+		$('#typeOverlayTrigger').data('overlay').close(); // close the overlay window
+	}
+	return false;
+});
+
+$('#helpText').click(function (e) {
+	if(!Legato.map.isEarthCurrentlyEnabled)
+	{
+		$('#helpText').data('overlay').load(); // open the overlay window
+	}
+	else
+	{
+		$('#helpText').data('overlay').close(); // close the overlay window
+	}
+	return false;
+});
+
 
 if ($.browser.msie && $.browser.version <= 8) {
     $("#logo-wrap").css({marginTop: 0});
