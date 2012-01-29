@@ -140,9 +140,9 @@ namespace Legato.Models.Search
 			
 		}
 		
-		public void AddPoint(int id, string name, double lat, double lng, IndexWriter? currentWriter)
+		public void AddPoint(int id, string name, double lat, double lng, IndexWriter currentWriter)
 		{
-            var writer = currentWriter.GetValueOrDefault(MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED));
+			var writer = currentWriter != null ? currentWriter : MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED);
 			Document doc = new Document();
 
 			doc.Add(new Field("name", name, Field.Store.YES, Field.Index.ANALYZED));
@@ -167,10 +167,10 @@ namespace Legato.Models.Search
 			}
 			writer.AddDocument(doc);
 
-            if (!currentWriter.HasValue) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
-            {
-                FinishWriter(writer);
-            }
+			if (currentWriter == null) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
+			{
+				FinishWriter(writer);
+			}
 		}
 		
 		/// <summary>
@@ -180,53 +180,53 @@ namespace Legato.Models.Search
 		public void Update(Instrument toChange)
 		{
 			EnsureDirectoryExists();
-            
-            // Note: params for MakeWriter() below come from Add() and Delete().
+			
+			// Note: params for MakeWriter() below come from Add() and Delete().
 
-            var deleteWriter = MakeWriter(false, null); // we're passing this into Delete() so we only use one writer for this entire deletion transaction.
+			var deleteWriter = MakeWriter(false, null); // we're passing this into Delete() so we only use one writer for this entire deletion transaction.
 			Delete(toChange, deleteWriter);
-            FinishWriter(deleteWriter);
+			FinishWriter(deleteWriter);
 
-            var addWriter = MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED); // we're passing this into Add() so we only use one writer for this entire insertion transaction.
-            Add(toChange, addWriter);
-            FinishWriter(addWriter);
+			var addWriter = MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED); // we're passing this into Add() so we only use one writer for this entire insertion transaction.
+			Add(toChange, addWriter);
+			FinishWriter(addWriter);
 		}
 
-public void Add(Instrument toAdd, IndexWriter? writer)
+public void Add(Instrument toAdd, IndexWriter writer)
 {
 toAdd.FillProperties();
 AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 }
-        public IndexWriter MakeWriter(bool boolToPass, IndexWriter.MaxFieldLength? maxLength)
-        {
-            if(maxLength.HasValue)
-            {
-                return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass, maxLength.Value);
-            }
-            return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass);
-        }
+		public IndexWriter MakeWriter(bool boolToPass, IndexWriter.MaxFieldLength maxLength)
+		{
+			if(maxLength != null)
+			{
+				return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass, maxLength);
+			}
+			return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass);
+		}
 
-        public void FinishWriter(IndexWriter writer)
-        {
-            writer.Optimize();
-            writer.Close();
-        }
+		public void FinishWriter(IndexWriter writer)
+		{
+			writer.Optimize();
+			writer.Close();
+		}
 		
 		/// <summary>
 		/// Deletes from index.
 		/// </summary>
 		/// <param name="toDelete">To delete.</param>
-		public void Delete(Instrument toDelete, IndexWriter? currentWriter)
+		public void Delete(Instrument toDelete, IndexWriter currentWriter)
 		{
 			try
 			{
-	    		var writer = currentWriter.GetValueOrDefault(MakeWriter(false, null));
-		    	writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
+                var writer = currentWriter != null ? currentWriter : MakeWriter(false, null);
+				writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
 			
-                if(!currentWriter.HasValue) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
-                {
-                    FinishWriter(writer);
-                }
+				if(currentWriter == null) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
+				{
+					FinishWriter(writer);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -245,7 +245,7 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 
 			try
 			{
-                var writer = MakeWriter(true, null);
+				var writer = MakeWriter(true, null);
 				
 				// Step 1: delete everything from index!
 					try
@@ -264,7 +264,7 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 						Add(p, writer);
 					}
 
-                    FinishWriter(writer);
+					FinishWriter(writer);
 			}
 			catch (Exception ex)
 			{
@@ -278,7 +278,7 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 			
 			try
 			{
-                FinishWriter(MakeWriter(true, null)); // FinishWriter() calls IndexWriter.Optimize()
+				FinishWriter(MakeWriter(true, null)); // FinishWriter() calls IndexWriter.Optimize()
 			}
 			catch (Exception ex)
 			{
