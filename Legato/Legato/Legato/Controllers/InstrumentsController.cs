@@ -189,11 +189,26 @@ namespace Legato.Controllers
 		/// <param name="lng">The longitude.</param>
 		/// <param name="top">The number of nearest records to return..</param>
 		/// <returns></returns>
-		[Url("Instruments/AJAX/Nearby")]
+        [Url("Instruments/AJAX/Nearby/{inputLat}/{inputLng}/{inputTop}")]
 		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "*")]
-		[HttpPost]
-		public virtual ActionResult GetNearbyInstruments(double lat, double lng, int top)
+		//[HttpPost]
+		public virtual ActionResult GetNearbyInstruments(string inputLat, string inputLng, string inputTop)
 		{
+            double lat, lng; int top;
+            try
+            {
+                lat = double.Parse(inputLat);
+                lng = double.Parse(inputLng);
+                top = int.Parse(inputTop);
+            }
+            catch
+            {
+                Current.Context.Response.Clear();
+                Current.Context.Response.ClearHeaders();
+                Current.Context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Content("400 Bad Request");
+            }
+
 			var isFilteredToTopResults = (top > 0);
 
 			var nDecimal = 2; // 2 decimal places in cache

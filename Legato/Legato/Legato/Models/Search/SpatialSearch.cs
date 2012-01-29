@@ -72,6 +72,14 @@ namespace Legato.Models.Search
 			}
 		}
 
+        public void EnsureDistanceMatrixReady()
+        {
+            if(_ctps == null || _ctps.Count < 1)
+            {
+                SetUpPlotter(2, 15); // see https://svn.apache.org/repos/asf/incubator/lucene.net/branches/Lucene.Net_2_9_4g/test/contrib/Spatial/TestCartesian.cs
+            }
+        }
+
 		/// <summary>
 		/// Searches the lucene index with the search text.
 		/// </summary>
@@ -83,6 +91,8 @@ namespace Legato.Models.Search
 			// This check is for the benefit of the CI builds
 			if (!Directory.Exists(_indexPath))
 				CreateIndex();
+
+            EnsureDistanceMatrixReady();
 
 			var model = new SpatialSearchResultsModel();
 
@@ -142,6 +152,7 @@ namespace Legato.Models.Search
 		
 		public void AddPoint(int id, string name, double lat, double lng, IndexWriter currentWriter)
 		{
+            EnsureDistanceMatrixReady();
 			var writer = currentWriter != null ? currentWriter : MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED);
 			Document doc = new Document();
 
@@ -320,6 +331,11 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 		{
 			get;set;
 		}
+
+        public SpatialSearchResultsModel()
+        {
+            Results = new List<SpatialResult>(); // initialize list
+        }
 	}
 	public class SpatialResult
 	{
