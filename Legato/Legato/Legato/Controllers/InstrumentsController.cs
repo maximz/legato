@@ -189,17 +189,17 @@ namespace Legato.Controllers
 		/// <param name="lng">The longitude.</param>
 		/// <param name="top">The number of nearest records to return..</param>
 		/// <returns></returns>
-        [Url("Instruments/AJAX/Nearby/{inputLat}/{inputLng}/{inputTop}")]
+        [Url("Instruments/AJAX/Nearby")]
 		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "*")]
-		//[HttpPost]
-		public virtual ActionResult GetNearbyInstruments(string inputLat, string inputLng, string inputTop)
+		[HttpPost]
+		public virtual ActionResult GetNearbyInstruments(string lat, string lng, string top)
 		{
-            double lat, lng; int top;
+            double newlat, newlng; int newtop;
             try
             {
-                lat = double.Parse(inputLat);
-                lng = double.Parse(inputLng);
-                top = int.Parse(inputTop);
+                newlat = double.Parse(lat);
+                newlng = double.Parse(lng);
+                newtop = int.Parse(top);
             }
             catch
             {
@@ -209,10 +209,10 @@ namespace Legato.Controllers
                 return Content("400 Bad Request");
             }
 
-			var isFilteredToTopResults = (top > 0);
+			var isFilteredToTopResults = (newtop > 0);
 
 			var nDecimal = 2; // 2 decimal places in cache
-			var cacheKey = "Search.Spatial." + lat.ToString("N" + nDecimal) + "." + lng.ToString("N" + nDecimal) + "." + (isFilteredToTopResults ? top.ToString() : "all");
+            var cacheKey = "Search.Spatial." + newlat.ToString("N" + nDecimal) + "." + newlng.ToString("N" + nDecimal) + "." + (isFilteredToTopResults ? newtop.ToString() : "all");
 			var cachedObject = Current.GetCachedObject(cacheKey);
 			if (cachedObject != null)
 			{
@@ -222,7 +222,7 @@ namespace Legato.Controllers
 			// Not in cache (yet)
 			try
 			{
-				var model = SpatialSearchManager.Current.SearchIndex(lat, lng, 200);
+				var model = SpatialSearchManager.Current.SearchIndex(newlat, newlng, 200);
 				if (model == null)
 				{
 					throw new ApplicationException("No results."); // go into the catch block to return error when no results.
