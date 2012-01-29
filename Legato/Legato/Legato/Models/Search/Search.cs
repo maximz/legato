@@ -70,68 +70,68 @@ namespace Legato.Models.Search
 			{
 				IndexSearcher searcher = new IndexSearcher(_indexPath);
 				// Build query
-                var parser = new MultiFieldQueryParser(new string[] { "Text", "Title" }, analyzer);
-                var searchQuery = parser.Parse(searchText);
+				var parser = new MultiFieldQueryParser(new string[] { "Text", "Title" }, analyzer);
+				var searchQuery = parser.Parse(searchText);
 
-                // Execute search
-                var hits = searcher.Search(searchQuery);
+				// Execute search
+				var hits = searcher.Search(searchQuery);
 
-                // Display results
-                var results = new List<Result>();
-                for (int i = 0; i < hits.Length(); i++)
-                {
-                    results.Add(new Result()
-                    {
-                        doc = hits.Doc(i),
-                        Score = hits.Score(i)
-                    });
-                }
+				// Display results
+				var results = new List<Result>();
+				for (int i = 0; i < hits.Length(); i++)
+				{
+					results.Add(new Result()
+					{
+						doc = hits.Doc(i),
+						Score = hits.Score(i)
+					});
+				}
 
-                //Highlight the parts that are matched:
-                var formatter = new SimpleHTMLFormatter("<span style='background:yellow;font-weight:bold;'>", "</span>");
-                var fragmenter = new SimpleFragmenter(400);
-                var scorer = new QueryScorer(searchQuery);
-                var highlighter = new Highlighter(formatter, scorer);
-                highlighter.SetTextFragmenter(fragmenter);
-                var finalResults = new List<DisplayedResult>();
+				//Highlight the parts that are matched:
+				var formatter = new SimpleHTMLFormatter("<span style='background:yellow;font-weight:bold;'>", "</span>");
+				var fragmenter = new SimpleFragmenter(400);
+				var scorer = new QueryScorer(searchQuery);
+				var highlighter = new Highlighter(formatter, scorer);
+				highlighter.SetTextFragmenter(fragmenter);
+				var finalResults = new List<DisplayedResult>();
 
-                var db = Legato.Current.DB;
-                foreach (var result in results)
-                {
-                    var stream = analyzer.TokenStream("", new StringReader(result.doc.Get("RawText")));
-                    var highlighted = highlighter.GetBestFragments(stream, result.doc.Get("RawText"), 1, "...").Replace("'", "''");
-                    if (highlighted == "") // sometimes the highlighter fails to emit text...
-                    {
-                        highlighted = result.doc.Get("RawText").Replace("'", "''");
-                    }
-                    if (highlighted.Length > 1000)
-                    {
-                        highlighted = highlighted.Substring(0, 1000);
-                    }
+				var db = Legato.Current.DB;
+				foreach (var result in results)
+				{
+					var stream = analyzer.TokenStream("", new StringReader(result.doc.Get("RawText")));
+					var highlighted = highlighter.GetBestFragments(stream, result.doc.Get("RawText"), 1, "...").Replace("'", "''");
+					if (highlighted == "") // sometimes the highlighter fails to emit text...
+					{
+						highlighted = result.doc.Get("RawText").Replace("'", "''");
+					}
+					if (highlighted.Length > 1000)
+					{
+						highlighted = highlighted.Substring(0, 1000);
+					}
 
-                    int postID;
-                    if (!int.TryParse(result.doc.Get("GlobalPostID"), out postID)) // If GlobalPostID is null or not a number, this isn't a valid search entry, so we skip it.
-                    {
-                        continue;
-                    }
-                    var post = db.GlobalPostIDs.Where(p => p.GlobalPostID1 == postID).SingleOrDefault();
-                    if (post == null) continue;
-                    // TODO: privacy checks?
-                    post.FillProperties();
+					int postID;
+					if (!int.TryParse(result.doc.Get("GlobalPostID"), out postID)) // If GlobalPostID is null or not a number, this isn't a valid search entry, so we skip it.
+					{
+						continue;
+					}
+					var post = db.GlobalPostIDs.Where(p => p.GlobalPostID1 == postID).SingleOrDefault();
+					if (post == null) continue;
+					// TODO: privacy checks?
+					post.FillProperties();
 
-                    finalResults.Add(new DisplayedResult()
-                    {
-                        ResultPost = post,
-                        Score = result.Score,
-                        HighlightedHTML = highlighted
-                    });
-                }
+					finalResults.Add(new DisplayedResult()
+					{
+						ResultPost = post,
+						Score = result.Score,
+						HighlightedHTML = highlighted
+					});
+				}
 
-                model = new SearchResultsModel()
-                {
-                    Results = finalResults.OrderByDescending(r => r.Score),
-                    Query = searchText.Trim()
-                };
+				model = new SearchResultsModel()
+				{
+					Results = finalResults.OrderByDescending(r => r.Score),
+					Query = searchText.Trim()
+				};
 			}
 			catch(Exception ex)
 			{
@@ -194,20 +194,20 @@ namespace Legato.Models.Search
 		}
 		
 		/// <summary>
-        /// Adds to index.
-        /// </summary>
-        /// <param name="toAdd">To add.</param>
-        public void Add(object toAdd)
-        {
-            Add(toAdd, true);
-        }
-        /// <summary>
-        /// Adds to index.
-        /// </summary>
-        /// <param name="toAdd">To add.</param>
-        /// <param name="finalTransaction">If this is the final transaction, optimatization and closing methods are called.</param>
-        public void Add(dynamic toAdd, bool finalTransaction)
-        {
+		/// Adds to index.
+		/// </summary>
+		/// <param name="toAdd">To add.</param>
+		public void Add(object toAdd)
+		{
+			Add(toAdd, true);
+		}
+		/// <summary>
+		/// Adds to index.
+		/// </summary>
+		/// <param name="toAdd">To add.</param>
+		/// <param name="finalTransaction">If this is the final transaction, optimatization and closing methods are called.</param>
+		public void Add(dynamic toAdd, bool finalTransaction)
+		{
 			try
 			{
 				EnsureDirectoryExists();
@@ -225,34 +225,34 @@ namespace Legato.Models.Search
 			{
 				throw new SearchException(ex, "An error occured while adding page '{0}' to the search index", toAdd.Title);
 			}
-        }
+		}
 		
 		/// <summary>
-        /// Changes the index - removes the old version of the post from the index and adds the new version.
-        /// </summary>
-        /// <param name="toChange">To change.</param>
-        public void Update(dynamic toChange)
-        {
+		/// Changes the index - removes the old version of the post from the index and adds the new version.
+		/// </summary>
+		/// <param name="toChange">To change.</param>
+		public void Update(dynamic toChange)
+		{
 			EnsureDirectoryExists();
 			Delete(toChange, false);
 			Add(toChange, true);
-        }
+		}
 		
 		/// <summary>
-        /// Deletes from index.
-        /// </summary>
-        /// <param name="toDelete">To delete.</param>
-        public void Delete(dynamic toDelete)
-        {
-            Delete(toDelete, true);
-        }
-        /// <summary>
-        /// Deletes from index.
-        /// </summary>
-        /// <param name="toDelete">To delete.</param>
-        public void Delete(dynamic toDelete, bool finalTransaction)
-        {
-            try
+		/// Deletes from index.
+		/// </summary>
+		/// <param name="toDelete">To delete.</param>
+		public void Delete(dynamic toDelete)
+		{
+			Delete(toDelete, true);
+		}
+		/// <summary>
+		/// Deletes from index.
+		/// </summary>
+		/// <param name="toDelete">To delete.</param>
+		public void Delete(dynamic toDelete, bool finalTransaction)
+		{
+			try
 			{
 			StandardAnalyzer analyzer = new StandardAnalyzer();
 			IndexWriter writer = new IndexWriter(_indexPath, analyzer, false);
@@ -266,7 +266,7 @@ namespace Legato.Models.Search
 			{
 				throw new SearchException(ex, "An error occured while deleting page '{0}' from the search index", toDelete.Title);
 			}
-        }
+		}
 
 
 		/// <summary>
@@ -283,25 +283,25 @@ namespace Legato.Models.Search
 				IndexWriter writer = new IndexWriter(_indexPath, analyzer, true);
 				
 				// Step 1: delete everything from index!
-                    try
-                    {
-                        writer.DeleteAll();
-                    }
-                    catch
-                    {
-                        // if the index doesn't exist yet, this will probably fail
-                    }
+					try
+					{
+						writer.DeleteAll();
+					}
+					catch
+					{
+						// if the index doesn't exist yet, this will probably fail
+					}
 
-                    // Step 2: add everything into index!
-                    var db = Legato.Current.DB;
-                    foreach (var p in db.Instruments)
-                    {
-                        writer.AddDocument(Types.DynamicToDocument(p));
-                    }
-                    foreach (var p in db.InstrumentReviews)
-                    {
-                        writer.AddDocument(Types.DynamicToDocument(p));
-                    }
+					// Step 2: add everything into index!
+					var db = Legato.Current.DB;
+					foreach (var p in db.Instruments)
+					{
+						writer.AddDocument(Types.DynamicToDocument(p));
+					}
+					foreach (var p in db.InstrumentReviews)
+					{
+						writer.AddDocument(Types.DynamicToDocument(p));
+					}
 
 				writer.Optimize();
 				writer.Close();
@@ -344,41 +344,41 @@ namespace Legato.Models.Search
 
 	}
 	
-	    /// <summary>
-    /// A result.
-    /// </summary>
-    public class Result
-    {
-        public Document doc
-        {
-            get;
-            set;
-        }
-        public double Score
-        {
-            get;
-            set;
-        }
-    }
-    /// <summary>
-    /// A displayed result.
-    /// </summary>
-    public class DisplayedResult
-    {
-        public GlobalPostID ResultPost
-        {
-            get;
-            set;
-        }
-        public double Score
-        {
-            get;
-            set;
-        }
-        public string HighlightedHTML
-        {
-            get;
-            set;
-        }
-    }
+		/// <summary>
+	/// A result.
+	/// </summary>
+	public class Result
+	{
+		public Document doc
+		{
+			get;
+			set;
+		}
+		public double Score
+		{
+			get;
+			set;
+		}
+	}
+	/// <summary>
+	/// A displayed result.
+	/// </summary>
+	public class DisplayedResult
+	{
+		public GlobalPostID ResultPost
+		{
+			get;
+			set;
+		}
+		public double Score
+		{
+			get;
+			set;
+		}
+		public string HighlightedHTML
+		{
+			get;
+			set;
+		}
+	}
 }

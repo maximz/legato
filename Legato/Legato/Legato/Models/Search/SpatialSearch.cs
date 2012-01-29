@@ -220,7 +220,7 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 		{
 			try
 			{
-                var writer = currentWriter != null ? currentWriter : MakeWriter(false, null);
+				var writer = currentWriter != null ? currentWriter : MakeWriter(false, null);
 				writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
 			
 				if(currentWriter == null) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
