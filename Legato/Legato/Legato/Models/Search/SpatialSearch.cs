@@ -77,7 +77,7 @@ namespace Legato.Models.Search
 		/// </summary>
 		/// <param name="searchText">The text to search with.</param>
 		/// <remarks>Syntax reference: http://lucene.apache.org/java/2_3_2/queryparsersyntax.html#Wildcard</remarks>
-		/// <exception cref="SearchException">An error occured searching the lucene.net index.</exception>
+		/// <exception cref="SpatialSearchException">An error occured searching the lucene.net index.</exception>
 		public SpatialSearchResultsModel SearchIndex(double lat, double @long, double miles)
 		{
 			// This check is for the benefit of the CI builds
@@ -86,7 +86,7 @@ namespace Legato.Models.Search
 
 			var model = new SpatialSearchResultsModel();
 
-			StandardAnalyzer analyzer = new StandardAnalyzer();
+			//StandardAnalyzer analyzer = new StandardAnalyzer();
 			try
 			{
 				IndexSearcher searcher = new IndexSearcher(_indexPath, true);
@@ -133,16 +133,16 @@ namespace Legato.Models.Search
 			}
 			catch(Exception ex)
 			{
-				throw new SearchException(ex, "An error occurred while searching the index");
+				throw new SpatialSearchException(ex, "An error occurred while searching the spatial index.");
 			}
 			
 			return model;
 			
 		}
 		
-		public void AddPoint(int id, string name, double lat, double lng)
+		public void AddPoint(int id, string name, double lat, double lng, IndexWriter? currentWriter)
 		{
-			IndexWriter writer = new IndexWriter(_indexPath, new WhitespaceAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            var writer = currentWriter.GetValueOrDefault(MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED));
 			Document doc = new Document();
 
 			doc.Add(new Field("name", name, Field.Store.YES, Field.Index.ANALYZED));
@@ -167,6 +167,10 @@ namespace Legato.Models.Search
 			}
 			writer.AddDocument(doc);
 
+            if (!currentWriter.HasValue) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
+            {
+                FinishWriter(writer);
+            }
 		}
 		
 		/// <summary>
@@ -176,35 +180,57 @@ namespace Legato.Models.Search
 		public void Update(Instrument toChange)
 		{
 			EnsureDirectoryExists();
-			Delete(toChange);
-			Add(toChange);
+            
+            // Note: params for MakeWriter() below come from Add() and Delete().
+
+            var deleteWriter = MakeWriter(false, null); // we're passing this into Delete() so we only use one writer for this entire deletion transaction.
+			Delete(toChange, deleteWriter);
+            FinishWriter(deleteWriter);
+
+            var addWriter = MakeWriter(true, IndexWriter.MaxFieldLength.UNLIMITED); // we're passing this into Add() so we only use one writer for this entire insertion transaction.
+            Add(toChange, addWriter);
+            FinishWriter(addWriter);
 		}
 
-public void Add(Instrument toAdd)
+public void Add(Instrument toAdd, IndexWriter? writer)
 {
 toAdd.FillProperties();
-AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long);
+AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long, writer);
 }
+        public IndexWriter MakeWriter(bool boolToPass, IndexWriter.MaxFieldLength? maxLength)
+        {
+            if(maxLength.HasValue)
+            {
+                return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass, maxLength.Value);
+            }
+            return new IndexWriter(_indexPath, new WhitespaceAnalyzer(), boolToPass);
+        }
+
+        public void FinishWriter(IndexWriter writer)
+        {
+            writer.Optimize();
+            writer.Close();
+        }
 		
 		/// <summary>
 		/// Deletes from index.
 		/// </summary>
 		/// <param name="toDelete">To delete.</param>
-		public void Delete(Instrument toDelete)
+		public void Delete(Instrument toDelete, IndexWriter? currentWriter)
 		{
 			try
 			{
-			WhitespaceAnalyzer analyzer = new WhitespaceAnalyzer();
-			IndexWriter writer = new IndexWriter(_indexPath, analyzer, false);
-			writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
+	    		var writer = currentWriter.GetValueOrDefault(MakeWriter(false, null));
+		    	writer.DeleteDocuments(new Term("PostID", Convert.ToString(toDelete.InstrumentID)));
 			
-							writer.Optimize();
-				writer.Close();
-
+                if(!currentWriter.HasValue) // if we're not using the passed along writer, which is supposed to be terminated by the caller, then end our new writer
+                {
+                    FinishWriter(writer);
+                }
 			}
 			catch (Exception ex)
 			{
-				throw new SearchException(ex, "An error occurred while deleting page '{0}' from the search index", toDelete.Title);
+				throw new SpatialSearchException(ex, "An error occurred while deleting page '{0}' from the search index", toDelete.Title);
 			}
 		}
 
@@ -212,15 +238,14 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long);
 		/// <summary>
 		/// Creates the initial search index based on all pages in the system.
 		/// </summary>
-		/// <exception cref="SearchException">An error occurred with the lucene.net IndexWriter while adding the page to the index.</exception>
+		/// <exception cref="SpatialSearchException">An error occurred with the lucene.net IndexWriter while adding the page to the index.</exception>
 		public void CreateIndex()
 		{
 			EnsureDirectoryExists();
 
 			try
 			{
-				WhitespaceAnalyzer analyzer = new WhitespaceAnalyzer();
-				IndexWriter writer = new IndexWriter(_indexPath, analyzer, true);
+                var writer = MakeWriter(true, null);
 				
 				// Step 1: delete everything from index!
 					try
@@ -236,15 +261,14 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long);
 					var db = Legato.Current.DB;
 					foreach (var p in db.Instruments)
 					{
-						Add(p);
+						Add(p, writer);
 					}
 
-				writer.Optimize();
-				writer.Close();
+                    FinishWriter(writer);
 			}
 			catch (Exception ex)
 			{
-				throw new SearchException(ex, "An error occurred while creating the search index");
+				throw new SpatialSearchException(ex, "An error occurred while creating the search index");
 			}
 		}
 		
@@ -254,14 +278,11 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long);
 			
 			try
 			{
-				WhitespaceAnalyzer analyzer = new WhitespaceAnalyzer();
-				IndexWriter writer = new IndexWriter(_indexPath, analyzer, true);
-				writer.Optimize();
-				writer.Close();
+                FinishWriter(MakeWriter(true, null)); // FinishWriter() calls IndexWriter.Optimize()
 			}
 			catch (Exception ex)
 			{
-				throw new SearchException(ex, "An error occurred while creating the search index");
+				throw new SpatialSearchException(ex, "An error occurred while optimizing the spatial index.");
 			}
 		}
 
@@ -274,7 +295,7 @@ AddPoint(toAdd.InstrumentID, toAdd.Title, toAdd.Lat, toAdd.Long);
 			}
 			catch (IOException ex)
 			{
-				throw new SearchException(ex, "An error occurred while creating the search directory '{0}'", _indexPath);
+				throw new SpatialSearchException(ex, "An error occurred while creating the search directory '{0}'", _indexPath);
 			}
 		}
 
