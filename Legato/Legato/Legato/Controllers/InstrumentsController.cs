@@ -106,17 +106,17 @@ namespace Legato.Controllers
 
 			return View();
 		}
-        [Url("instruments/old")]
-        [CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
-        public virtual ActionResult MapOld()
-        {
-            var db = Current.DB;
-            ViewBag.countInstruments = db.Instruments.Count();
+		[Url("instruments/old")]
+		[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
+		public virtual ActionResult MapOld()
+		{
+			var db = Current.DB;
+			ViewBag.countInstruments = db.Instruments.Count();
 
-            ViewBag.cannotGE = true;
+			ViewBag.cannotGE = true;
 
-            return View("Map");
-        }
+			return View("Map");
+		}
 
 		[Url("Instruments/AJAX/GetPoints")]
 		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 120, VaryByParam = "None")]
@@ -189,30 +189,30 @@ namespace Legato.Controllers
 		/// <param name="lng">The longitude.</param>
 		/// <param name="top">The number of nearest records to return..</param>
 		/// <returns></returns>
-        [Url("Instruments/AJAX/Nearby")]
+		[Url("Instruments/AJAX/Nearby")]
 		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "*")]
 		[HttpPost]
 		public virtual ActionResult GetNearbyInstruments(string lat, string lng, string top)
 		{
-            double newlat, newlng; int newtop;
-            try
-            {
-                newlat = double.Parse(lat);
-                newlng = double.Parse(lng);
-                newtop = int.Parse(top);
-            }
-            catch
-            {
-                Current.Context.Response.Clear();
-                Current.Context.Response.ClearHeaders();
-                Current.Context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Content("400 Bad Request");
-            }
+			double newlat, newlng; int newtop;
+			try
+			{
+				newlat = double.Parse(lat);
+				newlng = double.Parse(lng);
+				newtop = int.Parse(top);
+			}
+			catch
+			{
+				Current.Context.Response.Clear();
+				Current.Context.Response.ClearHeaders();
+				Current.Context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+				return Content("400 Bad Request");
+			}
 
 			var isFilteredToTopResults = (newtop > 0);
 
 			var nDecimal = 2; // 2 decimal places in cache
-            var cacheKey = "Search.Spatial." + newlat.ToString("N" + nDecimal) + "." + newlng.ToString("N" + nDecimal) + "." + (isFilteredToTopResults ? newtop.ToString() : "all");
+			var cacheKey = "Search.Spatial." + newlat.ToString("N" + nDecimal) + "." + newlng.ToString("N" + nDecimal) + "." + (isFilteredToTopResults ? newtop.ToString() : "all");
 			var cachedObject = Current.GetCachedObject(cacheKey);
 			if (cachedObject != null)
 			{
