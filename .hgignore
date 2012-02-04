@@ -3,6 +3,10 @@
 # use glob syntax
 syntax: glob
 
+# Ignore Git files
+.git/
+.git*
+
 # Ignore Visual Studio 2010 files
 *.obj
 *.exe
