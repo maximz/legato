@@ -135,10 +135,17 @@ $(".hasPlayedCheckBox").change(function(e) {
 	<fieldset id="reviewFields">
 	<legend>Review</legend>
 		<div class="clearfix">
-			<label>
+			<!--<label id="optionsCheckboxes">Details</label>-->
 			<div class="input">
-				@Html.CheckBoxFor(model => model.HasPlayedOnInstrument, new { @class = "hasPlayedCheckBox" })
-			</div> Have you played on this instrument?</label>
+                <ul class="inputs-list">
+                    <li>
+				        <label>
+                            @Html.CheckBoxFor(model => model.HasPlayedOnInstrument, new { @class = "hasPlayedCheckBox" })
+                            <span>Have you played on this instrument?</span>
+                        </label>
+			        </li>
+                </ul>
+            </div> 
 		</div>
 		<div id="reviewMain" style="display:none;">
 			<div>
