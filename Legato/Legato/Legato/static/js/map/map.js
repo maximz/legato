@@ -666,6 +666,30 @@ var Legato = Legato || {};
 					marker.setMap(self.map); // refresh marker by readding it to the map
 				}
 			}
+			
+			this.loadNearbyInstruments = function()
+			{
+			var x = (30.581).toFixed(2);
+    var y = (-117.993).toFixed(2);
+    $.post('/Instruments/AJAX/Nearby', { lat: x, lng: y, top: '10' },
+   function(data) {
+       self.initNearbyUI();
+       $.each(data.Results, function(i, n) {
+          self.addToNearbyUI(n.lat, n.lng, n.dist, n.resultNum, n.title, n.instrumentID); // adds to map, adds to table
+       });
+   }); 
+			}
+			
+			this.initNearbyUI = function()
+			{
+			
+			}
+			
+			this.addToNearbyUI = function(lat, lng, dist, resultNum, title, instrumentID)
+			{
+				addToMap(lat, lng);
+				var html = '<div class="result"><div class="num">'+resultNum+'</div><div class="distance">'+dist.toFixed(2)+' miles</div><div class="title"></div>';
+			}
 
 		} // end Map
 		Legato.map = new Map();
