@@ -55,6 +55,18 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 	});
 });
 
+// handle changes in has played checkbox
+$(".hasPlayedCheckBox").change(function(e) { 
+    if($('.hasPlayedCheckBox').is(':checked'))
+    {
+        $('#reviewMain').show('slow');   
+    }
+    else
+    {
+        $('#reviewMain').hide('slow');
+    }
+});
+
 </script>
 }
 
@@ -122,8 +134,14 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 	</fieldset>
 	<fieldset id="reviewFields">
 	<legend>Review</legend>
-    @Html.CheckBoxFor(model => model.HasPlayedOnInstrument)
-	<div id="reviewMain">
+    <div class="clearfix">
+        <label>
+        <div class="input">
+            @Html.CheckBoxFor(model => model.HasPlayedOnInstrument, new { @class = "hasPlayedCheckBox" })
+        </div> Have you played on this instrument?</label>
+    </div>
+	<div id="reviewMain" style="display:none;">
+    <div>
 		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
 
 		<div class="clearfix">
@@ -143,7 +161,7 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input-second" })
 				<div id="wmd-preview-second" class="wmd-preview wmd-panel"></div>
 			</div></div>
-
+            </div>
 			</fieldset>
 		  <div class="actions well">
 			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
