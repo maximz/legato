@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel;
 
 namespace Legato.ViewModels
 {
     public class SubmitViewModel
     {
+        [DisplayName("Have you played on this instrument?")]
+        public bool HasPlayedOnInstrument
+        {
+            get;
+            set;
+        }
+
         public RevisionSubmissionViewModel ReviewRevision
         {
             get;

@@ -122,7 +122,8 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 	</fieldset>
 	<fieldset id="reviewFields">
 	<legend>Review</legend>
-	<div>
+    @Html.CheckBoxFor(model => model.HasPlayedOnInstrument)
+	<div id="reviewMain">
 		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
 
 		<div class="clearfix">
