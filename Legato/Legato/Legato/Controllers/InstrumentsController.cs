@@ -413,14 +413,23 @@ namespace Legato.Controllers
 		public virtual ActionResult Submit(SubmitViewModel model)
 		{
 			ViewBag.curPage = "Submit";
+            bool AreWeHandlingAReview = true;
 
-			// See whether we need to cancel certain ModelErrors
-			var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
+			// See whether we need to cancel certain ModelErrors: two checks
+            // Check 1: if the selected style doesn't allow reviews from the submitter, remove ModelErrors for the review fields
+            var style = InstrumentClasses.Classes.Where(c => c.Id == model.Listing.Equipment.SelectedClass).SingleOrDefault();
 			bool cancelReviewErrors = false;
 			if(style != null && style.ReviewBySubmitterEnabled == false)
 			{
 				cancelReviewErrors = true;
 			}
+            // Check 2: if the selected style does allow reviews from the submitter, check whether the submitter has played on this instrument; if not, remove ModelErrors for the review fields
+            else if(!model.HasPlayedOnInstrument)
+            {
+                cancelReviewErrors = true;
+            }
+            // For clarity, set AreWeHandlingAReview to cancelReviewErrors - this will be used later on.
+            AreWeHandlingAReview = !cancelReviewErrors;
 
 
 			if (!ModelState.IsValid)
@@ -528,7 +537,7 @@ namespace Legato.Controllers
 						Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
 					}
 
-					if (style.ReviewBySubmitterEnabled)
+					if (AreWeHandlingAReview)
 					{
 
 						//REVIEW:
