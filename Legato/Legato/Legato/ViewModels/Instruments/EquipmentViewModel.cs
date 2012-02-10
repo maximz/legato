@@ -91,9 +91,17 @@ namespace Legato.ViewModels
 
             if (Types == null)
             {
-                var dbTypes = (from t in Current.DB.InstrumentTypes
+                /*var dbTypes = (from t in Current.DB.InstrumentTypes
                                orderby t.TypeID ascending
-                               select new { Id = t.TypeID, Name = t.Name }).ToArray();
+                               select new { Id = t.TypeID, Name = t.Name }).ToArray();*/
+                // uncomment above and comment below for alphabetical listing of types. instead, piano first:
+
+                var pianoType = Current.DB.InstrumentTypes.Where(t => t.Name.Contains("Piano")).Select(t=> new { Id = t.TypeID, Name = t.Name }).ToArray();
+                var otherTypes = (from t in Current.DB.InstrumentTypes
+                                  orderby t.TypeID ascending
+                                  where t.Name.Contains("Piano") == false
+                                  select new { Id = t.TypeID, Name = t.Name }).ToArray();
+                var dbTypes = pianoType.Concat(otherTypes).ToArray();
                 Types = new SelectList(dbTypes, "Id", "Name");
             }
         }
