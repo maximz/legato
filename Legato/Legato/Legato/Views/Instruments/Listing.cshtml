@@ -79,9 +79,14 @@
 			<div class="span4 pull-right s4divider">
 				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID }, new { @class = "btn primary large" })</p>
 				<div class="userbox box">
-					<dl><dt>by @(Model.Instrument.aspnet_User.UserName)</dt>
-					<dd>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></dd>
-					<dd>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></dd></dl>
+					<dl>
+                        <dt>by @(Model.Instrument.aspnet_User.UserName)</dt>
+					    <dd>submitted <span class="timeago" title="@Model.Instrument.SubmissionDate">@Model.Instrument.SubmissionDate</span></dd>
+					    @if (Model.Instrument.LatestReviewRevisionDate.HasValue)
+                        {
+                            <dd>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></dd>
+                        }               
+                    </dl>
 				</div>
 			</div>
 		</div> <!--- //row -->

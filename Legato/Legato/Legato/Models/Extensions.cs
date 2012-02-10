@@ -22,7 +22,7 @@ namespace Legato.Models
         /// <summary>
         /// The last time a review for this Instrument was revised. This property is filled only when the Instrument.FillProperties() method is called.
         /// </summary>
-        public DateTime LatestReviewRevisionDate
+        public DateTime? LatestReviewRevisionDate
         {
             get;
             internal set;
@@ -88,7 +88,7 @@ namespace Legato.Models
 
             // Process
             AverageOverallRating = OverallRatings.Count > 0 ? ((int)Math.Round(OverallRatings.Average())) : 0;
-            LatestReviewRevisionDate = RevisionDates.Count > 0 ? RevisionDates.Max() : this.SubmissionDate;
+            LatestReviewRevisionDate = RevisionDates.Count > 0 ? (DateTime?)RevisionDates.Max() : null; //this.SubmissionDate;
             //LatestUseDate = UseDates.Count > 0 ? UseDates.Max() : this.SubmissionDate;
             NumberOfReviews = reviewCount;
 
