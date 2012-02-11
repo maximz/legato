@@ -182,11 +182,13 @@
 	<script src="/static/js/map/messageBubble.min.js?@revNum"></script></text>
   }
   
+  <script>
   var oldMap = false; // oldMap tells script.js whether redirection functions to an older map are available, because we were in an infinite loop of /Instruments/old/old/...
   @if (ViewBag.cannotGE)
   {
-      oldMap = true;
+      <text>oldMap = true;</text>
   }
+  </script>
 
   <script src="/static/js/map/omnibox.min.js?@revNum"></script>
   <script src="/static/js/map/mylibs/jquery.spinner.min.js?@revNum"></script>
