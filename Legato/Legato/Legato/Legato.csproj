@@ -371,6 +371,7 @@
     <Content Include="static\js\google-code-prettify\prettify.js" />
     <Content Include="static\js\Gotham-Book_400.font.js" />
     <Content Include="static\js\int.js" />
+    <Content Include="static\js\jquery.cookie.js" />
     <Content Include="static\js\jquery.form.js" />
     <Content Include="static\js\jquery.form.min.js" />
     <Content Include="static\css\handheld.css" />
@@ -665,7 +666,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
