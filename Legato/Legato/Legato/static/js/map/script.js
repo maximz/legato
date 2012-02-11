@@ -11,15 +11,23 @@
 		Legato.map.loadMarkerData();
 	});
 
-/* Global stuff */
-
-$(document).ready(function () {
-	var mapVersionCookie = $.cookie('the_cookie');
+	
+var mapVersionCookieName = "legatomap_useold"; 
+var cookieCheck = function()
+{
+	var mapVersionCookie = $.cookie(mapVersionCookieName);
 	if(mapVersionCookie != null && mapVersionCookie == 'true')
 	{
 		redirectToOldMap();
 		return;
 	}
+};
+	
+	
+/* Global stuff */
+
+$(document).ready(function () {
+	cookieCheck();
 
     // load all instype information
     Legato.instypes = [];
@@ -134,7 +142,8 @@ $('#helpText').click(function (e) {
 });
 
 $('#problems').click(function(e) {
-	$.cookie('legatomap_useold', 'true', { expires: 30, path: '/' });
+	$.cookie(mapVersionCookieName, 'true', { expires: 30, path: '/' });
+	cookieCheck();
 });
 
 
