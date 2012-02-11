@@ -236,12 +236,24 @@ setTimeout(function() {
 function redirectToOldMap()
 {
 var x = window.location.href;
-var addSlash = true;
-if(x[x.length - 1] == '/')
+
+var removeLast = 0; // how many characters to remove from end of a
+if(x[x.length - 1] == '/') // http://legatonetwork.com/instruments/
 {
-    addSlash = false;
+	removeLast = 1;
+}
+else if(x[x.length - 1] == '#') // http://legatonetwork.com/instruments/# or http://legatonetwork.com/instruments#
+{
+	if(x[x.length - 2] == '/') // http://legatonetwork.com/instruments/#
+	{
+		removeLast = 2;
+	}
+	else // http://legatonetwork.com/instruments#
+	{
+		removeLast = 1;
+	}
 }
 
-window.location.href = x + (addSlash ? '/' : '') + 'old';
+window.location.href = x.substr(0, x.length - removeLast) + '/' + 'old';
     
 }
