@@ -15,11 +15,14 @@
 var mapVersionCookieName = "legatomap_useold"; 
 var cookieCheck = function()
 {
-	var mapVersionCookie = $.cookie(mapVersionCookieName);
-	if(mapVersionCookie != null && mapVersionCookie == 'true')
+	if(!oldMap)
 	{
-		redirectToOldMap();
-		return;
+		var mapVersionCookie = $.cookie(mapVersionCookieName);
+		if(mapVersionCookie != null && mapVersionCookie == 'true')
+		{
+			redirectToOldMap();
+			return;
+		}
 	}
 };
 	
