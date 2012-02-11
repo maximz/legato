@@ -112,10 +112,10 @@
 		<div id="left">
 			<a id="footerLogo" href="@Url.Action("Index", "Home")"><img alt="Legato Network" src="/static/images/map/mini-logo.png?@revNum"></a>
 			<ul>
-                  @if (!ViewBag.cannotGE)
-                  {
-                <li><a href="#" id="problems">PROBLEMS?</a></li>
-                  }
+				  @if (!ViewBag.cannotGE)
+				  {
+				<li><a href="#" id="problems">PROBLEMS?</a></li>
+				  }
 				<li><a href="/static/html/map/help.html?@revNum" id="helpText" rel="#helpOverlay">HELP</a></li>
 				<li><a href="@Url.Action("Submit","Instruments")" id="addPoints">ADD</a></li>
 				<li><a href="@Url.Action("Index", "Home")">HOME</a></li>
@@ -186,7 +186,7 @@
   var oldMap = false; // oldMap tells script.js whether redirection functions to an older map are available, because we were in an infinite loop of /Instruments/old/old/...
   @if (ViewBag.cannotGE)
   {
-      <text>oldMap = true;</text>
+	  <text>oldMap = true;</text>
   }
   </script>
 
