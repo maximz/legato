@@ -5,17 +5,17 @@
 		  <ul class="nav">
 			<li @if(ViewBag.curPage == "Home"){<text>class="active"</text>}><a href="@Url.Content("~")">Home</a></li>
 
-			<li @if(ViewBag.curPage == "Map"){<text>class="active"</text>}><a href="/instruments">Map</a></li>
-			<li @if(ViewBag.curPage == "Submit"){<text>class="active"</text>}><a href="/instruments/submit">Submit</a></li>
+			<li @if(ViewBag.curPage == "Map"){<text>class="active"</text>}><a href="/instruments"><i class="icon-map-marker icon-large"></i> Map</a></li>
+			<li @if(ViewBag.curPage == "Submit"){<text>class="active"</text>}><a href="/instruments/submit"><i class="icon-plus-sign icon-large"></i> Submit</a></li>
 			<li class="dropdown @if(ViewBag.curPage == "Messages"){<text>active</text>}" data-dropdown="dropdown">
-				<a href="/messages" class="dropdown-toggle">Messages</a>
+				<a href="/messages" class="dropdown-toggle"><i class="icon-envelope icon-large"></i> Messages</a>
 				<ul class="dropdown-menu">
 					<li><a href="/messages">Conversations</a></li>
 					<li><a href="/messages/compose">Compose</a></li>
 				</ul>
 			</li>
 			<li class="dropdown @if(ViewBag.curPage == "About"){<text>active</text>}" data-dropdown="dropdown">
-				<a href="/about" class="dropdown-toggle">About</a>
+				<a href="/about" class="dropdown-toggle"><i class="icon-info-sign icon-large"></i> About</a>
 				<ul class="dropdown-menu">
 					<li><a href="/about">About Legato</a></li>
 					<li><a href="/about#faq">FAQ</a></li>
