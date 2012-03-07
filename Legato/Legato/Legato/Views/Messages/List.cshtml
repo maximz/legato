@@ -6,31 +6,37 @@
 
 <section id="threadlist">
   <div class="page-header">
-	<h1>Conversations <small>Open threads</small> &nbsp; @Html.ActionLink("Create New", MVC.Messages.Compose(), new { @class = "btn primary large" })</h1>
+	<h1>Conversations <small>Open threads</small> &nbsp; @Html.ActionLink("Create New", MVC.Messages.Compose(), new { @class = "btn primary large pull-right" })</h1>
 	
   </div>
 <div id="conversations">
 @foreach(var c in Model)
 {
 	<div class="row">
-	<div class="thread" id="thread-@c.ConversationID">
-		<div class="clearfix span4">
-			<dl><dt><em>
-			@if (ViewBag.userID == c.User1)
-			{
-				<text>@c.aspnet_User1.UserName</text>
-			}
-			else
-			{
-				<text>@c.aspnet_User.UserName</text>
-			}
-			</em></dt>
-			<dd><span class="timeago" title="@c.LastMessageDate">@c.LastMessageDate</span></dd></dl>
-		</div>
-		<div class="input colborder span12">
-			<a href="@Url.Action("Thread",new { id = c.ConversationID})" title="@c.Subject"><h2>@c.Subject</h2></a>
-		</div>
-	</div>
+        <div class="span16">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+                <li class="active">Conversations</li>
+            </ul>
+	        <div class="thread" id="thread-@c.ConversationID">
+		        <div class="clearfix span4">
+			        <dl><dt><em>
+			        @if (ViewBag.userID == c.User1)
+			        {
+				        <text>@c.aspnet_User1.UserName</text>
+			        }
+			        else
+			        {
+				        <text>@c.aspnet_User.UserName</text>
+			        }
+			        </em></dt>
+			        <dd><span class="timeago" title="@c.LastMessageDate">@c.LastMessageDate</span></dd></dl>
+		        </div>
+		        <div class="input colborder span12">
+			        <a href="@Url.Action("Thread",new { id = c.ConversationID})" title="@c.Subject"><h2>@c.Subject</h2></a>
+		        </div>
+	        </div>
+        </div>
 	</div>
 	<hr />
 }
