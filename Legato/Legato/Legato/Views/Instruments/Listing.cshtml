@@ -59,7 +59,15 @@
 <div class="content">
 	<div class="page-header">
 		<div class="row">
-			<h1 class="span12">@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
+	        
+            <div class="span12">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Map", "Instruments")"><i class='icon-map-marker'></i> Instruments</a> <span class="divider">/</span></li>
+                    <li class="active">Listing</li>
+                </ul>
+            </div>
+
+            <h1 class="span12">@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
 			@if (ViewBag.ReviewsExist)
    {
 				<div id="averageRating" class="span4 pull-right"></div>

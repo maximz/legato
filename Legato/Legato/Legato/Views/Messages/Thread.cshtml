@@ -45,6 +45,13 @@ $('a.flag-message').click(function (e) {
 	<h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
   </div>
 <div id="messages">
+<div class="row">
+<div class="span16">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
+        <li class="active">Thread</li>
+    </ul>
 @foreach (var m in Model.Messages)
 {
 	<div class="container row">
@@ -52,7 +59,7 @@ $('a.flag-message').click(function (e) {
 		<div class="input colborder span12">
 			<blockquote style="margin-left: 20px;">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
 		</div>
-		<div class="clearfix pull-right span4">
+		<div class="clearfix pull-right span3">
 			<dl><dt>@m.aspnet_User.UserName</dt>
 			<dd><span class="timeago" title="@m.Date">@m.Date</span></dd>
 			@if (m.SenderID == Model.OtherUser.UserId)
@@ -65,6 +72,8 @@ $('a.flag-message').click(function (e) {
 	</div>
 	<hr />
 }
+</div>
+</div>
 </div>
 <div id="reply">
 <div class="row">

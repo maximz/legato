@@ -256,6 +256,9 @@
     <Content Include="static\css\bootstrap.extras.css" />
     <Content Include="static\css\bootstrap.min.css" />
     <Content Include="static\css\extra.css" />
+    <Content Include="static\css\feedback.css" />
+    <Content Include="static\css\feedback.min.css" />
+    <Content Include="static\css\font-awesome.css" />
     <Content Include="static\css\index.css" />
     <Content Include="static\css\map\home.css" />
     <Content Include="static\css\map\home.min.css" />
@@ -269,6 +272,7 @@
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
     <Content Include="static\css\wmd.new.css" />
+    <Content Include="static\font\fontawesome-webfont.svg" />
     <Content Include="static\images\advertiser_icon.png" />
     <Content Include="static\images\arrow_bg.gif" />
     <Content Include="static\images\content_btm.jpg" />
@@ -370,6 +374,10 @@
     <Content Include="static\js\google-code-prettify\prettify.css" />
     <Content Include="static\js\google-code-prettify\prettify.js" />
     <Content Include="static\js\Gotham-Book_400.font.js" />
+    <Content Include="static\js\html2canvas.feedback.js" />
+    <Content Include="static\js\html2canvas.feedback.min.js" />
+    <Content Include="static\js\html2canvas.js" />
+    <Content Include="static\js\html2canvas.min.js" />
     <Content Include="static\js\int.js" />
     <Content Include="static\js\jquery.cookie.js" />
     <Content Include="static\js\jquery.form.js" />
@@ -409,6 +417,7 @@
     <Content Include="static\js\jquery-1.6.1.js" />
     <Content Include="static\js\jquery-1.6.1.min.js" />
     <Content Include="static\js\jquery.hint.js" />
+    <Content Include="static\js\jquery.plugin.html2canvas.js" />
     <Content Include="static\js\jquery.raty.js" />
     <Content Include="static\js\jquery.raty.min.js" />
     <Content Include="static\js\jquery.timeago.min.js" />
@@ -417,6 +426,8 @@
     <Content Include="static\js\jquery.validate.unobtrusive.js" />
     <Content Include="static\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="static\js\jquery.wmd.min.js" />
+    <Content Include="static\js\jsfeedback.js" />
+    <Content Include="static\js\jsfeedback.min.js" />
     <Content Include="static\js\map.js" />
     <Content Include="static\js\map\libs\jquery-1.6.2.js" />
     <Content Include="static\js\map\libs\jquery-1.6.2.min.js" />
@@ -573,6 +584,10 @@
     <None Include="static\css\webfonts\woff\style_154928.woff" />
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
+    <None Include="static\font\fontawesome-webfont.eot" />
+    <None Include="static\font\fontawesome-webfont.svgz" />
+    <None Include="static\font\fontawesome-webfont.ttf" />
+    <None Include="static\font\fontawesome-webfont.woff" />
     <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -666,7 +681,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

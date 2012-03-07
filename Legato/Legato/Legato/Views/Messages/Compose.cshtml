@@ -26,6 +26,10 @@
 	  <!-- Example row of columns -->
 	  <div class="row">
 		<div class="span16">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+                <li class="active">Compose</li>
+            </ul>
 
 @using (Html.BeginForm())
 {
