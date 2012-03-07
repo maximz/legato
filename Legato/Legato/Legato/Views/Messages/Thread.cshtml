@@ -47,6 +47,11 @@ $('a.flag-message').click(function (e) {
 <div id="messages">
 <div class="row">
 <div class="span16">
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+        <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
+        <li class="active">Thread</li>
+    </ul>
 @foreach (var m in Model.Messages)
 {
 	<div class="container row">
