@@ -78,8 +78,8 @@ $(".hasPlayedCheckBox").change(function(e) {
 	  <div class="row">
 		<div class="span16">
         <ul class="breadcrumb">
-            <li>@Html.ActionLink("Instruments", "Map", "Instruments") <span class="divider">/</span></li>
-            <li class="active">Submit</li>
+            <li><a href="@Url.Action("Map", "Instruments")"><i class='icon-map-marker'></i> Instruments</a> <span class="divider">/</span></li>
+            <li class="active"><i class="icon-plus-sign"></i> Submit</li>
         </ul>
 
 @using (Html.BeginForm())
