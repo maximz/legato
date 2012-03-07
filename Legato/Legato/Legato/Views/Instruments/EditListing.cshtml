@@ -3,6 +3,8 @@
 @{
 	ViewBag.Title = "Edit Listing";
 	ViewBag.revNum = Legato.Current.RevNumber();
+    ViewBag.instrument = Current.DB.Instruments.Where(i=>i.InstrumentID==Model.Listing.InstrumentID).FirstOrDefault();
+    ViewBag.instrument.FillProperties();
 }
 
 @section ScriptContentAtEndOfBody {
@@ -28,6 +30,11 @@
 	  <!-- Example row of columns -->
 	  <div class="row">
 		<div class="span16">
+	    <ul class="breadcrumb">
+            <li>@Html.ActionLink("Instruments", "Map", "Instruments") <span class="divider">/</span></li>
+            <li>@Html.ActionLink("Listing", "Individual", "Instruments", new { instrumentID = Model.Listing.InstrumentID, slug = ViewBag.instrument.UrlSlug }) <span class="divider">/</span></li>
+            <li class="active">Edit</li>
+        </ul>
 
 @using (Html.BeginForm())
 {

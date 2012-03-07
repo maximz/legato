@@ -77,6 +77,10 @@ $(".hasPlayedCheckBox").change(function(e) {
 	  <!-- Example row of columns -->
 	  <div class="row">
 		<div class="span16">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Instruments", "Map", "Instruments") <span class="divider">/</span></li>
+            <li class="active">Submit</li>
+        </ul>
 
 @using (Html.BeginForm())
 {

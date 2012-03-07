@@ -44,6 +44,11 @@ $('#rate_overall').raty({
 	  <!-- Example row of columns -->
 	  <div class="row">
 		<div class="span16">
+            <ul class="breadcrumb">
+                <li>@Html.ActionLink("Instruments", "Map", "Instruments") <span class="divider">/</span></li>
+                <li>@Html.ActionLink("Review", "IndividualReview", "Instruments", new { reviewID = Model.ReviewRevision.ReviewID}) <span class="divider">/</span></li>
+                <li class="active">Edit</li>
+            </ul>
 
 
 @using (Html.BeginForm())
