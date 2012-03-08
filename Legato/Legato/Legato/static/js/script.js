@@ -2,8 +2,8 @@ $(function () {
 
 	
 	// Activate UI
-	$('#topbar').dropdown();
-	$('#topbar').scrollSpy();
+	$('.navbar').dropdown();
+	$('.navbar').scrollSpy();
 	
 	
     /* Name: Demo
