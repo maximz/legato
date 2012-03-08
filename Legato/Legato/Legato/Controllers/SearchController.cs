@@ -43,7 +43,7 @@ namespace Legato.Controllers
         /// Displays a search form.
         /// </summary>
         /// <returns></returns>
-        [Url("search")]
+        [Url("start/search")]
         [CustomCache(Duration = 3600, NoCachingForAuthenticatedUsers = true)]
         [HttpGet]
         public virtual ActionResult Index()
@@ -56,10 +56,23 @@ namespace Legato.Controllers
         /// <param name="query">The query.</param>
         /// <param name="tags">The tags.</param>
         /// <returns></returns>
-        [Url("search/execute")]
+        [Url("execute/search")]
         [HttpPost]
+        [VerifyReferrer]
+        [ValidateInput(false)]
         public virtual ActionResult IndexPost(string query, string tags)
         {
+            // Sanitize
+            if (query.HasValue())
+            {
+                query = HtmlUtilities.Safe(query);
+            }
+            if (tags.HasValue())
+            {
+                tags = HtmlUtilities.Safe(tags);
+            }
+
+            // Process
             if (tags.HasValue() && query.HasValue() && tags != "in these tags (optional)" && query != "search query/term") // not going to happen, because tags are currently disabled
             {
                 throw new NotImplementedException("Tags are currently disabled.");
@@ -81,7 +94,7 @@ namespace Legato.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
@@ -92,8 +105,16 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("search/{query}")]
         [CustomCache(Duration = 300, NoCachingForAuthenticatedUsers = true, VaryByParam = "query")]
+        [ValidateInput(false)]
         public virtual ActionResult Search(string query)
         {
+            // Sanitize
+            if (query.HasValue())
+            {
+                query = HtmlUtilities.Safe(query);
+            }
+
+            // Process
             try
             {
                 if (ConfigurationManager.AppSettings["IsSearchActivated"] == "false")
@@ -133,9 +154,22 @@ namespace Legato.Controllers
         /// <returns></returns>
         [Url("search/{query}/{tags}")]
         [CustomCache(Duration = 300, NoCachingForAuthenticatedUsers = true, VaryByParam = "query")]
+        [ValidateInput(false)]
         public virtual ActionResult TagSearch(string query, string tags)
         {
             throw new NotImplementedException("Tags are currently disabled.");
+
+            // Sanitize
+            if (query.HasValue())
+            {
+                query = HtmlUtilities.Safe(query);
+            }
+            if (tags.HasValue())
+            {
+                tags = HtmlUtilities.Safe(tags);
+            }
+
+            // Process
             try
             {
                 //InitWriter();
