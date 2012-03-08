@@ -18,7 +18,7 @@
 	
 	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
 	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide. Join Legato to find fellow musicians, collaborate with them, and to find helpful resources, all rated by your fellows." />
-	<meta name="author" content="Maxim Zaslavsky" />
+	<meta name="author" content="Elfeon" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Legato Network" href="/static/opensearch.xml" />
 
