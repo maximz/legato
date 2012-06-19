@@ -18,7 +18,7 @@
 	
 	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Legato Network</title>
 	<meta name="description" content="Welcome to Legato Network - Connecting Musicians Worldwide. Join Legato to find fellow musicians, collaborate with them, and to find helpful resources, all rated by your fellows." />
-	<meta name="author" content="Maxim Zaslavsky" />
+	<meta name="author" content="Elfeon" />
 	<link type="text/plain" rel="author" href="/humans.txt" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Legato Network" href="/static/opensearch.xml" />
 
@@ -28,8 +28,10 @@
 	<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png" />
 
 <!-- Le styles -->
-	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/static/css/bootstrap.extras.css" rel="stylesheet">
+	<link href="/static/bs2/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bs2/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/static/bs2/media.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.extras.css" rel="stylesheet">
 	<link href="/static/css/font-awesome.css" rel="stylesheet">
   
   <link rel="Stylesheet" href="/static/css/wmd.css" />
@@ -74,14 +76,18 @@
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.7.1.min.js"%3E%3C/script%3E'))</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js" type="text/javascript"></script>
 	
-	<script src="/static/js/bootstrap-alerts.js"></script>
-	<script src="/static/js/bootstrap-buttons.js"></script>
-	<script src="/static/js/bootstrap-modal.js"></script>
-	<script src="/static/js/bootstrap-tabs.js"></script>
-	<script src="/static/js/bootstrap-dropdown.js"></script>
-	<script src="/static/js/bootstrap-twipsy.js"></script>
-	<script src="/static/js/bootstrap-popover.js"></script>
-	<script src="/static/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bs2/bootstrap-transition.js"></script>
+    <script src="/static/bs2/bootstrap-alert.js"></script>
+    <script src="/static/bs2/bootstrap-modal.js"></script>
+    <script src="/static/bs2/bootstrap-dropdown.js"></script>
+    <script src="/static/bs2/bootstrap-scrollspy.js"></script>
+    <script src="/static/bs2/bootstrap-tab.js"></script>
+    <script src="/static/bs2/bootstrap-tooltip.js"></script>
+    <script src="/static/bs2/bootstrap-popover.js"></script>
+    <script src="/static/bs2/bootstrap-button.js"></script>
+    <script src="/static/bs2/bootstrap-collapse.js"></script>
+    <script src="/static/bs2/bootstrap-carousel.js"></script>
+    <script src="/static/bs2/bootstrap-typeahead.js"></script>
 
 	<!--<script src="/static/js/jquery.form.min.js"></script>
 	<script src="/static/js/MicrosoftAjax.js" type="text/javascript"></script>

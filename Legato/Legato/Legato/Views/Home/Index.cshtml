@@ -4,27 +4,31 @@
 }
 
 	  <!-- Main hero unit for a primary marketing message or call to action -->
-	  <div class="hero-unit">
-		<h1>Connecting instruments with musicians around the world.</h1>
-		<p>Legato Network is here to help you <b>find an instrument</b> to play on or to <b>find others to play</b> on your instrument.</p>
-		<p><a class="btn primary large" href="@Url.Action("Map", "Instruments")"><i class="icon-map-marker icon-large"></i> See instruments &raquo;</a></p>
+	  <div class="well hero-unit">
+		<div class="row">
+			<div style="text-align: center;"> <!-- <div class="span12"> -->
+				<h1>Connecting instruments to musicians around the world.</h1>
+				<p class="hero">Legato Network is here to help you <b>find an instrument</b> to play on or to <b>find others to play</b> on your instrument.</p>
+				<p class="hero"><a class="btn btn-primary btn-xlarge" href="@Url.Action("Map", "Instruments")">See instruments &raquo;</a></p>
+			</div>
+		</div>
 	  </div>
 
 	  <!-- Example row of columns -->
 	  <div class="row">
-		<div class="span-one-third">
+		<div class="span4">
 		  <h2>Find</h2>
 		  <p>Looking for an instrument to play or practice on?</p>
-		  <p><a class="btn" href="@Url.Action("Map", "Instruments")"><i class="icon-map-marker"></i> Find an instrument &raquo;</a></p>
+		  <p><a class="btn" href="@Url.Action("Map", "Instruments")">Find an instrument &raquo;</a></p>
 		</div>
-		<div class="span-one-third">
+		<div class="span4">
 		  <h2>Submit</h2>
 		   <p>Know of an instrument that is available to play? Can you offer your own for others to play?</p>
-		  <p><a class="btn" href="@Url.Action("Submit", "Instruments")"><i class="icon-plus-sign"></i> Submit an instrument &raquo;</a></p>
+		  <p><a class="btn" href="@Url.Action("Submit", "Instruments")">Submit an instrument &raquo;</a></p>
 	   </div>
-		<div class="span-one-third">
+		<div class="span4">
 		  <h2>How It Works</h2>
 		  <p>Confused about how Legato Network works? Want to find out more?</p>
-		  <p><a class="btn" href="@Url.Action("About", "Home")"><i class="icon-info-sign"></i> Read our FAQ &raquo;</a></p>
+		  <p><a class="btn" href="@Url.Action("About", "Home")">Read our FAQ &raquo;</a></p>
 		</div>
 	  </div>

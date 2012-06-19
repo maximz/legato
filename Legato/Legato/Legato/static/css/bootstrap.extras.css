@@ -126,3 +126,27 @@ kbd {
 	right: 0;*/
 	bottom: 30px;
 }
+
+/* bootstrap 2 addons */
+
+.btn-xlarge { /* extra-large button */
+  font-size: 20px;
+  font-weight: normal;
+  padding: 14px 24px;
+  margin-right: 10px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+/* extra-large type, from bs2/docs.css jumbotron stuff */
+h1.hero {
+  margin-bottom: 9px;
+  font-size: 81px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+p.hero {
+  margin-bottom: 18px;
+  font-weight: 300;
+}
