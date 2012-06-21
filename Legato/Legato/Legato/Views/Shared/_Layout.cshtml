@@ -114,7 +114,7 @@
         }
 
         @Html.Partial("NavPartial")
-        <div style="margin-top: +40px;">
+        <div style="margin-top: +40px; padding-bottom: 60px;">
             @RenderSection("BetweenHeaderAndContent",false)
   
             <div class="container" id="main">
@@ -123,33 +123,35 @@
         </div>
         <div class="push"></div> <!-- sticky footer -->
     </div> <!-- /wrap -->
-    <footer>
-        <div class="container">
-            <div class="row">
-			    <div class="span9">
-				    <p class="copyright">&copy; 2012 Legato Network. All Rights Reserved.</p>
-                    <p><small>Revision @(ViewBag.revNum).</small></p>
+    <footer id="bottom-bar" style="position: fixed; left: 0; right: 0; bottom: 0;">
+        <div id="bottom-bar-inner">
+            <div class="container">
+                <div class="row">
+			        <div class="span9">
+				        <p class="copyright">&copy; 2012 Legato Network. All Rights Reserved.</p>
+                        <p><small>Revision @(ViewBag.revNum).</small></p>
+			        </div>
+			        <div class="span3">
+				        @Html.Partial("SocialButtons")
+				    </div>
 			    </div>
-			    <div class="span3">
-				    @Html.Partial("SocialButtons")
-				</div>
-			</div>
-            <div class="row">
-                <div class="span12">
-                    <script type="text/javascript"><!--
-                        google_ad_client = "ca-pub-0915313029680949";
-                        /* Legato page-bottom banner */
-                        google_ad_slot = "1362984618";
-                        google_ad_width = 468;
-                        google_ad_height = 60;
-                        //-->
-                                    </script>
-                    <script type="text/javascript"
-                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                    </script>
+                <div class="row">
+                    <div class="span12">
+                        <script type="text/javascript"><!--
+                            google_ad_client = "ca-pub-0915313029680949";
+                            /* Legato page-bottom banner */
+                            google_ad_slot = "1362984618";
+                            google_ad_width = 468;
+                            google_ad_height = 60;
+                             //-->
+                                        </script>
+                        <script type="text/javascript"
+                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+                    </div>
                 </div>
-            </div>
-		</div>
+		    </div>
+        </div>
 	</footer>
 
     <!-- Le javascript
