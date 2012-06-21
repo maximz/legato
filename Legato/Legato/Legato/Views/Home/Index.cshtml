@@ -35,7 +35,7 @@
 		</div>
 		<div class="row">
 			<div class="span5 offset4 ac">
-				@Html.Partial("SocialButtons", "class=\"social_centered\"")
+				@Html.Partial("SocialButtons", "class=social_centered")
 			</div>
 		</div>
 	</div>
@@ -46,12 +46,12 @@
 	<div class="span6 ac">
 		<h1>Traveling?</h1>
 		<h2>Blah</h2>
-		<a class="btn btn-success btn-xlarge" href="#" id="viewBtn">View The Instruments</a>
+		<a class="btn btn-success btn-xlarge" href="@Url.Action("Map", "Instruments")" id="viewBtn">View The Instruments</a>
 	</div>
 	<div class="span6 ac">
 		<h1>Listing?</h1>
 		<h2>Blah</h2>
-		<a class="btn btn-primary btn-xlarge" href="#" id="view2Btn">View The Instruments</a>
+		<a class="btn btn-primary btn-xlarge" href="@Url.Action("Map", "Instruments")" id="view2Btn">View The Instruments</a>
 	</div>
 </div>
 
