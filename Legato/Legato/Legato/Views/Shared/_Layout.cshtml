@@ -80,6 +80,20 @@
             [class^="icon-"] { /* font-awesome fix https://github.com/FortAwesome/Font-Awesome/issues/6 */
                 background-image:none;
             }
+            
+            html, body {
+    height: 100%;
+} 
+.wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -92px; /* -(footer height + navbarheight) */
+} 
+footer, .push { 
+    padding-top: 40px; /* navbarHeight */
+    height: 4em; /* footer-height */
+}  
 
 		</style>
 
