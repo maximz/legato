@@ -3,6 +3,45 @@
 	ViewBag.revNum = Legato.Current.RevNumber();
 }
 
+@section BetweenHeaderAndContent {
+<div class="hero-unit hero-section" id="heroheader">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<h1 class="ac">Instruments galore.</h1>
+			</div>
+		</div>
+		<ul class="thumbnails" style="margin-top:+20px;">
+			<li class="span4">
+				<a href="#" class="thumbnail">
+					<img src="http://i.imgur.com/TVWNE.png" alt="" /> <!-- http://placehold.it/360x268 -->
+				</a>
+			</li>
+			<li class="span4">
+				<a href="#" class="thumbnail">
+					<img src="http://i.imgur.com/JEY9p.png" alt="" />
+				</a>
+			</li>
+			<li class="span4">
+				<a href="#" class="thumbnail">
+					<img src="http://i.imgur.com/ZeoiA.png" alt="" />
+				</a>
+			</li>
+		</ul>
+		<div class="row">
+			<h3 class="span4 ac"><a href="#">Browse the map.</a></h3>
+			<h3 class="span4 ac"><a href="#">Find an instrument.</a></h3>
+			<h3 class="span4 ac"><a href="#">Submit an instrument.</a></h3>
+		</div>
+		<div class="row">
+			<div class="span5 offset4 ac">
+				@Html.Partial("SocialButtons", "class=\"social_centered\"")
+			</div>
+		</div>
+	</div>
+</div>
+}
+
 	  <!-- Main hero unit for a primary marketing message or call to action -->
 	  <div class="well hero-unit">
 		<div class="row">
