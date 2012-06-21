@@ -72,11 +72,6 @@
 				{
 					margin-left: 25px;
 				}
-
-				#heroheader
-				{
-					margin-top: +40px;
-				}
   			}
             .social_centered
             {
@@ -119,10 +114,12 @@
         }
 
         @Html.Partial("NavPartial")
-        @RenderSection("BetweenHeaderAndContent",false)
+        <div style="margin-top: +40px;">
+            @RenderSection("BetweenHeaderAndContent",false)
   
-        <div class="container" id="main">
-        @RenderBody()
+            <div class="container" id="main">
+            @RenderBody()
+        </div>
         </div>
         <div class="push"></div> <!-- sticky footer -->
     </div> <!-- /wrap -->
