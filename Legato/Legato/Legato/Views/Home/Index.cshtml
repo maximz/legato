@@ -13,25 +13,25 @@
 		</div>
 		<ul class="thumbnails" style="margin-top:+20px;">
 			<li class="span4">
-				<a href="#" class="thumbnail">
+				<a href="@Url.Action("Map", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/TVWNE.png" alt="" /> <!-- http://placehold.it/360x268 -->
 				</a>
 			</li>
 			<li class="span4">
-				<a href="#" class="thumbnail">
+				<a href="@Url.Action("Map", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/JEY9p.png" alt="" />
 				</a>
 			</li>
 			<li class="span4">
-				<a href="#" class="thumbnail">
+				<a href="@Url.Action("Submit", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/ZeoiA.png" alt="" />
 				</a>
 			</li>
 		</ul>
 		<div class="row">
-			<h3 class="span4 ac"><a href="#">Browse the map.</a></h3>
-			<h3 class="span4 ac"><a href="#">Find an instrument.</a></h3>
-			<h3 class="span4 ac"><a href="#">Submit an instrument.</a></h3>
+			<h3 class="span4 ac"><a href="@Url.Action("Map", "Instruments")">Browse the map.</a></h3>
+			<h3 class="span4 ac"><a href="@Url.Action("Map", "Instruments")">Find an instrument.</a></h3>
+			<h3 class="span4 ac"><a href="@Url.Action("Submit", "Instruments")">Submit an instrument.</a></h3>
 		</div>
 		<div class="row">
 			<div class="span5 offset4 ac">
@@ -42,32 +42,59 @@
 </div>
 }
 
-	  <!-- Main hero unit for a primary marketing message or call to action -->
-	  <div class="well hero-unit">
+<div class="row">
+	<div class="span6 ac">
+		<h1>Traveling?</h1>
+		<h2>Blah</h2>
+		<a class="btn btn-success btn-xlarge" href="#" id="viewBtn">View The Instruments</a>
+	</div>
+	<div class="span6 ac">
+		<h1>Listing?</h1>
+		<h2>Blah</h2>
+		<a class="btn btn-primary btn-xlarge" href="#" id="view2Btn">View The Instruments</a>
+	</div>
+</div>
+
+<hr/>
+<div class="row" id="benefits">
+	<div class="span6">
 		<div class="row">
-			<div style="text-align: center;"> <!-- <div class="span12"> -->
-				<h1>Connecting instruments to musicians around the world.</h1>
-				<p class="hero">Legato Network is here to help you <b>find an instrument</b> to play on or to <b>find others to play</b> on your instrument.</p>
-				<p class="hero"><a class="btn btn-primary btn-xlarge" href="@Url.Action("Map", "Instruments")">See instruments &raquo;</a></p>
+			<div class="span1">
+				<div class="displayedIcon spritedIcon"></div>
+			</div>
+			<div class="span5">
+				<h3>Search</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio mi, semper vel consequat id, tristique sit amet sapien. Aenean posuere accumsan pellentesque. Nulla iaculis lorem eget felis sa</p>
+				<p>Sollicitudin cursus, dolor purus commodo tellus, id accumsan ligula sem nec nibh. Praesent ut nunc et purus malesuada dapibus vitae quis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat. Curabitur scelerisque odio quis dui cursus eget laor</p>
 			</div>
 		</div>
-	  </div>
-
-	  <!-- Example row of columns -->
-	  <div class="row">
-		<div class="span4">
-		  <h2>Find</h2>
-		  <p>Looking for an instrument to play or practice on?</p>
-		  <p><a class="btn" href="@Url.Action("Map", "Instruments")">Find an instrument &raquo;</a></p>
+	</div>
+	<div class="span6">
+		<div class="row">
+			<div class="span1">
+				<i class="displayedIcon icon-camera-retro icon-large"></i>
+			</div>
+			<div class="span5">
+				<h3>List</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio mi, semper vel consequat id, tristique sit amet sapien. Aenean posuere accumsan pellentesque. Nulla iaculis lorem eget felis sa</p>
+				<p>Sollicitudin cursus, dolor purus commodo tellus, id accumsan ligula sem nec nibh. Praesent ut nunc et purus malesuada dapibus vitae quis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat. Curabitur scelerisque odio quis dui cursus eget laor</p>
+			</div>
 		</div>
-		<div class="span4">
-		  <h2>Submit</h2>
-		   <p>Know of an instrument that is available to play? Can you offer your own for others to play?</p>
-		  <p><a class="btn" href="@Url.Action("Submit", "Instruments")">Submit an instrument &raquo;</a></p>
-	   </div>
-		<div class="span4">
-		  <h2>How It Works</h2>
-		  <p>Confused about how Legato Network works? Want to find out more?</p>
-		  <p><a class="btn" href="@Url.Action("About", "Home")">Read our FAQ &raquo;</a></p>
-		</div>
-	  </div>
+	</div>
+</div>
+<hr/>
+<div class="row">
+	<div class="span12 ac">
+		<h1 style="font-size:60px;font-family: 'Righteous', sans-serif;">XXX</h1>
+		<h3 style="margin-top: +20px;">instruments available</h3>
+	</div>
+</div>
+<hr/>
+<div class="well endwell ac">
+	<h3>
+		<a href="@Url.Action("Map", "Instruments")" title="Browse the map">Browse the map </a>
+		or
+		<a href="@Url.Action("About", "Home")" title="Learn more">learn more</a>
+		&rarr;
+	</h3>
+</div>
