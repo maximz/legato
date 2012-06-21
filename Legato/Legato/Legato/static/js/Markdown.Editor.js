@@ -81,6 +81,11 @@
                     if (uiManager) // not available on the first call
                         uiManager.setUndoRedoButtonStates();
                 }, panels);
+                this.textOperation = function (f) {
+                    undoManager.setCommandMode();
+                    f();
+                    that.refreshPreview();
+                }
             }
 
             uiManager = new UIManager(idPostfix, panels, undoManager, previewManager, commandManager, help);
@@ -317,8 +322,10 @@
         var flags;
 
         // Replace the flags with empty space and store them.
-        pattern = pattern.replace(/\/([gim]*)$/, "");
-        flags = re.$1;
+        pattern = pattern.replace(/\/([gim]*)$/, function (wholeMatch, flagsPart) {
+            flags = flagsPart;
+            return "";
+        });
 
         // Remove the slash delimiters on the regular expression.
         pattern = pattern.replace(/(^\/|\/$)/g, "");
@@ -1037,13 +1044,9 @@
             }
             else {
                 // Fixes common pasting errors.
-                text = text.replace('http://http://', 'http://');
-                text = text.replace('http://https://', 'https://');
-                text = text.replace('http://ftp://', 'ftp://');
-
-                if (text.indexOf('http://') === -1 && text.indexOf('ftp://') === -1 && text.indexOf('https://') === -1) {
+                text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
+                if (!/^(?:https?|ftp):\/\//.test(text))
                     text = 'http://' + text;
-                }
             }
 
             dialog.parentNode.removeChild(dialog);
@@ -1173,7 +1176,7 @@
         util.addEvent(inputBox, keyEvent, function (key) {
 
             // Check to see if we have a button key and, if so execute the callback.
-            if ((key.ctrlKey || key.metaKey) && !key.altKey) {
+            if ((key.ctrlKey || key.metaKey) && !key.altKey && !key.shiftKey) {
 
                 var keyCode = key.charCode || key.keyCode;
                 var keyCodeStr = String.fromCharCode(keyCode).toLowerCase();
@@ -1241,7 +1244,7 @@
                 var keyCode = key.charCode || key.keyCode;
                 // Character 13 is Enter
                 if (keyCode === 13) {
-                    fakeButton = {};
+                    var fakeButton = {};
                     fakeButton.textOp = bindCommand("doAutoindent");
                     doClick(fakeButton);
                 }
@@ -1735,11 +1738,24 @@
     // at the current indent level.
     commandProto.doAutoindent = function (chunk, postProcessing) {
 
-        var commandMgr = this;
+        var commandMgr = this,
+            fakeSelection = false;
 
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}([*+-]|\d+[.])[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}>[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ \t]+\n$/, "\n\n");
+        
+        // There's no selection, end the cursor wasn't at the end of the line:
+        // The user wants to split the current list item / code line / blockquote line
+        // (for the latter it doesn't really matter) in two. Temporarily select the
+        // (rest of the) line to achieve this.
+        if (!chunk.selection && !/^[ \t]*(?:\n|$)/.test(chunk.after)) {
+            chunk.after = chunk.after.replace(/^[^\n]*/, function (wholeMatch) {
+                chunk.selection = wholeMatch;
+                return "";
+            });
+            fakeSelection = true;
+        }
 
         if (/(\n|^)[ ]{0,3}([*+-]|\d+[.])[ \t]+.*\n$/.test(chunk.before)) {
             if (commandMgr.doList) {
@@ -1755,6 +1771,11 @@
             if (commandMgr.doCode) {
                 commandMgr.doCode(chunk);
             }
+        }
+        
+        if (fakeSelection) {
+            chunk.after = chunk.selection + chunk.after;
+            chunk.selection = "";
         }
     };
 
@@ -1920,7 +1941,7 @@
             var nLinesBack = 1;
             var nLinesForward = 1;
 
-            if (/\n(\t|[ ]{4,}).*\n$/.test(chunk.before)) {
+            if (/(\n|^)(\t|[ ]{4,}).*\n$/.test(chunk.before)) {
                 nLinesBack = 0;
             }
             if (/^\n(\t|[ ]{4,})/.test(chunk.after)) {
@@ -1935,7 +1956,10 @@
             }
             else {
                 if (/^[ ]{0,3}\S/m.test(chunk.selection)) {
-                    chunk.selection = chunk.selection.replace(/^/gm, "    ");
+                    if (/\n/.test(chunk.selection))
+                        chunk.selection = chunk.selection.replace(/^/gm, "    ");
+                    else // if it's not multiline, do not select the four added spaces; this is more consistent with the doList behavior
+                        chunk.before += "    ";
                 }
                 else {
                     chunk.selection = chunk.selection.replace(/^[ ]{4}/gm, "");
