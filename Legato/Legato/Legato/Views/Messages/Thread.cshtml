@@ -40,26 +40,28 @@ $('a.flag-message').click(function (e) {
 </script>
 }
 
-<section id="thread">
-  <div class="page-header">
-	<h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
-  </div>
-<div id="messages">
 <div class="row">
-<div class="span16">
+<div class="span12">
     <ul class="breadcrumb">
         <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
         <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
         <li class="active">Thread</li>
     </ul>
+</div>
+</div>
+  <div class="page-header">
+	<h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
+  </div>
+<div id="messages">
+
 @foreach (var m in Model.Messages)
 {
-	<div class="container row">
+	<div class="row">
 	<div class="message" id="message-@m.MessageID">
-		<div class="input colborder span12">
+		<div class="span9">
 			<blockquote style="margin-left: 20px;">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
 		</div>
-		<div class="clearfix pull-right span3">
+		<div class="pull-right span3">
 			<dl><dt>@m.aspnet_User.UserName</dt>
 			<dd><span class="timeago" title="@m.Date">@m.Date</span></dd>
 			@if (m.SenderID == Model.OtherUser.UserId)
@@ -73,35 +75,33 @@ $('a.flag-message').click(function (e) {
 	<hr />
 }
 </div>
-</div>
-</div>
+
+
 <div id="reply">
-<div class="row">
-<div class="span16">
-@using (Html.BeginForm("Reply", "Messages"))
-{
-	@Html.ValidationSummary(true)
-	<fieldset>
-			<legend>Reply</legend>
-			@Html.HiddenFor(model => model.ThreadID)
-			
-			<div class="clearfix">
-				@Html.LabelFor(model => model.Markdown)
-			<div class="input wmd-panel">
-				@Html.ValidationMessageFor(model => model.Markdown)
-				<div id="wmd-button-bar" class="wmd-panel"></div>
-				@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input", id = "wmd-input" })
-				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
-			</div></div>
-			
-	</fieldset>
-		  <div class="actions well">
-			<input type="submit" class="btn primary large" value="Reply">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
-		  </div>
-		
-}
+    <div class="page-header">
+	    <h1>Contact us <small>Do you have a question, etc....?</small></h1>
+    </div>
+    <div class="row">
+	    <div class="span12">
+		    @using (Html.BeginForm("Reply", "Messages", FormMethod.Post, new { @class="form-horizontal"}))
+      {
+      @Html.ValidationSummary(true)
+			    <fieldset>
+			    @Html.HiddenFor(model => model.ThreadID)
+				    <div class="control-group">
+					    @Html.LabelFor(model => model.Markdown, new { @class = "control-label"})
+					    <div class="controls wmd-panel">
+					    	@Html.ValidationMessageFor(model => model.Markdown)
+							<div id="wmd-button-bar" class="wmd-panel"></div>
+							@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span5", rows="8", id = "wmd-input" })
+							<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
+					    </div>
+				    </div>
+				    <div class="form-actions">
+					    <input type="submit" class="btn btn-success btn-large" value="Reply">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>
+				    </div>
+			    </fieldset>
+		    }
+	    </div>
+    </div>
 </div>
-		</div>
-	  </div> <!-- /row -->
-	  
-	</section>
