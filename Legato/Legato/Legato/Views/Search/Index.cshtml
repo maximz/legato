@@ -6,11 +6,13 @@
   <div class="page-header">
 	<h1>Search</h1>
   </div>
+  <div class="ac" >
 			  @using(Html.BeginForm("IndexPost","Search"))
 			  {
-				<p>Search for...</p>
-				<input id="query" type="text" name="query" size="31" title="search query/term"/> 
+				<h1 style="padding-bottom:10px;">Search for...</h1>
+				<input id="query" type="text" name="query" class="input-xlarge" title="search query/term"/> 
 				<!--<input id="tags" type="text" name="tags" size="31" title="in these tags (optional)" />-->
-				<p><input type="submit" class="btn primary inline large"value="Search" /></p>
+				<p><input type="submit" class="btn btn-primary btn-large"value="Search" /></p>
 			  }
+              </div>
 			</section>
