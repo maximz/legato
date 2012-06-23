@@ -97,98 +97,60 @@
 		<div class="span9">
             <h2 style="margin-bottom: 20px;">Reviews (@Model.Instrument.NumberOfReviews)</h2>
             @if (!ViewBag.ReviewsExist)
-   {
+            {
 				<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
-   }
-   else
-   {
-	   foreach (var r in Model.Reviews)
-	   {
-					<div class="review container" id="review-@r.ReviewID">
-						<div class="ratings">
-							<div id="rate-general-@r.ReviewID"></div>
-						</div>
-						<div class="message">
-							<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
-						</div>
-						<div class="row">
-							<div class="span6">
-								<div class="details">
-								</div>
+            }
+            else
+            {
+                foreach (var r in Model.Reviews)
+                {
+					<div class="review media-box" id="review-@r.ReviewID">
+						<div class="media">
+                        	<div class="pull-right">
+								<div class="userbox box">
+									<dl>
+                                        <dt>by @r.aspnet_User.UserName</dt>
+									    <dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
+									    @if (r.Revisions.Count() > 1)
+                                        {
+										    <text><dd>edited @r.Revisions.Count() times</dd></text>
+                                        }
+									</dl>
+                                </div>
+							</div> <!-- /pull-right -->
+                            <div class="media-body">
+                                <div class="ratings">
+							            <div id="rate-general-@r.ReviewID"></div>
+						        </div>
+						        <div class="message">
+							        <blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
+						        </div>
 								<div class="actionLinks">
 									@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID })
 								</div>
-							</div>
-							<div class="span3@if (!ViewBag.ReviewsExist)
-   {
-				<p>No reviews yet. @Html.ActionLink("Add one now?", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
-   }
-   else
-   {
-	   foreach (var r in Model.Reviews)
-	   {
-					<div class="review container" id="review-@r.ReviewID">
-						<div class="ratings">
-							<div id="rate-general-@r.ReviewID"></div>
-						</div>
-						<div class="message span12">
-							<blockquote>@(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(r.Revisions.First().MessageHTML))</blockquote>
-						</div>
-						<div class="row">
-							<div class="span9">
-								<div class="details">
-								</div>
-								<div class="actionLinks">
-									@Html.Action("UserLinksForReview", new { reviewID = r.ReviewID })
-								</div>
-							</div>
-							<div class="span3">
-								<div class="userbox box">
-									<dl><dt>by @r.aspnet_User.UserName</dt>
-									<dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
-									@if (r.Revisions.Count() > 1)
-									{
-										<text><dd>edited @r.Revisions.Count() times</dd></text>
-									}
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr/>
-	   }
-	   if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
-	   {
-					<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
-	   }
-				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
-   }s4divider">
-								<div class="userbox box">
-									<dl><dt>by @r.aspnet_User.UserName</dt>
-									<dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
-									@if (r.Revisions.Count() > 1)
-									{
-										<text><dd>edited @r.Revisions.Count() times</dd></text>
-									}
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr/>
-	   }
-	   if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
-	   {
-					<p>Only one review currently being displayed. @Html.ActionLink("Show the rest?", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug })</p>
-	   }
-				<p>@Html.ActionLink("Add a Review", "Review", new { instrumentID = Model.Instrument.InstrumentID })</p>
-   }
+                            </div> <!-- /media-body -->
+                        </div> <!-- /media -->
+                    </div> <!-- /media-box -->
+                }
+
+                if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
+                {
+                    <p class="ac">Only one review currently being displayed. @Html.ActionLink("Show other reviews", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug }, new {@class="btn btn-info" })</p>
+                }
+
+            }
+
         </div>
+
         <div class="span3">
             <a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
         </div>
 			
 	</div>
+    <div class="form-actions">
+        @Html.ActionLink("Add a review", "Review", new { instrumentID = Model.Instrument.InstrumentID }, new { @class = "btn btn-primary btn-large" })
+        @Html.ActionLink("Find another instrument", "Map", "Instruments",null, new {@class="btn btn-inverse btn-large"})
+    </div>
 </div>
 
 @section ScriptContentAtEndOfBody {
