@@ -19,54 +19,54 @@
 </script>
 }
 
-<section id="compose">
-  <div class="page-header">
-	<h1>Compose <small>Write a new message</small></h1>
-  </div>
-	  <!-- Example row of columns -->
-	  <div class="row">
-		<div class="span16">
-            <ul class="breadcrumb">
-                <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
-                <li class="active">Compose</li>
-            </ul>
+	<div class="row">
+		<div class="span12">
+		    <ul class="breadcrumb">
+		        <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+		        <li class="active">Compose</li>
+		    </ul>
+	    </div>
+	</div>
 
-@using (Html.BeginForm())
+	<div class="page-header">
+		<h1>Compose <small>Write a new message</small></h1>
+	</div>
+<div class="row">
+<div class="span12">
+@using (Html.BeginForm("Compose", "Messages", FormMethod.Post, new { @class="form-horizontal" }))
 {
 	@Html.ValidationSummary(true)
 	<fieldset>
-			<legend>Message details</legend>
-			
-			<div class="clearfix">
-				@Html.LabelFor(model => model.Subject)
-			<div class="input">
-				@Html.TextBoxFor(model => model.Subject)
+			<div class="control-group">
+				@Html.LabelFor(model => model.Subject, new { @class = "control-label"})
+			<div class="controls">
+				@Html.TextBoxFor(model => model.Subject, new { @class = "input-xlarge" })
+				<p class="help-block">Please enter the message subject.</p>
 				@Html.ValidationMessageFor(model => model.Subject)
 			</div></div>
 			
 			<div class="clearfix">
-				@Html.LabelFor(model => model.UserName)
-			<div class="input">
-				@Html.TextBoxFor(model => model.UserName)
+				@Html.LabelFor(model => model.UserName, new { @class = "control-label"})
+			<div class="controls">
+				@Html.TextBoxFor(model => model.UserName, new { @class = "input-xlarge" })
+				<p class="help-block">Please enter the name of the user to whom you want to send this message.</p>
 				@Html.ValidationMessageFor(model => model.UserName)
 			</div></div>
 
 			<div class="clearfix">
-				@Html.LabelFor(model => model.Markdown)
-			<div class="input wmd-panel">
+				@Html.LabelFor(model => model.Markdown, new { @class = "control-label"})
+			<div class="controls wmd-panel">
 				@Html.ValidationMessageFor(model => model.Markdown)
 				<div id="wmd-button-bar" class="wmd-panel"></div>
-				@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input", id = "wmd-input" })
+				@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span5", rows="8", id = "wmd-input" })
 				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
 			</div></div>
 
-			</fieldset>
-		  <div class="actions well">
-			<input type="submit" class="btn primary large" value="Send" />&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
-		  </div>
+			<div class="form-actions">
+			    <input type="submit" class="btn btn-primary btn-large" value="Send">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>
+		    </div>
+		    </fieldset>
 		
 }
 		</div>
 	  </div> <!-- /row -->
-	  
-	</section>
