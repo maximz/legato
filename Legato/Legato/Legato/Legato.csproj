@@ -158,6 +158,7 @@
     <Compile Include="Helpers\IPBlacklist.cs" />
     <Compile Include="Helpers\IQueryableExtensions.cs" />
     <Compile Include="Helpers\JsonpResult.cs" />
+    <Compile Include="Helpers\LabelExtensions.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Helpers\RateLimitAttribute.cs" />
     <Compile Include="Helpers\RedirectPermanentResult.cs" />
@@ -701,7 +702,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
