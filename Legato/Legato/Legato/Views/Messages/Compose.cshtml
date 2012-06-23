@@ -58,8 +58,8 @@
 			<div class="controls wmd-panel">
 				@Html.ValidationMessageFor(model => model.Markdown)
 				<div id="wmd-button-bar" class="wmd-panel"></div>
-				@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span5", rows="8", id = "wmd-input" })
-				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
+				@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span7", rows = "8", id = "wmd-input" })
+				<div id="wmd-preview" class="wmd-preview wmd-panel span7" style="margin-left:0;"></div>
 			</div></div>
 
 			<div class="form-actions">
