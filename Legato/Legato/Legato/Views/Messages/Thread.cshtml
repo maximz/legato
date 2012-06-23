@@ -41,17 +41,17 @@ $('a.flag-message').click(function (e) {
 }
 
 <div class="row">
-<div class="span12">
-    <ul class="breadcrumb">
-        <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
-        <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
-        <li class="active">Thread</li>
-    </ul>
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+            <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
+            <li class="active">Thread</li>
+        </ul>
+    </div>
 </div>
+<div class="page-header">
+    <h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
 </div>
-  <div class="page-header">
-	<h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
-  </div>
 <div id="messages">
 
 @foreach (var m in Model.Messages)
@@ -93,8 +93,8 @@ $('a.flag-message').click(function (e) {
 					    <div class="controls wmd-panel">
 					    	@Html.ValidationMessageFor(model => model.Markdown)
 							<div id="wmd-button-bar" class="wmd-panel"></div>
-							@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span5", rows="8", id = "wmd-input" })
-							<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
+							@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span7", rows="8", id = "wmd-input" })
+							<div id="wmd-preview" class="wmd-preview wmd-panel span7" style="margin-left:0;"></div>
 					    </div>
 				    </div>
 				    <div class="form-actions">
