@@ -76,7 +76,7 @@ namespace Legato.Helpers
 			var type = obj.GetType();
 			var propertyInfo = type.GetProperty(propertyName);
 			if (propertyInfo == null) return null;
-			return propertyInfo.GetValue(obj, null) as string;
+			return propertyInfo.GetValue(obj, null).ToString();
 		}
 		protected static void SetPropertyValue(object obj, object value, string propertyName)
 		{
@@ -115,7 +115,7 @@ namespace Legato.Helpers
 				return AllowNull;
 			}
 
-            var geocoder = new GoogleGeoCoder("");
+            var geocoder = new GoogleGeoCoder("key-not-needed");
             var result = geocoder.GeoCode(address.Trim()).FirstOrDefault();
             if(result == null)
             {
