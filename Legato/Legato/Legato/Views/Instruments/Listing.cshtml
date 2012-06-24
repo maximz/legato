@@ -4,6 +4,13 @@
 	ViewBag.Title = Model.Instrument.Title;
 	ViewBag.revNum = Legato.Current.RevNumber();
 	ViewBag.ReviewsExist = !(Model.Reviews == null || Model.Reviews.Count() < 1);
+    var zoomLevel = 14;
+    if(Model.Instrument.DisplayedLat.HasValue)
+    {
+        // filtered to zip code, so zoom out
+        zoomLevel = 10;
+    }
+    Model.Instrument.PrepareRender();
 }
 
 @section HeadContent {
@@ -64,7 +71,7 @@
         </div>
         <div class="row">
             <div class="span9">
-                <h1>@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.StreetAddress)</small></h1>
+                <h1>@Model.Instrument.InstrumentType.Name <small>at <em>@Model.Instrument.VenueName</em> (@Model.Instrument.DisplayedStreetAddress)</small></h1>
                 @if (Model.Instrument.Price.HasValue)
 	{
 					<text><p><b>Price: </b>@Math.Round(Model.Instrument.Price.Value, 2, MidpointRounding.AwayFromZero) <i>per</i> @Html.Encode(Model.Instrument.TimeSpanOfPrice)</p></text>
@@ -143,7 +150,7 @@
         </div>
 
         <div class="span3">
-            <a href="http://maps.google.com/?q=@(Model.Instrument.Lat),@(Model.Instrument.Long)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.Lat),@(Model.Instrument.Long)&sensor=false&zoom=14" /></a>
+            <a href="http://maps.google.com/?q=@(Model.Instrument.DisplayedLat.Value),@(Model.Instrument.DisplayedLong.Value)"><img class="right top" style="float: right; width: 200px; height: 200px;" src="http://maps.googleapis.com/maps/api/staticmap?size=200x200&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C@(Model.Instrument.DisplayedLat.Value),@(Model.Instrument.DisplayedLong.Value)&sensor=false&zoom=@zoomLevel" /></a>
         </div>
 			
 	</div>

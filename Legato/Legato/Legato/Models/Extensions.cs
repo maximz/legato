@@ -116,6 +116,13 @@ namespace Legato.Models
             ListingClassDisplay = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault().DisplayName;
         }
 
+        public void PrepareRender()
+        {
+            DisplayedStreetAddress = DisplayedStreetAddress.GetValueOrDefault(StreetAddress);
+            DisplayedLat = DisplayedLat.GetValueOrDefault(Lat);
+            DisplayedLong = DisplayedLong.GetValueOrDefault(Long);
+        }
+
         public ListingPermissionsModel Permissions()
         {
             if (Current.Request.IsAuthenticated)

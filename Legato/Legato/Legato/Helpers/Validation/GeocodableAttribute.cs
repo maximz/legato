@@ -156,7 +156,27 @@ namespace Legato.Helpers
         /// <value>
         /// The filter to zip code only property.
         /// </value>
-        public string FilterToZipCodeOnlyProperty
+        public string FilterToZipCodeOnlyPropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the filtered latitude property.
+        /// </summary>
+        /// <value>The name of the filtered latitude property.</value>
+        public string FilteredLatitudePropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the filtered longitude property.
+        /// </summary>
+        /// <value>The name of the filtered longitude property.</value>
+        public string FilteredLongitudePropertyName
         {
             get;
             set;
@@ -168,11 +188,26 @@ namespace Legato.Helpers
             {
                 var zipAddress = _result.City + " " + _result.State + ", " + _result.Country + " " + _result.PostalCode;
 
-                if (!(FilteredAddressPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
+                if (!(FilterToZipCodeOnlyPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
                 {
-                    if (GetPropertyValue(value, FilterToZipCodeOnlyProperty) == "2") // Zip code only
+                    if (GetPropertyValue(value, FilterToZipCodeOnlyPropertyName) == "2") // Zip code only
                     {
                         SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
+
+                        // Find new lat-long
+                        var geocoder = new GoogleGeoCoder("key-not-needed");
+                        var result = geocoder.GeoCode(zipAddress.Trim()).FirstOrDefault();
+                        if(result != null) // we have results
+                        {
+                            SetPropertyValue(value, result.Coordinates.Latitude, FilteredLatitudePropertyName);
+                            SetPropertyValue(value, result.Coordinates.Longitude, FilteredLongitudePropertyName);
+                        }
+                        else
+                        {
+                            SetPropertyValue(value, null, FilteredLatitudePropertyName);
+                            SetPropertyValue(value, null, FilteredLongitudePropertyName);
+                        }
+
                     }
                     else
                     {
