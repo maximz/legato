@@ -155,14 +155,10 @@ $(".hasPlayedCheckBox").change(function(e) {
 		        
                 <div class="control-group">
 			        <div class="controls">
-				        <ul class="inputs-list">
-					        <li>
-						        <label>
-							        @Html.CheckBoxFor(model => model.HasPlayedOnInstrument, new { @class = "hasPlayedCheckBox" })
-							        <span>Have you played on this instrument?</span>
-						        </label>
-					        </li>
-				        </ul>
+						<label class="checkbox">
+							@Html.CheckBoxFor(model => model.HasPlayedOnInstrument, new { @class = "hasPlayedCheckBox" })
+							<span>Have you played on this instrument?</span>
+						</label>
 			        </div> 
 		        </div>
 
@@ -173,7 +169,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 					    @Html.LabelFor(model => model.ReviewRevision.RatingOverall, new { @class = "control-label" })
 				        <div class="controls">
 					        <div id="rate_overall"></div>
-                            <p class="help-block">Give this instrument a rating out of 5 stars. Did you like it?</p>
+                            <p class="help-block">Please give this instrument a rating out of 5 stars. Did you like it?</p>
 					        @Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 				        </div>
                     </div>
