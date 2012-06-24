@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Legato.ViewModels
 {
-    [Geocodable(AddressPropertyName = "StreetAddress", LatitudePropertyName = "Lat", LongitudePropertyName = "Long", FilteredAddressPropertyName = "FilteredAddress", FilterToZipCodeOnlyProperty = "SelectedPrivacy")]
+    [GeocodableWithFilteredAddress(AddressPropertyName = "StreetAddress", LatitudePropertyName = "Lat", LongitudePropertyName = "Long", FilteredAddressPropertyName = "FilteredAddress", FilterToZipCodeOnlyProperty = "SelectedPrivacy")]
     public class ListingSubmissionViewModel
     {
         [Required(ErrorMessage="A street address is required.")]

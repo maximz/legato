@@ -33,26 +33,15 @@ namespace Legato.Helpers
 			set;
 		}
         /// <summary>
-        /// Gets or sets the name of the filtered address property.
+        /// Gets or sets a value indicating whether the value of the input address property should be overridden with the address returned from the geocoder. Default: true.
         /// </summary>
-        /// <value>The name of the filtered address property.</value>
-        public string FilteredAddressPropertyName
+        /// <value><c>true</c> if null is allowed; otherwise, <c>false</c>.</value>
+        public bool OverwriteAddress
         {
             get;
             set;
         }
-
-        /// <summary>
-        /// Gets or sets the filter to zip code only property.
-        /// </summary>
-        /// <value>
-        /// The filter to zip code only property.
-        /// </value>
-        public string FilterToZipCodeOnlyProperty
-        {
-            get;
-            set;
-        }
+        
 
 		/// <summary>
 		/// Gets or sets the name of the latitude property.
@@ -72,7 +61,16 @@ namespace Legato.Helpers
 			get;
 			set;
 		}
-		private static string GetPropertyValue(object obj, string propertyName)
+
+        /// <summary>
+        /// Gets or sets the result.
+        /// </summary>
+        /// <value>
+        /// The result. Created in the attribute itself.
+        /// </value>
+        protected Address _result;
+
+        protected static string GetPropertyValue(object obj, string propertyName)
 		{
 			if (obj == null) return null;
 			var type = obj.GetType();
@@ -80,7 +78,7 @@ namespace Legato.Helpers
 			if (propertyInfo == null) return null;
 			return propertyInfo.GetValue(obj, null) as string;
 		}
-		private static void SetPropertyValue(object obj, object value, string propertyName)
+		protected static void SetPropertyValue(object obj, object value, string propertyName)
 		{
 			if (obj == null) throw new ArgumentNullException();
 			var type = obj.GetType();
@@ -95,6 +93,11 @@ namespace Legato.Helpers
 		{
 			if(ErrorMessage.IsNullOrEmpty())
 				ErrorMessage = "We weren't able to find that location.";
+
+            if(OverwriteAddress == null)
+            {
+                OverwriteAddress = true;
+            }
 		}
 		/// <summary>
 		/// Determines whether the specified value is valid.
@@ -119,27 +122,70 @@ namespace Legato.Helpers
                 // No results
                 return false;
             }
+            _result = result; // store so that other classes that inherit from this attribute can access the result without re-geocoding
 
             SetPropertyValue(value, result.Coordinates.Latitude, LatitudePropertyName); // set latitude
             SetPropertyValue(value, result.Coordinates.Longitude, LongitudePropertyName); // set longitude
-            var fullAddress = result.Street + ", " + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
-            var zipAddress = result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
-            SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
 
-            if(!(FilteredAddressPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
-            {
-                if (GetPropertyValue(value, FilterToZipCodeOnlyProperty)=="2") // Zip code only
-                {
-                    SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
-                }
-                else
-                {
-                    SetPropertyValue(value, null, FilteredAddressPropertyName); // null indicates that filtered address is the same as actual/exact address
-                }
-            }
-            
+            var fullAddress = result.Street + ", " + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
 
 			return true;
 		}
 	}
+
+    /// <summary>
+	/// Verifies that a certain property is geocodable; if true, writes the geocoding results to attributes of your choosing and filters address to zip code. To be applied to an entire class.
+	/// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class GeocodableWithFilteredAddress : GeocodableAttribute
+    {
+        /// <summary>
+        /// Gets or sets the name of the filtered address property.
+        /// </summary>
+        /// <value>The name of the filtered address property.</value>
+        public string FilteredAddressPropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the filter to zip code only property.
+        /// </summary>
+        /// <value>
+        /// The filter to zip code only property.
+        /// </value>
+        public string FilterToZipCodeOnlyProperty
+        {
+            get;
+            set;
+        }
+
+        public override bool IsValid(object value)
+        {
+            if(base.IsValid(value))
+            {
+                var zipAddress = _result.City + " " + _result.State + ", " + _result.Country + " " + _result.PostalCode;
+
+                if (!(FilteredAddressPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
+                {
+                    if (GetPropertyValue(value, FilterToZipCodeOnlyProperty) == "2") // Zip code only
+                    {
+                        SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
+                    }
+                    else
+                    {
+                        SetPropertyValue(value, null, FilteredAddressPropertyName); // null indicates that filtered address is the same as actual/exact address
+                    }
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        public GeocodableWithFilteredAddress()
+			: base() {}
+    }
 }
