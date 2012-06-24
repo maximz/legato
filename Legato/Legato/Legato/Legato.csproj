@@ -236,22 +236,10 @@
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
     <Content Include="lib\Spatial.Net.dll" />
-    <Content Include="static\bs2\bootstrap-alert.js" />
-    <Content Include="static\bs2\bootstrap-button.js" />
-    <Content Include="static\bs2\bootstrap-carousel.js" />
-    <Content Include="static\bs2\bootstrap-collapse.js" />
-    <Content Include="static\bs2\bootstrap-dropdown.js" />
-    <Content Include="static\bs2\bootstrap-modal.js" />
-    <Content Include="static\bs2\bootstrap-popover.js" />
-    <Content Include="static\bs2\bootstrap-responsive.css" />
-    <Content Include="static\bs2\bootstrap-responsive.min.css" />
-    <Content Include="static\bs2\bootstrap-scrollspy.js" />
-    <Content Include="static\bs2\bootstrap-tab.js" />
-    <Content Include="static\bs2\bootstrap-tooltip.js" />
-    <Content Include="static\bs2\bootstrap-transition.js" />
-    <Content Include="static\bs2\bootstrap-typeahead.js" />
     <Content Include="static\bs2\bootstrap.css" />
+    <Content Include="static\bs2\bootstrap.js" />
     <Content Include="static\bs2\bootstrap.min.css" />
+    <Content Include="static\bs2\bootstrap.min.js" />
     <Content Include="static\bs2\media.css" />
     <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
@@ -276,6 +264,7 @@
     <Content Include="static\css\extra.css" />
     <Content Include="static\css\feedback.css" />
     <Content Include="static\css\feedback.min.css" />
+    <Content Include="static\css\font-awesome-ie7.css" />
     <Content Include="static\css\font-awesome.css" />
     <Content Include="static\css\index.css" />
     <Content Include="static\css\map\home.css" />
@@ -350,6 +339,7 @@
     <Content Include="static\images\nav_top_social.png" />
     <Content Include="static\images\network_icon.jpg" />
     <Content Include="static\images\publisher_icon.png" />
+    <Content Include="static\images\quote.png" />
     <Content Include="static\images\raty\background.gif" />
     <Content Include="static\images\raty\big\cancel-off.png" />
     <Content Include="static\images\raty\big\cancel-on.png" />
@@ -371,12 +361,15 @@
     <Content Include="static\images\raty\star-on.png" />
     <Content Include="static\images\Redbarbg.png" />
     <Content Include="static\images\social_icon.png" />
+    <Content Include="static\images\stripes.png" />
     <Content Include="static\images\submit.jpg" />
     <Content Include="static\images\topnav.jpg" />
     <Content Include="static\images\wallpaper.png" />
     <Content Include="static\images\wallpaper_crop.png" />
     <Content Include="static\images\wmd-buttons.old.png" />
     <Content Include="static\images\wmd-buttons.png" />
+    <Content Include="static\img\glyphicons-halflings-white.png" />
+    <Content Include="static\img\glyphicons-halflings.png" />
     <Content Include="static\js\Awesome.js" />
     <Content Include="static\js\Awesome.min.js" />
     <Content Include="static\js\bootstrap-alerts.js" />
@@ -606,7 +599,6 @@
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
     <None Include="static\font\fontawesome-webfont.eot" />
-    <None Include="static\font\fontawesome-webfont.svgz" />
     <None Include="static\font\fontawesome-webfont.ttf" />
     <None Include="static\font\fontawesome-webfont.woff" />
     <None Include="static\js\map\mylibs\.gitignore" />
@@ -702,7 +694,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
