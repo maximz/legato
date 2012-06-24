@@ -2,8 +2,7 @@
 
 body
 {
-	padding-top: 40px;
-	padding-bottom: 0px;
+	background: #252525;
 }
 
 .ac  /* align center */
@@ -204,8 +203,8 @@ overflow: auto;
 
 footer, .push
 {
-	height: 4em;
-	clear: both;
+	/*height: 4em; 
+	clear: both;*/
 }
 
 .hero-section
