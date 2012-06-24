@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using GeoCoding;
+using GeoCoding.Google;
 
 namespace Legato.Helpers
 {
@@ -88,13 +90,20 @@ namespace Legato.Helpers
 				return AllowNull;
 			}
 
-			var response = Geocoder.CallGeoWS(address.Trim());
-			if(response.Status=="ZERO_RESULTS")
-			{
-				return false;
-			}
-			SetPropertyValue(value, response.Results[0].Geometry.Location.Lat, LatitudePropertyName);
-			SetPropertyValue(value, response.Results[0].Geometry.Location.Lng, LongitudePropertyName);
+            var geocoder = new GoogleGeoCoder("");
+            var result = geocoder.GeoCode(address.Trim()).FirstOrDefault();
+            if(result == null)
+            {
+                // No results
+                return false;
+            }
+
+            SetPropertyValue(value, result.Coordinates.Latitude, LatitudePropertyName); // set latitude
+            SetPropertyValue(value, result.Coordinates.Longitude, LongitudePropertyName); // set longitude
+            var fullAddress = result.Street + ", " + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            var zipAddress = result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
+
 			return true;
 		}
 	}

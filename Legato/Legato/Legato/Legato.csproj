@@ -42,6 +42,7 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="GeoCoding, Version=1.4.1.66, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Glimpse.Core">
       <HintPath>..\packages\Glimpse.0.83\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
@@ -234,6 +235,7 @@
     <Content Include="404.html" />
     <None Include="App_Offline.htm.deactivated" />
     <Content Include="App_Readme\glimpse.readme.txt" />
+    <Content Include="lib\GeoCoding.dll" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
     <Content Include="lib\Spatial.Net.dll" />
     <Content Include="static\bs2\bootstrap.css" />
@@ -694,7 +696,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
