@@ -66,7 +66,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 	    editor1.run();
     }
     catch(err) {
-
+        // catch errors thrown in the Markdown editor. Namely, there is an error thrown when the browser has a pop-up blocker that overrides scrollBy() with null, so calls to that fail. Without this try-catch block, the code beneath these lines wouldn't work in browsers with such a pop-up blocker installed.
     }
 
     try {
@@ -75,7 +75,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 	    editor2.run();
     }
     catch(err2) {
-
+        // catch errors thrown in the Markdown editor. Namely, there is an error thrown when the browser has a pop-up blocker that overrides scrollBy() with null, so calls to that fail. Without this try-catch block, the code beneath these lines wouldn't work in browsers with such a pop-up blocker installed.
     }
 })();
 
