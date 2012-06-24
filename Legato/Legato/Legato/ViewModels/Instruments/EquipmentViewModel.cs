@@ -79,6 +79,7 @@ namespace Legato.ViewModels
             set;
         }
 
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="EquipmentViewModel"/> class.
         /// </summary>
@@ -104,6 +105,7 @@ namespace Legato.ViewModels
                 var dbTypes = pianoType.Concat(otherTypes).ToArray();
                 Types = new SelectList(dbTypes, "Id", "Name");
             }
+
         }
     }
 }

@@ -127,8 +127,8 @@ namespace Legato.Controllers
 								   select new
 								   {
 									   id = ins.InstrumentID,
-									   lat = ins.Lat,
-									   lng = ins.Long,
+									   lat = ins.DisplayedLat.GetValueOrDefault(ins.Lat),
+                                       lng = ins.DisplayedLong.GetValueOrDefault(ins.Long),
 									   label = ins.InstrumentType.Name,
 									   slug = HtmlUtilities.URLFriendly(ins.Brand.Trim() + " " + ins.Model.Trim() + " (" + ins.InstrumentType.Name + ") at " + ins.StreetAddress.Trim()),
 									   typename = ins.InstrumentType.Name,
@@ -470,6 +470,10 @@ namespace Legato.Controllers
 					var listing = new Instrument();
 
 					listing.StreetAddress = model.Listing.StreetAddress;
+                    listing.DisplayedStreetAddress = model.Listing.FilteredAddress;
+                    listing.AddressPrivacy = model.Listing.SelectedPrivacy;
+                    listing.DisplayedLat = model.Listing.FilteredLat;
+                    listing.DisplayedLong = model.Listing.FilteredLong;
 					listing.Lat = model.Listing.Lat;
 					listing.Long = model.Listing.Long;
 					//listing.Model = model.Listing.Equipment.Model.Trim();
@@ -968,6 +972,7 @@ catch(Exception ex)
 					Lat = (double)listing.Lat,
 					Long = (double)listing.Long,
 					Price = (double?)listing.Price,
+                    SelectedPrivacy = listing.AddressPrivacy,
 					TimeSpanOfPrice = listing.TimeSpanOfPrice,
 					StreetAddress = listing.StreetAddress,
 					VenueName = listing.VenueName,
@@ -977,7 +982,9 @@ catch(Exception ex)
 				listingmodel.Equipment = new EquipmentViewModel()
 				{
 					Brand=listing.Brand,
-					Model=listing.Model
+					Model=listing.Model,
+                    SelectedClass=int.Parse(listing.ListingClass), // TODO: fix this madness, make DB field an int already.
+                    SelectedType=listing.TypeID
 				};
 
 				var model = new EditListingViewModel()

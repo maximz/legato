@@ -54,7 +54,7 @@ namespace Legato.Models
         }
 
         /// <summary>
-        /// Gets the URL slug (based on the TItle)
+        /// Gets the URL slug (based on the Title)
         /// </summary>
         public string UrlSlug
         {
@@ -108,12 +108,19 @@ namespace Legato.Models
             }
             if (this.StreetAddress.HasValue())
             {
-                Title += this.StreetAddress.Trim() + " ";
+                Title += DisplayedStreetAddress.GetValueOrDefault(StreetAddress).Trim() + " ";
             }
             Title = Title.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
 
             ListingClassDisplay = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault().DisplayName;
+        }
+
+        public void PrepareRender()
+        {
+            DisplayedStreetAddress = DisplayedStreetAddress.GetValueOrDefault(StreetAddress);
+            DisplayedLat = DisplayedLat.GetValueOrDefault(Lat);
+            DisplayedLong = DisplayedLong.GetValueOrDefault(Long);
         }
 
         public ListingPermissionsModel Permissions()

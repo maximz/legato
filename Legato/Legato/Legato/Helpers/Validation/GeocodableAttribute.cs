@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using GeoCoding;
+using GeoCoding.Google;
 
 namespace Legato.Helpers
 {
@@ -30,6 +32,17 @@ namespace Legato.Helpers
 			get;
 			set;
 		}
+        /// <summary>
+        /// Gets or sets a value indicating whether the value of the input address property should be overridden with the address returned from the geocoder. Default: true.
+        /// </summary>
+        /// <value><c>true</c> if null is allowed; otherwise, <c>false</c>.</value>
+        public bool OverwriteAddress
+        {
+            get;
+            set;
+        }
+        
+
 		/// <summary>
 		/// Gets or sets the name of the latitude property.
 		/// </summary>
@@ -48,15 +61,24 @@ namespace Legato.Helpers
 			get;
 			set;
 		}
-		private static string GetPropertyValue(object obj, string propertyName)
+
+        /// <summary>
+        /// Gets or sets the result.
+        /// </summary>
+        /// <value>
+        /// The result. Created in the attribute itself.
+        /// </value>
+        protected Address _result;
+
+        protected static string GetPropertyValue(object obj, string propertyName)
 		{
 			if (obj == null) return null;
 			var type = obj.GetType();
 			var propertyInfo = type.GetProperty(propertyName);
 			if (propertyInfo == null) return null;
-			return propertyInfo.GetValue(obj, null) as string;
+			return propertyInfo.GetValue(obj, null).ToString();
 		}
-		private static void SetPropertyValue(object obj, object value, string propertyName)
+		protected static void SetPropertyValue(object obj, object value, string propertyName)
 		{
 			if (obj == null) throw new ArgumentNullException();
 			var type = obj.GetType();
@@ -71,6 +93,11 @@ namespace Legato.Helpers
 		{
 			if(ErrorMessage.IsNullOrEmpty())
 				ErrorMessage = "We weren't able to find that location.";
+
+            if(OverwriteAddress == null)
+            {
+                OverwriteAddress = true;
+            }
 		}
 		/// <summary>
 		/// Determines whether the specified value is valid.
@@ -88,14 +115,112 @@ namespace Legato.Helpers
 				return AllowNull;
 			}
 
-			var response = Geocoder.CallGeoWS(address.Trim());
-			if(response.Status=="ZERO_RESULTS")
-			{
-				return false;
-			}
-			SetPropertyValue(value, response.Results[0].Geometry.Location.Lat, LatitudePropertyName);
-			SetPropertyValue(value, response.Results[0].Geometry.Location.Lng, LongitudePropertyName);
+            var geocoder = new GoogleGeoCoder("key-not-needed");
+            var result = geocoder.GeoCode(address.Trim()).FirstOrDefault();
+            if(result == null)
+            {
+                // No results
+                return false;
+            }
+            _result = result; // store so that other classes that inherit from this attribute can access the result without re-geocoding
+
+            SetPropertyValue(value, result.Coordinates.Latitude, LatitudePropertyName); // set latitude
+            SetPropertyValue(value, result.Coordinates.Longitude, LongitudePropertyName); // set longitude
+
+            var fullAddress = (result.Street.HasValue() && result.Street.Trim().HasValue() ? result.Street + ", " : "") + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
+
 			return true;
 		}
 	}
+
+    /// <summary>
+	/// Verifies that a certain property is geocodable; if true, writes the geocoding results to attributes of your choosing and filters address to zip code. To be applied to an entire class.
+	/// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class GeocodableWithFilteredAddress : GeocodableAttribute
+    {
+        /// <summary>
+        /// Gets or sets the name of the filtered address property.
+        /// </summary>
+        /// <value>The name of the filtered address property.</value>
+        public string FilteredAddressPropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the filter to zip code only property.
+        /// </summary>
+        /// <value>
+        /// The filter to zip code only property.
+        /// </value>
+        public string FilterToZipCodeOnlyPropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the filtered latitude property.
+        /// </summary>
+        /// <value>The name of the filtered latitude property.</value>
+        public string FilteredLatitudePropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the filtered longitude property.
+        /// </summary>
+        /// <value>The name of the filtered longitude property.</value>
+        public string FilteredLongitudePropertyName
+        {
+            get;
+            set;
+        }
+
+        public override bool IsValid(object value)
+        {
+            if(base.IsValid(value))
+            {
+                var zipAddress = _result.City + " " + _result.State + ", " + _result.Country + " " + _result.PostalCode;
+
+                if (!(FilterToZipCodeOnlyPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
+                {
+                    if (GetPropertyValue(value, FilterToZipCodeOnlyPropertyName) == "2") // Zip code only
+                    {
+                        SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
+
+                        // Find new lat-long
+                        var geocoder = new GoogleGeoCoder("key-not-needed");
+                        var result = geocoder.GeoCode(zipAddress.Trim()).FirstOrDefault();
+                        if(result != null) // we have results
+                        {
+                            SetPropertyValue(value, result.Coordinates.Latitude, FilteredLatitudePropertyName);
+                            SetPropertyValue(value, result.Coordinates.Longitude, FilteredLongitudePropertyName);
+                        }
+                        else
+                        {
+                            SetPropertyValue(value, null, FilteredLatitudePropertyName);
+                            SetPropertyValue(value, null, FilteredLongitudePropertyName);
+                        }
+
+                    }
+                    else
+                    {
+                        SetPropertyValue(value, null, FilteredAddressPropertyName); // null indicates that filtered address is the same as actual/exact address
+                    }
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        public GeocodableWithFilteredAddress()
+			: base() {}
+    }
 }
