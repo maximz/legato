@@ -13,11 +13,17 @@
 <script>
 
 (function () {
+    try {
 				var converter1 = Markdown.getSanitizingConverter();
 				var editor1 = new Markdown.Editor(converter1);
 				editor1.run();
+        }
+    catch(err) {
+        // catch errors thrown in the Markdown editor. Namely, there is an error thrown when the browser has a pop-up blocker that overrides scrollBy() with null, so calls to that fail. Without this try-catch block, the code beneath these lines wouldn't work in browsers with such a pop-up blocker installed.
+    }
 })();
 
+try {
 $('#rate_overall').raty({
   cancel:     false,
   scoreName:  '#ReviewRevision_RatingOverall',
@@ -34,57 +40,63 @@ $('#rate_overall').raty({
 {
 	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate_overall');</text>
 }
-</script>
+
+}
+catch(err) { // beware the raty
 }
 
-<section id="edit-review">
-  <div class="page-header">
-	<h1>Edit Review</h1>
-  </div>
-	  <!-- Example row of columns -->
-	  <div class="row">
-		<div class="span16">
-            <ul class="breadcrumb">
-                <li><a href="@Url.Action("Map", "Instruments")"><i class='icon-map-marker'></i> Instruments</a> <span class="divider">/</span></li>
-                <li>@HtmlUtilities.RenderHtmlInRazor(Html.ActionLink("Review", "IndividualReview", "Instruments", new { reviewID = Model.ReviewRevision.ReviewID})) <span class="divider">/</span></li>
-                <li class="active">Edit</li>
-            </ul>
+</script>
 
+}
 
-@using (Html.BeginForm())
-{
-	@Html.ValidationSummary(true)
-	<fieldset>
-		<legend>Review</legend>
-		@Html.HiddenFor(model => model.ReviewRevision.ReviewID)
-		
-	<div>
-		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("Map", "Instruments")"><i class='icon-map-marker'></i> Instruments</a> <span class="divider">/</span></li>
+            <li>@HtmlUtilities.RenderHtmlInRazor(Html.ActionLink("Review", "IndividualReview", "Instruments", new { reviewID = Model.ReviewRevision.ReviewID})) <span class="divider">/</span></li>
+            <li class="active">Edit</li>
+        </ul>
+    </div>
+</div>
+<div class="page-header">
+    <h1>Edit Review</h1>
+</div>
+<div class="row">
+    <div class="span12">
+        @using (Html.BeginForm("EditReview", "Instruments", FormMethod.Post, new { @class="form-horizontal" }))
+        {
+	        @Html.ValidationSummary(true)
+	        <fieldset>
+		        <legend>Review</legend>
+		        @Html.HiddenFor(model => model.ReviewRevision.ReviewID)
+		        @Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
 
-		<div class="clearfix">
-			@Html.LabelFor(model => model.ReviewRevision.RatingOverall)
-		<div class="input">
-			<div id="rate_overall"></div>
-			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
-		</div></div>
+		        <div class="control-group">
+			        @Html.LabelFor(model => model.ReviewRevision.RatingOverall, new { @class = "control-label" })
+		            <div class="controls">
+			            <div id="rate_overall"></div>
+                        <p class="help-block">Please give this instrument a rating out of 5 stars. Did you like it?</p>
+			            @Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
+		            </div>
+                </div>
 
-	</div>
-			<div class="clearfix">
-				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
-			<div class="input wmd-panel">
-				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
-				<span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
-				<div id="wmd-button-bar" class="wmd-panel"></div>
-				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input" })
-				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
-			</div></div>
+			    <div class="control-group">
+				    @Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "control-label" })
+			        <div class="controls wmd-panel">
+				        @Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
+				        <p class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</p>
+				        <div id="wmd-button-bar" class="wmd-panel"></div>
+				        @Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input input-xlarge span7", rows="8", id = "wmd-input" })
+				        <div id="wmd-preview" class="wmd-preview wmd-panel span7" style="margin-left:0"></div>
+			        </div>
+                </div>
+
+                <div class="form-actions">
+	                <input type="submit" class="btn btn-primary btn-large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>
+	            </div>
 
 			</fieldset>
-		  <div class="actions well">
-			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
-		  </div>
-}
+        }
 
+    </div>
 </div>
-</div>
-</section>
