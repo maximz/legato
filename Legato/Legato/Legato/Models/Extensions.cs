@@ -54,7 +54,7 @@ namespace Legato.Models
         }
 
         /// <summary>
-        /// Gets the URL slug (based on the TItle)
+        /// Gets the URL slug (based on the Title)
         /// </summary>
         public string UrlSlug
         {
@@ -108,7 +108,7 @@ namespace Legato.Models
             }
             if (this.StreetAddress.HasValue())
             {
-                Title += this.StreetAddress.Trim() + " ";
+                Title += DisplayedStreetAddress.GetValueOrDefault(StreetAddress).Trim() + " ";
             }
             Title = Title.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
