@@ -7851,6 +7851,10 @@ namespace Legato.Models
 		
 		private int _AddressPrivacy;
 		
+		private System.Nullable<double> _DisplayedLat;
+		
+		private System.Nullable<double> _DisplayedLong;
+		
 		private EntitySet<InstrumentHour> _InstrumentHours;
 		
 		private EntitySet<InstrumentReview> _InstrumentReviews;
@@ -7901,6 +7905,10 @@ namespace Legato.Models
     partial void OnDisplayedStreetAddressChanged();
     partial void OnAddressPrivacyChanging(int value);
     partial void OnAddressPrivacyChanged();
+    partial void OnDisplayedLatChanging(System.Nullable<double> value);
+    partial void OnDisplayedLatChanged();
+    partial void OnDisplayedLongChanging(System.Nullable<double> value);
+    partial void OnDisplayedLongChanged();
     #endregion
 		
 		public Instrument()
@@ -8296,6 +8304,46 @@ namespace Legato.Models
 					this._AddressPrivacy = value;
 					this.SendPropertyChanged("AddressPrivacy");
 					this.OnAddressPrivacyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisplayedLat", DbType="Float")]
+		public System.Nullable<double> DisplayedLat
+		{
+			get
+			{
+				return this._DisplayedLat;
+			}
+			set
+			{
+				if ((this._DisplayedLat != value))
+				{
+					this.OnDisplayedLatChanging(value);
+					this.SendPropertyChanging();
+					this._DisplayedLat = value;
+					this.SendPropertyChanged("DisplayedLat");
+					this.OnDisplayedLatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisplayedLong", DbType="Float")]
+		public System.Nullable<double> DisplayedLong
+		{
+			get
+			{
+				return this._DisplayedLong;
+			}
+			set
+			{
+				if ((this._DisplayedLong != value))
+				{
+					this.OnDisplayedLongChanging(value);
+					this.SendPropertyChanging();
+					this._DisplayedLong = value;
+					this.SendPropertyChanged("DisplayedLong");
+					this.OnDisplayedLongChanged();
 				}
 			}
 		}
