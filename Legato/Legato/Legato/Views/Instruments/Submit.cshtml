@@ -128,7 +128,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 				    @Html.LabelFor(model => model.Listing.SelectedPrivacy, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.SelectedPrivacy, Model.Listing.PrivacySettings)
-                        <p class="help-block">Visibility</p>
+                        <p class="help-block">Please choose whether you want your full address to be displayed to regular users or just your region. You can later choose to share your full address with specific users.</p>
 				        @Html.ValidationMessageFor(model => model.Listing.SelectedPrivacy)
 			        </div>
                 </div>
