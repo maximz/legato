@@ -80,6 +80,29 @@ namespace Legato.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the selected address privacy setting.
+        /// </summary>
+        /// <value>The selected address privacy setting.</value>
+        [Required(ErrorMessage = "You must select a privacy setting.")]
+        [DisplayName("Address privacy")]
+        public int SelectedPrivacy
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets possible address privacy settings; e.g., full address, neighborhood (zip code) only, city only.
+        /// </summary>
+        /// <value>The styles.</value>
+        [DisplayName("Possible address privacy settings")]
+        public IEnumerable<SelectListItem> PrivacySettings
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EquipmentViewModel"/> class.
         /// </summary>
         public EquipmentViewModel()
@@ -103,6 +126,11 @@ namespace Legato.ViewModels
                                   select new { Id = t.TypeID, Name = t.Name }).ToArray();
                 var dbTypes = pianoType.Concat(otherTypes).ToArray();
                 Types = new SelectList(dbTypes, "Id", "Name");
+            }
+
+            if (PrivacySettings == null)
+            {
+                PrivacySettings = new SelectList(AddressPrivacySettings.Settings, AddressPrivacySettings.ValueField, AddressPrivacySettings.TextField);
             }
         }
     }

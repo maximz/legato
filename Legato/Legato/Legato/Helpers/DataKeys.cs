@@ -48,6 +48,53 @@ namespace Legato.Helpers
         public const string Conversation = "Conversation";
     }
 
+    public static class AddressPrivacySettings
+    {
+        public const string ValueField = "Id";
+        public const string TextField = "DisplayName";
+        public static IEnumerable<AddressPrivacySetting> Settings = new[] {
+            new AddressPrivacySetting() { Id = 1, Name = "Full", DisplayName = "Display full address", CanSeeFullAddress = true, CanSeeZipCode = true, CanSeeCity = true },
+            new AddressPrivacySetting() { Id = 2, Name = "Zip", DisplayName = "Display neighborhood only", CanSeeFullAddress = false, CanSeeZipCode = true, CanSeeCity = true }
+            //, new AddressPrivacySetting() { Id = 3, Name = "City", DisplayName = "Display city only", CanSeeFullAddress = false, CanSeeZipCode = false, CanSeeCity = true }
+        };
+    }
+
+    public class AddressPrivacySetting
+    {
+        public int Id
+        {
+            get;
+            set;
+        }
+        public string Name
+        {
+            get;
+            set;
+        }
+        public string DisplayName
+        {
+            get;
+            set;
+        }
+
+        public bool CanSeeFullAddress
+        {
+            get;
+            set;
+        }
+        public bool CanSeeZipCode
+        {
+            get;
+            set;
+        }
+        public bool CanSeeCity
+        {
+            get;
+            set;
+        }
+
+    }
+
     public static class InstrumentClasses
     {
         public const string ValueField = "Id";
