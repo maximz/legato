@@ -127,7 +127,7 @@ namespace Legato.Helpers
             SetPropertyValue(value, result.Coordinates.Latitude, LatitudePropertyName); // set latitude
             SetPropertyValue(value, result.Coordinates.Longitude, LongitudePropertyName); // set longitude
 
-            var fullAddress = result.Street + ", " + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            var fullAddress = (result.Street.HasValue() && result.Street.Trim().HasValue() ? result.Street + ", " : "") + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
             SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
 
 			return true;
