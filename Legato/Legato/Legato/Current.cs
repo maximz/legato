@@ -306,4 +306,29 @@ namespace Legato
         }
 
     }
+
+    public static class Cacher<T>
+    {
+        /// <summary>
+        /// A shortcut for: if in cache, return cached item; else, add to cache.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <param name="cacheKey">The cache key.</param>
+        /// <param name="cacheSeconds">The cache seconds.</param>
+        /// <returns>Given a cachekey, returns the object stored in cache with that key. If nothing in cache with that key, calls function to create object, stores that object in cache, and returns that object.</returns>
+        /// <example>int x = Cacher<int>.CacheRetrieve(() => { return 5 * 5; }, "mycachekey", 10);</example>
+        public static T CacheRetrieve(Func<T> action, string cacheKey, int cacheSeconds)
+        {
+            var cachedObject = Current.GetCachedObject(cacheKey);
+            if (cachedObject != null)
+            {
+                return (T)cachedObject;
+            }
+
+            // not in cache yet
+            var result = action.Invoke();
+            Current.SetCachedObject(cacheKey, result, cacheSeconds);
+            return result;
+        }
+    }
 }
