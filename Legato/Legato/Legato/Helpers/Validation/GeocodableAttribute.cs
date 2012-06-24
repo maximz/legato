@@ -32,6 +32,28 @@ namespace Legato.Helpers
 			get;
 			set;
 		}
+        /// <summary>
+        /// Gets or sets the name of the filtered address property.
+        /// </summary>
+        /// <value>The name of the filtered address property.</value>
+        public string FilteredAddressPropertyName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the filter to zip code only property.
+        /// </summary>
+        /// <value>
+        /// The filter to zip code only property.
+        /// </value>
+        public string FilterToZipCodeOnlyProperty
+        {
+            get;
+            set;
+        }
+
 		/// <summary>
 		/// Gets or sets the name of the latitude property.
 		/// </summary>
@@ -103,6 +125,19 @@ namespace Legato.Helpers
             var fullAddress = result.Street + ", " + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
             var zipAddress = result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
             SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
+
+            if(!(FilteredAddressPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
+            {
+                if (GetPropertyValue(value, FilterToZipCodeOnlyProperty)=="2") // Zip code only
+                {
+                    SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
+                }
+                else
+                {
+                    SetPropertyValue(value, null, FilteredAddressPropertyName); // null indicates that filtered address is the same as actual/exact address
+                }
+            }
+            
 
 			return true;
 		}

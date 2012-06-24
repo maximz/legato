@@ -470,6 +470,8 @@ namespace Legato.Controllers
 					var listing = new Instrument();
 
 					listing.StreetAddress = model.Listing.StreetAddress;
+                    listing.DisplayedStreetAddress = model.Listing.FilteredAddress;
+                    listing.AddressPrivacy = model.Listing.SelectedPrivacy;
 					listing.Lat = model.Listing.Lat;
 					listing.Long = model.Listing.Long;
 					//listing.Model = model.Listing.Equipment.Model.Trim();

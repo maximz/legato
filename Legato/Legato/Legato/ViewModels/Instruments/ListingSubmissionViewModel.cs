@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Legato.ViewModels
 {
-    [Geocodable(AddressPropertyName="StreetAddress",LatitudePropertyName="Lat",LongitudePropertyName="Long")]
+    [Geocodable(AddressPropertyName = "StreetAddress", LatitudePropertyName = "Lat", LongitudePropertyName = "Long", FilteredAddressPropertyName = "FilteredAddress", FilterToZipCodeOnlyProperty = "SelectedPrivacy")]
     public class ListingSubmissionViewModel
     {
         [Required(ErrorMessage="A street address is required.")]
@@ -19,6 +19,37 @@ namespace Legato.ViewModels
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets the selected address privacy setting.
+        /// </summary>
+        /// <value>The selected address privacy setting.</value>
+        [Required(ErrorMessage = "You must select a privacy setting.")]
+        [DisplayName("Address privacy")]
+        public int SelectedPrivacy
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets possible address privacy settings; e.g., full address, neighborhood (zip code) only, city only.
+        /// </summary>
+        /// <value>The styles.</value>
+        [DisplayName("Possible address privacy settings")]
+        public IEnumerable<SelectListItem> PrivacySettings
+        {
+            get;
+            set;
+        }
+
+        public string FilteredAddress
+        {
+            get;
+            set;
+        }
+
+
         [Required(ErrorMessage = "A venue name is required.")]
         [DisplayName("Venue name")]
         public string VenueName
@@ -79,6 +110,11 @@ namespace Legato.ViewModels
             if(Equipment==null)
             {
                 Equipment = new EquipmentViewModel();
+            }
+
+            if (PrivacySettings == null)
+            {
+                PrivacySettings = new SelectList(AddressPrivacySettings.Settings, AddressPrivacySettings.ValueField, AddressPrivacySettings.TextField);
             }
         }
         
