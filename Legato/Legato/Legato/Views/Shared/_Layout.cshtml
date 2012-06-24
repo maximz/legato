@@ -34,8 +34,8 @@
         <style>
             body
             {
-                background:white url(/static/images/stripes.png) repeat-x left bottom;
-                padding:0px 0 9px 0;
+                background:#252525;
+                padding:0;
             }
             stripebar
             {
@@ -70,7 +70,8 @@
 			
 			#subwrap
 			{
-			    margin-top: +20px;
+			    padding-top: +20px;
+			    background: white;
 			}
 			
 			/* Portrait tablet to landscape and desktop */
@@ -92,7 +93,7 @@
 				#subwrap
 				{
 				    padding-bottom: 60px;
-				    margin-top: +60px;
+				    padding-top: +60px;
 				}
 				#bottom-bar
 				{
@@ -100,15 +101,6 @@
 				    left: 0;
 				    right: 0;
 				    bottom: 0;
-				}
-				#bottom-bar-inner
-				{
-				    padding-bottom: 5px; /* for the stripes */   
-				}
-				#stripebar
-				{
-				    background:white url(/static/images/stripes.png) repeat-x left bottom;
-                    padding:0px 0 9px 0;
 				}
 				footer, .push
                 {
@@ -185,13 +177,12 @@
     </div> <!-- /wrap -->
     <footer id="bottom-bar">
         <div id="bottom-bar-inner">
-            <div class="container">
-                <div class="row">
-			        <div class="span9">
-				        <p class="copyright">&copy; 2012 Legato Network. All Rights Reserved.</p>
-                        <p><small>Revision @(ViewBag.revNum).</small></p>
+            <div class="container-fluid">
+                <div class="row-fluid">
+			        <div class="span8">
+				        <p class="copyright">&copy; 2012 Legato Network. All Rights Reserved. <small>Revision @(ViewBag.revNum).</small></p>
 			        </div>
-			        <div class="span3">
+			        <div class="span4 pull-right">
 				        @Html.Partial("SocialButtons")
 				    </div>
 			    </div>
