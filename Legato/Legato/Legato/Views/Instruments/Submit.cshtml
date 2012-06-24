@@ -12,7 +12,7 @@
 
 <script>
 
-
+try {
 
 $('#rate_overall').raty({
   cancel:     false,
@@ -30,7 +30,9 @@ $('#rate_overall').raty({
 {
 	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate_overall');</text>
 }
-
+}
+catch(err) { // beware the raty
+}
 
 // handle changes in selected class
 $("#Listing_Equipment_SelectedClass").change(function(e) { 
