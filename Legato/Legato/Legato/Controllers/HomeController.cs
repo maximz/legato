@@ -21,7 +21,7 @@ namespace Legato.Controllers
         public virtual ActionResult Index()
         {
             ViewBag.curPage = "Home";
-
+            ViewBag.insCount = Cacher<int>.CacheRetrieve(() => { return Current.DB.Instruments.Count(); }, "inscount", 1800);
             return View();
         }
 

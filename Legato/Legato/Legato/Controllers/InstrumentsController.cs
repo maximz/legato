@@ -88,11 +88,11 @@ namespace Legato.Controllers
 		 * */
 
 		[Url("instruments")]
-		[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
+        [CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "None")]
 		public virtual ActionResult Map()
 		{
 			var db = Current.DB;
-			ViewBag.countInstruments = db.Instruments.Count();
+            ViewBag.countInstruments = Cacher<int>.CacheRetrieve(() => { return Current.DB.Instruments.Count(); }, "inscount", 1800);
 
 			// Detect IE
 			if(Current.Request.Browser.Browser.Trim().ToUpperInvariant() == "IE")
@@ -107,11 +107,11 @@ namespace Legato.Controllers
 			return View();
 		}
 		[Url("instruments/old")]
-		[CustomCache(NoCachingForAuthenticatedUsers = true, Duration = 7200, VaryByParam = "None")]
+		[CustomCache(NoCachingForAuthenticatedUsers = false, Duration = 7200, VaryByParam = "None")]
 		public virtual ActionResult MapOld()
 		{
 			var db = Current.DB;
-			ViewBag.countInstruments = db.Instruments.Count();
+            ViewBag.countInstruments = Cacher<int>.CacheRetrieve(() => { return Current.DB.Instruments.Count(); }, "inscount", 1800);
 
 			ViewBag.cannotGE = true;
 
