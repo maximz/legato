@@ -972,6 +972,7 @@ catch(Exception ex)
 					Lat = (double)listing.Lat,
 					Long = (double)listing.Long,
 					Price = (double?)listing.Price,
+                    SelectedPrivacy = listing.AddressPrivacy,
 					TimeSpanOfPrice = listing.TimeSpanOfPrice,
 					StreetAddress = listing.StreetAddress,
 					VenueName = listing.VenueName,
@@ -981,7 +982,9 @@ catch(Exception ex)
 				listingmodel.Equipment = new EquipmentViewModel()
 				{
 					Brand=listing.Brand,
-					Model=listing.Model
+					Model=listing.Model,
+                    SelectedClass=int.Parse(listing.ListingClass), // TODO: fix this madness, make DB field an int already.
+                    SelectedType=listing.TypeID
 				};
 
 				var model = new EditListingViewModel()
