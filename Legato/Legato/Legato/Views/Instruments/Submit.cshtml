@@ -12,15 +12,7 @@
 
 <script>
 
-(function () {
-	var converter1 = Markdown.getSanitizingConverter();
-	var editor1 = new Markdown.Editor(converter1);
-	editor1.run();
 
-	var converter2 = Markdown.getSanitizingConverter();
-	var editor2 = new Markdown.Editor(converter2, '-second');
-	editor2.run();
-})();
 
 $('#rate_overall').raty({
   cancel:     false,
@@ -66,6 +58,16 @@ $(".hasPlayedCheckBox").change(function(e) {
 		$('#reviewMain').hide('slow');
 	}
 });
+
+(function () {
+	var converter1 = Markdown.getSanitizingConverter();
+	var editor1 = new Markdown.Editor(converter1);
+	editor1.run();
+
+	var converter2 = Markdown.getSanitizingConverter();
+	var editor2 = new Markdown.Editor(converter2, '-second');
+	editor2.run();
+})();
 
 </script>
 }
