@@ -281,7 +281,9 @@
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
     <Content Include="static\css\wmd.new.css" />
-    <Content Include="static\font\fontawesome-webfont.svg" />
+    <Content Include="static\font\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="static\images\advertiser_icon.png" />
     <Content Include="static\images\arrow_bg.gif" />
     <Content Include="static\images\content_btm.jpg" />
@@ -598,9 +600,15 @@
     <None Include="static\css\webfonts\woff\style_154928.woff" />
     <None Include="static\css\webfonts\woff\style_159303.woff" />
     <None Include="static\css\webfonts\woff\style_159309.woff" />
-    <None Include="static\font\fontawesome-webfont.eot" />
-    <None Include="static\font\fontawesome-webfont.ttf" />
-    <None Include="static\font\fontawesome-webfont.woff" />
+    <Content Include="static\font\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="static\font\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="static\font\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
