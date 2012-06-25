@@ -119,7 +119,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 				    @Html.LabelFor(model => model.Listing.StreetAddress, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.TextBoxFor(model => model.Listing.StreetAddress, new { @class = "input-xlarge" })
-                        <p class="help-block">Where is this instrument located?</p>
+                        <p class="help-block">Where is this instrument located?<br/>Example: <code>1 Main Street, New York, NY 10044</code></p>
 				        @Html.ValidationMessageFor(model => model.Listing.StreetAddress)
 			        </div>
                 </div>
