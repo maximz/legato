@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-				<h1 class="ac">Instruments galore.</h1>
+				<h1 class="ac">Connecting instruments with musicians.</h1>
 			</div>
 		</div>
 		<ul class="thumbnails" style="margin-top:+20px;">
@@ -35,7 +35,7 @@
 		</div>
 		<div class="row">
 			<div class="span5 offset4 ac">
-				@Html.Partial("SocialButtons", "class=ac")
+				@Html.Partial("SocialButtons", "class=ac style=padding-top:+10px;")
 			</div>
 		</div>
 	</div>
@@ -45,8 +45,8 @@
 <div class="row">
 	<div class="span6 ac">
 		<h1>Traveling?</h1>
-		<h2>Blah</h2>
-		<a class="btn btn-success btn-xlarge" href="@Url.Action("Map", "Instruments")" id="viewBtn">View The Instruments</a>
+		<h2>Find an instrument to play on.</h2>
+		<a class="btn btn-success btn-xlarge" href="@Url.Action("Map", "Instruments")" id="viewBtn">View Instruments</a>
 	</div>
 	<div class="span6 ac">
 		<h1>Listing?</h1>
@@ -60,12 +60,40 @@
 	<div class="span6">
 		<div class="row">
 			<div class="span1">
-				<div class="displayedIcon spritedIcon"></div>
+				<div class="displayedIcon icon-search icon-large"></div>
 			</div>
 			<div class="span5">
 				<h3>Search</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio mi, semper vel consequat id, tristique sit amet sapien. Aenean posuere accumsan pellentesque. Nulla iaculis lorem eget felis sa</p>
-				<p>Sollicitudin cursus, dolor purus commodo tellus, id accumsan ligula sem nec nibh. Praesent ut nunc et purus malesuada dapibus vitae quis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat. Curabitur scelerisque odio quis dui cursus eget laor</p>
+				<p>Are you traveling to a new place, but need to practice every day? Or do you miss playing when away from home? <b>See what instruments are available where you travel</b> - you can find a shared instrument, such as a piano in a bar, the lobby of a hotel, or the library, or one in a kind home where you can play.</p>
+				<p>To get started, enter an address or an instrument type into @Html.ActionLink("the map", "Map", "Instruments").</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<div class="displayedIcon icon-info-sign icon-large"></div>
+			</div>
+			<div class="span5">
+				<h3>Read Reviews</h3>
+				<p>Read what other people thought of an instrument. Once you find an instrument on the map, click on it to open its listing page. Then, browse the reviews section to see how others <b>rated the instrument</b> out of 5 stars and the descriptions they wrote.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<div class="displayedIcon icon-music icon-large"></div>
+			</div>
+			<div class="span5">
+				<h3>Play!</h3>
+				<p>You can <b>arrange a playing time</b> as soon as you find a convenient instrument. On the instrument's listing page, its location is listed, and its description indicates when it is available.</p>
+				<p>If you choose to play on an instrument that is not available to the public, such as a piano in someone's home, click the <code>Message Owner</code> button on the instrument's listing page. This lets you get in touch with the person who manages the instrument to arrange a convenient playing time.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<div class="displayedIcon icon-star icon-large"></div>
+			</div>
+			<div class="span5">
+				<h3>Add a Review</h3>
+				<p>After you play on an instrument, add a review to its listing. <b>Let people know what you think</b> by giving it a rating out of 5 stars and by writing a short description.</p>
 			</div>
 		</div>
 	</div>
