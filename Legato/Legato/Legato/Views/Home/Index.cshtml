@@ -49,9 +49,9 @@
 		<a class="btn btn-success btn-xlarge" href="@Url.Action("Map", "Instruments")" id="viewBtn">View Instruments</a>
 	</div>
 	<div class="span6 ac">
-		<h1>Listing?</h1>
-		<h2>Blah</h2>
-		<a class="btn btn-primary btn-xlarge" href="@Url.Action("Map", "Instruments")" id="view2Btn">View The Instruments</a>
+		<h1>Found an instrument?</h1>
+		<h2>Submit an instrument you found or own.</h2>
+		<a class="btn btn-primary btn-xlarge" href="@Url.Action("Submit", "Instruments")" id="view2Btn">Add Instruments</a>
 	</div>
 </div>
 
@@ -100,11 +100,39 @@
 	<div class="span6">
 		<div class="row">
 			<div class="span1">
-				<i class="displayedIcon icon-camera-retro icon-large"></i>
+				<i class="displayedIcon icon-plus-sign icon-large"></i>
 			</div>
 			<div class="span5">
-				<h3>List</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio mi, semper vel consequat id, tristique sit amet sapien. Aenean posuere accumsan pellentesque. Nulla iaculis lorem eget felis sa</p>
+				<h3>Submit instruments</h3>
+				<p>Do you see <b>an available public instrument</b>, like a piano in a hotel or in a restaurant? Or you do you have <b>an instrument at home</b> that is rarely played, and you want to advertise it to earn some extra cash?</p>
+				<p>Those instruments can be used to practice by @Html.ActionLink("adding them to Legato Network", "Submit", "Instruments").</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<i class="displayedIcon icon-bell icon-large"></i>
+			</div>
+			<div class="span5">
+				<h3>Public instruments</h3>
+				<p>Legato Network accepts listings of public instruments, such as <b>pianos in bars</b> or in hotel lobbies. To get started, @Html.ActionLink("submit one as a 'a public instrument'", "Submit", "Instruments").</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<i class="displayedIcon icon-money icon-large"></i>
+			</div>
+			<div class="span5">
+				<h3>Private instruments</h3>
+				<p>We also accept listings of private instruments. Do you have <b>an instrument at home</b> that is not played often? @Html.ActionLink("Add it to Legato Network under the category 'my own instrument'", "Submit", "Instruments"). Others will find it and contact you to arrange a playing time. You can charge a playing fee to <b>earn some extra cash</b>, too!</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span1">
+				<i class="displayedIcon icon-check icon-large"></i>
+			</div>
+			<div class="span5">
+				<h3>Completely safe and free</h3>
+				<p>Legato Network takes personal privacy into great consideration. When listing an instrument that you own, you can choose to <b>hide your full address</b> and only show your region instead. After choosing the 'My own instrument' category when adding an instrument, @Html.ActionLink("select 'Display neighborhood only' to activate this feature", "Submit", "Instruments").</p>
 				<p>Sollicitudin cursus, dolor purus commodo tellus, id accumsan ligula sem nec nibh. Praesent ut nunc et purus malesuada dapibus vitae quis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat. Curabitur scelerisque odio quis dui cursus eget laor</p>
 			</div>
 		</div>
