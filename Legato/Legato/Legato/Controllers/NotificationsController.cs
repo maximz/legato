@@ -7,6 +7,8 @@ using Legato.Helpers;
 using Legato.Models;
 using System.Web.Security;
 using RiaLibrary.Web;
+using System.Text;
+using System.Threading;
 
 namespace Legato.Controllers
 {
@@ -115,6 +117,42 @@ namespace Legato.Controllers
 
 			return notification;
 		}
+
+        private void SendNotificationEmail(Notification n)
+        {
+            try
+            {
+                ThreadPool.QueueUserWorkItem((obj) =>
+                {
+                    const string subject = "New notification [Legato Network]";
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("Hello!");
+                    sb.Append(Environment.NewLine);
+                    sb.Append("There's a new notification for you in your Legato Network inbox.");
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Click this link to view it: ");
+                    sb.Append(new UrlHelper(Current.Context.Request.RequestContext).Action("List", "Notifications"));
+                    sb.Append(Environment.NewLine);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("If you did not register for an account at Legato Network and believe you received this email in error, please ignore this message.");
+                    sb.Append(Environment.NewLine);
+                    sb.Append("- Legato Network :)");
+
+                    string body = sb.ToString();
+                    var emailAddress = Current.DB.aspnet_Memberships.SingleOrDefault(u => u.UserId == n.UserID).LoweredEmail;
+
+                    var netmessage = SendEmail.StandardNoReply(emailAddress, subject, body, false);
+                    SendEmail.Send(netmessage);
+                });
+            }
+            catch(Exception ex)
+            {
+                // Fail quietly
+                // Elmah.ErrorSignal.FromCurrentContext().Raise(ex, Current.Context);
+            }
+            
+        }
 
 		/// <summary>
 		/// Invalidates the notification cache.
