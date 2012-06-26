@@ -67,9 +67,9 @@
 		<h1>FAQ <small>Frequently asked questions</small></h1>
 	</div>
 	@DisplaySection("General")
-		@DisplayQA("What's the point of Legato Network?", "Legato Network is here to connect musicians with instruments. If you're travelling or are somewhere without your instrument, now you can find one to play on. These instruments can either be directly available to the public, such as if they're in a bar, or they can be privately owned and listed. If you have an instrument at home, you can list it here.")
-		@DisplayQA("When do I search for an instrument?", "Do you need to find an instrument in order to practice? If so, you should search for an instrument.")
-		@DisplayQA("When do I submit an instrument?", "Do you know of an instrument available to the public, such as one in a bar, or do you have one at home? If so, you should submit the instrument.")
+		@DisplayQA("What is the Mission of Legato Network?", "Legato Network is here to create a global community by establishing meaningful connections between musicians and music lovers. As a first step Legato Network helps to connect musicians with instruments. If you're travelling or are somewhere without your instrument, Legato Network might be able to help you finding an appropriate instrument to play on. This might be a shared instrument ( in a bar, hotel lobby, library, etc), or it can be privately owned and listed by the owner. If you have an instrument at home that is underused, you can list it at Legato Network and enjoy meeting talented musicians and listening to a great variety of live music at your home.")
+		
+		
 		@DisplayQA("Is it safe?", "While we cannot make assurances as to the safety of transactions and the legitimacy of listings, using common sense should provide a decent amount of safety. For example, if you see a listing in a very sketchy location, that might not be legitimate and warrants caution. Similarly, if you're listing your instrument, take care to watch whoever comes to play on it. Legato Network is not responsible for any damages incurred by use of the services.")
 		@DisplayQA("Do I need to register to be able to use Legato Network?", "You can browse Legato Network without registering. If you want to list an instrument or message the owner of an sintrument, however, you need to "+Html.ActionLink("create an account", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })+".")
 		@DisplayQA("Is it free?", "Creating an account on Legato Network is completely free of charge. However, some instrument owners might request fees in exchange for permission to play on their instrument.")
@@ -77,14 +77,21 @@
 
 	@DisplaySection("Map")
 		@DisplayQA("How do I find a compatible instrument?", "First, "+Html.ActionLink("open the map", "Map", "Instruments")+". Next, pan the map to your location, or enter an address into the box at the top. All available instruments in the area should be visible. Click on an instrument marker to see more details.")
-		@DisplayQA("How can I limit my search to pianos only?", "On "+Html.ActionLink("the map page", "Map", "Instruments")+", start typing 'Piano' or another instrument type into the search box. A menu with auto-completed results will appear. Click on the name of the instrument you want to find to display only that kind of instrument. You can then zoom into a region by typing an address into the same box and hitting 'Enter'. To remove the filter and display all instruments again, type in 'All' and click the auto-completed result.")
+
+		@DisplayQA("How can I narrow my search to a particular type of instrument?", "On "+Html.ActionLink("the map page", "Map", "Instruments")+", start typing he type of the instruments (i.e. 'Piano')  into the search box. The menu with auto-completed results will appear. Click on the name of the instrument you want to find  to display only this kind of instruments.  You can then narrow search by typing an address in the same window and hitting “Enter”. To remove the filter and display all instruments again, type in 'All' and click on “All” at auto-completed list.")
 		@{/*DisplayQA("What are overlays?", "Overlays are the different markers and icons displayed on the map. For now, overlays include only instrument markers. By opening the Overlays window from the bottom bar of "+Html.ActionLink("the map page", "Map", "Instruments")+", you can change marker size and instrument type filters.")*/}
+
+@DisplayQA("How do I add an instrument?", "To add an instrument to Legato Network, fill out the "+Html.ActionLink("Submit form", "Submit", "Instruments")+".". You can choose a “safe mode” so that the your location is indicated at the neighborhood level only. Note that you have to be a registered user to be able to list your instrument.") 
+
+@DisplayQA("What are these different instrument availability classes?", To submit an instrument, you must choose one of two instrument availability classes: 'A public instrument' or 'My own instrument'. If you know of a piano that is available for use but you don't own it, it is 'a public instrument'. If you own an instrument and wish to list it, it falls under 'my own instrument'. 
+Examples: If you find a piano in a bar that people can play on, list it as 'a public instrument'. If you have a piano at home and you want to list it, select my own instrument.")
+
 	@EndSection()
 	
-	@DisplaySection("Submit")
-		@DisplayQA("How do I add an instrument?", "To add an instrument to Legato Network, fill out the "+Html.ActionLink("Submit form", "Submit", "Instruments")+".")
-		@{/*DisplayQA("What is Markdown?", "Markdown is the syntax that our editors use. It is sufficient to use the toolbar to control formatting, but if you wish to write Markdown manually, see <a href=\"http://daringfireball.net/projects/markdown/syntax\">the official Markdown syntax manual</a>.")*/}
-		@DisplayQA("What are these different instrument availability classes?", "To submit an instrument, you must choose one of two instrument availability classes: 'A public instrument' or 'My own instrument'. If you know of an instrument that is available for use but you don't own it, it is 'a public instrument'. If you own an instrument and wish to list it, it falls under 'my own instrument'. <br/> <b>Examples: </b> If you find a piano in a bar that people can play on, list it as 'a public instrument'. If you have a piano at home and you want to list it, select 'my own instrument'.")
+	@DisplaySection("Listings")
+		
+
+		
 		@DisplayQA("Can I keep my address hidden?", "Sure! If you're submitting an instrument in the category 'My own instrument', simply choose 'Display neighborhood only' in the Availability dropdown box on the Submit page. This will display on your neighborhood, instead of your full address. For example, the address <code>1 Main Street, New York, NY 10044</code> would instead be shown as <code>New York, NY 10044</code>. You can later choose to share your full address with specific users who request to play on your instrument.")
 	@EndSection()
 	
