@@ -1,0 +1,13 @@
+﻿@model Legato.Models.Instrument
+
+@{
+	ViewBag.Title = "Can't Review";
+}
+
+<section id="content">
+<div class="page-header">
+		<h1>Can't Review</h1>
+	</div>
+	<p>Hey there. You submitted this instrument, and since you own it, you're unfortunately not allowed to review it. Sorry!</p>
+	<p> @(Html.ActionLink("Did you mean to view or edit your listing?", "Individual", new { instrumentID = Model.InstrumentID }))</p>
+</section>

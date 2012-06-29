@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+    var revNum = Legato.Current.RevNumber();
+    ViewBag.revNum = revNum;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Admin</title>
+    <link href="/static/css/bootstrap.min.css?@revNum" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Menu</h1>
+        <h2>Welcome message</h2>
+        <p>Currently enabled: @ViewBag.isMessageEnabled</p>
+        @Html.ActionLink("Toggle", "ToggleMessage")
+        @using (Html.BeginForm("SetMessage", "Admin"))
+        {
+            <p>Set message</p>
+        @Html.TextBox("message", (string)ViewBag.currentMessage)
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        <hr />
+
+        <h2>OpenID Whitelist</h2>
+        <p>Currently enabled: @ViewBag.isWhiteListEnabled</p>
+        @Html.ActionLink("Toggle", "ToggleWhitelist")
+        @Html.ActionLink("Get Whitelist", "GetWhitelist")
+
+
+        <hr />
+
+        <h2>Delete post</h2>
+        @using (Html.BeginForm("DeletePost", "Admin"))
+        {
+            <p>Global Post ID</p>
+        @Html.TextBox("id", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        <hr />
+
+        <h2>Search</h2>
+        @Html.ActionLink("Regenerate Index", "RegenerateIndex", "Search")
+        @Html.ActionLink("Optimize Index", "OptimizeIndex", "Search")
+        <hr />
+
+        <h2>Spatial search</h2>
+        
+        @Html.ActionLink("Spatial Regenerate Index", "SpatialRegenerateIndex", "Search")
+        @Html.ActionLink("Spatial Optimize Index", "SpatialOptimizeIndex", "Search")
+
+        <hr />
+
+        <h2>Users</h2>
+        @Html.ActionLink("Get User List", "GetUserList", "Admin")
+        @using (Html.BeginForm("UserSearchByName", "Admin"))
+        {
+            <p>Find by name! Name contains:</p>
+            @Html.TextBox("nameContains", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        @using (Html.BeginForm("GetGuidFromUsername", "Admin"))
+        {
+            <p>Get GUID from username:</p>
+            @Html.TextBox("username", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        @using (Html.BeginForm("GetUserById", "Admin"))
+        {
+            <p>Get info by GUID:</p>
+            @Html.TextBox("UserId", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        @Html.ActionLink("Suspend user", "SuspendUser")
+        
+        @using (Html.BeginForm("GetEmailList", "Admin"))
+        {
+            <p>Get email list with delimiter:</p>
+            @Html.TextBox("delimiter", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        <hr />
+
+    </div>
+</body>
+</html>

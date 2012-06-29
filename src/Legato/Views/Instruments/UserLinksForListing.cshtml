@@ -1,0 +1,19 @@
+﻿@model Legato.Models.Instrument.ListingPermissionsModel
+
+<div class="thread-post-functions post-menu" style="display: inline;">
+	<div class="thread-post-functions-link post-menu">
+		@Html.ActionLink("permalink","Individual", new { instrumentID = Model.Listing.InstrumentID, slug = Legato.Helpers.HtmlUtilities.URLFriendly(Model.Listing.Title)})
+	</div>
+
+    @if(Model.CanMessage) {
+	<div class="lsep">|</div>
+	<div class="thread-post-functions-link post-menu">
+		@HtmlUtilities.RenderHtmlInRazor(Html.ActionLink("message owner", "ComposeFromInstrument", "Messages", new { instrumentID = Model.Listing.InstrumentID}))</div>
+	}
+		
+	@if(Model.CanEdit) {
+	<div class="lsep">|</div>
+	<div class="thread-post-functions-link post-menu">
+		@Html.ActionLink("edit", "EditListing", new { instrumentID = Model.Listing.InstrumentID})</div>
+	}
+</div>

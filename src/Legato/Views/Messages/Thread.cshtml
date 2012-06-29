@@ -1,0 +1,107 @@
+﻿@model Legato.ViewModels.ThreadViewModel
+
+@{
+	ViewBag.Title = Model.Conversation.Subject;
+	ViewBag.revNum = Legato.Current.RevNumber();
+}
+
+@section ScriptContentAtEndOfBody {
+<script src="@Url.Content("~/static/js/jquery.validate.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+
+<script>
+
+(function () {
+	var converter1 = Markdown.getSanitizingConverter();
+	var editor1 = new Markdown.Editor(converter1);
+	editor1.run();
+	var curFlag = null;
+})();
+
+$('a.flag-message').click(function (e) {
+	e.preventDefault();
+	curFlag = $(this);
+	var messageid = $(this).attr('mid');
+	$.ajax({ url: '@(Url.Action("Flag"))', data: { id: messageid }, type: 'POST', statusCode: { 200: function (data) {
+		curFlag.after('<div class="alert-message warning" data-alert> <a class="close" href="#">×</a><p><strong>Flagged!</strong> You just flagged that message - thanks!</p></div>');
+		$('.alert-message').alert();
+	}, 409: function() { 
+		curFlag.after('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Oops!</strong> You have already flagged this message.</p></div>');
+		$('.alert-message').alert();
+	}, 500: function() {
+		curFlag.after('<div class="alert-message error" data-alert> <a class="close" href="#">×</a><p><strong>Server error!</strong> Please refresh and try again.</p></div>');
+		$('.alert-message').alert();
+	}}});
+	return false;
+});
+
+
+</script>
+}
+
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("List", "Messages")"><i class='icon-envelope'></i> Messages</a> <span class="divider">/</span></li>
+            <li><a href="@Url.Action("List", "Messages")">Conversations</a> <span class="divider">/</span></li>
+            <li class="active">Thread</li>
+        </ul>
+    </div>
+</div>
+<div class="page-header">
+    <h1>@Model.Conversation.Subject <small>Conversation with @Model.OtherUser.UserName</small></h1>
+</div>
+<div id="messages">
+
+@foreach (var m in Model.Messages)
+{
+	<div class="row">
+	<div class="message" id="message-@m.MessageID">
+		<div class="span9">
+			<blockquote style="margin-left: 20px;">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(m.Html)</blockquote>
+		</div>
+		<div class="pull-right span3">
+			<dl><dt>@m.aspnet_User.UserName</dt>
+			<dd><span class="timeago" title="@m.Date">@m.Date</span></dd>
+			@if (m.SenderID == Model.OtherUser.UserId)
+   {
+				<dd><a href="#" class="flag-message" id="flag-@m.MessageID" mid="@m.MessageID">Flag as spam</a></dd>
+   }
+		</div>
+
+	</div>
+	</div>
+	<hr />
+}
+</div>
+
+
+<div id="reply" style="padding-top:20px;">
+    <div class="page-header">
+	    <h1>Reply <small>Respond to this thread.</small></h1>
+    </div>
+    <div class="row">
+	    <div class="span12">
+		    @using (Html.BeginForm("Reply", "Messages", FormMethod.Post, new { @class="form-horizontal"}))
+      {
+      @Html.ValidationSummary(true)
+			    <fieldset>
+			    @Html.HiddenFor(model => model.ThreadID)
+				    <div class="control-group">
+					    @Html.LabelFor(model => model.Markdown, new { @class = "control-label"})
+					    <div class="controls wmd-panel">
+					    	@Html.ValidationMessageFor(model => model.Markdown)
+							<div id="wmd-button-bar" class="wmd-panel"></div>
+							@Html.TextAreaFor(model => model.Markdown, new { @class = "wmd-input input-xlarge span7", rows="8", id = "wmd-input" })
+							<div id="wmd-preview" class="wmd-preview wmd-panel span7" style="margin-left:0;"></div>
+					    </div>
+				    </div>
+				    <div class="form-actions">
+					    <input type="submit" class="btn btn-success btn-large" value="Reply">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>
+				    </div>
+			    </fieldset>
+		    }
+	    </div>
+    </div>
+</div>

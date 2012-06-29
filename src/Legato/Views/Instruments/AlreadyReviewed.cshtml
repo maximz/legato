@@ -1,0 +1,12 @@
+﻿@model Legato.Models.InstrumentReview
+
+@{
+	ViewBag.Title = "Already Reviewed";
+}
+
+<section id="content">
+<div class="page-header">
+		<h1>Already Reviewed</h1>
+	</div>
+			  <p>Hey there. You've already reviewed @(Html.ActionLink("this instrument", "Individual", new { instrumentID = Model.InstrumentID })). If you would like to change your review, <b>@(Html.ActionLink("you can edit it here", "EditReview", new { reviewID = Model.ReviewID }))</b>.</p>
+			</section>

@@ -1,0 +1,54 @@
+﻿@model Legato.Controllers.AdminController.SuspendUserViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>SuspendUser</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("SuspendUser","Admin"))
+        {
+		@Html.ValidationSummary(true)
+
+		<fieldset>
+			<legend>Fields</legend>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.UserID) 
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.UserID) 
+				@Html.ValidationMessageFor(model => model.UserID) 
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Reason) 
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Reason) 
+				@Html.ValidationMessageFor(model => model.Reason) 
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.ReinstateDate) 
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.ReinstateDate) 
+				@Html.ValidationMessageFor(model => model.ReinstateDate) 
+			</div>
+			
+			<p>
+				<input type="submit" value="Create" />
+			</p>
+		</fieldset>
+
+	} 
+    </div>
+</body>
+</html>

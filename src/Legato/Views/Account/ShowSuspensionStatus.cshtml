@@ -1,0 +1,32 @@
+﻿@model Legato.Models.UserSuspension
+
+@{
+	ViewBag.Title = "Suspension Status";
+}
+
+<section id="content">
+<div class="page-header">
+		<h1>Account Suspended</h1>
+	</div>
+				<p>Your account is currently suspended:</p>
+				<form>
+				<fieldset>
+	<div class="clearfix">
+	<label>Reason</label>
+	<div class="input">
+		@Html.DisplayFor(model => model.Reason)
+	</div></div>
+
+	<div class="clearfix"><label>Suspension Start Date</label>
+	<div class="input">
+		@Html.DisplayFor(model => model.SuspensionDate)
+	</div></div>
+
+	<div class="clearfix"><label>Suspension End Date</label>
+	<div class="input">
+		@Html.DisplayFor(model => model.ReinstateDate)
+	</div></div>
+</fieldset>
+</form>
+				<p>Have we made a mistake? <a href="/About/Contact">Let us know.<a/></p>
+	</section>

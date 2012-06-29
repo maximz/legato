@@ -1,0 +1,86 @@
+﻿@model Legato.ViewModels.ReviewCreateViewModel
+
+@{
+	ViewBag.Title = "Review";
+	ViewBag.revNum = Legato.Current.RevNumber();
+}
+
+@section ScriptContentAtEndOfBody {
+<script src="@Url.Content("~/static/js/jquery.validate.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.raty.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+
+<script>
+
+(function () {
+				var converter1 = Markdown.getSanitizingConverter();
+				var editor1 = new Markdown.Editor(converter1);
+				editor1.run();
+})();
+
+
+$('#rate_overall').raty({
+  cancel:     false,
+  scoreName:  '#ReviewRevision_RatingOverall',
+  path:       '/static/images/raty/',
+  click: function(score, evt) {
+	$('#ReviewRevision_RatingOverall').val(score);
+  }
+});
+
+
+// check whether Model already has the ratings set. If so, do raty.start(number) on each one that's set
+
+@if (Model.ReviewRevision.RatingOverall != null && Model.ReviewRevision.RatingOverall != 0)
+{
+	<text>$.fn.raty.start(@Model.ReviewRevision.RatingOverall, '#rate_overall');</text>
+}
+</script>
+}
+
+<section id="review">
+  <div class="page-header">
+	<h1>Review <small>Review this instrument</small></h1>
+  </div>
+	  <!-- Example row of columns -->
+	  <div class="row">
+		<div class="span16">
+
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<legend>Review</legend>
+		@Html.HiddenFor(model => model.InstrumentID)
+		
+	<div>
+		@Html.HiddenFor(m => m.ReviewRevision.RatingOverall)
+
+		<div class="clearfix">
+			@Html.LabelFor(model => model.ReviewRevision.RatingOverall)
+		<div class="input">
+			<div id="rate_overall"></div>
+			@Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
+		</div></div>
+
+	</div>
+			<div class="clearfix">
+				@Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown)
+			<div class="input wmd-panel">
+				@Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
+				<span class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</span>
+				<div id="wmd-button-bar" class="wmd-panel"></div>
+				@Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input", id = "wmd-input" })
+				<div id="wmd-preview" class="wmd-preview wmd-panel"></div>
+			</div></div>
+
+			</fieldset>
+		  <div class="actions well">
+			<input type="submit" class="btn primary large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn">Cancel</button>
+		  </div>
+}
+
+</div>
+</div>
+</section>

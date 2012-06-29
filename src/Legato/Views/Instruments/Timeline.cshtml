@@ -1,0 +1,30 @@
+﻿@model Legato.Models.InstrumentReview
+
+@{
+    ViewBag.Title = "Timeline";
+}
+
+<h2>Timeline</h2>
+
+<fieldset>
+    <legend>InstrumentReview</legend>
+
+    <div class="display-label">InstrumentID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InstrumentID)
+    </div>
+
+    <div class="display-label">UserID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">SubmitDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubmitDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ReviewID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

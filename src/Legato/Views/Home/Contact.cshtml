@@ -1,0 +1,81 @@
+﻿@model Legato.ViewModels.ContactViewModel
+@using MvcReCaptcha.Helpers;
+
+@{
+	ViewBag.Title = "Contact";
+	ViewBag.revNum = Legato.Current.RevNumber();
+}
+
+<div class="page-header">
+		<h1>Contact Us <small>Want to get in touch?</small></h1>
+</div>
+<div class="row">
+    <div class="span12">
+    <p>Thanks for visiting Legato Network. If you have questions or feedback, please don't hesitate to contact us.</p>
+    </div>
+</div>
+<div class="row">
+	<div class="span9">
+        
+
+	    @using (Html.BeginForm("ContactSubmit", "Home", FormMethod.Post, new { @class="form-horizontal" }))
+        {
+	        @Html.ValidationSummary(true)
+	        <fieldset>
+                <legend>Send us an email</legend>
+
+		        <div class="control-group">
+			        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+		        <div class="controls">
+			        @Html.TextBoxFor(model => model.Name, new { @class = "input-xlarge" })
+			        @Html.ValidationMessageFor(model => model.Name)
+		        </div></div>
+
+		        <div class="control-group">
+			        @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+		        <div class="controls">
+			        @Html.TextBoxFor(model => model.Email, new { @class = "input-xlarge" })
+			        @Html.ValidationMessageFor(model => model.Email)
+		        </div></div>
+
+		        <div class="control-group">
+			        @Html.LabelFor(model => model.Message, new { @class = "control-label" })
+		        <div class="controls">
+			        @Html.TextAreaFor(model => model.Message, new { @class = "input-xlarge span5", rows="8" })
+			        @Html.ValidationMessageFor(model => model.Message)
+		        </div></div>
+
+		        <div class="control-group">
+			        <label class="control-label" for="CAPTCHA">Verification word(s):</label>
+                    <div class="controls">
+			        @(Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(Html.GenerateCaptcha()))
+                    <p class="help-block">Please enter the verification words.</p>
+			        @Html.ValidationMessage("CAPTCHA")
+		        </div></div>
+
+		        <div class="form-actions">
+			        <input type="submit" class="btn btn-success btn-large" value="Send" />
+		        </div>
+	        </fieldset>
+        }
+
+    </div>
+    <div class="span3">
+        <h3>Prefer other forms of contact?</h3>
+        <dl>
+            <dt>Legato Network</dt>
+            <dd><abbr title="Email">E:</abbr> hello@legatonetwork.com</dd>
+            <dd><abbr title="Phone">P:</abbr> (714) 253-4286</dd>
+        </dl>
+    </div>
+</div>
+
+
+@section ScriptContentAtEndOfBody
+{
+
+<script src="@Url.Content("~/static/js/jquery.validate.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+<script src="@Url.Content("~/static/js/jquery.validate.unobtrusive.min.js")?@ViewBag.revNum" type="text/javascript"></script>
+
+} 
+  

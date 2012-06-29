@@ -1,0 +1,224 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cs" #>
+<#
+    var Model = (MvcTextTemplateHost)Host;
+    var routePrefix = String.Empty;
+    if (!String.IsNullOrWhiteSpace(Model.AreaName)) {
+        routePrefix = "/" + Model.AreaName;
+    }
+    routePrefix += "/" + Model.ControllerRootName + "/";
+    var isObjectContext = typeof(ObjectContext).IsAssignableFrom(Model.ContextType);
+#>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.Objects" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+<#  if (!isObjectContext) { #>
+using System.Data.Entity.Infrastructure;
+<# } #>
+using System.Data.Objects;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+<# if (NamespaceNeeded(Model.Namespace, Model.ModelType.Namespace)) { #>
+using <#= Model.ModelType.Namespace #>;
+<# } #>
+<# if (Model.ContextType.Namespace != Model.ModelType.Namespace && NamespaceNeeded(Model.Namespace, Model.ContextType.Namespace)) { #>
+using <#= Model.ContextType.Namespace #>;
+<# } #>
+
+namespace <#= Model.Namespace #>
+{
+<#
+    var modelName = Model.ModelType.Name; 
+    var entitySetName = Model.EntitySetName; 
+    var modelVariable = modelName.ToLower();
+    var entitySetVariable = entitySetName.ToLower();
+    var primaryKey = Model.PrimaryKeys[0];
+    var lambdaVar = modelVariable[0];
+#>
+    public class <#= Model.ControllerName #> : Controller
+    {
+        private <#= Model.ContextType.Name #> db = new <#= Model.ContextType.Name #>();
+
+        //
+        // GET: <#= routePrefix #>
+
+        public ViewResult Index(int start = 0, int itemsPerPage = 20, string orderBy = "<#= primaryKey.Name #>", bool desc = false)
+        {
+            ViewBag.Count = db.<#= entitySetName #>.Count();
+            ViewBag.Start = start;
+            ViewBag.ItemsPerPage = itemsPerPage;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.Desc = desc;
+
+            return View();
+        }
+
+        //
+        // GET: <#= routePrefix #>GridData/?start=0&itemsPerPage=20&orderBy=<#= primaryKey.Name #>&desc=true
+
+        public ActionResult GridData(int start = 0, int itemsPerPage = 20, string orderBy = "<#= primaryKey.Name #>", bool desc = false)
+        {
+            Response.AppendHeader("X-Total-Row-Count", db.<#= entitySetName #>.Count().ToString());
+<#  if(isObjectContext) {
+        var includeExpressions = String.Concat(Model.RelatedProperties.Values.Select(property => String.Format(".Include(\"{0}\")", property.PropertyName)));
+#>
+            ObjectQuery<<#= modelName #>> <#= entitySetVariable #> = db.<#= entitySetName #><#= includeExpressions #>;
+<#  } else { #>
+            ObjectQuery<<#= modelName #>> <#= entitySetVariable #> = (db as IObjectContextAdapter).ObjectContext.CreateObjectSet<<#= modelName #>>();
+<#      if (Model.RelatedProperties.Any()) {
+           var includeExpressions = String.Concat(Model.RelatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.PropertyName)));
+#>
+            <#= entitySetVariable #> = <#= entitySetVariable #><#= includeExpressions #>;
+<#      }
+    }
+#>
+            <#= entitySetVariable #> = <#= entitySetVariable #>.OrderBy("it." + orderBy + (desc ? " desc" : ""));
+
+            return PartialView(<#= entitySetVariable #>.Skip(start).Take(itemsPerPage));
+        }
+
+        //
+        // GET: /Default5/RowData/5
+
+        public ActionResult RowData(<#= primaryKey.ShortTypeName #> id)
+        {
+<# if (isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Find(id);
+<# } #>
+            return PartialView("GridData", new <#= modelName #>[] { <#= modelVariable #> });
+        }
+
+        //
+        // GET: <#= routePrefix #>Create
+
+        public ActionResult Create()
+        {
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>");
+<# } #>
+            return PartialView("Edit");
+        }
+
+        //
+        // POST: <#= routePrefix #>Create
+
+        [HttpPost]
+        public ActionResult Create(<#= modelName #> <#= modelVariable #>)
+        {
+            if (ModelState.IsValid)
+            {
+<# if (primaryKey.Type == typeof(Guid)) { #>
+                <#= modelVariable #>.<#= primaryKey.Name #> = Guid.NewGuid();
+<# } #>
+<# if (isObjectContext) { #>
+                db.<#= entitySetName #>.AddObject(<#= modelVariable #>);
+<# } else { #>
+                db.<#= entitySetName #>.Add(<#= modelVariable #>);
+<# } #>
+                db.SaveChanges();
+                return PartialView("GridData", new <#= modelName #>[] { <#= modelVariable #> });
+            }
+
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return PartialView("Edit", <#= modelVariable #>);
+        }
+
+        //
+        // GET: <#= routePrefix #>Edit/5
+
+        public ActionResult Edit(<#= primaryKey.ShortTypeName #> id)
+        {
+<# if (isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Find(id);
+<# } #>
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return PartialView(<#= modelVariable #>);
+        }
+
+        //
+        // POST: <#= routePrefix #>Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(<#= modelName #> <#= modelVariable #>)
+        {
+            if (ModelState.IsValid)
+            {
+<# if (isObjectContext) { #>
+                db.<#= entitySetName #>.Attach(<#= modelVariable #>);
+                db.ObjectStateManager.ChangeObjectState(<#= modelVariable #>, EntityState.Modified);
+<# } else { #>
+                db.Entry(<#= modelVariable #>).State = EntityState.Modified;
+<# } #>
+                db.SaveChanges();
+                return PartialView("GridData", new <#= modelName #>[] { <#= modelVariable #> });
+            }
+
+<# foreach (var property in Model.RelatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyName #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKey #>", "<#= property.DisplayPropertyName #>", <#= modelVariable #>.<#= property.ForeignKeyPropertyName #>);
+<# } #>
+            return PartialView(<#= modelVariable #>);
+        }
+
+        //
+        // POST: <#= routePrefix #>Delete/5
+
+        [HttpPost]
+        public void Delete(<#= primaryKey.ShortTypeName #> id)
+        {
+<# if (isObjectContext) { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Single(<#= lambdaVar #> => <#= lambdaVar #>.<#= primaryKey.Name #> == id);
+            db.<#= entitySetName #>.DeleteObject(<#= modelVariable #>);
+<# } else { #>
+            <#= modelName #> <#= modelVariable #> = db.<#= entitySetName #>.Find(id);
+            db.<#= entitySetName #>.Remove(<#= modelVariable #>);
+<# } #>
+            db.SaveChanges();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}
+<#+
+// Borrowed from  Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn.ScaffoldUtils
+public static bool NamespaceNeeded(string currentNamespace, string referencedNamespace) {
+    // case 1: referencedNamespace is the global namespace
+    if (String.IsNullOrEmpty(referencedNamespace)) {
+        return false;
+    }
+
+    // case 2: currentNamespace is the global namespace and referencedNamespace is not
+    if (String.IsNullOrEmpty(currentNamespace)) {
+        return true;
+    }
+
+    // If there is a case mismatch we should add the using directive for C#.
+    // For VB we will add an unecessary import statement in this rare case.
+
+    // case 3: currentNamespace is identical to referencedNamespace
+    if (String.Equals(currentNamespace, referencedNamespace, StringComparison.Ordinal)) {
+        return false;
+    }
+
+    // case 4: currentNamespace is not more specific than referencedNamespace
+    return !currentNamespace.StartsWith(referencedNamespace + ".", StringComparison.Ordinal);
+}
+#>

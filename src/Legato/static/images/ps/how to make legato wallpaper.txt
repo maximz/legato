@@ -1,0 +1,12 @@
+trying to imitate http://i.imgur.com/8dn1r.png:
+
+"blue bkgd" swatch
+text: open sans, 102.68pt - blackesque swatch, blue bkgd swatch
+selected text (might need rasterization as a copied layer)
+select -> modify -> border -> 40px
+select -> modify -> feather -> 5px
+new layer
+fill selection with "faded white" swatch. rather than filling completely, just paintbucket three times : tolerance = 32, opacity = 100, mode = normal, anti-alias = on, contiguous = on, all layers = off
+
+group layers in folder
+align folder vertically, horizontally
