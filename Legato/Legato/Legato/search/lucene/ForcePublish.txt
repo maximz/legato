@@ -1,1 +1,0 @@
-// This file is just here so that Visual Studio includes this directory in builds and in publishes.

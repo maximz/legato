@@ -1,1 +1,0 @@
-"C:\Users\Maxim\Desktop\code\nocco\Nocco\bin\Debug\nocco.exe" *.cs
