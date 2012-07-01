@@ -171,6 +171,45 @@ namespace Legato.Controllers
              * */
         }
 
+
+        /// <summary>
+        /// Lookup global post ID using post category and ID within-category
+        /// </summary>
+        /// <param name="cat">The cat.</param>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        [Url("admin/globalid/lookup")]
+        [HttpPost]
+        [VerifyReferrer]
+        public virtual ActionResult LookupGlobalID(string cat, int id)
+        {
+            var gpost = Current.DB.GlobalPostIDs.Where(p => p.PostCategory == cat && p.SpecificPostID == id).SingleOrDefault();
+            if (gpost == null)
+            {
+                return Content("not found");
+            }
+            return Content(gpost.GlobalPostID1.ToString());
+        }
+
+        /// <summary>
+        /// See details about a globalpostid
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        [Url("admin/posts/global/{id}")]
+        [HttpPost]
+        [VerifyReferrer]
+        public virtual ActionResult GlobalPostDetails(int id)
+        {
+            var gpost = Current.DB.GlobalPostIDs.Where(p => p.GlobalPostID1 == id).SingleOrDefault();
+            if (gpost == null)
+            {
+                return Content("not found");
+            }
+            gpost.FillProperties();
+            return View("GlobalPostDetails", gpost);
+        }
+
         #endregion
 
 

@@ -44,6 +44,18 @@
 
         <hr />
 
+        <h2>Look up Global Post ID</h2>
+        @using (Html.BeginForm("LookupGlobalID", "Admin"))
+        {
+            <p>Category (Instrument, InstrumentReview, InstrumentReviewRevision, Message, Conversation)</p>
+            @Html.TextBox("cat", "")
+            <p>Specific id</p>
+            @Html.TextBox("id", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        <hr />
+
         <h2>Search</h2>
         @Html.ActionLink("Regenerate Index", "RegenerateIndex", "Search")
         @Html.ActionLink("Optimize Index", "OptimizeIndex", "Search")

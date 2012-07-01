@@ -1,0 +1,45 @@
+﻿@model Legato.Models.GlobalPostID
+
+@{
+    ViewBag.Title = "GlobalPostDetails";
+}
+
+<h2>GlobalPostDetails</h2>
+
+<fieldset>
+    <legend>GlobalPostID</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">UserID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">SpecificPostID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SpecificPostID)
+    </div>
+
+    <div class="display-label">PostCategory</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostCategory)
+    </div>
+
+    <div class="display-label">SubmissionDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubmissionDate)
+    </div>
+
+    <div class="display-label">DetailsRoute</div>
+    <div class="display-field">
+        @Url.Action(model => model.DetailsRoute)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.GlobalPostID1 }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
