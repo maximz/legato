@@ -43,9 +43,6 @@
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="GeoCoding, Version=1.4.1.66, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\packages\Glimpse.0.83\lib\net40\Glimpse.Core.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
