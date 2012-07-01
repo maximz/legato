@@ -197,8 +197,6 @@ namespace Legato.Controllers
         /// <param name="id">The id.</param>
         /// <returns></returns>
         [Url("admin/posts/global/{id}")]
-        [HttpPost]
-        [VerifyReferrer]
         public virtual ActionResult GlobalPostDetails(int id)
         {
             var gpost = Current.DB.GlobalPostIDs.Where(p => p.GlobalPostID1 == id).SingleOrDefault();
