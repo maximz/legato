@@ -15,7 +15,7 @@
   Standards: HTML5, CSS3
   Components: Modernizr, jQuery
   Software: ASP.NET MVC 3, SQL Server 2008, ASP.NET 4, WISC stack (Windows, IIS, SQL Server, C#), Redis, etc.
-  For a full list, see: http://news.legatonetwork.com/2011/12/28/technology.html
+  For a full list, see: http://blog.legatonetwork.com/2011/12/28/technology.html
   
   
         :::  
