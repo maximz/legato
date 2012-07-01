@@ -56,6 +56,16 @@
 
         <hr />
 
+        <h2>Global post details</h2>
+        @using (Html.BeginForm("GlobalPostDetails", "Admin", FormMethod.Get))
+        {
+            <p>Global id</p>
+            @Html.TextBox("id", "")
+        <p><input type="submit" value="Submit" /></p>
+        }
+
+        <hr />
+
         <h2>Search</h2>
         @Html.ActionLink("Regenerate Index", "RegenerateIndex", "Search")
         @Html.ActionLink("Optimize Index", "OptimizeIndex", "Search")
