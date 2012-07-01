@@ -22,6 +22,7 @@
       <mvcSiteMapNode title="Conversations" action="List" changeFrequency="Always" updatePriority="Normal"/>
       <mvcSiteMapNode title="Compose" action="Compose" changeFrequency="Always" updatePriority="Normal"/>
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="Blog" url="http://blog.legatonetwork.com" />
 
     <!--<mvcSiteMapNode title="$resources:SiteMapLocalizations,AdministrationTitle" area="Admin" controller="Home" visibility="SiteMapPathHelper,!*" visibilityProvider="MvcSiteMapProvider.FilteredSiteMapNodeVisibilityProvider, MvcSiteMapProvider">
       <mvcSiteMapNode title="$resources:SiteMapLocalizations,StoreManagerTitle" area="Admin" controller="StoreManager" action="Index">
