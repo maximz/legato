@@ -136,13 +136,15 @@
         <noscript>
 	        <div id="noscript-warning">The Legato Network website works best with JavaScript enabled.</div>
         </noscript>
-        @if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true")
-        {
-	        <div id="system-message">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"])</div>
-        }
 
         @Html.Partial("NavPartial")
+		
         <div id="subwrap">
+            @{/* HACK: notificationmessage doesn't work on About page, only pushes jumbotron down and it looks weird, so we just don't show it there. */}
+            @if (System.Configuration.ConfigurationManager.AppSettings["NotificationMessageEnabled"] == "true" && (ViewBag.curPage == null || ViewBag.curPage != "About"))
+            {
+		<div id="system-message" style="margin-top: -17px; padding-bottom: 16px;">@Legato.Helpers.HtmlUtilities.RenderHtmlInRazor(Server.HtmlDecode(System.Configuration.ConfigurationManager.AppSettings["CurrentNotificationMessage"]))</div>
+            }
             @RenderSection("BetweenHeaderAndContent",false)
   
             <div class="container" id="main">
