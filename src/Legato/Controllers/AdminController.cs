@@ -275,8 +275,10 @@ namespace Legato.Controllers
             {
                 return RedirectToAction("NotFound", "Error");
             }
+            model.Member = db.aspnet_Memberships.Where(m => m.UserId == UserId).SingleOrDefault();
             model.Suspensions = db.UserSuspensions.Where(s => s.UserID == UserId).ToList();
             model.ReinstateDate = model.Suspensions.Max(r => r.ReinstateDate);
+            model.Profile = AccountProfile.GetProfileOfUser(model.User.UserName);
             return View(model);
         }
 
@@ -341,6 +343,10 @@ namespace Legato.Controllers
             public MembershipUser User
             { get; set; }
 
+            [DisplayName("Membership")]
+            public Legato.Models.aspnet_Membership Member
+            { get; set; }
+
             [DisplayName("Suspensions")]
             public List<UserSuspension> Suspensions
             { get; set; }
@@ -348,6 +354,13 @@ namespace Legato.Controllers
             [DisplayName("Reinstate date")]
             public DateTime ReinstateDate
             { get; set; }
+
+            [DisplayName("Account profile")]
+            public AccountProfile Profile
+            {
+                get;
+                set;
+            }
 
         }
 
