@@ -239,7 +239,6 @@
     <Content Include="static\bs2\bootstrap.js" />
     <Content Include="static\bs2\bootstrap.min.css" />
     <Content Include="static\bs2\bootstrap.min.js" />
-    <Content Include="static\bs2\media.css" />
     <Content Include="static\css\Awesome.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
@@ -700,7 +699,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
