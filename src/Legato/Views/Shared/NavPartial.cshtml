@@ -13,13 +13,13 @@
                         <a href="@Url.Content("~")">Home</a>
                     </li>
                     <li @if(ViewBag.curPage == "Map"){<text>class="active"</text>}>
-                        <a href="/instruments"><i class="icon-map-marker icon-large"></i>Map</a>
+                        <a href="/instruments"><i class="icon-map-marker icon-large"></i> Map</a>
                     </li>
                     <li @if(ViewBag.curPage == "Submit"){<text>class="active"</text>}>
-                        <a href="/instruments/submit"><i class="icon-plus-sign icon-large"></i>Submit</a>
+                        <a href="/instruments/submit"><i class="icon-plus-sign icon-large"></i> Submit</a>
                     </li>
 					<li class="dropdown @if(ViewBag.curPage == "Messages"){<text>active</text>}">
-	      				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-envelope icon-large"></i>Messages <b class="caret"></b></a>
+	      				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-envelope icon-large"></i> Messages <b class="caret"></b></a>
 	      				<ul class="dropdown-menu">
 	      					<li><a href="/messages">Conversations</a></li>
 	      					<li><a href="/messages/compose">Compose</a></li>

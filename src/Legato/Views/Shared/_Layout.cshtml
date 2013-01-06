@@ -25,88 +25,9 @@
         <link rel="stylesheet" href="/static/css/wmd.new.css?@revNum" /> <!-- before bootstrap so that wmd-preview can use span classes -->
 		<link href="/static/bs2/bootstrap.min.css?@revNum" rel="stylesheet">
 	    <link href="/static/css/bootstrap.extras.css?@revNum" rel="stylesheet"> <!-- TODO: what's in here? -->
-		<link href="/static/css/font-awesome.css?@revNum" rel="stylesheet">
+		<link href="/static/css/font-awesome.min.css?@revNum" rel="stylesheet">
         
 		<link href="/static/css/style.css?@revNum" rel="stylesheet">	
-
-         <!-- TODO: move into style.css -->
-        <style>
-            stripebar
-            {
-                background:transparent;
-                padding:0;
-            }
-			.infoTitle
-			{
-				color: #C06;
-				font-family: 'Yanone Kaffeesatz', sans-serif;
-			}
-			small, .copyright
-			{
-				font-family: 'Chicle', cursive;
-				font-size:16px;
-			}
-			.endwell h3, .footerbtn
-			{
-				font-family: 'Yanone Kaffeesatz', sans-serif;
-				font-size: 24px;
-			}
-			.displayedIcon
-			{
-				margin-top:24px;
-				font-size: 24px;
-				background-image:none; /* font-awesome fix https://github.com/FortAwesome/Font-Awesome/issues/6 */
-			}			
-			#subwrap
-			{
-			    background: white;
-			    margin-top: -20px;
-			}
-			
-			/* Portrait tablet to landscape and desktop */
-  			@@media (min-width: 979px)
-  			{
-				.displayedIcon
-				{
-					margin-left: 50px;
-				}
-				.spritedIcon
-				{
-					margin-left: 25px;
-				}
-				body
-				{
-				    background:white;
-				}
-				#subwrap
-				{
-				    padding-bottom: 60px;
-				    padding-top: +60px;
-				    margin-top: 0;
-				}
-				#bottom-bar
-				{
-				    position: fixed;
-				    left: 0;
-				    right: 0;
-				    bottom: 0;
-				}
-				footer, .push
-                {
-                    height: 2em;
-                }
-                .jumbotron
-                {
-                	 margin-top: -60px;
-                }
-
-  			}
-  			
-            [class^="icon-"], [class*=" icon-"] { /* font-awesome fix https://github.com/FortAwesome/Font-Awesome/issues/6, be sure to download Bootstrap with Icons option deselected */
-                background-image:none;
-            }
-
-		</style>
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	    <!--[if lt IE 9]>
@@ -165,21 +86,18 @@
         </div>
         <div class="push"></div> <!-- sticky footer -->
     </div> <!-- /wrap -->
-    <footer id="bottom-bar">
-        <div id="bottom-bar-inner">
+    <footer id="footer">
             <div class="container">
                 <div class="row">
 			        <div class="span8">
-				        <p class="copyright">&copy; 2012 Legato Network. All Rights Reserved. <small>Revision @(ViewBag.revNum).</small></p>
+				        <p class="copyright muted credit">&copy; 2012 Legato Network. All Rights Reserved. <small>Revision @(ViewBag.revNum).</small></p>
 			        </div>
-			        <div class="span4 pull-right">
+			        <div class="span4 pull-right foot-social-buttons">
 				        @Html.Partial("SocialButtons")
 				    </div>
 			    </div>
                 
 		    </div>
-        </div>
-        <div id="stripebar"></div>
 	</footer>
 
     <!-- Le javascript

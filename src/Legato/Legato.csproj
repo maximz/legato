@@ -262,8 +262,9 @@
     <Content Include="static\css\extra.css" />
     <Content Include="static\css\feedback.css" />
     <Content Include="static\css\feedback.min.css" />
-    <Content Include="static\css\font-awesome-ie7.css" />
+    <Content Include="static\css\font-awesome-ie7.min.css" />
     <Content Include="static\css\font-awesome.css" />
+    <Content Include="static\css\font-awesome.min.css" />
     <Content Include="static\css\index.css" />
     <Content Include="static\css\map\home.css" />
     <Content Include="static\css\map\home.min.css" />
@@ -277,9 +278,6 @@
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
     <Content Include="static\css\wmd.new.css" />
-    <Content Include="static\font\fontawesome-webfont.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="static\images\advertiser_icon.png" />
     <Content Include="static\images\arrow_bg.gif" />
     <Content Include="static\images\content_btm.jpg" />
@@ -606,6 +604,7 @@
     <Content Include="static\font\fontawesome-webfont.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="static\font\FontAwesome.otf" />
     <None Include="static\js\map\mylibs\.gitignore" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -699,7 +698,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
