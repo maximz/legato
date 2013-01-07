@@ -1,4 +1,4 @@
-/* Author: 
+/* Author: Maxim Zaslavsky
  * 
 */
 
@@ -13,16 +13,20 @@
 
 	
 var mapVersionCookieName = "legatomap_useold"; 
+var cookieSettings = { expires: 30, path: '/' };
 var cookieCheck = function()
 {
-	if(!oldMap)
+	var mapVersionCookie = $.cookie(mapVersionCookieName);
+	
+	if(!oldMap && (mapVersionCookie != null && mapVersionCookie == 'true'))
 	{
-		var mapVersionCookie = $.cookie(mapVersionCookieName);
-		if(mapVersionCookie != null && mapVersionCookie == 'true')
-		{
-			redirectToOldMap();
-			return;
-		}
+		redirectToMap(true); // redirect to old map (no GEarth, standard GMaps markers)
+		return;
+	}
+	if(oldMap && (mapVersionCookie == null || mapVersionCookie != 'true'))
+	{
+		redirectToMap(false); // redirect to new map (GEarth and custom markers enabled)
+		return;
 	}
 };
 	
@@ -145,7 +149,12 @@ $('#helpText').click(function (e) {
 });
 
 $('#problems').click(function(e) {
-	$.cookie(mapVersionCookieName, 'true', { expires: 30, path: '/' });
+	$.cookie(mapVersionCookieName, 'true', cookieSettings);
+	cookieCheck();
+});
+
+$('#trybeta').click(function(e) {
+	$.removeCookie(mapVersionCookieName, cookieSettings);
 	cookieCheck();
 });
 
@@ -236,27 +245,44 @@ setTimeout(function() {
 
 });
 
-function redirectToOldMap()
+function changeUrlToLastDir() // TODO: update this to use the string reverse thing we use for new map redirect (scroll down)
 {
-var x = window.location.href;
+	var x = window.location.href;
 
-var removeLast = 0; // how many characters to remove from end of a
-if(x[x.length - 1] == '/') // http://legatonetwork.com/instruments/
-{
-	removeLast = 1;
-}
-else if(x[x.length - 1] == '#') // http://legatonetwork.com/instruments/# or http://legatonetwork.com/instruments#
-{
-	if(x[x.length - 2] == '/') // http://legatonetwork.com/instruments/#
-	{
-		removeLast = 2;
-	}
-	else // http://legatonetwork.com/instruments#
+	var removeLast = 0; // how many characters to remove from end of a
+	if(x[x.length - 1] == '/') // http://legatonetwork.com/instruments/
 	{
 		removeLast = 1;
 	}
+	else if(x[x.length - 1] == '#') // http://legatonetwork.com/instruments/# or http://legatonetwork.com/instruments#
+	{
+		if(x[x.length - 2] == '/') // http://legatonetwork.com/instruments/#
+		{
+			removeLast = 2;
+		}
+		else // http://legatonetwork.com/instruments#
+		{
+			removeLast = 1;
+		}
+	}
+	
+	return x.substr(0, x.length - removeLast);
 }
 
-window.location.href = x.substr(0, x.length - removeLast) + '/' + 'old';
-    
+String.prototype.reverse=function(){return this.split("").reverse().join("");}
+
+function redirectToMap(old)
+{
+	var url = changeUrlToLastDir();
+	
+	if(old) // redirect to old map
+	{
+		window.location.href = url + '/' + 'old';
+		return;
+	}
+	
+	// redirect to new map
+	var n = url.reverse().indexOf('/') // how far from the end of the url string is the last / (that slash begins '/old', which we want to get rid of)
+	url = url.substr(0, url.length - n - 1); // remove that far from the end (including the slash itself)
+	window.location.href = url;
 }

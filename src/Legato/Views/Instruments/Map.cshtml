@@ -112,12 +112,16 @@
 		<div id="left">
 			<a id="footerLogo" href="@Url.Action("Index", "Home")"><img alt="Legato Network" src="/static/images/map/mini-logo.png?@revNum"></a>
 			<ul>
-				  @if (!ViewBag.cannotGE)
-				  {
-				<li><a href="#" id="problems">PROBLEMS?</a></li>
-				  }
+				@if (!ViewBag.cannotGE)
+                {
+				    <li><a href="#" id="problems">PROBLEMS?</a></li>
+                }
+                else
+                { 
+                    <li><a href="#" id="trybeta">TRY BETA VERSION</a></li>
+                }
 				<li><a href="/static/html/map/help.html?@revNum" id="helpText" rel="#helpOverlay">HELP</a></li>
-				<li><a href="@Url.Action("Submit","Instruments")" id="addPoints">ADD</a></li>
+				<li><a href="@Url.Action("Submit", "Instruments")" id="addPoints">ADD</a></li>
 				<li><a href="@Url.Action("Index", "Home")">HOME</a></li>
 			</ul>
 			<ul>
@@ -138,7 +142,7 @@
 			<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.legatonetwork.com" data-text="Check out Legato Network at http://www.legatonetwork.com" data-count="horizontal" data-via="google" data-related="f_i">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
 		</div>
 		<div id="disclaimer">
-			<p class="copyright">Copyright &copy; 2011 Legato Network.</p>
+			<p class="copyright">Copyright &copy; @DateTime.Now.Year Legato Network.</p>
 		</div>
 	</footer>
   </div> <!--! end of #container -->
@@ -152,7 +156,7 @@
   
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
-  @if(!ViewBag.cannotGE)
+  @if (!ViewBag.cannotGE)
   {
   <text>
   <script src="http://google.com/jsapi?key=ABQIAAAAbyfszEVR0VTKZImYRp5b6BS7eQRi9njbE480-kYpBUbfriqkNxT0iMD7imhkbljvbSTG_6HhFQEJ1A"></script> <!-- legatonetwork.com key -->
@@ -169,10 +173,10 @@
   <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js"></script>
   <script src="/static/js/map/mylibs/jquery.form.min.js?@revNum"></script>
   <script src="/static/js/map/mylibs/jquery.placeholder.min.js?@revNum"></script>
-  <script src="/static/js/jquery.cookie.js?@revNum"></script>
+  <script src="/static/js/jquery.cookie-1.3.min.js?@revNum"></script>
   <script src="/static/js/map/mylibs/jquery.tools.min.js?@revNum"></script>
   <script src="/static/js/map/spinner.min.js?@revNum"></script>
-  @if(ViewBag.cannotGE)
+  @if (ViewBag.cannotGE)
   {
 	<text><script src="/static/js/map/map.noearth.min.js?@revNum"></script></text>
   }
