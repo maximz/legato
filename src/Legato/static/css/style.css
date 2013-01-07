@@ -333,3 +333,10 @@ small
 [class^="icon-"], [class*=" icon-"] { /* font-awesome fix https://github.com/FortAwesome/Font-Awesome/issues/6, be sure to download Bootstrap with Icons option deselected */
     background-image:none;
 }
+
+/* About/FAQ page styles */
+
+.question + .question /* adjacent sibling, i.e. affects all but first question under a section */
+{
+    padding-top: 1em;
+}

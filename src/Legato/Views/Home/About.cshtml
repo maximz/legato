@@ -23,8 +23,10 @@
 	@helper DisplayQA(string question, string answer)
 	{
 		@NewQ()
-		<h4 id="@GetNum()">@HtmlUtilities.RenderHtmlInRazor(question)</h4>
-		<p>@HtmlUtilities.RenderHtmlInRazor(answer)</p>
+		<div class="question">
+            <h4 class="text-info" id="@GetNum()">@HtmlUtilities.RenderHtmlInRazor(question)</h4>
+		    <p>@HtmlUtilities.RenderHtmlInRazor(answer)</p>
+        </div>
 	}
 	@helper DisplaySection(string title)
 	{
@@ -67,11 +69,11 @@
 		<h1>FAQ <small>Frequently asked questions</small></h1>
 	</div>
 	@DisplaySection("General")
-		@DisplayQA("What is the mission of Legato Network?", "Legato Network aims to create a global community by <b>establishing meaningful connections</b> between musicians and between music lovers. As a first step, Legato Network <b>connects musicians with instruments</b>.</p><p>If you're travelling or are somewhere without your instrument, Legato Network can help you find one to play on. This could be a shared, public instrument (in a bar, hotel lobby, library, etc.), or one that is privately owned and listed by the owner. </p><p>If you have an instrument at home that is underused, you can list it on Legato Network to enjoy meeting talented musicians and listening to a great variety of live music at your home.")
+		@DisplayQA("What is the mission of Legato Network?", "Legato Network aims to create a global community by <b>establishing meaningful connections</b> between musicians and between music lovers. As a first step, Legato Network <b>connects musicians with instruments</b>.</p> <h5>Use cases:</h5> <ul><li><strong>If you're travelling or are somewhere without your instrument, Legato Network can help you find one to play on.</strong> This could be a shared, public instrument (in a bar, hotel lobby, library, etc.), or one that is privately owned and listed by the owner. </li><li><strong>If you have an instrument at home that is underused, you can list it on Legato Network</strong> to enjoy meeting talented musicians and listening to a great variety of live music at your home. If you wish, you can charge fees for usage of your instrument.</li></ul>")
 		
 		
 		@DisplayQA("Is it safe?", "While we cannot make assurances as to the safety of transactions and the legitimacy of listings, using common sense should provide a decent amount of safety. For example, if you see a listing in a very sketchy location, that might not be legitimate and warrants caution. Similarly, if you're listing your instrument, take care to watch whoever comes to play on it. Legato Network is not responsible for any damages incurred by use of the services.")
-		@DisplayQA("Do I need to register to be able to use Legato Network?", "You can browse Legato Network without registering. If you want to list an instrument or message the owner of an sintrument, however, you need to "+Html.ActionLink("create an account", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })+".")
+		@DisplayQA("Do I need to register to be able to use Legato Network?", "You can browse Legato Network without registering. If you want to list an instrument or message the owner of an instrument, however, you need to "+Html.ActionLink("create an account", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })+".")
 		@DisplayQA("Is it free?", "Creating an account on Legato Network is completely free of charge. However, some instrument owners might request fees in exchange for permission to play on their instrument.")
 	@EndSection()
 
@@ -89,7 +91,7 @@
 	@EndSection()
 	
 	@DisplaySection("Listings")
-		@DisplayQA("What should listing text be about?", "In listing text, give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.");
+		@DisplayQA("What should listing text be about?", "In listing text, give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.")
 		@DisplayQA("Now that I've found a cool instrument, how do I arrange a playing session?", "On the listing page, look for a 'message owner' button. If you find it, that means that the instrument has been listed by its owner. To arrange a playing session on such an instrument, click on 'message owner' and send a message to the owner, so that you can arrange a time with the owner via private message. You will get a notification when the owner writes back. If no 'message owner' button exists, the instrument is available for public use and was listed by someone other than its owner. Check the description for availability details, and stop by during the day to see if the instrument is available.")
 	@EndSection()
 	
