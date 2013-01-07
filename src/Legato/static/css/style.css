@@ -334,9 +334,13 @@ small
     background-image:none;
 }
 
-/* About/FAQ page styles */
+/* Specific page styles */
 
-.question + .question /* adjacent sibling, i.e. affects all but first question under a section */
+.breadcrumb {
+    margin-top: 2em;
+}
+
+.question + .question /* About/FAQ page: adjacent sibling, i.e. affects all but first question under a section */
 {
     padding-top: 1em;
 }

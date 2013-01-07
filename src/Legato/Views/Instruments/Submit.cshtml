@@ -55,10 +55,18 @@ $("#Listing_Equipment_SelectedClass").change(function(e) {
 $(".hasPlayedCheckBox").change(function(e) { 
 	if($('.hasPlayedCheckBox').is(':checked'))
 	{
+        // add required attribute to review description box
+        $('#wmd-input-second').prop('required', true);
+
+        // show fields
 		$('#reviewMain').show('slow');   
 	}
 	else
 	{
+        // remove required attribute
+        $('#wmd-input-second').prop('required', false);
+
+        // hide fields
 		$('#reviewMain').hide('slow');
 	}
 });
@@ -104,22 +112,31 @@ $(".hasPlayedCheckBox").change(function(e) {
         {
 	        @Html.ValidationSummary(true)
 	        <fieldset>
-    			<legend>Listing</legend>
+    			<legend>Listing</legend> <!-- p class="help-block" is also good -->
 			
 	    		<div class="control-group">
 				    @Html.LabelFor(model => model.Listing.Equipment.SelectedType, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
-                        <p class="help-block">What kind of an instrument is this?</p>
+                        <p class="muted">What kind of an instrument is this?</p>
 				        @Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedType)
+			        </div>
+                </div>
+
+                <div class="control-group">
+				    @Html.LabelFor(model => model.Listing.Equipment.SelectedClass, new { @class = "control-label" })
+                    <div class="controls">
+				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedClass, Model.Listing.Equipment.Classes)
+                        <p class="muted">Is this instrument out in the wild, like a piano in a hotel or in a bar, or is this an instrument that you personally own?</p>
+				        @Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
 			        </div>
                 </div>
 			
 			    <div class="control-group">
 				    @Html.LabelFor(model => model.Listing.StreetAddress, new { @class = "control-label" })
 			        <div class="controls">
-				        @Html.TextBoxFor(model => model.Listing.StreetAddress, new { @class = "input-xlarge" })
-                        <p class="help-block">Where is this instrument located?<br/>Example: <code>1 Main Street, New York, NY 10044</code></p>
+				        @Html.TextBoxFor(model => model.Listing.StreetAddress, new { @class = "input-xlarge", required="required" })
+                        <p class="muted">Where is this instrument located?<br/>Example: <code>1 Main Street, New York, NY 10044</code></p>
 				        @Html.ValidationMessageFor(model => model.Listing.StreetAddress)
 			        </div>
                 </div>
@@ -128,7 +145,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 				    @Html.LabelFor(model => model.Listing.SelectedPrivacy, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.SelectedPrivacy, Model.Listing.PrivacySettings)
-                        <p class="help-block">Please choose whether you want your full address to be displayed to regular users or just your region. <br />You can later choose to share your full address with specific users.</p>
+                        <p class="muted">Please choose whether you want your full address to be displayed to regular users or just your region. <br />You can later choose to share your full address with specific users.</p>
 				        @Html.ValidationMessageFor(model => model.Listing.SelectedPrivacy)
 			        </div>
                 </div>
@@ -136,26 +153,19 @@ $(".hasPlayedCheckBox").change(function(e) {
 			    <div class="control-group">
 				    @Html.LabelFor(model => model.Listing.VenueName, new { @class = "control-label" })
 			        <div class="controls">
-				        @Html.TextBoxFor(model => model.Listing.VenueName, new { @class = "input-xlarge" })
-                        <p class="help-block">In what venue is this instrument located?</p>
+				        @Html.TextBoxFor(model => model.Listing.VenueName, new { @class = "input-xlarge", required = "required" })
+                        <p class="muted">In what venue is this instrument located?<br /> For example, if it is in a museum, give the name of the museum. If this instrument is at your home, please just enter <code>House</code>.</p>
 				        @Html.ValidationMessageFor(model => model.Listing.VenueName)
 			        </div>
                 </div>
 
-			    <div class="control-group">
-				    @Html.LabelFor(model => model.Listing.Equipment.SelectedClass, new { @class = "control-label" })
-                    <div class="controls">
-				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedClass, Model.Listing.Equipment.Classes)
-                        <p class="help-block">Is this instrument out in the wild, like a piano in a hotel or in a bar, or is this an instrument that you personally own?</p>
-				        @Html.ValidationMessageFor(model => model.Listing.Equipment.SelectedClass)
-			        </div>
-                </div>
+			    
 
 			    <div class="control-group">
 				    @Html.LabelFor(model => model.Listing.Price, new { @class = "control-label" })
 			        <div class="controls">
-				        @Html.TextBoxFor(model => model.Listing.Price, new { title = "price in local currency", @class = "input-xlarge" }) per @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice, new { title = "year, month, day, hour, etc.", @class = "input-xlarge" })
-				        <p class="help-block">Are people required to pay to use this instrument? If so, how much must they pay per block of time?<br />For instance, you could enter a price of 10 per hour, where 10 is in the local currency.</p>
+				        @Html.TextBoxFor(model => model.Listing.Price, new { placeholder = "price in local currency", @class = "input-xlarge" }) per @Html.TextBoxFor(model => model.Listing.TimeSpanOfPrice, new { placeholder = "year, month, day, hour, etc.", @class = "input-xlarge" })
+				        <p class="muted">Are people required to pay to use this instrument? If so, how much must they pay per block of time?<br />For instance, you could enter a price of 10 per hour, where 10 is in the local currency.</p>
                         @Html.ValidationMessageFor(model => model.Listing.Price)
 				        @Html.ValidationMessageFor(model => model.Listing.TimeSpanOfPrice)
 			        </div>
@@ -165,9 +175,9 @@ $(".hasPlayedCheckBox").change(function(e) {
 				    @Html.LabelFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "control-label" })
 			        <div class="controls wmd-panel">
 				        @Html.ValidationMessageFor(model => model.Listing.GeneralInfoMarkdown)
-				        <p class="help-block">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in.</p>
+				        <p class="muted">Please give <b>some general information</b> about this instrument, such as what kind of instrument it is, where it is located, when it is available, and what venue it is in. <em>A live preview will appear below.</em></p>
 				        <div id="wmd-button-bar" class="wmd-panel"></div>
-				        @Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input input-xlarge span7", rows="8", id = "wmd-input" })
+				        @Html.TextAreaFor(model => model.Listing.GeneralInfoMarkdown, new { @class = "wmd-input input-xlarge span7", rows = "8", id = "wmd-input", required = "required" })
 				        <div id="wmd-preview" class="wmd-preview wmd-panel span7" style="margin-left:0;"></div>
 			        </div>
                 </div>
@@ -192,7 +202,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 					    @Html.LabelFor(model => model.ReviewRevision.RatingOverall, new { @class = "control-label" })
 				        <div class="controls">
 					        <div id="rate_overall"></div>
-                            <p class="help-block">Please give this instrument a rating out of 5 stars. Did you like it?</p>
+                            <p class="muted">Please give this instrument a rating out of 5 stars. Did you like it?</p>
 					        @Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 				        </div>
                     </div>
@@ -201,9 +211,9 @@ $(".hasPlayedCheckBox").change(function(e) {
 				        @Html.LabelFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "control-label" })
 				        <div class="controls wmd-panel">
 					        @Html.ValidationMessageFor(model => model.ReviewRevision.ReviewMarkdown)
-					        <p class="help-block">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</p>
+					        <p class="muted">Please give <b>your opinion</b> about this instrument, including how playing on it felt, whether the location and owner were hospitable, the quality of the instrument and venue, and other details about your experience. Tell us your story.</p>
 					        <div id="wmd-button-bar-second" class="wmd-panel"></div>
-					        @Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input input-xlarge span7", rows="8", id = "wmd-input-second" })
+					        @Html.TextAreaFor(model => model.ReviewRevision.ReviewMarkdown, new { @class = "wmd-input input-xlarge span7", rows = "8", id = "wmd-input-second" })
 					        <div id="wmd-preview-second" class="wmd-preview wmd-panel span7" style="margin-left:0;"></div>
 				        </div>
 			        </div>
