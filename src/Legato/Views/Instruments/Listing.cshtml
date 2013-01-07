@@ -86,7 +86,25 @@
 						@if (Model.Instrument.LatestReviewRevisionDate.HasValue)
 						{
 							<dd>last reviewed <span class="timeago" title="@Model.Instrument.LatestReviewRevisionDate">@Model.Instrument.LatestReviewRevisionDate</span></dd>
-						}               
+						}
+                        @if (!Model.Instrument.RentalSubmission)
+                        { 
+                            <dd><a href="#ownerModal" data-toggle="modal">Do you own this instrument?</a></dd>
+                            <!-- Modal -->
+                            <div id="ownerModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Do you own this instrument?</h3>
+                              </div>
+                              <div class="modal-body" style="text-align: left;">
+                                <p>First of all, thank you for making your instrument available to the public. On behalf of the musicians who use this site, you have our utmost appreciation.</p>
+                                <p>Would you like to gain access to the editing features for this listing? This will enable you to provide accurate location and instrument details, to update after tunings, and so on. Please contact us at <code>hello@legatonetwork.com</code> and mention instrument ID <code>@Model.Instrument.InstrumentID</code>.</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+                              </div>
+                            </div>
+                        }
 					</dl>
 				</div>
             </div>
@@ -111,9 +129,9 @@
                                         <dt>by @r.aspnet_User.UserName</dt>
 									    <dd>submitted <span class="timeago" title="@r.SubmissionDate">@r.SubmissionDate</span></dd>
 									    @if (r.Revisions.Count() > 1)
-                                        {
+             {
 										    <text><dd>edited @r.Revisions.Count() times</dd></text>
-                                        }
+             }
 									</dl>
                                 </div>
 							</div> <!-- /pull-right -->
@@ -134,7 +152,7 @@
 
                 if (Model.IsFilteredToIndividualReview.GetValueOrDefault(false))
                 {
-                    <p class="ac">Only one review currently being displayed. @Html.ActionLink("Show other reviews", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug }, new {@class="btn btn-info" })</p>
+                    <p class="ac">Only one review currently being displayed. @Html.ActionLink("Show other reviews", "Individual", new { instrumentID = Model.Instrument.InstrumentID, slug = Model.Instrument.UrlSlug }, new { @class = "btn btn-info" })</p>
                 }
 
             }
@@ -148,7 +166,7 @@
 	</div>
     <div class="form-actions">
         @Html.ActionLink("Add a review", "Review", new { instrumentID = Model.Instrument.InstrumentID }, new { @class = "btn btn-primary btn-large" })
-        @Html.ActionLink("Find another instrument", "Map", "Instruments",null, new {@class="btn btn-inverse btn-large"})
+        @Html.ActionLink("Find another instrument", "Map", "Instruments", null, new { @class = "btn btn-inverse btn-large" })
     </div>
 </div>
 

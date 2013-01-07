@@ -16,23 +16,21 @@
 				<a href="@Url.Action("Map", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/TVWNE.png" alt="" /> <!-- http://placehold.it/360x268 -->
 				</a>
+                <h3 class="ac"><a href="@Url.Action("Map", "Instruments")">Browse the map.</a></h3>
 			</li>
 			<li class="span4">
 				<a href="@Url.Action("Map", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/JEY9p.png" alt="" />
 				</a>
+                <h3 class="ac"><a href="@Url.Action("Map", "Instruments")">Find an instrument.</a></h3>
 			</li>
 			<li class="span4">
 				<a href="@Url.Action("Submit", "Instruments")" class="thumbnail">
 					<img src="http://i.imgur.com/ZeoiA.png" alt="" />
 				</a>
+                <h3 class="ac"><a href="@Url.Action("Submit", "Instruments")">Submit an instrument.</a></h3>
 			</li>
 		</ul>
-		<div class="row">
-			<h3 class="span4 ac"><a href="@Url.Action("Map", "Instruments")">Browse the map.</a></h3>
-			<h3 class="span4 ac"><a href="@Url.Action("Map", "Instruments")">Find an instrument.</a></h3>
-			<h3 class="span4 ac"><a href="@Url.Action("Submit", "Instruments")">Submit an instrument.</a></h3>
-		</div>
 		<div class="row">
 			<div class="span5 offset4 ac">
 				@Html.Partial("SocialButtons", "class=ac style=padding-top:1em;")

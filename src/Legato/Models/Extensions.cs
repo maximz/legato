@@ -67,6 +67,16 @@ namespace Legato.Models
             get;
             internal set;
         }
+
+        /// <summary>
+        /// If "instrument found in the wild", then false. If one the submitter owns and is renting out, then true.
+        /// </summary>
+        public bool RentalSubmission
+        {
+            get;
+            internal set;
+        }
+
         public void FillProperties()
         {
             // Arrange
@@ -113,7 +123,9 @@ namespace Legato.Models
             Title = Title.Trim();
             UrlSlug = HtmlUtilities.URLFriendly(Title);
 
-            ListingClassDisplay = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault().DisplayName;
+            var listClass = InstrumentClasses.Classes.Where(c => c.Id == Int32.Parse(this.ListingClass)).SingleOrDefault();
+            ListingClassDisplay = listClass.DisplayName;
+            RentalSubmission = (listClass.Name == "Rent");
         }
 
         public void PrepareRender()
