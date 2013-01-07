@@ -30,7 +30,7 @@
   
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/static/css/map/style.min.css?@revNum">
-  <link rel="stylesheet" href="/static/css/map/home.min.css?@revNum">
+  <link rel="stylesheet" href="/static/css/map/home.css?@revNum">
   <link rel="stylesheet" href="/static/css/map/messageBubble.min.css?@revNum">
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/flick/jquery-ui.css" rel="stylesheet" type="text/css" />
 
@@ -76,7 +76,7 @@
 			</span> 
 		</a>
 		<div class="modal apple_overlay" id="helpOverlay">
-			<div class="modalContentWrap" style="text-align: center;"></div>
+			<div class="modalContentWrap" style="text-align: left;"></div>
 		</div>
 		<div class="modal apple_overlay" id="typeOverlay">
 			<div class="modalContentWrap" style="text-align: center;">
@@ -104,33 +104,33 @@
 			</div>
 		</div>
 		<div class="modal apple_overlay" id="myModalDialog">
-			<div class="modalContentWrap" style="text-align:center;">
+			<div class="modalContentWrap" style="text-align: center;">
 			</div>
 		</div>
 	</div>
 	<footer>
 		<div id="left">
 			<a id="footerLogo" href="@Url.Action("Index", "Home")"><img alt="Legato Network" src="/static/images/map/mini-logo.png?@revNum"></a>
-			<ul>
+			<ul id="firstFootMenu">
 				@if (!ViewBag.cannotGE)
                 {
 				    <li><a href="#" id="problems">PROBLEMS?</a></li>
                 }
                 else
                 { 
-                    <li><a href="#" id="trybeta">TRY BETA VERSION</a></li>
+                    <li><a href="#" id="trybeta">TRY BETA</a></li>
                 }
-				<li><a href="/static/html/map/help.html?@revNum" id="helpText" rel="#helpOverlay">HELP</a></li>
+				<li><a href="/static/html/maphelp.html?@revNum" id="helpText" rel="#helpOverlay">HELP</a></li>
 				<li><a href="@Url.Action("Submit", "Instruments")" id="addPoints">ADD</a></li>
 				<li><a href="@Url.Action("Index", "Home")">HOME</a></li>
 			</ul>
-			<ul>
+			<ul id="displayModeOptions">
 				<li class="footerLeftSectionStart">Display Mode:</li>
 				<li><a href="javascript:Legato.map.goToTwoD()">2D</a></li>
 				<li><a href="javascript:Legato.map.goToThreeD()">3D</a></li>
 				<li><a href="#" id="typeOverlayTrigger" rel="#typeOverlay">Options</a></li>
 			</ul>
-			<ul>
+			<ul id="zoomOptions">
 				<li class="footerLeftSectionStart">Zoom to:</li>
 				<li><a href="javascript:Legato.map.panToWorld()">World View</a></li>
 				<li><a href="javascript:Legato.map.geolocate()">Your Location</a></li>

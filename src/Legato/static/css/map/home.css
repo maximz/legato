@@ -538,4 +538,44 @@ div#chooseTypeInputs #submitButton, div#typeOverlay .submitButton
 	margin-top: 10px;
 }
 
-/* end pathology selection styles */
+/* responsive styles: remove some things so usable on phones */
+
+@media (max-width: 767px) {
+	
+	#footerLogo, footer #left ul#displayModeOptions, #insShown, footer #left ul li.footerLeftSectionStart
+	{
+		display: none;
+		margin: 0;
+	}
+	footer ul
+	{
+		padding: 0 0 0 5px;
+	}
+	footer #left ul li {
+		margin-right: 5px;
+	}
+	footer #left ul + ul { /* needed because we're hiding all footerLeftSectionStarts. selects all but first ul */
+		padding-left: 15px;
+		border-left: 1px dashed #C5C5C5; 
+	}
+	footer #left ul li:last-child {
+		margin-right: 15px; /* to look equal to "footer #left ul + ul" rule, add 15px to the right of the last li of the preceding ul */
+	}
+
+	header
+	{
+		position:relative;
+		left: auto;
+		min-width: auto;
+		width: auto;
+	}
+	header #logo-wrap {
+		position: relative;
+		text-align: center;
+		margin: 0 auto;
+		height: 112px;
+		left: 0;
+		width: 262px;
+	}
+		
+}

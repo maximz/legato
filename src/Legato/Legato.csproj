@@ -278,6 +278,7 @@
     <Content Include="static\css\wmd-buttons.png" />
     <Content Include="static\css\wmd.css" />
     <Content Include="static\css\wmd.new.css" />
+    <Content Include="static\html\maphelp.html" />
     <Content Include="static\images\advertiser_icon.png" />
     <Content Include="static\images\arrow_bg.gif" />
     <Content Include="static\images\content_btm.jpg" />
