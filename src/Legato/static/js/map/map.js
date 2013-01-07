@@ -180,6 +180,31 @@ var Legato = Legato || {};
 					}
 				}
 			}*/
+
+            /*
+            Marker size calculation description from my Stack Overflow thread: http://stackoverflow.com/questions/6811313/scaling-marker-size-with-marker-icons-from-a-sprite-in-google-maps-api-v3 (note that the thread is about scaling icons based on # of instruments at each point)
+            See http://blog.mridey.com/2010/03/using-markerimage-in-maps-javascript.html:
+
+                var offset = Math.floor(Math.random() * 3) * 16; // pick one of the three icons in the sprite
+
+                // Calculate desired pixel-size of the marker
+                var size = Math.floor(4*(count-1) + 8);
+                var scaleFactor = size/16;
+
+                // Create custom marker
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    icon: new google.maps.MarkerImage(
+                        'img/dot.png', // my 16x48 sprite with 3 circular icons
+                        new google.maps.Size(16*scaleFactor, 16*scaleFactor), // desired size
+                        new google.maps.Point(0, offset*scaleFactor), // offset within the scaled sprite
+                        new google.maps.Point(size/2, size/2), // anchor point is half of the desired size
+                        new google.maps.Size(16*scaleFactor, 48*scaleFactor) // scaled size of the entire sprite
+                       )
+                    });
+
+             */
+
 			
 			this.calculateMarkerSize = function(count) // count is currently not used
 			{
@@ -207,7 +232,7 @@ var Legato = Legato || {};
 				// returns a google.maps.MarkerImage() with the appropriate values for our marker creation procedure.
 				var spriteWidth = self.spriteWidth;
 				
-				return new google.maps.MarkerImage('/static/images/map/markers.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(spriteWidth / 2, spriteWidth / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
+				return new google.maps.MarkerImage('/static/images/map/markers.png', new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * scaleFactor), new google.maps.Point(0, offset * scaleFactor), new google.maps.Point(size / 2, size / 2), new google.maps.Size(spriteWidth * scaleFactor, spriteWidth * 3 * scaleFactor));
 			}
 
 			this.newMarker = function (lat, lng, count)
