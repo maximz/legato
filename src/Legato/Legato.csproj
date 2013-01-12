@@ -192,6 +192,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Legato.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Rankings.cs" />
     <Compile Include="Models\Search\Search.cs" />
     <Compile Include="Models\Search\SearchDocument.cs" />
     <Compile Include="Models\Search\SearchException.cs" />
@@ -701,7 +702,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
