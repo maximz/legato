@@ -38,7 +38,7 @@ $(function () {
 
     $('input[title!=""]').hint(); // activates textbox hinting (see jquery.hint.js)
 
-    $('.dateinput').datepicker(); // activates jQuery UI datepicker control
+    //$('.dateinput').datepicker(); // activates jQuery UI datepicker control
 
     $('span.timeago').timeago(); // activate timeago
 });

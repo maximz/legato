@@ -39,26 +39,26 @@ catch(err) { // beware the raty
 /* Instrument listing class helper buttons */
 
 $('#activatePublic').click(function(e) {
-    $('#publicDescription').siblings().hide('slow'); // This will hide all elements on the same level, in the same parent element.
+    $('#publicDescription').siblings().hide('fast'); // This will hide all elements on the same level, in the same parent element.
     $("#Listing_Equipment_SelectedClass").val('1').change(); // trigger change event
-    $('#submit-form').show('slow');   
+    $('#submit-form').show('fast');   
 });
 
 $('#activateRent').click(function(e) {
-    $('#rentDescription').siblings().hide('slow'); // This will hide all elements on the same level, in the same parent element.
+    $('#rentDescription').siblings().hide('fast'); // This will hide all elements on the same level, in the same parent element.
     $("#Listing_Equipment_SelectedClass").val('2').change(); // trigger change event
-    $('#submit-form').show('slow');
+    $('#submit-form').show('fast');
 });
 
 $('#switchType').click(function(e) {
-    $('#start-buttons').contents().show('slow'); // show all children (including text and comment nodes)
-    $('#submit-form').hide('slow');
+    $('#start-buttons').contents().show(); // show all children (including text and comment nodes)
+    $('#submit-form').hide('fast');
 });
 
 // handle changes in selected class - change visibility of Review fields and of address privacy field
 $("#Listing_Equipment_SelectedClass").change(function(e) { 
 	$('#Listing_Equipment_SelectedClass option:selected').each(function() {
-		alert($(this).val() + $(this).text());
+		//alert($(this).val() + $(this).text());
 		if($(this).val() == '2') // text = "My own instrument"
 		{
 			$('#reviewFields').hide('slow');
@@ -133,8 +133,8 @@ $(".hasPlayedCheckBox").change(function(e) {
 
         <div id="start-buttons">
             <h3>What kind of instrument is it?</h3>
-            <p id="publicDescription"><b>Public instruments</b> are ones found in the wild and available for people to play on. If you find a <b>piano in a bar</b> or in a hotel lobby, for instance, please list it as a public instrument.</p>
-            <p id="rentDescription"><b>Instruments you own</b> are ones you are willing to offer for musicians to play. If you would like to collect a fee for playing on your piano, for example, you can list a price. And if you want to hide your address, please select the appropriate option below.</p>
+            <p id="publicDescription"><b>Public instruments</b> are ones found in the wild and available for people to play on. For example: <b>a piano in a restaurant, museum, or hotel lobby</b>.</p>
+            <p id="rentDescription"><b>Instruments you own</b> are ones you are willing to offer for musicians to play. You can list a price if you would like to <b>collect a fee</b> for playing on your piano. You can choose to <b>protect your address</b> from the public and only share it with those who you approve to play on your piano.</p>
             <div class="form-actions"> <!-- well -->
 	            <button id="activatePublic" class="btn btn-primary btn-large" type="button">A public instrument</button>
                 <button id="activateRent" class="btn btn-success btn-large" type="button">An instrument I own</button>
@@ -236,7 +236,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 					    @Html.LabelFor(model => model.ReviewRevision.RatingOverall, new { @class = "control-label" })
 				        <div class="controls">
 					        <div id="rate_overall"></div>
-                            <p class="muted">Please give this instrument a rating out of 5 stars. Did you like it?</p>
+                            <p class="muted">Please give this instrument a rating out of 5 stars. How did you like it?</p>
 					        @Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 				        </div>
                     </div>
@@ -262,7 +262,7 @@ $(".hasPlayedCheckBox").change(function(e) {
         </div> <!-- /submit-form -->
 	</div>
     <div class="span3">
-        <h4>Looking for your recent submissions?</h4>
+        <!--<h4>Looking for your recent submissions?</h4>
         <p>
         <ul>
             <li>Instrument</li>
@@ -270,6 +270,6 @@ $(".hasPlayedCheckBox").change(function(e) {
             <li>Instrument</li>
         </ul>
         </p>
-        <p class="ac"><a href="#" title="Show more">show more</a> &rarr;</p>
+        <p class="ac"><a href="#" title="Show more">show more</a> &rarr;</p>-->
     </div>
 </div> <!-- /row -->
