@@ -413,6 +413,8 @@ namespace Legato.Controllers
 		public virtual ActionResult Submit(SubmitViewModel model)
 		{
 			ViewBag.curPage = "Submit";
+            //ModelState.AddModelError("", "An unknown error occurred, please try again.");
+            model.InProcess = true; // in case we return to view
 			bool AreWeHandlingAReview = true;
 
 			// See whether we need to cancel certain ModelErrors: two checks
