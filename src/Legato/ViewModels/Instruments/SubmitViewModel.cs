@@ -28,6 +28,15 @@ namespace Legato.ViewModels
         }
 
         /// <summary>
+        /// If we fail out of first submit, go back to selected instrument class view.
+        /// </summary>
+        public bool InProcess
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SubmitViewModel"/> class.
         /// </summary>
         public SubmitViewModel()
@@ -41,6 +50,8 @@ namespace Legato.ViewModels
             {
                 Listing = new ListingSubmissionViewModel();
             }
+
+            InProcess = false;
         }
     }
 }

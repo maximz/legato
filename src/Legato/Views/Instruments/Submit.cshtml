@@ -12,6 +12,8 @@
 
 <script>
 
+$(function() {
+
 try {
 
 $('#rate_overall').raty({
@@ -33,6 +35,26 @@ $('#rate_overall').raty({
 }
 catch(err) { // beware the raty
 }
+
+/* Instrument listing class helper buttons */
+
+$('#activatePublic').click(function(e) {
+    $('#publicDescription').siblings().hide('fast'); // This will hide all elements on the same level, in the same parent element.
+    $("#Listing_Equipment_SelectedClass").val('1').change(); // trigger change event
+    $('#submit-form').show('fast');   
+});
+
+$('#activateRent').click(function(e) {
+    $('#rentDescription').siblings().hide('fast'); // This will hide all elements on the same level, in the same parent element.
+    $("#Listing_Equipment_SelectedClass").val('2').change(); // trigger change event
+    $('#submit-form').show('fast');
+});
+
+$('#switchType').click(function(e) {
+    $('#start-buttons').contents().show(); // show all children (including text and comment nodes)
+    $('#submit-form').hide('fast');
+});
+
 
 // handle changes in selected class - change visibility of Review fields and of address privacy field
 $("#Listing_Equipment_SelectedClass").change(function(e) { 
@@ -71,6 +93,22 @@ $(".hasPlayedCheckBox").change(function(e) {
 	}
 });
 
+<!-- If we have started the form submission and are back here because of a validation error, then go straight to the selected view. Don't force user to reselect instrument class. -->
+
+@if (Model.InProcess)
+{
+    if (Model.Listing.Equipment.SelectedClass == 1)
+    { 
+        <text>$('#activatePublic').click();</text>    
+    }
+    else if (Model.Listing.Equipment.SelectedClass == 2)
+    { 
+        <text>$('#activateRent').click();</text>    
+    }
+}
+
+});
+
 (function () {
     try {
 	    var converter1 = Markdown.getSanitizingConverter();
@@ -106,15 +144,26 @@ $(".hasPlayedCheckBox").change(function(e) {
     <h1>Submit <small>List an instrument in Legato Network</small></h1>
 </div>
 <div class="row">
-    <div class="span12">
+    <div class="span9">
 
+        <div id="start-buttons">
+            <h3>What kind of instrument is it?</h3>
+            <p id="publicDescription"><b>Public instruments</b> are ones found in the wild and available for people to play on. For example: <b>a piano in a restaurant, museum, or hotel lobby</b>.</p>
+            <p id="rentDescription"><b>Instruments you own</b> are ones you are willing to offer for musicians to play. You can list a price if you would like to <b>collect a fee</b> for playing on your piano. You can choose to <b>protect your address</b> from the public and only share it with those who you approve to play on your piano.</p>
+            <div class="form-actions"> <!-- well -->
+	            <button id="activatePublic" class="btn btn-primary btn-large" type="button">A public instrument</button>
+                <button id="activateRent" class="btn btn-success btn-large" type="button">An instrument I own</button>
+	        </div>
+        </div>
+
+        <div id="submit-form" style="display:none">
         @using (Html.BeginForm("Submit", "Instruments", FormMethod.Post, new { @class="form-horizontal" }))
         {
-	        @Html.ValidationSummary(true)
+	        @Html.ValidationSummary(true) <!-- displays all error messages with key==string.empty -->
 	        <fieldset>
     			<legend>Listing</legend> <!-- p class="help-block" is also good -->
-			
-	    		<div class="control-group">
+			<p>@Html.ValidationMessageFor(model => model.Listing)</p> <!-- HACK: geocodable attribute sets error message on class level. -->
+	    		<div class="control-group" style="display:none;">
 				    @Html.LabelFor(model => model.Listing.Equipment.SelectedType, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)
@@ -123,7 +172,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 			        </div>
                 </div>
 
-                <div class="control-group">
+                <div class="control-group" id="insClassSelector" style="display:none">
 				    @Html.LabelFor(model => model.Listing.Equipment.SelectedClass, new { @class = "control-label" })
                     <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedClass, Model.Listing.Equipment.Classes)
@@ -202,7 +251,7 @@ $(".hasPlayedCheckBox").change(function(e) {
 					    @Html.LabelFor(model => model.ReviewRevision.RatingOverall, new { @class = "control-label" })
 				        <div class="controls">
 					        <div id="rate_overall"></div>
-                            <p class="muted">Please give this instrument a rating out of 5 stars. Did you like it?</p>
+                            <p class="muted">Please give this instrument a rating out of 5 stars. How did you like it?</p>
 					        @Html.ValidationMessageFor(model => model.ReviewRevision.RatingOverall)
 				        </div>
                     </div>
@@ -221,9 +270,21 @@ $(".hasPlayedCheckBox").change(function(e) {
 	        </fieldset>
             
 	        <div class="form-actions">
-	            <input type="submit" class="btn btn-success btn-large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>
+	            <input type="submit" class="btn btn-success btn-large" value="Save changes">&nbsp;<button type="reset" onclick="window.history.go(-1);" class="btn btn-inverse">Cancel</button>&nbsp;<button type="button" id="switchType" class="btn btn-error">Switch instrument type</button>
 	        </div>
 		
         }
+        </div> <!-- /submit-form -->
 	</div>
+    <div class="span3">
+        <!--<h4>Looking for your recent submissions?</h4>
+        <p>
+        <ul>
+            <li>Instrument</li>
+            <li>Instrument</li>
+            <li>Instrument</li>
+        </ul>
+        </p>
+        <p class="ac"><a href="#" title="Show more">show more</a> &rarr;</p>-->
+    </div>
 </div> <!-- /row -->

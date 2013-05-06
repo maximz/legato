@@ -72,7 +72,7 @@ function updatePrivacyVisibility() {
 			    <legend>Instrument details</legend>
 			    @Html.HiddenFor(model => model.Listing.InstrumentID)
                 			
-			    <div class="control-group">
+			    <div class="control-group" style="display:none;">
 				    @Html.LabelFor(model => model.Listing.Equipment.SelectedType, new { @class = "control-label" })
 			        <div class="controls">
 				        @Html.DropDownListFor(model => model.Listing.Equipment.SelectedType, Model.Listing.Equipment.Types)

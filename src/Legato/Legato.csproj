@@ -42,7 +42,10 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="GeoCoding, Version=1.4.1.66, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GeoCoding, Version=2.1.1.0, Culture=neutral, PublicKeyToken=7c714700b88674c7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Geocoding.net.2.1.1\lib\net35\GeoCoding.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
@@ -233,7 +236,6 @@
     <Content Include="404.html" />
     <Content Include="App_Offline.htm.deactivated" />
     <Content Include="App_Readme\glimpse.readme.txt" />
-    <Content Include="lib\GeoCoding.dll" />
     <Content Include="lib\MvcSiteMapProvider.dll" />
     <Content Include="lib\Spatial.Net.dll" />
     <Content Include="static\bs2\bootstrap.css" />
@@ -392,6 +394,7 @@
     <Content Include="static\js\int.js" />
     <Content Include="static\js\jquery-1.7.1-vsdoc.js" />
     <Content Include="static\js\jquery-1.7.1.min.js" />
+    <Content Include="static\js\jquery-1.9.1.min.js" />
     <Content Include="static\js\jquery.cookie-1.3.js" />
     <Content Include="static\js\jquery.cookie-1.3.min.js" />
     <Content Include="static\js\jquery.cookie.js" />
@@ -702,7 +705,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
