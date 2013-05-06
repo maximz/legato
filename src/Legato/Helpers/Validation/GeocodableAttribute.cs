@@ -68,7 +68,7 @@ namespace Legato.Helpers
         /// <value>
         /// The result. Created in the attribute itself.
         /// </value>
-        protected Address _result;
+        protected GoogleAddress _result;
 
         protected static string GetPropertyValue(object obj, string propertyName)
 		{
@@ -92,7 +92,7 @@ namespace Legato.Helpers
 			: base()
 		{
 			if(ErrorMessage.IsNullOrEmpty())
-				ErrorMessage = "We weren't able to find that location.";
+				ErrorMessage = "We were unable to find that location. Please try again.";
 
             if(OverwriteAddress == null)
             {
@@ -115,7 +115,7 @@ namespace Legato.Helpers
 				return AllowNull;
 			}
 
-            var geocoder = new GoogleGeoCoder("key-not-needed");
+            var geocoder = new GoogleGeoCoder(); // key not needed
             var result = geocoder.GeoCode(address.Trim()).FirstOrDefault();
             if(result == null)
             {
@@ -123,11 +123,10 @@ namespace Legato.Helpers
                 return false;
             }
             _result = result; // store so that other classes that inherit from this attribute can access the result without re-geocoding
-
             SetPropertyValue(value, result.Coordinates.Latitude, LatitudePropertyName); // set latitude
             SetPropertyValue(value, result.Coordinates.Longitude, LongitudePropertyName); // set longitude
 
-            var fullAddress = (result.Street.HasValue() && result.Street.Trim().HasValue() ? result.Street + ", " : "") + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
+            var fullAddress = result.FormattedAddress; // (result.Street.HasValue() && result.Street.Trim().HasValue() ? result.Street + ", " : "") + result.City + " " + result.State + ", " + result.Country + " " + result.PostalCode;
             SetPropertyValue(value, fullAddress, AddressPropertyName); // set exact address
 
 			return true;
@@ -181,12 +180,20 @@ namespace Legato.Helpers
             get;
             set;
         }
+        string ProcessAddressComponent(GoogleAddressComponent c)
+        {
+            return (c == null) ? "" : c.LongName + ", ";
+        }
 
         public override bool IsValid(object value)
         {
             if(base.IsValid(value))
             {
-                var zipAddress = _result.City + " " + _result.State + ", " + _result.Country + " " + _result.PostalCode;
+                var city = _result.Components.Where(c => c.Types[0] == GoogleAddressType.Locality).FirstOrDefault();
+                var state = _result.Components.Where(c => c.Types[0] == GoogleAddressType.AdministrativeAreaLevel1).FirstOrDefault();
+                var country = _result.Components.Where(c => c.Types[0] == GoogleAddressType.Country).FirstOrDefault();
+                var postalcode = _result.Components.Where(c => c.Types[0] == GoogleAddressType.PostalCode).FirstOrDefault();
+                var zipAddress = ProcessAddressComponent(city) + ProcessAddressComponent(state) + ProcessAddressComponent(country) + ProcessAddressComponent(postalcode);
 
                 if (!(FilterToZipCodeOnlyPropertyName == null && FilteredAddressPropertyName == null)) // if filtering has been enabled, execute filter
                 {
@@ -195,7 +202,7 @@ namespace Legato.Helpers
                         SetPropertyValue(value, zipAddress, FilteredAddressPropertyName);
 
                         // Find new lat-long
-                        var geocoder = new GoogleGeoCoder("key-not-needed");
+                        var geocoder = new GoogleGeoCoder(); // key not needed
                         var result = geocoder.GeoCode(zipAddress.Trim()).FirstOrDefault();
                         if(result != null) // we have results
                         {
