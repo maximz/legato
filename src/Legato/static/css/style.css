@@ -210,7 +210,7 @@ footer {
       /* Set the fixed height of the footer here */
       #push,
       #footer {
-        height: 60px;
+        height: 80px;
       }
 
       /* Lastly, apply responsive CSS fixes as necessary */
