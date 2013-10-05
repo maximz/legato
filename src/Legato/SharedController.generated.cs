@@ -30,10 +30,10 @@ namespace T4MVC {
         public class ViewNames {
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _LogOnPartial = "~/Views/Shared/_LogOnPartial.cshtml";
-            public readonly string Error = "~/Views/Shared/Error.aspx";
-            public readonly string Error_cshtml = "~/Views/Shared/Error.cshtml";
+            public readonly string Error = "~/Views/Shared/Error.cshtml";
             public readonly string NavFull = "~/Views/Shared/NavFull.cshtml";
             public readonly string NavPartial = "~/Views/Shared/NavPartial.cshtml";
+            public readonly string SocialButtons = "~/Views/Shared/SocialButtons.cshtml";
             static readonly _Awesome s_Awesome = new _Awesome();
             public _Awesome Awesome { get { return s_Awesome; } }
             public partial class _Awesome{

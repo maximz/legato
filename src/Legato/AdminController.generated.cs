@@ -57,6 +57,16 @@ namespace Legato.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult LookupGlobalID() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.LookupGlobalID);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult GlobalPostDetails() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.GlobalPostDetails);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult UserSearchByName() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.UserSearchByName);
         }
@@ -95,6 +105,8 @@ namespace Legato.Controllers {
             public readonly string GetWhitelist = "GetWhitelist";
             public readonly string SetWhitelist = "SetWhitelist";
             public readonly string DeletePost = "DeletePost";
+            public readonly string LookupGlobalID = "LookupGlobalID";
+            public readonly string GlobalPostDetails = "GlobalPostDetails";
             public readonly string GetUserList = "GetUserList";
             public readonly string UserSearchByName = "UserSearchByName";
             public readonly string GetGuidFromUsername = "GetGuidFromUsername";
@@ -111,6 +123,7 @@ namespace Legato.Controllers {
         public class ViewNames {
             public readonly string GetUserById = "~/Views/Admin/GetUserById.cshtml";
             public readonly string GetWhitelist = "~/Views/Admin/GetWhitelist.cshtml";
+            public readonly string GlobalPostDetails = "~/Views/Admin/GlobalPostDetails.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
             public readonly string SuspendUser = "~/Views/Admin/SuspendUser.cshtml";
             public readonly string UserSearchByName = "~/Views/Admin/UserSearchByName.cshtml";
@@ -155,6 +168,19 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult DeletePost(int id) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeletePost);
+            callInfo.RouteValueDictionary.Add("id", id);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult LookupGlobalID(string cat, int id) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LookupGlobalID);
+            callInfo.RouteValueDictionary.Add("cat", cat);
+            callInfo.RouteValueDictionary.Add("id", id);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult GlobalPostDetails(int id) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GlobalPostDetails);
             callInfo.RouteValueDictionary.Add("id", id);
             return callInfo;
         }

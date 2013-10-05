@@ -74,6 +74,8 @@ namespace Legato.Controllers {
             public readonly string TagSearch = "TagSearch";
             public readonly string RegenerateIndex = "RegenerateIndex";
             public readonly string OptimizeIndex = "OptimizeIndex";
+            public readonly string SpatialRegenerateIndex = "SpatialRegenerateIndex";
+            public readonly string SpatialOptimizeIndex = "SpatialOptimizeIndex";
         }
 
 
@@ -87,6 +89,8 @@ namespace Legato.Controllers {
             public readonly string OptimizeIndex = "~/Views/Search/OptimizeIndex.cshtml";
             public readonly string RegenerateIndex = "~/Views/Search/RegenerateIndex.cshtml";
             public readonly string Search = "~/Views/Search/Search.cshtml";
+            public readonly string SpatialOptimizeIndex = "~/Views/Search/SpatialOptimizeIndex.cshtml";
+            public readonly string SpatialRegenerateIndex = "~/Views/Search/SpatialRegenerateIndex.cshtml";
         }
     }
 
@@ -137,6 +141,28 @@ namespace Legato.Controllers {
 
         public override System.Web.Mvc.ActionResult OptimizeIndex(bool captchaValid) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.OptimizeIndex);
+            callInfo.RouteValueDictionary.Add("captchaValid", captchaValid);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SpatialRegenerateIndex() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SpatialRegenerateIndex);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SpatialRegenerateIndex(bool captchaValid) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SpatialRegenerateIndex);
+            callInfo.RouteValueDictionary.Add("captchaValid", captchaValid);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SpatialOptimizeIndex() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SpatialOptimizeIndex);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SpatialOptimizeIndex(bool captchaValid) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SpatialOptimizeIndex);
             callInfo.RouteValueDictionary.Add("captchaValid", captchaValid);
             return callInfo;
         }

@@ -47,6 +47,11 @@ namespace Legato.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult GetNearbyInstruments() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.GetNearbyInstruments);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult PossibleInstrumentTypes() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.PossibleInstrumentTypes);
         }
@@ -104,9 +109,11 @@ namespace Legato.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Map = "Map";
+            public readonly string MapOld = "MapOld";
             public readonly string GetPoints = "GetPoints";
             public readonly string GetTypes = "GetTypes";
             public readonly string SearchInsIds = "SearchInsIds";
+            public readonly string GetNearbyInstruments = "GetNearbyInstruments";
             public readonly string PossibleInstrumentTypes = "PossibleInstrumentTypes";
             public readonly string Individual = "Individual";
             public readonly string IndividualReview = "IndividualReview";
@@ -153,6 +160,11 @@ namespace Legato.Controllers {
             return callInfo;
         }
 
+        public override System.Web.Mvc.ActionResult MapOld() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.MapOld);
+            return callInfo;
+        }
+
         public override System.Web.Mvc.JsonResult GetPoints() {
             var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.GetPoints);
             return callInfo;
@@ -166,6 +178,14 @@ namespace Legato.Controllers {
         public override System.Web.Mvc.ActionResult SearchInsIds(string strId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SearchInsIds);
             callInfo.RouteValueDictionary.Add("strId", strId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult GetNearbyInstruments(string lat, string lng, string top) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetNearbyInstruments);
+            callInfo.RouteValueDictionary.Add("lat", lat);
+            callInfo.RouteValueDictionary.Add("lng", lng);
+            callInfo.RouteValueDictionary.Add("top", top);
             return callInfo;
         }
 
